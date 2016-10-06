@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct  6 16:47:16 2016
+
+@author: mapper
+"""
+
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
@@ -9,7 +16,7 @@ that are within the search area are then published to the MOOSDB.
 """
 
 # Python-MOOS Bridge
-#import pymoos
+import pymoos
 
 # Used for delays
 import time
@@ -27,7 +34,7 @@ from osgeo import ogr
 import numpy as np
 
 
-class MOOS:
+class MOOS(object):
     """ This class id for MOOS communications. It has 3 parts:
           1. Initialize comms
               a. Register for variables
@@ -35,48 +42,49 @@ class MOOS:
           2. Get new values.
     """
 #    def __init__(self):
-#       """ Open a communication link to MOOS and initialize the list for X, Y, and
-#       heading."""
+#    """ Open a communication link to MOOS and initialize the list for X, Y, and
+#    heading."""
 #        self.comms = pymoos.comms()
 #    
 #        # Placeholder for the list of varables that we want
 #        self.NAV_X, self.NAV_Y, self.NAV_HEAD = [],[],[]
+    
     # Open a communication link to MOOS
-#    comms = pymoos.comms()
+    comms = pymoos.comms()
     
     # Placeholder for the list of varables that we want
     NAV_X, NAV_Y, NAV_HEAD = [],[],[]
 
-#    def Register_Vars(self):
-#        """ This function registers for the updates of the X,Y and heading at 
-#        the rate of which it is being outputed from MOOS. """
-#        self.comms.register('NAV_X', 0)
-#        self.comms.register('NAV_Y', 0)
-#        self.comms.register('NAV_HEADING', 0)
-#        return True
-#        
-#    def Initialize_MOOS_comms(self):
-#        """ This function registers for the current X,Y, and heading and then
-#        connects to the server"""
-#        
-#        # Register for desired variables
-#        self.comms.set_on_connect_callback(self.Register_Vars())
-#        
-#        # Connect to the server
-#        self.comms.run('localhost',9000,'Contact')
-#        
-#    def Get_mail(self):
-#        ## Update the values of the ASV position in meters (x,y) and heading
-#        info = self.comms.fetch()
-#        # Store all values of the ASV's position
-#        for x in info:
-#            if x.is_double():
-#                if x.name()=='NAV_X':
-#                    self.NAV_X.append(x.double())
-#                elif x.name()=='NAV_Y':
-#                    self.NAV_Y.append(x.double())
-#                elif x.name()=='NAV_HEADING':
-#                    self.NAV_HEAD.append(x.double())    
+    def Register_Vars(self):
+        """ This function registers for the updates of the X,Y and heading at 
+        the rate of which it is being outputed from MOOS. """
+        self.comms.register('NAV_X', 0)
+        self.comms.register('NAV_Y', 0)
+        self.comms.register('NAV_HEADING', 0)
+        return True
+        
+    def Initialize_MOOS_comms(self):
+        """ This function registers for the current X,Y, and heading and then
+        connects to the server"""
+        
+        # Register for desired variables
+        self.comms.set_on_connect_callback(self.Register_Vars())
+        
+        # Connect to the server
+        self.comms.run('localhost',9000,'Contact')
+        
+    def Get_mail(self):
+        ## Update the values of the ASV position in meters (x,y) and heading
+        info = self.comms.fetch()
+        # Store all values of the ASV's position
+        for x in info:
+            if x.is_double():
+                if x.name()=='NAV_X':
+                    self.NAV_X.append(x.double())
+                elif x.name()=='NAV_Y':
+                    self.NAV_Y.append(x.double())
+                elif x.name()=='NAV_HEADING':
+                    self.NAV_HEAD.append(x.double())    
 
 class ENC_OA(object):
     """This application has two main parts: initialization and an infinate  
@@ -288,7 +296,7 @@ class ENC_OA(object):
             else:
                 return 'Unknown'
     
-    def BuildLayers(self, ENC_filename='/home/mapper/Desktop/ENC_ROOT/US5NH01M/US5NH01M.000', filename_pnt='/home/mapper/Desktop/ENC_ROOT/US5NH01M/Shape/point.shp', filename_poly='/home/mapper/Desktop/ENC_ROOT/US5NH01M/Shape/poly.shp', filename_line='/home/mapper/Desktop/ENC_ROOT/US5NH01M/Shape/line.shp' ):
+    def BuildLayers(self, ENC_filename='../ENCs/US5NH02M/US5NH02M.000', filename_pnt='../ENCs/US5NH02M/Shape/point.shp', filename_poly='../ENCs/US5NH02M/Shape/poly.shp', filename_line='../ENCs/US5NH02M/Shape/line.shp'):
         """ Create a OGR layer for the point obstacles, polygon obstacles and  
         the line obstacles.
         
@@ -335,8 +343,6 @@ class ENC_OA(object):
         
         # create an output file
         ds_line = shape_driver.CreateDataSource(filename_line)
-        
-        
         
         ## Buld the layers of obstacles seperated by geometry type
         # Create a layer for the point obstacles, polygon obstacles and the 
@@ -415,8 +421,6 @@ class ENC_OA(object):
             depth = 9999
             t_lvl = 0
             
-            
-            
             ## Cycle through the fields and store the ones that are useful
             for i in range(feat.GetFieldCount()):
                 name = layer_def.GetFieldDefn(i).GetName()
@@ -465,34 +469,34 @@ class ENC_OA(object):
             new_feat = ogr.Feature(defn)
             new_feat.SetField('T_lvl', t_lvl)
             new_feat.SetField('Type', LayerName)
-#            
-#            if LayerName == 'LNDMRK':
-#                new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a number
-#                new_feat.SetField('Visual', 2-feat.GetField(16)) # Visually Conspicuous (Y - store as 1, N - store as 0)
-#            elif LayerName == 'SILTNK':
-#                new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a #
-#                new_feat.SetField('Visual', 2-feat.GetField(17)) # Visually Conspicuous (Y - store as 1, N - store as 0)
-#            elif LayerName == 'LIGHTS':
-#                self.category_lights(feat)
-#            # Make a geometry from wkt object
-#            obj = ogr.CreateGeometryFromWkt(wkt)
-#            new_feat.SetGeometry(obj)
-#    
-#            # Output the new feature to the correct layer
-#            if geo_name == 'POINT':
-#                self.ENC_point_layer.CreateFeature(new_feat)
-#                
-#            elif geo_name == 'POLYGON':
-#                self.ENC_poly_layer.CreateFeature(new_feat)
-#                
-#            elif geo_name == 'LINESTRING':
-#                self.ENC_line_layer.CreateFeature(new_feat)
+            
+            if LayerName == 'LNDMRK':
+                new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a number
+                new_feat.SetField('Visual', 2-feat.GetField(16)) # Visually Conspicuous (Y - store as 1, N - store as 0)
+            elif LayerName == 'SILTNK':
+                new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a #
+                new_feat.SetField('Visual', 2-feat.GetField(17)) # Visually Conspicuous (Y - store as 1, N - store as 0)
+            elif LayerName == 'LIGHTS':
+                self.category_lights(feat)
+            # Make a geometry from wkt object
+            obj = ogr.CreateGeometryFromWkt(wkt)
+            new_feat.SetGeometry(obj)
+    
+            # Output the new feature to the correct layer
+            if geo_name == 'POINT':
+                self.ENC_point_layer.CreateFeature(new_feat)
+                
+            elif geo_name == 'POLYGON':
+                self.ENC_poly_layer.CreateFeature(new_feat)
+                
+            elif geo_name == 'LINESTRING':
+                self.ENC_line_layer.CreateFeature(new_feat)
             
             # Get the next feature
             feat = layer.GetNextFeature()
 
     
-    def read_ENC(self, ENC_filename='/home/mapper/Desktop/ENC_ROOT/US5NH01M/US5NH01M.000', filename_pnt='/home/mapper/Desktop/ENC_ROOT/US5NH01M/Shape/point.shp', filename_poly='/home/mapper/Desktop/ENC_ROOT/US5NH01M/Shape/poly.shp', filename_line='/home/mapper/Desktop/ENC_ROOT/US5NH01M/Shape/line.shp'):
+    def read_ENC(self, ENC_filename='../ENCs/US5NH02M/US5NH02M.000', filename_pnt='../ENCs/US5NH02M/Shape/point.shp', filename_poly='../ENCs/US5NH02M/Shape/poly.shp', filename_line='../ENCs/US5NH02M/Shape/line.shp'):
         """ This converts the ENC into OGR layers by geometry types. This 
         information will then be used by the all other functions in this 
         class.
@@ -591,7 +595,7 @@ class ENC_OA(object):
         
         # Show the Search Radius Polygon on pMarnineViewer
         s_poly_vert = 'pts={'+str(X+add_sin)+','+ str(Y+add_cos)+':'+ str(X-add_cos)+','+str(Y+add_sin)+':'+ str(X-add_sin)+','+str(Y-add_cos)+':' +str(X+add_cos)+','+str(Y-add_sin)+'},'
-#        self.comms.notify('VIEW_POLYGON', s_poly_vert+'label=Search,edge_size=10,vertex_size=1,edge_color=red',)
+        self.comms.notify('VIEW_POLYGON', s_poly_vert+'label=Search,edge_size=10,vertex_size=1,edge_color=red',)
         
         
     def filter_features(self, input_layer, search_area):
@@ -655,7 +659,7 @@ class ENC_OA(object):
             
             pos = 'x='+str(new_x)+',y='+str(new_y)
             highlight_obs = 'format=radial,'+pos+',radius=25,pts=8,edge_size=5,vertex_size=2,edge_color=aquamarine,vertex_color=aquamarine,label='+str(counter)
-#            self.comms.notify('VIEW_POLYGON', highlight_obs)
+            self.comms.notify('VIEW_POLYGON', highlight_obs)
             
             # Store information for the obstacle to be used later to post to the MOOSDB
             # x,y,t_lvl,type 
@@ -673,7 +677,7 @@ class ENC_OA(object):
         # Output to the MOOSDB a list of obstacles
         #   ASV_X,ASV_Y : # of Obstacles : x,y,t_lvl,type : x,y,t_lvl,type : ...
         obstacles = str(X)+','+str(Y)+','+str(heading)+':'+str(num_obs)+':'+obs_pos
-#        self.comms.notify('Obstacles', obstacles)     
+        self.comms.notify('Obstacles', obstacles)     
         
         # Determine if a new polygon was used
         if max_cntr < counter:
@@ -684,7 +688,7 @@ class ENC_OA(object):
         for i in range(counter, max_cntr):
             time.sleep(.002)
             remove_highlight = 'format=radial,x= 0,y=0,radius=25,pts=8,edge_size=5,vertex_size=2,active=false,label='+str(i)
-#            self.comms.notify('VIEW_POLYGON', remove_highlight)
+            self.comms.notify('VIEW_POLYGON', remove_highlight)
             
     def publish_poly(self):
         """ """
