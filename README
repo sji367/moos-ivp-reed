@@ -1,15 +1,15 @@
 ##############################################################################
-# FILE:        moos-ivp-extend/README
-# DATE:        2014/01/02
-# DESCRIPTION: Contains important information regarding the moos-ivp-extend
+# FILE:        moos-ivp-reed/README
+# DATE:        Oct. 6 2016
+# DESCRIPTION: Contains important information regarding the moos-ivp-reed
 #              repository.
 ##############################################################################
 
 #=============================================================================
 # Introduction
 #=============================================================================
-The moos-ivp-extend repository contains examples for extending the MOOS-IvP
-Autonomy system. This includes a MOOS application and an IvP behavior.
+The moos-ivp-reed repository the work done for Sam Reed's Nautical Chart 
+   Awareness MOOS work.
 
 
 #=============================================================================
@@ -71,7 +71,7 @@ additional help.
 #=============================================================================
 # Environment variables
 #=============================================================================
-The moos-ivp-extend binaries files should be added to your path to allow them
+The moos-ivp-reed binaries files should be added to your path to allow them
 to be launched from pAntler. 
 
 In order for generated IvP Behaviors to be recognized by the IvP Helm, you
