@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct  6 16:47:16 2016
-
-@author: mapper
-"""
-
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
@@ -294,8 +287,42 @@ class ENC_OA(object):
             elif index =='4':
                 return 'Water Tower'
             else:
-                return 'Unknown'
+                return 'Unknown' 
     
+    def print_fields(self, LayerName):
+        """ This function print the available fields for the inputted layer.
+        
+            Input:
+                LayerName - Name of the layer that you want to display the 
+                    available field for
+            Ouput:
+                Fields - String of the fields for that layer
+        """
+        Fields = []
+        layer = self.ds.GetLayerByName(LayerName)
+        layer_def = layer.GetLayerDefn()
+        print str(LayerName)
+        for i in range(layer_def.GetFieldCount()):
+            print str(i) + ': ' + layer_def.GetFieldDefn(i).GetName()
+            Fields.append(layer_def.GetFieldDefn(i).GetName())
+        
+        return Fields
+            
+    def Get_Layer_Names(self):
+        """ This function returns the names of all of the layers in
+            the ENC.
+        
+            Output:
+                LayerNames - Names of the layer in the ENC
+        """
+        LayerNames = []
+        for i in range(self.ds.GetLayerCount()):
+            name = self.ds.GetLayerByIndex(i).GetName()
+#            print str(i) + ': ' + name
+            LayerNames.append(name)
+        
+        return LayerNames
+            
     def BuildLayers(self, ENC_filename='../ENCs/US5NH02M/US5NH02M.000', filename_pnt='../ENCs/US5NH02M/Shape/point.shp', filename_poly='../ENCs/US5NH02M/Shape/poly.shp', filename_line='../ENCs/US5NH02M/Shape/line.shp'):
         """ Create a OGR layer for the point obstacles, polygon obstacles and  
         the line obstacles.
@@ -326,7 +353,7 @@ class ENC_OA(object):
             shape_driver.DeleteDataSource(filename_pnt)
         
         # create an output file
-        ds_pnt = shape_driver.CreateDataSource(filename_pnt)
+        self.ds_pnt = shape_driver.CreateDataSource(filename_pnt)
         
         ## Polygon Output File
         # If there already is a file with that name, delete it
@@ -334,22 +361,22 @@ class ENC_OA(object):
             shape_driver.DeleteDataSource(filename_poly)
         
         # create an output file
-        ds_poly = shape_driver.CreateDataSource(filename_poly)
+        self.ds_poly = shape_driver.CreateDataSource(filename_poly)
         
         ## Line Output File
         # If there already is a file with that name, delete it
-        if path.exists(filename_pnt):
+        if path.exists(filename_line):
             shape_driver.DeleteDataSource(filename_line)
         
         # create an output file
-        ds_line = shape_driver.CreateDataSource(filename_line)
+        self.ds_line = shape_driver.CreateDataSource(filename_line)
         
         ## Buld the layers of obstacles seperated by geometry type
         # Create a layer for the point obstacles, polygon obstacles and the 
         #   line obstacles.
-        self.ENC_point_layer = ds_pnt.CreateLayer('Points', None, ogr.wkbPoint)
-        self.ENC_poly_layer = ds_poly.CreateLayer('Poly', None, ogr.wkbPolygon)
-        self.ENC_line_layer = ds_line.CreateLayer('Line', None, ogr.wkbLineString)
+        self.ENC_point_layer = self.ds_pnt.CreateLayer('Points', None, ogr.wkbPoint)
+        self.ENC_poly_layer = self.ds_poly.CreateLayer('Poly', None, ogr.wkbPolygon)
+        self.ENC_line_layer = self.ds_line.CreateLayer('Line', None, ogr.wkbLineString)
         
         # Add the Threat Level and Type Attributes
         self.ENC_point_layer.CreateField(ogr.FieldDefn('T_lvl', ogr.OFTInteger))
@@ -369,7 +396,6 @@ class ENC_OA(object):
         self.ENC_line_layer.CreateField(ogr.FieldDefn('Cat', ogr.OFTString))
         self.ENC_line_layer.CreateField(ogr.FieldDefn('Visual', ogr.OFTInteger))
         
-    # Layers that are Multipoints --> SOUNDG
     def LayerMultiPoint (self, LayerName_mp):
         """ Adds the features from the inputed multipoints layer to a point 
         layer.
@@ -388,9 +414,10 @@ class ENC_OA(object):
                 point = ogr.Geometry(ogr.wkbPoint)
                 pnt = multi_geom.GetGeometryRef(iPnt)
                 point.SetPoint_2D(0,pnt.GetX(),pnt.GetY())
-    
+                
+                defn_pnt = self.ENC_point_layer.GetLayerDefn() 
+                
                 # Create a new feature (attribute and geometry)
-                defn_pnt = self.ENC_point_layer.GetLayerDefn()
                 new_feat = ogr.Feature(defn_pnt)
                 new_feat.SetField('T_lvl', self.calc_t_lvl(pnt.GetZ(),0))
                 new_feat.SetField('Type', LayerName_mp)
@@ -401,100 +428,110 @@ class ENC_OA(object):
                 self.ENC_point_layer.CreateFeature(new_feat) 
             feat_mp = layer_mp.GetNextFeature()
     
-            
-    # Converts the ENC File to 3 different shape files    
+              
     def ENC_Converter(self, LayerName):
-        """ """        
-        layer = self.ds.GetLayerByName(LayerName)
-        layer_def = layer.GetLayerDefn() # needed to find the name of the fields
-        feat = layer.GetNextFeature()
-        
-        while feat is not None:
-            geom = feat.GetGeometryRef() # Needed for determining the geom type and to export the object to wkt
-            geo_name = geom.GetGeometryName()    
-            
-            # Export this feature to WTK for easy conversion to Shapefile
-            wkt = geom.ExportToWkt()
-        
-            ## Initialize WL, depth, and threat level
-            WL = 0
-            depth = 9999
-            t_lvl = 0
-            
-            ## Cycle through the fields and store the ones that are useful
-            for i in range(feat.GetFieldCount()):
-                name = layer_def.GetFieldDefn(i).GetName()
-                if name == 'WATLEV':
-                    WL = int(feat.GetField(i))
-                elif name == 'VALSOU':
-                    depth = feat.GetField(i)
-                    if depth is None:
-                        depth = 9999
-                elif name == 'VALDCO': # value of the depth contour
-                    depth = feat.GetField(i)
-                    if depth is None:
-                        depth = 9999
-            
-            ## Update Threat Level
-            # If WL has been updated use the function calc_t_lvl to calculate threat level
-            if WL != 0 or LayerName == 'DEPCNT':
-                t_lvl =  self.calc_t_lvl(WL, depth)
-            # If it is Land set threat level to 5
-            elif LayerName == 'LNDARE' or LayerName == 'DYKCON' or LayerName == 'PONTON' or LayerName == 'COALNE':
-                t_lvl = 5
-            elif LayerName == 'LIGHTS':
-                t_lvl = -2
-    #            print str(geom.GetX())+', '+str(geom.GetY())
-    #            print feat.GetField(35)
-            # If it is a Buoy, Light or Beacon set threat level to 3
-            elif LayerName == 'BOYISD' or LayerName == 'BOYSPP' or LayerName == 'BOYSAW' or LayerName == 'BOYLAT' or LayerName == 'BCNSPP' or LayerName == 'BCNLAT':
-                t_lvl = 3
-            elif LayerName == 'LNDMRK':
-                t_lvl = -1
-                
-            out_layer = None
-            # Choose the correct layer for the 
-            if geo_name == 'POINT':
-                out_layer = self.ENC_point_layer
-                obj = ogr.Geometry(ogr.wkbPoint)
-            elif geo_name == 'POLYGON':
-                out_layer = self.ENC_poly_layer
-                obj = ogr.Geometry(ogr.wkbPolygon)
-            elif geo_name == 'LINESTRING':
-                out_layer = self.ENC_line_layer
-                obj = ogr.Geometry(ogr.wkbLineString)
-                
-            # Create a new feature (attribute and geometry)
-            defn = out_layer.GetLayerDefn()
-            new_feat = ogr.Feature(defn)
-            new_feat.SetField('T_lvl', t_lvl)
-            new_feat.SetField('Type', LayerName)
-            
-            if LayerName == 'LNDMRK':
-                new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a number
-                new_feat.SetField('Visual', 2-feat.GetField(16)) # Visually Conspicuous (Y - store as 1, N - store as 0)
-            elif LayerName == 'SILTNK':
-                new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a #
-                new_feat.SetField('Visual', 2-feat.GetField(17)) # Visually Conspicuous (Y - store as 1, N - store as 0)
-            elif LayerName == 'LIGHTS':
-                self.category_lights(feat)
-            # Make a geometry from wkt object
-            obj = ogr.CreateGeometryFromWkt(wkt)
-            new_feat.SetGeometry(obj)
-    
-            # Output the new feature to the correct layer
-            if geo_name == 'POINT':
-                self.ENC_point_layer.CreateFeature(new_feat)
-                
-            elif geo_name == 'POLYGON':
-                self.ENC_poly_layer.CreateFeature(new_feat)
-                
-            elif geo_name == 'LINESTRING':
-                self.ENC_line_layer.CreateFeature(new_feat)
-            
-            # Get the next feature
+        """ This function converts the inputed layer from the ENC to a 
+            shapefile layer if the layer is in the ENC. If the inputted layer 
+            is not in the ENC, the layer is skipped and the function prints a 
+            warning to the user."""
+#        names = self.Get_Layer_Names()
+        if LayerName in self.Get_Layer_Names():
+            layer = self.ds.GetLayerByName(LayerName)
+            layer_def = layer.GetLayerDefn() # needed to find the name of the fields
             feat = layer.GetNextFeature()
-
+            
+            while feat is not None:
+                # Needed for determining the geom type and to export the object to
+                #   WKT
+                geom = feat.GetGeometryRef() 
+                geo_name = geom.GetGeometryName()    
+                
+                # Export this feature to WKT for easy conversion to Shapefile
+                wkt = geom.ExportToWkt()
+            
+                ## Initialize WL, depth, and threat level
+                WL = 0
+                depth = 9999
+                t_lvl = 0
+                
+                ## Cycle through the fields and store the ones that are useful
+                for i in range(feat.GetFieldCount()):
+                    name = layer_def.GetFieldDefn(i).GetName()
+                    if name == 'WATLEV':
+                        WL = int(feat.GetField(i))
+                    elif name == 'VALSOU':
+                        depth = feat.GetField(i)
+                        if depth is None:
+                            depth = 9999
+                    elif name == 'VALDCO': # value of the depth contour
+                        depth = feat.GetField(i)
+                        if depth is None:
+                            depth = 9999
+                
+                ## Update Threat Level
+                # If WL has been updated use the function calc_t_lvl to calculate threat level
+                if WL != 0 or LayerName == 'DEPCNT':
+                    t_lvl =  self.calc_t_lvl(WL, depth)
+                # If it is Land set threat level to 5
+                elif LayerName == 'LNDARE' or LayerName == 'DYKCON' or LayerName == 'PONTON' or LayerName == 'COALNE':
+                    t_lvl = 5
+                elif LayerName == 'LIGHTS':
+                    t_lvl = -2
+                # If it is a Buoy or Beacon set threat level to 3
+                elif LayerName == 'BOYISD' or LayerName == 'BOYSPP' or LayerName == 'BOYSAW' or LayerName == 'BOYLAT' or LayerName == 'BCNSPP' or LayerName == 'BCNLAT':
+                    t_lvl = 3
+                elif LayerName == 'LNDMRK':
+                    t_lvl = -1
+                
+                # Reset the output layer
+                out_layer = None
+                
+                # Choose the correct layer for the geometry of the feature
+                if geo_name == 'POINT':
+                    out_layer = self.ENC_point_layer
+                    obj = ogr.Geometry(ogr.wkbPoint)
+                elif geo_name == 'POLYGON':
+                    out_layer = self.ENC_poly_layer
+                    obj = ogr.Geometry(ogr.wkbPolygon)
+                elif geo_name == 'LINESTRING':
+                    out_layer = self.ENC_line_layer
+                    obj = ogr.Geometry(ogr.wkbLineString)
+                    
+                # Create a new feature (attribute and geometry)
+                defn = out_layer.GetLayerDefn()
+                new_feat = ogr.Feature(defn)
+                new_feat.SetField('T_lvl', t_lvl)
+                new_feat.SetField('Type', LayerName)
+                
+                # If it is a Landmark or Light set the catagory field 
+                #   (and visual field for landmarks)
+                if LayerName == 'LNDMRK':
+                    new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a number
+                    new_feat.SetField('Visual', 2-feat.GetField(16)) # Visually Conspicuous (Y - store as 1, N - store as 0)
+                elif LayerName == 'SILTNK':
+                    new_feat.SetField('Cat', self.category_landmark(feat,LayerName)) # Category - store as string and not a #
+                    new_feat.SetField('Visual', 2-feat.GetField(17)) # Visually Conspicuous (Y - store as 1, N - store as 0)
+                elif LayerName == 'LIGHTS':
+                    self.category_lights(feat)
+                    
+                # Make a geometry from wkt object
+                obj = ogr.CreateGeometryFromWkt(wkt)
+                new_feat.SetGeometry(obj)
+        
+                # Output the new feature to the correct layer
+                if geo_name == 'POINT':
+                    self.ENC_point_layer.CreateFeature(new_feat)
+                    
+                elif geo_name == 'POLYGON':
+                    self.ENC_poly_layer.CreateFeature(new_feat)
+                    
+                elif geo_name == 'LINESTRING':
+                    self.ENC_line_layer.CreateFeature(new_feat)
+                
+                # Get the next feature
+                feat = layer.GetNextFeature()
+        else:
+            print "Layer " + LayerName + " is not in the ENC"
     
     def read_ENC(self, ENC_filename='../ENCs/US5NH02M/US5NH02M.000', filename_pnt='../ENCs/US5NH02M/Shape/point.shp', filename_poly='../ENCs/US5NH02M/Shape/poly.shp', filename_line='../ENCs/US5NH02M/Shape/line.shp'):
         """ This converts the ENC into OGR layers by geometry types. This 
@@ -521,6 +558,7 @@ class ENC_OA(object):
         
         # Layers that are only points --> UWTROC, LIGHTS, BOYSPP, BOYISD, 
         #   BOYSAW, BOYLAT, BCNSPP, BCNLAT
+        
         self.ENC_Converter('UWTROC')
         self.ENC_Converter('LIGHTS')
         self.ENC_Converter('BOYSPP')
@@ -696,12 +734,10 @@ class ENC_OA(object):
         """ """
     def run(self):
         """ """
-    def initialize(self):
+    def initialize(self, ENC_filename='../ENCs/US5NH02M/US5NH02M.000', filename_pnt='../ENCs/US5NH02M/Shape/point.shp', filename_poly='../ENCs/US5NH02M/Shape/poly.shp', filename_line='../ENCs/US5NH02M/Shape/line.shp'):
         """ """
-        self.read_ENC()
+        self.read_ENC(ENC_filename, filename_pnt, filename_poly, filename_line)
 
         
 e = ENC_OA()
-e.BuildLayers()
-e.LayerMultiPoint('SOUNDG')
-#e.ENC_Converter('UWTROC')
+pnt, poly, line = e.read_ENC()
