@@ -40,18 +40,19 @@ Behavior = BHV_Waypoint
              repeat = 1
 
 	// Many Point Obstacles
-	//points = format=lawnmower, x=100, y=-1160, height=60, width=200, lane_width=20, edge_size=10
+	points = format=lawnmower, x=100, y=-1160, height=60, width=200, lane_width=20, edge_size=10
 
 	// Through an island
 	//points = format=lawnmower, x=1006, y=-981, height=60, width=200, lane_width=20, edge_size=10
 	//points = 1050,-974:1200,-974
 	// Landmarks
-	points = 6634,-10344:6850,-10550 //7615,-8450:7647,-8853:7088,-8904
+	//points = 6634,-10344:6850,-10550 //7615,-8450:7647,-8853:7088,-8904
 
 	// Many Polygon Obstacle
 	//points = format=lawnmower, x=-100, y=-1191, height=60, width=200, lane_width=20, edge_size=10
 	//order = reverse
-
+	
+	// White Island
 	//points = format=lawnmower, x=1938, y=-1372, height=60, width=200, lane_width=20, edge_size=10
 
 	//points = 1565,-838:1565,-885
@@ -86,7 +87,7 @@ Behavior=BHV_Waypoint
 Behavior=BHV_OA
 {
   name       = pnt_OA
-  pwt        = 50
+  pwt        = 100
 
 }
 
@@ -94,7 +95,7 @@ Behavior=BHV_OA
 Behavior=BHV_OA_poly
 {
   name       = poly_OA
-  pwt        = 50
+  pwt        = 100
 
 }
 

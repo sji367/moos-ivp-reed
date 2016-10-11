@@ -32,11 +32,11 @@ pAntler alpha.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
 
 sleep 0.5
 printf "Launching ENC_Contact \n"
-python ~/anaconda2/ENC_Search.py >& /dev/null &
+python ../../src/Python/ENC_Contact.py >& /dev/null &
 
 sleep 2
 printf "Launching ENC_Print \n"
-python ~/anaconda2/ENC_Print.py >& /dev/null &
+python ../../src/Python/ENC_Print.py >& /dev/null &
 
 sleep 0.5
 printf "Launching ENC_WPT_check \n"
@@ -44,10 +44,10 @@ python ~/anaconda2/ENC_WPT_check.py >& /dev/null &
 
 sleep 0.25
 printf "Launching ENC_SFoV \n"
-#python ~/anaconda2/ENC_SFoV.py >& /dev/null &
+#python ../../src/Python/ENC_SFoV.py >& /dev/null &
 
 sleep 0.2
-printf "Launching ENC_Camera \n"
+printf "Launching ENC_SFoV_GUI \n"
 #python ~/anaconda2/ENC_SFoV_GUI.py >& /dev/null &
 
 uMAC alpha.moos

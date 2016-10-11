@@ -25,10 +25,10 @@ ProcessConfig = ANTLER
 
   Run = uProcessWatch	  @ NewConsole = false
   Run = MOOSDB          @ NewConsole = false
-  Run = pLogger         @ NewConsole = false
+  //Run = pLogger         @ NewConsole = false
   Run = uSimMarine	    @ NewConsole = false
   Run = pMarinePID      @ NewConsole = false
-  Run = pHelmIvP        @ NewConsole = false
+  //Run = pHelmIvP        @ NewConsole = false
   Run = pMarineViewer	  @ NewConsole = false
   Run = pNodeReporter	  @ NewConsole = false
 	Run = pRegisterVar		@ NewConsole = false
@@ -100,8 +100,8 @@ ProcessConfig = pLogger
 	//Log = Landmarks
 	//Log = Nav_Aids
 	//log = Underwater_Objects
-	Log = NAV_X @ 0
-	Log = NAV_Y @ 0
+	//Log = NAV_X @ 0
+	Log = Obstacles @ 0//NAV_Y @ 0
 	//Log = VIEW_SEGLIST @ 0
 	//Log = VIEW_POINT @ 0
 	//log = Next_WPT @ 0
@@ -115,10 +115,23 @@ ProcessConfig = uSimMarine
   AppTick	= 4
   CommsTick	= 4
 
-  start_x       = 6600//7615
+  //start_x       = 6600//7615
   //start_x       = 1889//-25//877//0//50//1473//1000//
-  start_y       = -10300//-8433
+  //start_y       = -10300//-8433
   //start_y       = -1296//-1100//-949//-20 //-1070//-885//-981//
+
+  // Many Points
+  start_x	= -25
+  start_y	= -1100
+
+  // Landmarks
+  //start_x       = 6600
+  //start_y       = -10300
+
+  // White Island
+  //start_x       = 1889
+  //start_y       = -1270
+
   start_heading = 180
   start_speed   = 0
 
@@ -191,15 +204,26 @@ ProcessConfig = pMarineViewer
 
   tiff_file            = data/portsmouth2.tif
 
-  set_pan_x            = -1000//375//-5000
-  set_pan_y            = 450//350//-56.26//5950
-  zoom                 = 5//0.65
+  // points obstacles
+  set_pan_x            = 375
+  set_pan_y            = 350
+
+  // Landmarks
+  //set_pan_x            = -5000//-1000//
+  //set_pan_y            = 5950//-56.26//450//
+
+  // White Island
+  //set_pan_x            = -1000//
+  //set_pan_y            = 450//
+
+  zoom                 = 5//0.65//
   vehicle_shape_scale  = 1.5//3
 
   trails_point_size   = 1
 
   // Appcast configuration
   appcast_height       = 75
+  trails_p
   appcast_width        = 302
   appcast_viewable     = true
   appcast_color_scheme = indigo
@@ -207,7 +231,7 @@ ProcessConfig = pMarineViewer
   procs_font_size      = medium
   appcast_font_size    = small
 
-  left_context[update_return] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=$(XPOS)!$(YPOS)
+  left_context[update_return] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=$(XPOS),$(YPOS)
  
   right_context[return] = DEPLOY=true
   right_context[return] = MOOS_MANUAL_OVERIDE=false
@@ -218,7 +242,7 @@ ProcessConfig = pMarineViewer
   button_two = RETURN # RETURN=true
   button_three = CONTINUE # CONTINUE=true
 	
-	SCOPE=WPT_UPDATE
+	SCOPE= Obstacles, num_obs
 
   action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false
   action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERIDE=false
@@ -231,8 +255,6 @@ ProcessConfig = pMarineViewer
   vehicles_name_mode = names
   trails_viewable = false
 	tiff_viewable = false
-	
-
 }
 
 //------------------------------------------
