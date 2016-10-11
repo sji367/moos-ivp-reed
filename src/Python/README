@@ -1,0 +1,2 @@
+This work is dependant on pymoos.
+This library allows MOOS applications to be written in python and can be downloaded from git clone https://github.com/themoos/python-moos.git. A dependency of pymoos is that python boost must be installed. It can be could at http://www.boost.org/doc/libs/1_39_0/more/getting_started/unix-variants.html#get-boost. 
