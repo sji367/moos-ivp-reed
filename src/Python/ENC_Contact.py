@@ -75,7 +75,7 @@ class MOOS_comms(object):
         self.comms.set_on_connect_callback(self.Register_Vars)
         
         # Connect to the server
-        self.comms.run('localhost',9000,'Contact1')
+        self.comms.run('localhost',9000,'Contact')
         
     def Get_mail(self):
         """ When called, this function fetches the new values for the ASV 
@@ -739,9 +739,9 @@ class Search_ENC(object):
             counter += 1
             
         # Output to the MOOSDB a list of obstacles
-        #   ASV_X,ASV_Y : # of Obstacles : x,y,t_lvl,type : x,y,t_lvl,type : ...
+        #   ASV_X,ASV_Y,Heading : # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
         obstacles = str(X)+','+str(Y)+','+str(heading)+':'+str(num_obs)+':'+obs_pos
-        print obstacles
+        
         comms.notify('Obstacles', obstacles)     
         
         # Determine if a new polygon was used
@@ -855,7 +855,7 @@ class Search_ENC(object):
         
         if num_points>0:
         # min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y @ min_ang_dist,max_ang_dist,min_dist
-            str(x1)+','+str(y1)+','+str(x_small)+','+str(y_small)+','+str(x2)+','+str(y2)+'@'+str(d_min_ang)+','+str(d_max_ang)+','+str(min_dist)
+            poly = str(x1)+','+str(y1)+','+str(x_small)+','+str(y_small)+','+str(x2)+','+str(y2)+'@'+str(d_min_ang)+','+str(d_max_ang)+','+str(min_dist)
         else:
             poly = "No points"    
         
@@ -883,8 +883,8 @@ class Search_ENC(object):
         #   pMarnineViewer when the polygon is not within the search area
         max_cntr_poly = 1
         
-        for i in range(self.ENC_poly_layer.GetFeatureCount()):
-            feat = self.ENC_poly_layer.GetFeature(i) 
+        feat = self.ENC_poly_layer.GetNextFeature()
+        while(feat): 
             geom_poly = feat.GetGeometryRef() # Polygon from shapefile
             if geom_poly.Intersects(self.search_area_poly):        
                 # Get the interesection of the polygon from the shapefile and
@@ -902,13 +902,13 @@ class Search_ENC(object):
                 #   we will give the polygon string function the intersection
                 #   of the polygon and the search area
                 if p_ring:
-                    poly_str = self.publish_poly(X, Y, heading, comms, intersection_poly.Buffer(0.00003), counter_poly)
+                    poly_str = self.verify_poly(X, Y, heading, comms, intersection_poly.Buffer(0.00003), counter_poly)
                     
                 # Case 2: there are no points in the the search window, 
                 #   therefore we are temperarily giving the entire polygon to 
                 #   the polygon function.
                 else:
-                    poly_str = self.publish_poly(X, Y, heading, comms, geom_poly.Buffer(0.00003), counter_poly)
+                    poly_str = self.verify_poly(X, Y, heading, comms, geom_poly.Buffer(0.00003), counter_poly)
        
                 # If it is not the first polygon, then add a '!' to the end of 
                 #   the  string.
@@ -923,28 +923,29 @@ class Search_ENC(object):
                         poly_info += poly_str
                     # Increment counter
                     counter_poly += 1
+            feat = self.ENC_poly_layer.GetNextFeature()
                     
-            # Post an update if there are polygon obstacles
-            if (self.ENC_poly_layer.GetFeatureCount()>0):
-                poly_obs = str(X)+','+str(Y)+','+str(heading)+':'+str(counter_poly-1)+':'+poly_info
-                comms.notify('Poly_Obs', poly_obs)  
-                
-            # Determine if a new polygon was used
-            if max_cntr_poly < counter_poly:
-                max_cntr_poly = counter_poly    
-                
-            # Remove highlighted key points of the polygon obstacles from 
-            #   pMarineViewer if they are no longer in the search area
-            for ii in range(counter_poly, max_cntr_poly+1):
-                time.sleep(.002)
-                pt_1 = 'x=1,y=1,vertex_color=white,active=false,label=pt1_'+str(ii)
-                comms.notify('VIEW_POINT', pt_1)
-                time.sleep(.002)
-                pt_2 = 'x=1,y=1,vertex_color=white,active=false,label=pt2_'+str(ii)
-                comms.notify('VIEW_POINT', pt_2)
-                time.sleep(.002)
-                pt_3 = 'x=1,y=1,vertex_color=mediumblue,active=false,label=pt3_'+str(ii)
-                comms.notify('VIEW_POINT', pt_3)
+        # Post an update if there are polygon obstacles
+        if (self.ENC_poly_layer.GetFeatureCount()>0):
+            poly_obs = str(X)+','+str(Y)+','+str(heading)+':'+str(counter_poly-1)+':'+poly_info
+            comms.notify('Poly_Obs', poly_obs)  
+            
+        # Determine if a new polygon was used
+        if max_cntr_poly < counter_poly:
+            max_cntr_poly = counter_poly    
+            
+        # Remove highlighted key points of the polygon obstacles from 
+        #   pMarineViewer if they are no longer in the search area
+        for ii in range(counter_poly, max_cntr_poly+1):
+            time.sleep(.002)
+            pt_1 = 'x=1,y=1,vertex_color=white,active=false,label=pt1_'+str(ii)
+            comms.notify('VIEW_POINT', pt_1)
+            time.sleep(.002)
+            pt_2 = 'x=1,y=1,vertex_color=white,active=false,label=pt2_'+str(ii)
+            comms.notify('VIEW_POINT', pt_2)
+            time.sleep(.002)
+            pt_3 = 'x=1,y=1,vertex_color=mediumblue,active=false,label=pt3_'+str(ii)
+            comms.notify('VIEW_POINT', pt_3)
                 
     def Initialize(self):
         """ This initializes the comminications with MOOS which allows 
