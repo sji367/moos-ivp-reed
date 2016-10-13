@@ -20,13 +20,13 @@ public:
   ~BHV_OA() {};
   
   bool         setParam(std::string, std::string);
-  void         onSetParamComplete();
-  void         onCompleteState();
-  void         onIdleState();
-  void         onHelmStart();
-  void         postConfigStatus();
-  void         onRunToIdleState();
-  void         onIdleToRunState();
+  void         onSetParamComplete() {};
+  void         onCompleteState() {};
+  void         onIdleState() {};
+  void         onHelmStart() {};
+  void         postConfigStatus() {};
+  void         onRunToIdleState() {};
+  void         onIdleToRunState() {};
   IvPFunction* onRunState();
   
 
