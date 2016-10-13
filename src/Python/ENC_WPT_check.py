@@ -117,7 +117,7 @@ class WPT_Check_ENC(object):
     LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
     
     def __init__(self, buffer_dist=25, LatOrigin=43.071959194444446, 
-                 LongOrigin=-70.711610833333339, debug = True,
+                 LongOrigin=-70.711610833333339, debug = False,
                  filename_poly='../../src/ENCs/US5NH02M/Shape/poly.shp',):
         """ Initialize varibles. 
             
@@ -360,7 +360,8 @@ class WPT_Check_ENC(object):
                     # Increment to the next waypoint 
                     comms.notify('WPT_UPDATE', 'currix='+str(int(self.wpt_index)+1))
                     comms.notify('VIEW_POINT','x=1,y=1,active=false,label=int')
-                    print 'Skipped WPT %i, going to %i' % (self.wpt_index, self.wpt_index+1)
+                    if self.debug:
+                        print 'Skipped WPT %i, going to %i' % (self.wpt_index, self.wpt_index+1)
                     self.check_within = False
                     self.prev_WPT_x = ASV_x
                     self.prev_WPT_y = ASV_y
