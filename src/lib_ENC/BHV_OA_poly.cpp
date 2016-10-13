@@ -257,9 +257,9 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 
       // The buffer distance is to make sure that the ASV avoids the obstacle with some buffer
       int buffer_width = 20;
-      // If the maximum cost is greater than 1, increase the size of the saftey buffer
+      // If the maximum cost is greater than 100, increase the size of the saftey buffer
       int temp_buff;
-	if (obstacle.min_dist.cost > 1)
+      if (obstacle.min_dist.cost > 100)
 	{
 	  temp_buff = floor(pow(2*obstacle.min_dist.cost/m_maxutil,2));
 	  if (temp_buff >100)
@@ -267,10 +267,14 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	  buffer_width += temp_buff;
 	  postMessage("buffer_w", buffer_width);
 	}
-   
+
+      // Debugging
+      postMessage("Angles", doubleToString(obstacle.min_ang.ang+buffer_width)+", "+ doubleToString(obstacle.min_dist.ang)+", " +doubleToString(obstacle.max_ang.ang+buffer_width));
+      postMessage("Angles_no_buff", doubleToString(obstacle.min_ang.ang)+", "+ doubleToString(obstacle.min_dist.ang)+", " +doubleToString(obstacle.max_ang.ang));
+      postMessage("cost", doubleToString(obstacle.min_ang.cost)+", "+ doubleToString(obstacle.min_dist.cost)+", " +doubleToString(obstacle.max_ang.cost));
+      
       // This calculates the utility and stores that value if it is less than the current utility for all obstacles --> min angle to max cost
       // Makes the first half of the "V Shaped" penalty function
-      
       for (double x1 = obstacle.min_ang.ang-buffer_width; x1<=obstacle.min_dist.ang; x1++)
 	{
 	  // Deal with slope being inf (if maximum angle = mininum distance angle) --> set the cost to the cost of the mininum distance point. 
@@ -284,15 +288,15 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	    {
 	      x = doubleToString(m_ASV_x);
 	      y = doubleToString(m_ASV_y);
-	      c = 1;
+	      c = m_maxutil;
 	    }
 	  else if (cost < 0)
-	      cost = 0;
+	    cost = 0;
 	  else
 	    {
 	      c = cost;
 	    }
-	  utility = m_maxutil*(1-c);	  
+	  utility = m_maxutil-c;	  
 
 	  // Update the current angle
 	  cur_ang = (int)floor((int)x1%360);
@@ -318,12 +322,12 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	  if (cost < 0)
 	    c = 0;
 	  else if (cost > m_maxutil)
-	      c = m_maxutil;
+	    c = m_maxutil;
 	  else
 	    {
 	      c = cost;
 	    }
-	  utility = m_maxutil*(1-c);
+	  utility = m_maxutil-c;
 	  
 	  // Update the current angle
 	  cur_ang = (int)floor((int)x2%360);
@@ -359,17 +363,19 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   // Clear the domain and range values
   domain_vals.clear();
   range_vals.clear();
-  
   // Find the maximum value in the max_cost vector, which holds the cost of the minimum distance point for each obstacle
   double maximum_value = *max_element(max_cost.begin(), max_cost.end());
   double lead;
+
+  postMessage("Max_Cost", maximum_value);
+
   // Remove the lead waypoint parameter if cost > .75
-  if (maximum_value > .75)
+  if (maximum_value > 75)
     postMessage("WPT_UPDATE", "lead=50");
-  else if (maximum_value > .33)
+  else if (maximum_value > 33)
     {
       // Increases linearly between 8 and 50 as the cost increases
-      lead = (maximum_value-.33)*100+8; 
+      lead = (maximum_value-33)+8; 
       postMessage("WPT_UPDATE", "lead="+doubleToString(lead));
     }
   else // If cost is small (>= .33) keep the nominal lead value
