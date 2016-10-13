@@ -709,10 +709,6 @@ class Search_ENC(object):
         # Intialize the obstacle string
         obs_pos = ''
         
-        # Counter to remove the highlighted obstacles from pMarnineViewer that
-        #   are not within the search area.
-        max_cntr = 1
-        
         feature = self.ENC_point_layer.GetNextFeature()
         
         # Highlight all point features in search radius in pMarineViewer 
@@ -743,14 +739,14 @@ class Search_ENC(object):
         obstacles = str(X)+','+str(Y)+','+str(heading)+':'+str(num_obs)+':'+obs_pos
         
         comms.notify('Obstacles', obstacles)     
-        
+        print "In Area: {}, Total: {}".format(counter-1, self.max_obs-1)
         # Determine if a new polygon was used
-        if max_cntr < counter:
-            max_cntr = counter  
+        if self.max_obs < counter:
+            self.max_obs = counter  
             
         # Remove highlighted point obstacles (shown as polygons) from 
         #   pMarineViewer if they are outside of the search area
-        for i in range(counter, max_cntr):
+        for i in range(counter, self.max_obs):
             time.sleep(.002)
             remove_highlight = 'format=radial,x= 0,y=0,radius=25,pts=8,edge_size=5,vertex_size=2,active=false,label='+str(i)
             comms.notify('VIEW_POLYGON', remove_highlight)
@@ -963,6 +959,11 @@ class Search_ENC(object):
         
         # Build the shapefile layers
         self.read_ENC()
+        
+        # Counter to remove the highlighted obstacles from pMarnineViewer that
+        #   are not within the search area.
+        self.max_obs = 1
+        
         print "Initialization Finished"
         
         return MOOS
