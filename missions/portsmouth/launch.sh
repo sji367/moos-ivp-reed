@@ -40,7 +40,7 @@ python ../../src/Python/ENC_Print.py >& /dev/null &
 
 sleep 0.5
 printf "Launching ENC_WPT_check \n"
-python ~/anaconda2/ENC_WPT_check.py >& /dev/null &
+python ../../src/Python/ENC_WPT_check.py >& /dev/null &
 
 sleep 0.25
 printf "Launching ENC_SFoV \n"
@@ -48,7 +48,7 @@ printf "Launching ENC_SFoV \n"
 
 sleep 0.2
 printf "Launching ENC_SFoV_GUI \n"
-#python ~/anaconda2/ENC_SFoV_GUI.py >& /dev/null &
+#python ../../src/Python/ENC_SFoV_GUI.py >& /dev/null &
 
 uMAC alpha.moos
 
