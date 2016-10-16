@@ -1,0 +1,47 @@
+//-------------------------------------------------
+// NAME: Damian Manda
+// FILE: chase_remote.moos
+//-------------------------------------------------
+
+//Local server with pShare
+ServerHost = localhost
+ServerPort = 9000
+Community  = zboat
+
+MOOSTimeWarp = 1
+TERM_REPORTING = true
+
+// Chase Tank
+LatOrigin  = 43.1358694
+LongOrigin = -70.9391542
+
+//------------------------------------------------
+// pAntler config block
+
+ProcessConfig = ANTLER
+{
+	Run = MOOSDB @ NewConsole = false
+	Run = iZBoat @ NewConsole = false
+}
+
+//------------------------------------------------
+// iZBoat config block
+
+ProcessConfig = iZBoat
+{
+   AppTick   = 10
+   CommsTick = 10
+
+   // Serial port configuration
+   //PORT = /dev/ttyS0
+   PORT = /dev/ttyUSB0
+   BAUDRATE = 115200
+   HANDSHAKING = FALSE
+   STREAMING = FALSE
+
+   //iZBoat Configuration
+   MAXINPUTRATE = 20
+   MAXRUDDER = 45
+   MAXTHROTTLE = 100
+}
+
