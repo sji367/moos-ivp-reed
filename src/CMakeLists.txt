@@ -18,6 +18,9 @@ ADD_SUBDIRECTORY(lib_behaviors-test)
 ADD_SUBDIRECTORY(lib_ENC)
 ADD_SUBDIRECTORY(pXRelayTest)
 ADD_SUBDIRECTORY(pExampleApp)
+ADD_SUBDIRECTORY(iZBoat)
+ADD_SUBDIRECTORY(iOS5000)
+ADD_SUBDIRECTORY(iGPS_MB1)
 
 ##############################################################################
 #                           END of CMakeLists.txt
