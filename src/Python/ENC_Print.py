@@ -80,7 +80,6 @@ class Print_ENC(object):
     
     def __init__(self, LatOrigin=43.071959194444446, 
                  LongOrigin=-70.711610833333339,
-                 ENC_filename='../../src/ENCs/US5NH02M/US5NH02M.000', 
                  filename_pnt='../../src/ENCs/US5NH02M/Shape/point.shp', 
                  filename_poly='../../src/ENCs/US5NH02M/Shape/poly.shp', 
                  filename_line='../../src/ENCs/US5NH02M/Shape/line.shp'):
@@ -89,14 +88,12 @@ class Print_ENC(object):
         Inputs:
             LatOrigin - Latitude origin for the pyproj conversion to UTM
             LongOrigin - Longitude origin for the pyproj conversion to UTM
-            ENC_filename - path to the ENC file
             filename_* - path to the shapefiles which are organized by geometry
                          type 
         """
         self.LatOrigin = LatOrigin
         self.LongOrigin = LongOrigin
         self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
-        self.ENC_filename = ENC_filename
         self.filename_pnt = filename_pnt
         self.filename_poly = filename_poly
         self.filename_line = filename_line
