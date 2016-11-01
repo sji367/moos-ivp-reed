@@ -42,22 +42,24 @@ def tidal_model(tide_station_name='Fort_Point'):
     
     station_info = parse_file(station_filename)
 
-    #These are the NOAA constituents, in the order presented on their website.
+    # These are the NOAA constituents, in the order presented on their website.
     constituents = [c for c in cons.noaa if c != cons._Z0]
     
-    #Phases and amplitudes (relative to GMT and in degrees and meters)
+    # Phases and amplitudes (relative to GMT and in degrees and meters)
     published_amplitudes = station_info[0][1]
     published_phases = station_info[1][1]
     
-    #We can add a constant offset (e.g. for a different datum, we will use relative to MLLW):
-    MTL = station_info[4][1]
-    MLLW = station_info[5][1]
-    offset = MTL - MLLW
+    # We can add a constant offset (e.g. for a different datum, we will use
+    #   relative to MLLW):
+#    MTL = station_info[4][1]
+    MSL = station_info[5][1]
+    MLLW = station_info[6][1]
+    offset = MSL - MLLW
     constituents.append(cons._Z0)
     published_phases.append(0)
     published_amplitudes.append(offset)
     
-    #Build the model.
+    # Build the model.
     assert(len(constituents) == len(published_phases) == len(published_amplitudes))
     model = np.zeros(len(constituents), dtype = Tide.dtype)
     model['constituent'] = constituents
