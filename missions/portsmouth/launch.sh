@@ -30,13 +30,21 @@ done
 printf "Launching the %s MOOS Community (WARP=%s) \n"  $COMMUNITY $TIME_WARP
 pAntler alpha.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
 
+sleep 0.2
+printf "Launching MOOSTides \n"
+python ../../src/Python/MOOSTides.py >& /dev/null &
+
 sleep 0.5
 printf "Launching ENC_Contact \n"
 python ../../src/Python/ENC_Contact.py >& /dev/null &
 
-sleep 2
+sleep 1.3
 printf "Launching ENC_Print \n"
 python ../../src/Python/ENC_Print.py >& /dev/null &
+
+sleep 0.2
+printf "Launching Config Reader \n"
+python ../../src/Python/config_reader.py >& /dev/null &
 
 sleep 0.5
 printf "Launching ENC_WPT_check \n"
@@ -48,13 +56,13 @@ printf "Launching ENC_SFoV \n"
 
 sleep 0.2
 printf "Launching ENC_SFoV_GUI \n"
-#python ../../src/Python/ENC_SFoV_GUI.py >& /dev/null &
+#python ../../src/Python/ENC_Sensor_GUI.py >& /dev/null &
 
 uMAC alpha.moos
 
 
 printf "Killing all processes ... \n"
-kill %1 %2 %3 %4 #%5 %6
+kill %1 %2 %3 %4 %5 %6 #%7 %8
 #mykill
 printf "Done killing processes.   \n"
 
