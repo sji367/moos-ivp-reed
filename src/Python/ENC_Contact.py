@@ -26,7 +26,7 @@ from osgeo import ogr
 
 # Numpy is a useful tool for mathematical operations 
 import numpy as np
-
+from timeit import default_timer as timer
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 class MOOS_comms(object):
@@ -185,10 +185,10 @@ class Search_ENC(object):
                 threat level - Calculated threat level
         """
         # Obstacle Partly submerged at high water, Always Dry, Awash, Floating, or 0<=Z<=3
-        if (WL == 1 or WL == 2 or WL == 5 or WL == 7 or depth <= 0):
+        if (WL in [1, 2, 6, 7] or depth <= 0):
             t_lvl = 4
         # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<3
-        elif (WL == 4 or WL == 6 or depth < 1.5):
+        elif (WL in [4, 5] or depth < 1.5):
             t_lvl = 3
         # Obstacle is alway below surface
         elif (WL == 3 or depth >= 1.5):
@@ -498,6 +498,8 @@ class Search_ENC(object):
                     name = layer_def.GetFieldDefn(i).GetName()
                     if name == 'WATLEV':
                         WL = int(feat.GetField(i))
+                        if (WL in [1,6,7]):
+                            print '{} - weird Water Level {}'.format(LayerName,WL)
                     elif name == 'VALSOU':
                         depth = feat.GetField(i)
                         if depth is None:
@@ -738,15 +740,14 @@ class Search_ENC(object):
         #   ASV_X,ASV_Y,Heading : # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
         obstacles = str(X)+','+str(Y)+','+str(heading)+':'+str(num_obs)+':'+obs_pos
         
-        comms.notify('Obstacles', obstacles)     
-        print "In Area: {}, Total: {}".format(counter-1, self.max_obs-1)
+        comms.notify('Obstacles', obstacles)
         # Determine if a new polygon was used
-        if self.max_obs < counter:
-            self.max_obs = counter  
+        if self.max_pnt_obs < counter:
+            self.max_pnt_obs = counter  
             
         # Remove highlighted point obstacles (shown as polygons) from 
         #   pMarineViewer if they are outside of the search area
-        for i in range(counter, self.max_obs):
+        for i in range(counter, self.max_pnt_obs):
             time.sleep(.002)
             remove_highlight = 'format=radial,x= 0,y=0,radius=25,pts=8,edge_size=5,vertex_size=2,active=false,label='+str(i)
             comms.notify('VIEW_POLYGON', remove_highlight)
@@ -781,9 +782,7 @@ class Search_ENC(object):
         
         min_angle = 360
         max_angle = -360
-        min_dist = 9999 
-
-        min_dist = 9999
+        min_dist  = 9999
         
         ring = buff_polygon.GetGeometryRef(0)
         num_points =  ring.GetPointCount()
@@ -868,16 +867,12 @@ class Search_ENC(object):
             comms - Communication link to MOOS
         """
         # Initialize the polygon obstacle strings
-        poly_str = ''
+        poly_obs_verticies = ''
         poly_info = ''
         
         # This counter is used to count the number of features in the search
         #   radius. 
-        counter_poly = 1
-        
-        # This counter is then used to remove the visual hints on 
-        #   pMarnineViewer when the polygon is not within the search area
-        max_cntr_poly = 1
+        counter_poly = 0
         
         feat = self.ENC_poly_layer.GetNextFeature()
         while(feat): 
@@ -898,41 +893,41 @@ class Search_ENC(object):
                 #   we will give the polygon string function the intersection
                 #   of the polygon and the search area
                 if p_ring:
-                    poly_str = self.verify_poly(X, Y, heading, comms, intersection_poly.Buffer(0.00003), counter_poly)
+                    poly_obs_verticies = self.verify_poly(X, Y, heading, comms, intersection_poly.Buffer(0.00003), counter_poly)
                     
                 # Case 2: there are no points in the the search window, 
                 #   therefore we are temperarily giving the entire polygon to 
                 #   the polygon function.
                 else:
-                    poly_str = self.verify_poly(X, Y, heading, comms, geom_poly.Buffer(0.00003), counter_poly)
+                    poly_obs_verticies = self.verify_poly(X, Y, heading, comms, geom_poly.Buffer(0.00003), counter_poly)
        
                 # If it is not the first polygon, then add a '!' to the end of 
                 #   the  string.
-                if poly_str!="No points":
+                if poly_obs_verticies!="No points":
                     # Add in the threat level (index 0) and obstacle type (1)
                     #   to the poly_str.
-                    poly_str = str(feat.GetField(0))+','+str(feat.GetField(1))+'@' + poly_str
-                    if counter_poly==1:
-                        poly_info = poly_str
-                    elif counter_poly>1:
+                    poly_obs_verticies = str(feat.GetField(0))+','+str(feat.GetField(1))+'@' + poly_obs_verticies
+                    if counter_poly==0:
+                        poly_info = poly_obs_verticies
+                    elif counter_poly>0:
                         poly_info += '!'
-                        poly_info += poly_str
+                        poly_info += poly_obs_verticies
                     # Increment counter
                     counter_poly += 1
             feat = self.ENC_poly_layer.GetNextFeature()
                     
         # Post an update if there are polygon obstacles
-        if (self.ENC_poly_layer.GetFeatureCount()>0):
-            poly_obs = str(X)+','+str(Y)+','+str(heading)+':'+str(counter_poly-1)+':'+poly_info
+        if (counter_poly>0):
+            poly_obs = str(X)+','+str(Y)+','+str(heading)+':'+str(counter_poly)+':'+poly_info
             comms.notify('Poly_Obs', poly_obs)  
             
         # Determine if a new polygon was used
-        if max_cntr_poly < counter_poly:
-            max_cntr_poly = counter_poly    
+        if self.max_poly_obs < counter_poly:
+            self.max_poly_obs = counter_poly    
             
         # Remove highlighted key points of the polygon obstacles from 
         #   pMarineViewer if they are no longer in the search area
-        for ii in range(counter_poly, max_cntr_poly+1):
+        for ii in range(counter_poly, self.max_poly_obs+1):
             time.sleep(.002)
             pt_1 = 'x=1,y=1,vertex_color=white,active=false,label=pt1_'+str(ii)
             comms.notify('VIEW_POINT', pt_1)
@@ -962,7 +957,11 @@ class Search_ENC(object):
         
         # Counter to remove the highlighted obstacles from pMarnineViewer that
         #   are not within the search area.
-        self.max_obs = 1
+        self.max_pnt_obs = 1
+        
+         # This counter is then used to remove the visual hints on 
+        #   pMarnineViewer when the polygon is not within the search area
+        self.max_poly_obs = 0
         
         print "Initialization Finished"
         
@@ -977,8 +976,10 @@ class Search_ENC(object):
             information on the objects from the ENC that are within the search 
             area are then published to the MOOSDB.
         """
+        start = timer()
         MOOS = self.Initialize()
-        
+        end = timer()
+        print (end-start)
         while(True):
             # Get the new values for the ASV's current position (x, y) and 
             #   heading.
