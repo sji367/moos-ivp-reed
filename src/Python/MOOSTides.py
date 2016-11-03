@@ -64,6 +64,8 @@ class MOOS_comms(object):
         pass
     
 class tide_prediction(object):
+    """ This publishes a tidal prediction based off of NOAA's tidal harmonic 
+    """
     def __init__(self, tide_station_name='Fort_Point', publish_rate=.1):
         # Rate of the tidal prediction (Hz)
         self.publish_rate = publish_rate
