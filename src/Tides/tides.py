@@ -14,6 +14,9 @@ import matplotlib.pyplot as plt
 sys.path.insert(0,'../Python/')
 from parse_txt import parse_file
 
+# To output to .mat
+from scipy.io import savemat
+
 def tidal_model(tide_station_name='Fort_Point'):
     """ This function gives a model of the predicted tides. To get tides at a 
         specific time, use the command:
@@ -95,11 +98,15 @@ def prediction(tide, tide_station_name, start_date=dt(2016,10,23)):
         
         with open('{}/actual.txt'.format(tide_station_name)) as f:
             for line in f:
-                noaa_verified.append(line.split())
+                # temp stores the line we can store the first value as a float
+                temp = line.split()
+                noaa_verified.append(float(temp[0]))
           
         with open('{}/predict.txt'.format(tide_station_name)) as f1:
-            for line in f1: 
-                noaa_predicted.append(line.split())
+            for line in f1:
+                # temp stores the line we can store the first value as a float
+                temp = line.split()
+                noaa_predicted.append(float(temp[0]))
         
         my_prediction = tide.at(times)
         fig, ax = plt.subplots( nrows=1, ncols=1 )  # create figure & 1 axis
@@ -111,12 +118,17 @@ def prediction(tide, tide_station_name, start_date=dt(2016,10,23)):
         plt.xlabel('Hours since {} (GMT)'.format(prediction_t0))
         plt.ylabel('Meters')
         plt.savefig('{}/{}_Tides_2016_Oct23.png'.format(tide_station_name,tide_station_name))
+        return my_prediction, noaa_predicted, noaa_verified, hours
+        
     else:
         print 'ERROR: Invalid Tide Station. Create a new file for {}.'.format(tide_station_name)
     
 tide_station_name='Fort_Point'
 tide_FP = tidal_model(tide_station_name)
-prediction(tide_FP, tide_station_name)
+pytide_pt_FP, NOAA_pt_FP, at_FP, t = prediction(tide_FP, tide_station_name)
+
+# Save as a .mat file for better plots
+savemat('FP_Tides_2016_Oct23.mat', mdict={'Pytides': pytide_pt_FP, 'NOAA': NOAA_pt_FP, 'Actual': at_FP, 'Time' : t})
 
 tide_station_name='Wells'
 tide_Wells = tidal_model(tide_station_name)
