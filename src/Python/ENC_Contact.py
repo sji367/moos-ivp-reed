@@ -683,6 +683,7 @@ class Search_ENC(object):
 #        self.ENC_poly_layer.SetSpatialFilter(self.search_area_poly)
         self.ENC_point_layer.SetAttributeFilter("t_lvl>0")
         self.ENC_poly_layer.SetAttributeFilter("t_lvl>0")
+        self.ENC_line_layer.SetAttributeFilter("t_lvl>0")
         
     def publish_points(self, X, Y, heading, comms):
         """ This function filters the point layer and then cycles through that 
@@ -967,7 +968,7 @@ class Search_ENC(object):
         
         return MOOS
         
-    def run(self):
+    def run(self, Time=False):
         """ This function has two main parts and initialization and a infinate  
             loop. In the initialization, the program takes the information from
             the ENCs and stores it to disk as well as initializing MOOS  
@@ -975,11 +976,17 @@ class Search_ENC(object):
             loop. In the infinate loop, a search polygon is built and   
             information on the objects from the ENC that are within the search 
             area are then published to the MOOSDB.
+            
+        Input:
+            Time - Boolean to print how long it takes to initialize the ENC_DB
         """
-        start = timer()
-        MOOS = self.Initialize()
-        end = timer()
-        print (end-start)
+        if Time:
+            start = timer()
+            MOOS = self.Initialize()
+            end = timer()
+            print (end-start)
+        else:
+            MOOS = self.Initialize()
         while(True):
             # Get the new values for the ASV's current position (x, y) and 
             #   heading.
@@ -1025,5 +1032,5 @@ class Search_ENC(object):
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 e = Search_ENC()
-#m = e.Initialize()
-e.run()
+m = e.Initialize()
+#e.run(Time=True)
