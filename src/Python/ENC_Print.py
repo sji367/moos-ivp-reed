@@ -34,11 +34,8 @@ class MOOS_comms(object):
         self.comms = pymoos.comms()
 
     def Register_Vars(self):
-        """ This function registers for the updates of the VIEW_POINT and 
-            VIEW_SEGLIST at the rate of which it is being outputed from MOOS.
+        """ We dont need to register for variables.
         """
-        self.comms.register('VIEW_POINT', 0)
-        self.comms.register('VIEW_SEGLIST', 0)
         return True
         
     def Set_time_warp(self, timewarp):
@@ -62,7 +59,7 @@ class MOOS_comms(object):
         self.comms.set_on_connect_callback(self.Register_Vars)
         
         # Connect to the server
-        self.comms.run('localhost',9000,'Print')
+        self.comms.run('localhost',9000,'Print_ENC')
         
     def Get_mail(self):
         """ We don't need to get mail. """
@@ -94,10 +91,71 @@ class Print_ENC(object):
         self.LatOrigin = LatOrigin
         self.LongOrigin = LongOrigin
         self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
-        self.filename_pnt = filename_pnt
-        self.filename_poly = filename_poly
-        self.filename_line = filename_line
         self.print_area_filter = ogr.Geometry(ogr.wkbPolygon)
+        
+        # Find the point, polygon and line layers
+        self.Get_layers(filename_pnt, filename_poly, filename_line)        
+        
+        # Open a communication link to MOOS
+        self.init_MOOS()
+    
+    def init_MOOS(self):
+        """ Initializes the communication link to MOOS. 
+        
+        Ouputs:
+            self.comms - Communication link to MOOS
+        """
+        MOOS = MOOS_comms()
+        MOOS.Initialize()
+        # Need this time to connect to MOOS
+        time.sleep(.11)
+        self.comms = MOOS.comms
+        
+    def Get_layers(self, filename_pnt, filename_poly, filename_line, 
+                   print_t_lvl0=False, print_all_feat=True):
+        """ This function defines the layers for the points, polygon and lines.
+            It also can filter the layers spatially and to not contain objects 
+            with threat level 0.
+        
+        Inputs:
+            filename_* - path to the shapefiles which are organized by geometry
+                         type 
+            print_t_lvl0 - Boolean for printing things that are threat level 0
+                            True - Print object that are threat level 0
+                            False - Don't print object that are threat level 0
+            print_all_feat - Boolean for determining if we want to limit 
+                            spatially the objects printed to pMarineViewer
+        
+        Outputs:
+            self.ENC_point_layer- OGR layer that holds all the information from
+                                 the ENC that have point geometry
+            self.ENC_poly_layer - OGR layer that holds all the information from
+                                 the ENC that have polygon geometry
+            self.ENC_line_layer - OGR layer that holds all the information from 
+                                 the ENC that have line geometry
+        """
+        driver = ogr.GetDriverByName('ESRI Shapefile')
+        # Get the Datasourse
+        self.ds_pnt = driver.Open(filename_pnt, 0)
+        self.ds_poly = driver.Open(filename_poly, 0)
+        self.ds_line = driver.Open(filename_line, 0)
+        
+        self.ENC_point_layer = self.ds_pnt.GetLayer()
+        self.ENC_poly_layer = self.ds_poly.GetLayer()
+        self.ENC_line_layer = self.ds_line.GetLayer()
+        
+        if not print_t_lvl0:
+            self.ENC_point_layer.SetAttributeFilter("t_lvl>0")
+            self.ENC_poly_layer.SetAttributeFilter("t_lvl>0")
+            self.ENC_line_layer.SetAttributeFilter("t_lvl>0")
+            
+        # Filter the layers to only include features within the area in 
+        #   pMarnineViewer
+        if not print_all_feat:
+            self.define_print_area()
+            self.ENC_point_layer.SetSpatialFilter(self.print_area_filter)
+            self.ENC_poly_layer.SetSpatialFilter(self.print_area_filter)
+            self.ENC_line_layer.SetSpatialFilter(self.print_area_filter)
     
     def LonLat2MOOSxy(self, lon, lat):
         """ This function converts Longitude and Latitude to MOOS X and Y
@@ -150,37 +208,25 @@ class Print_ENC(object):
         ring.AddPoint(W_long, N_lat)
         self.print_area_filter.AddGeometry(ring) # Add the ring to the previously created polygon
         
-    def print_points(self, comms):
+    def print_points(self):
         """ Print the points from the ENC that are in the area defined by the
             print_area function.
             
         Inputs:
-            comms - Communication link to MOOS
-        """
-        # Get the driver and open the point file
-        driver = ogr.GetDriverByName('ESRI Shapefile')
-        ds = driver.Open(self.filename_pnt, 0)
-        
-        # There is only one layer in each file and we are just opening it to see how
-        #   features there are in the layer
-        layer = ds.GetLayer()
-        #print 'Num of Features in File: %d' %layer.GetFeatureCount()
-        
-        # Filter the layer to only include features with Threat level > 0
-        layer.SetSpatialFilter(self.print_area_filter) 
-        
-        feature = layer.GetNextFeature()
+            self.comms - Communication link to MOOS
+        """        
+        feature = self.ENC_point_layer.GetNextFeature()
         while feature:    
             geom = feature.GetGeometryRef()
             t_lvl = feature.GetField(0) # Get the Threat Level for that feature
-            time.sleep(.1) # Don't make it faster or it wont print all of the points
+            time.sleep(.0001)
     
             # Convert the MOOS x,y position to Lat/Long and store it
             new_x, new_y = self.LonLat2MOOSxy (geom.GetX(), geom.GetY())
             location = 'x='+str(new_x)+',y='+str(new_y)+','
             
             # Change the Color of the point based on the Threat Level
-            if t_lvl == 5:
+            if t_lvl == 5: #Coast Line
                 color = 'vertex_color=black,'
             elif t_lvl == 4:
                 color = 'vertex_color=red,'
@@ -201,35 +247,24 @@ class Print_ENC(object):
             m = location+size+color
             
             # Print the point
-            comms.notify('VIEW_POINT', m)
-            feature = layer.GetNextFeature()
+            self.comms.notify('VIEW_POINT', m)
+            feature = self.ENC_point_layer.GetNextFeature()
     
-    def print_polygons(self, comms):
+    def print_polygons(self):
         """ Print the polygons from the ENC that are in the area defined by the
             print_area function.
             
         Inputs:
-            comms - Communication link to MOOS
+            self.comms - Communication link to MOOS
         """
-        # Get the driver and open the point file
-        driver = ogr.GetDriverByName('ESRI Shapefile')
-        ds = driver.Open(self.filename_poly, 0)
-        
-        # There is only one layer in each file and we are just opening it to see how
-        #   features there are in the layer
-        layer = ds.GetLayer()
-        
-        # Filter the layer to only include features with Threat level > 0
-        layer.SetSpatialFilter(self.print_area_filter) 
-        
-        feature = layer.GetFeature(0)
+        feature = self.ENC_poly_layer.GetFeature(0)
         while feature:
-            time.sleep(.01)
+            time.sleep(.0001)
             geom = feature.GetGeometryRef() # Polygon from shapefile
             
             # Get the interesection of the polygon from the shapefile and the
             #   outline of tiff from pMarnineViewer
-            intersection_poly = geom.Intersection(self.print_area_filter) 
+            intersection_poly = geom#.Intersection(self.print_area_filter) 
             
             # Get the ring of that intersection polygon
             p_ring = intersection_poly.GetGeometryRef(0) 
@@ -249,7 +284,7 @@ class Print_ENC(object):
                 
                 # Change the Color of the point based on the Threat Level
                 if t_lvl == 5:
-                    color = 'edge_color=black, vertex_color=black'
+                    color = 'edge_color=black,vertex_color=black'
                 if t_lvl == 4:
                     color = 'edge_color=red,vertex_color=red'
                 elif t_lvl == 3:
@@ -266,8 +301,8 @@ class Print_ENC(object):
                     color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
                   
                 if points != 0:
-                    comms.notify('VIEW_SEGLIST', vertex+'},vertex_size=2.5,edge_size=2,'+color)
-            feature = layer.GetNextFeature()
+                    self.comms.notify('VIEW_SEGLIST', vertex+'},vertex_size=2.5,edge_size=2,'+color)
+            feature = self.ENC_poly_layer.GetNextFeature()
             
     def poly_line_intersect(self, poly, line):
         """ This function determines if each point along a line is within a 
@@ -323,46 +358,39 @@ class Print_ENC(object):
                     outside.AddPoint(x,y)
         return new_line    
         
-    def print_lines(self, comms):
+    def print_lines(self):
         """ Print the lines from the ENC that are in the area defined by the
             print_area function.
             
         Inputs:
-            comms - Communication link to MOOS
+            self.comms - Communication link to MOOS
         """
-        # Get the driver and open the point file
-        driver = ogr.GetDriverByName('ESRI Shapefile')
-        ds = driver.Open(self.filename_poly, 0)
-    
-        # There is only one layer in each file and we want to open it
-        layer = ds.GetLayer()
-        
-        # Filter the line layer to only include features within the area in 
-        #   pMarnineViewer
-        layer.SetSpatialFilter(self.print_area_filter)
-        feature = layer.GetNextFeature()
+        feature = self.ENC_line_layer.GetNextFeature()
         while feature:
-            time.sleep(.01)
+            time.sleep(.0001)
             line = feature.GetGeometryRef() # line from shapefile
-            # Get the interesection of the line from the shapefile and the
-            #   outline of tiff from pMarnineViewer
-            intersection_line = self.poly_line_intersect(self.print_area_filter, line)
+            
+#            # Get the interesection of the line from the shapefile and the
+#            #   outline of tiff from pMarnineViewer
+#            line = self.poly_line_intersect(self.print_area_filter, feature.GetGeometryRef())
     
-            points = intersection_line.GetPointCount()
-    
+            points = line.GetPointCount()
+            
             vertex = 'pts={' # String to hold the vertices
             # Cycle through the vertices and store them as a string
             for p2 in xrange(points):
-                lon, lat, z = intersection_line.GetPoint(p2)
+                lon, lat, z = line.GetPoint(p2)
                 p_x,p_y = self.LonLat2MOOSxy (lon, lat)
-                vertex += str(p_x) + ','+ str(p_y)
+                pos = '{},{}'.format(p_x, p_y)
+                vertex += pos
                 if (p2!=points-1):
                     vertex += ':'
             t_lvl = feature.GetField(0) # Get threat level
+            vertex += '}'
             
             # Change the Color of the point based on the Threat Level
             if t_lvl == 5:
-                color = 'edge_color=black, vertex_color=black'
+                color = 'edge_color=black,vertex_color=black'
             if t_lvl == 4:
                 color = 'edge_color=red,vertex_color=red'
             elif t_lvl == 3:
@@ -378,19 +406,17 @@ class Print_ENC(object):
             elif t_lvl == -2: # LIGHTS
                 color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
             if points != 0:
-                comms.notify('VIEW_SEGLIST', vertex+'},vertex_size=2.5,edge_size=2,'+color)
-            feature = layer.GetNextFeature()
+                line_info = '{},vertex_size=2.5,edge_size=2,{}'.format(vertex, color)
+                self.comms.notify('VIEW_SEGLIST', line_info)
+            feature = self.ENC_line_layer.GetNextFeature()
             
     def print_all(self):
         """ This function prints all of the objects that are within the desired
             area to be printed to the pMarnineViewer.        
         """
-        MOOS = MOOS_comms()
-        MOOS.Initialize()
-        self.define_print_area()
-        self.print_points(MOOS.comms)
-        self.print_polygons(MOOS.comms)
-#        self.print_lines(MOOS.comms)
+        self.print_points()
+        self.print_polygons()
+        self.print_lines()
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
