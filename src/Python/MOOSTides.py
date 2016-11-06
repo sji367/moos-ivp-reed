@@ -2,7 +2,7 @@
 """
 Created on Wed Nov  2 09:40:06 2016
 
-@author: mapper
+@author: Sam Reed
 """
 
 from datetime import datetime as dt
@@ -135,7 +135,7 @@ class tide_prediction(object):
         
         self.tide = Tide(model = model, radians = False)
 
-    def get_curr_tide(self, comms):
+    def get_curr_tide(self):
         """ This function returns the current tide in relation to MLLW and 
             publishes to the MOOSDB.
         
@@ -144,7 +144,7 @@ class tide_prediction(object):
         """
         current_time = dt.now()
         current_tide = self.tide.at([current_time])
-        comms.notify('Current_Tide', str(current_tide[0]))
+        self.comms.notify('Current_Tide', str(current_tide[0]))
         return current_tide[0]
         
     def run(self):
@@ -153,7 +153,7 @@ class tide_prediction(object):
         """
         self.get_model()
         while(True):
-            tide = self.get_curr_tide(MOOS.comms)
+            tide = self.get_curr_tide()
             print tide
             time.sleep(1/self.publish_rate)
 
