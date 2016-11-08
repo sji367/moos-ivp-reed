@@ -26,6 +26,9 @@ from osgeo import ogr
 
 # Numpy is a useful tool for mathematical operations 
 import numpy as np
+
+import json
+
 from timeit import default_timer as timer
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
@@ -44,6 +47,10 @@ class MOOS_comms(object):
         self.NAV_X = []
         self.NAV_Y = []
         self.NAV_HEAD = []
+        # If there is no information on the current tide, then the first value 
+        #   will be 0.
+        self.Tide = [0]
+        self.MHW_Offset = [0]
 
     def Register_Vars(self):
         """ This function registers for the updates of the X,Y and heading at 
@@ -52,6 +59,8 @@ class MOOS_comms(object):
         self.comms.register('NAV_X', 0)
         self.comms.register('NAV_Y', 0)
         self.comms.register('NAV_HEADING', 0)
+        self.comms.register('Current_Tide',0)
+        self.comms.register('MHW_Offset',0)
         return True
         
     def Set_time_warp(self, timewarp):
@@ -94,6 +103,11 @@ class MOOS_comms(object):
                     self.NAV_Y.append(x.double())
                 elif x.name()=='NAV_HEADING':
                     self.NAV_HEAD.append(x.double())
+            elif x.is_string():
+                if x.name()=='Current_Tide':
+                    self.Tide.append(float(x.string()))
+                elif x.name()=='MHW_Offset':
+                    self.MHW_Offset.append(float(x.string()))
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
@@ -171,6 +185,50 @@ class Search_ENC(object):
         lat,lon = self.LonLat2UTM(x+self.x_origin, y+self.y_origin, inverse=True)
         return lat,lon
         
+    def update_WL(self, WL):
+        """ This function updates the Water Level attribute with the current 
+            predicted tide. This is shoal biased. The values used in these  
+            calculations are from NOAA's Nautical Chart User Manual:
+                
+            http://portal.survey.ntua.gr/main/labs/carto/academic/persons/bnakos_site_nafp/documentation/noaa_chart_users_manual.pdf
+            
+        Inputs:
+            WL - Water level for the obstacle 
+                    (qualitative depth measurement)
+            
+        Outputs:
+            WL_depth - current depth in relation to the 
+        """
+        WL = float(WL)
+        feet2meters = 0.3048
+        if WL == 2:
+            # At least 2 feet above MHW. Being shoal biased, we will take the 
+            #   object's "charted" depth as 2 feet above MHW
+            WL_depth = self.tide-(2*feet2meters+self.MHW_Offset)
+            
+        elif WL == 3:
+            # At least 1 foot below MLLW. Being shoal biased, we will take the 
+            #   object's "charted" depth as 1 foot below MLLW
+            WL_depth = self.tide+1*feet2meters
+            
+        elif WL == 4:
+            # The range for these attributes 1 foot below MLLW and 1 foot above MHW
+            #   Therefore, we will be shoal biased and take 1 foot above MHW as the
+            #   object's "charted" depth.
+            WL_depth = self.tide-(1*feet2meters+self.MHW_Offset)
+            
+        elif WL == 5:
+            # The range for these attributes 1 foot below MLLW and 1 foot above 
+            #   MLLW. Therefore, we will be shoal biased and take 1 foot above MLLW
+            #   as the object's "charted" depth.
+            WL_depth = self.tide-1*feet2meters
+        else:
+            # All other Water levels (1, 6, and 7) don't have a quantitative 
+            #   descriptions. Therefore we will set it to 0.
+            WL_depth = 0
+            
+        return WL_depth
+         
     def calc_t_lvl(self, depth, WL):
         """ This function uses the water level and depth attributes for a  
             feature and calculates the threat level for that obstacle.
@@ -180,25 +238,29 @@ class Search_ENC(object):
                         (quantitative depth measurement)
                 WL - Water level for the obstacle 
                         (qualitative depth measurement)
+                self.tide - current tide
                 
             Outputs:
-                threat level - Calculated threat level
+                t_lvl - Calculated threat level
         """
-        # Obstacle Partly submerged at high water, Always Dry, Awash, Floating, or 0<=Z<=3
-        if (WL in [1, 2, 6, 7] or depth <= 0):
+        current_depth = depth+self.tide
+        WL_depth = self.update_WL(WL)
+        
+        # Obstacle Partly submerged at high water, Always Dry, Awash, Floating, or 0>=Z
+        if (WL_depth<=0  or current_depth <= 0):
             t_lvl = 4
-        # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<3
-        elif (WL in [4, 5] or depth < 1.5):
+        # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<1
+        elif (WL_depth< 1 or current_depth < 1):
             t_lvl = 3
         # Obstacle is alway below surface
-        elif (WL == 3 or depth >= 1.5):
-            # 3<=Z<6 or depth is unknown (9999)
-            if (depth < 3 or depth == 9999):
+        elif (current_depth >= 1):
+            # 1<=Z<2 or depth is unknown (9999)
+            if (WL_depth < 2 or current_depth < 2 or depth == 9999):
                 t_lvl = 2
-            # 6<=Z<10
-            elif (depth >=3 and depth <= 5):
+            # 2<=Z<4
+            elif ((WL_depth >=2 and WL_depth <= 4) or (current_depth >=2 and current_depth <= 4)):
                 t_lvl = 1
-            # Z > 10
+            # Z > 4
             else:
                 t_lvl = 0
         else:
@@ -419,18 +481,24 @@ class Search_ENC(object):
         
         # Add the Threat Level and Type Attributes
         self.ENC_point_layer.CreateField(ogr.FieldDefn('T_lvl', ogr.OFTInteger))
+        self.ENC_point_layer.CreateField(ogr.FieldDefn('WL', ogr.OFTInteger))
+        self.ENC_point_layer.CreateField(ogr.FieldDefn('Depth', ogr.OFTInteger))
         self.ENC_point_layer.CreateField(ogr.FieldDefn('Type', ogr.OFTString))
         self.ENC_point_layer.CreateField(ogr.FieldDefn('Cat', ogr.OFTString))
         self.ENC_point_layer.CreateField(ogr.FieldDefn('Visual', ogr.OFTInteger))
         
         # Add the Threat Level and Type Attributes
         self.ENC_poly_layer.CreateField(ogr.FieldDefn('T_lvl', ogr.OFTInteger))
+        self.ENC_poly_layer.CreateField(ogr.FieldDefn('WL', ogr.OFTInteger))
+        self.ENC_poly_layer.CreateField(ogr.FieldDefn('Depth', ogr.OFTInteger))
         self.ENC_poly_layer.CreateField(ogr.FieldDefn('Type', ogr.OFTString))
         self.ENC_poly_layer.CreateField(ogr.FieldDefn('Cat', ogr.OFTString))
         self.ENC_poly_layer.CreateField(ogr.FieldDefn('Visual', ogr.OFTInteger))
         
         # Add the Threat Level and Type Attributes
         self.ENC_line_layer.CreateField(ogr.FieldDefn('T_lvl', ogr.OFTInteger))
+        self.ENC_line_layer.CreateField(ogr.FieldDefn('WL', ogr.OFTInteger))
+        self.ENC_line_layer.CreateField(ogr.FieldDefn('Depth', ogr.OFTInteger))
         self.ENC_line_layer.CreateField(ogr.FieldDefn('Type', ogr.OFTString))
         self.ENC_line_layer.CreateField(ogr.FieldDefn('Cat', ogr.OFTString))
         self.ENC_line_layer.CreateField(ogr.FieldDefn('Visual', ogr.OFTInteger))
@@ -457,8 +525,10 @@ class Search_ENC(object):
                 defn_pnt = self.ENC_point_layer.GetLayerDefn() 
                 
                 # Create a new feature (attribute and geometry)
+                depth = float(pnt.GetZ())
                 new_feat = ogr.Feature(defn_pnt)
-                new_feat.SetField('T_lvl', self.calc_t_lvl(float(pnt.GetZ()),0))
+                new_feat.SetField('T_lvl', self.calc_t_lvl(depth,0))
+                new_feat.SetField('Depth', depth)
                 new_feat.SetField('Type', LayerName_mp)
         
                 # Make a geometry for the new feature from Shapely object
@@ -472,9 +542,6 @@ class Search_ENC(object):
             shapefile layer if the layer is in the ENC. If the inputted layer 
             is not in the ENC, the layer is skipped and the function prints a 
             warning to the user.
-        
-        Inputs:
-            LayerName - Name of the layer to be converted to a shapefile
         """
 
         if LayerName in self.Get_Layer_Names():
@@ -511,7 +578,7 @@ class Search_ENC(object):
                         depth = feat.GetField(i)
                         if depth is None:
                             depth = 9999
-                
+
                 ## Update Threat Level
                 # If WL has been updated use the function calc_t_lvl to calculate threat level
                 if WL != 0 or LayerName == 'DEPCNT':
@@ -546,6 +613,12 @@ class Search_ENC(object):
                 new_feat = ogr.Feature(defn)
                 new_feat.SetField('T_lvl', t_lvl)
                 new_feat.SetField('Type', LayerName)
+                
+                if WL != 0:
+                    new_feat.SetField('WL', WL)
+                
+                if depth!=9999:
+                    new_feat.SetField('Depth', depth)
                 
                 # If it is a Landmark or Light set the catagory field 
                 #   (and visual field for landmarks)
@@ -734,7 +807,11 @@ class Search_ENC(object):
             if num_obs!=0:
                 obs_pos += '!'
             num_obs += 1
-            obs_pos += pos+','+ str(feature.GetField(0))+','+ str(feature.GetField(1))
+            WL = feature.GetField(1)
+            depth = feature.GetField(2)
+            t_lvl = self.calc_t_lvl(WL, depth)
+            obs_type = feature.GetField(3)
+            obs_pos += '{},{},{}'.format(pos, t_lvl, obs_type)
 
             # Go to the next feature and increment the counter
             feature = self.ENC_point_layer.GetNextFeature()
@@ -844,22 +921,118 @@ class Search_ENC(object):
                 y_small = pty
             
         # Post these points to pMarineViewer
-        pt1 = 'x='+str(x1)+',y='+str(y1)+',vertex_size=6.5,vertex_color=white,active=true,label=pt1_'+str(cntr)
+        pt1 = 'x={},y={},vertex_size=6.5,vertex_color=white,active=true,label=pt1_{}'.format(x1, y1, cntr)
         comms.notify('VIEW_POINT', pt1)
         time.sleep(.001)
-        pt2 = 'x='+str(x2)+',y='+str(y2)+',vertex_size=6.5,vertex_color=white,active=true,label=pt2_'+str(cntr)
+        pt2 = 'x={},y={},vertex_size=6.5,vertex_color=white,active=true,label=pt2_{}'.format(x2, y2, cntr)
         comms.notify('VIEW_POINT', pt2)
-        pt3 = 'x='+str(x_small)+',y='+str(y_small)+',vertex_size=6.5,vertex_color=mediumblue,active=true,label=pt3_'+str(cntr)
+        pt3 = 'x={},y={},vertex_size=6.5,vertex_color=mediumblue,active=true,label=pt3_{}'.format(x_small, y_small, cntr)
         comms.notify('VIEW_POINT', pt3)
         
         if num_points>0:
         # min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y @ min_ang_dist,max_ang_dist,min_dist
-            poly = str(x1)+','+str(y1)+','+str(x_small)+','+str(y_small)+','+str(x2)+','+str(y2)+'@'+str(d_min_ang)+','+str(d_max_ang)+','+str(min_dist)
+            poly = '{},{},{},{},{},{}@{},{},{}'.format(x1,y1,x_small,y_small,x2,y2,d_min_ang, d_max_ang, min_dist)
+#            poly = str(x1)+','+str(y1)+','+str(x_small)+','+str(y_small)+','+str(x2)+','+str(y2)+'@'+str(d_min_ang)+','+str(d_max_ang)+','+str(min_dist)
         else:
             poly = "No points"    
         
-        return poly    
-    
+        return poly   
+        
+    def convert2np(self, feat):
+        """ This function takes in a ogr feature and converts its vertices to a
+            2D numpy array 
+        
+        Inputs:
+            feat - Feature that we want its vertices
+            
+        Outputs:
+            np_array - Numpy array of the feature's vertices
+        """
+        name = feat.GetGeometryRef().GetGeometryName()   
+        
+        # Get json representation of the feature
+        feat_json = json.loads(feat.ExportToJson())
+        
+        # Convert json representation to list of vertices
+        if name == 'POLYGON':
+            vertices = feat_json["geometry"]['coordinates'][0]
+        else:
+            vertices = feat_json["geometry"]['coordinates']
+        
+        # Convert that list to a numpy array and return it
+        np_array = np.asarray(vertices)
+        
+        return np_array
+        
+    def find_crit_pnts(self, feat, ASV_X, ASV_Y, comms, cntr):
+        """ This function finds the maximum angular extent of the obstacle with
+            respect to the ASV and the vertex of the obstacle that is closest 
+            to the ASV.
+            
+        Inputs:
+            feat - OGR feature of the obstacle
+            ASV_X - X position of the ASV
+            ASV_Y - Y position of the ASV
+            comms - Communication link to MOOS
+            cntr - Current value of the counter used the number of features in  
+                    the search radius. 
+            
+        Ouputs:
+            min_ang - Minimum angle with respect to the ASV
+            max_ang - 
+            min_dist - 
+        """
+        # Get the vertices of the polygon
+        vertices_latlon = self.convert2np(feat)
+        
+        # Convert the vertices from lat/long to X/Y
+        vertices_x, vertices_y = self.LonLat2MOOSxy(vertices_latlon[:,0],vertices_latlon[:,1])
+        
+        # Convert the position of the ASV to a matrix
+        pos = np.ones_like(vertices_x)
+        ASV_x = ASV_X*pos
+        ASV_y = ASV_Y*pos
+        
+        # Calculte the distance and angle from the ASV to the polygon
+        dist2poly = np.sqrt(np.square(ASV_x-vertices_x)+np.square(ASV_y-vertices_y))
+        angle2poly = np.arctan2(ASV_y-vertices_y, ASV_x-vertices_x)*180/np.pi
+        
+        # Determine the minimum distance, minimum angle, and maximum angle
+        index_min_dist = np.argmin(dist2poly)
+        index_min_ang = np.argmin(angle2poly)
+        index_max_ang = np.argmax(angle2poly)
+        
+        # There is one major issue with finding the minimum and maximum angles.
+        #   It is that when the angle switches from 360 to 0. This will lead to
+        #   incorrect angles being saved as the minimum and maximum. Therefore
+        #   if any of the any of the angles are near the cross over point, 
+        #   use the domain [0,360] instead of [-180, 180]
+        if ((angle2poly[index_min_ang] >150) or (angle2poly[index_max_ang] < -150)):
+            angle2poly = np.mod(angle2poly, 360)
+            index_min_ang = np.argmin(angle2poly)
+            index_max_ang = np.argmax(angle2poly)
+        
+        min_dist = [vertices_x[index_min_dist], vertices_y[index_min_dist], dist2poly[index_min_dist], angle2poly[index_min_dist]]
+        min_ang = [vertices_x[index_min_ang], vertices_y[index_min_ang], dist2poly[index_min_ang], angle2poly[index_min_ang]]
+        max_ang = [vertices_x[index_max_ang], vertices_y[index_max_ang], dist2poly[index_max_ang], angle2poly[index_max_ang]]
+        
+#        print '{} Min Dist: {},{} - Dist:{}, Ang:{}'.format(cntr,min_dist[0],min_dist[1],min_dist[2],min_dist[3])
+#        print '{} Min Ang: {},{} - Dist:{}, Ang:{}'.format(cntr,min_ang[0],min_ang[1],min_ang[2],min_ang[3])
+#        print '{} Max Ang: {},{} - Dist:{}, Ang:{}'.format(cntr,max_ang[0],max_ang[1],max_ang[2],max_ang[3])
+        
+        # Publish the critical points to the MOOSDB
+        pt1 = 'x={},y={},vertex_size=6.5,vertex_color=white,active=true,label=pt1_{}'.format(vertices_x[index_min_ang], vertices_y[index_min_ang], cntr)
+        comms.notify('VIEW_POINT', pt1)
+        time.sleep(.0001)
+        pt2 = 'x={},y={},vertex_size=6.5,vertex_color=white,active=true,label=pt2_{}'.format(vertices_x[index_max_ang], vertices_y[index_max_ang], cntr)
+        comms.notify('VIEW_POINT', pt2)
+        time.sleep(.0001)
+        pt3 = 'x={},y={},vertex_size=6.5,vertex_color=mediumblue,active=true,label=pt3_{}'.format(vertices_x[index_min_dist], vertices_y[index_min_dist], cntr)
+        comms.notify('VIEW_POINT', pt3)        
+        
+        crit_pnts  = '{},{},{},{},{},{}@{},{},{}'.format(min_ang[0],min_ang[1], min_dist[0],min_dist[1], max_ang[0],max_ang[1], min_ang[2], max_ang[2], min_dist[2])
+        return crit_pnts#min_ang, max_ang, min_dist
+        
     def publish_poly(self, X, Y, heading, comms):
         """ This function determines which obstacles with polygon geometry from
             the ENC are within the search area. 
@@ -881,7 +1054,10 @@ class Search_ENC(object):
         feat = self.ENC_poly_layer.GetNextFeature()
         while(feat): 
             geom_poly = feat.GetGeometryRef() # Polygon from shapefile
-            if geom_poly.Intersects(self.search_area_poly):        
+            if geom_poly.Intersects(self.search_area_poly): 
+                
+#                poly_obs_verticies = self.find_crit_pnts(feat, X, Y, comms, counter_poly)
+                
                 # Get the interesection of the polygon from the shapefile and
                 #   the outline of tiff from pMarnineViewer
                 intersection_poly = geom_poly.Intersection(self.search_area_poly) 
@@ -910,7 +1086,11 @@ class Search_ENC(object):
                 if poly_obs_verticies!="No points":
                     # Add in the threat level (index 0) and obstacle type (1)
                     #   to the poly_str.
-                    poly_obs_verticies = str(feat.GetField(0))+','+str(feat.GetField(1))+'@' + poly_obs_verticies
+                    WL = feat.GetField(1)
+                    depth = feat.GetField(2)
+                    t_lvl = self.calc_t_lvl(WL, depth)
+                    obs_type = feat.GetField(3)
+                    poly_obs_verticies = '{},{}@{}'.format(t_lvl, obs_type, poly_obs_verticies)
                     if counter_poly==0:
                         poly_info = poly_obs_verticies
                     elif counter_poly>0:
@@ -922,7 +1102,8 @@ class Search_ENC(object):
                     
         # Post an update if there are polygon obstacles
         if (counter_poly>0):
-            poly_obs = str(X)+','+str(Y)+','+str(heading)+':'+str(counter_poly)+':'+poly_info
+            poly_obs = '{},{},{}:{}:{}'.format(X, Y, heading, counter_poly, poly_info)
+#            str(X)+','+str(Y)+','+str(heading)+':'+str(counter_poly)+':'+poly_info
             comms.notify('Poly_Obs', poly_obs)  
             
         # Determine if a new polygon was used
@@ -990,12 +1171,20 @@ class Search_ENC(object):
             print (end-start)
         else:
             MOOS = self.Initialize()
+            
         while(True):
             # Get the new values for the ASV's current position (x, y) and 
             #   heading.
             time.sleep(.001)
             MOOS.Get_mail()
-            
+            if len(MOOS.MHW_Offset) != 0:
+                self.MHW_Offset = MOOS.MHW_Offset[-1]
+                MOOS.MHW_Offset = []
+                
+            if len(MOOS.Tide) != 0:
+                self.tide = MOOS.Tide[-1]
+                MOOS.Tide = []
+                
             # If there is a new position and heading for the ASV, then filter  
             #   the data and highlight the ones in the search area
             if len(MOOS.NAV_X) != 0 and len(MOOS.NAV_Y)!= 0 and len(MOOS.NAV_HEAD)!=0:
