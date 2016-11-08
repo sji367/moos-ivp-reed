@@ -472,6 +472,9 @@ class Search_ENC(object):
             shapefile layer if the layer is in the ENC. If the inputted layer 
             is not in the ENC, the layer is skipped and the function prints a 
             warning to the user.
+        
+        Inputs:
+            LayerName - Name of the layer to be converted to a shapefile
         """
 
         if LayerName in self.Get_Layer_Names():
@@ -1032,5 +1035,5 @@ class Search_ENC(object):
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 e = Search_ENC()
-m = e.Initialize()
-#e.run(Time=True)
+#m = e.Initialize()
+e.run(Time=True)
