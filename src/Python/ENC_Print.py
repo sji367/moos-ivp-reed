@@ -32,10 +32,14 @@ class MOOS_comms(object):
     def __init__(self):
         # Open a communication link to MOOS
         self.comms = pymoos.comms()
+        self.tide = [0.0]
+        self.MHW_offset = [0.0]
 
     def Register_Vars(self):
-        """ We dont need to register for variables.
+        """ Register for the current tide and the offset between MHW and MLLW.
         """
+        self.comms.register('Current_Tide',0)
+        self.comms.register('MHW_Offset',0)
         return True
         
     def Set_time_warp(self, timewarp):
@@ -62,8 +66,15 @@ class MOOS_comms(object):
         self.comms.run('localhost',9000,'Print_ENC')
         
     def Get_mail(self):
-        """ We don't need to get mail. """
-        pass
+        """ Get the most recent value for the tide. """
+        info = self.comms.fetch()
+        
+        # Store all values of the tide
+        for x in info:
+            if x.name() == 'Current_Tide':
+                self.tide.append(float(x.string()))
+            if x.name() == 'MHW_Offset':
+                self.MHW_offset.append(float(x.string()))
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#       
@@ -92,6 +103,7 @@ class Print_ENC(object):
         self.LongOrigin = LongOrigin
         self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         self.print_area_filter = ogr.Geometry(ogr.wkbPolygon)
+        self.first_print = True
         
         # Find the point, polygon and line layers
         self.Get_layers(filename_pnt, filename_poly, filename_line)        
@@ -105,11 +117,11 @@ class Print_ENC(object):
         Ouputs:
             self.comms - Communication link to MOOS
         """
-        MOOS = MOOS_comms()
-        MOOS.Initialize()
+        self.MOOS = MOOS_comms()
+        self.MOOS.Initialize()
         # Need this time to connect to MOOS
         time.sleep(.11)
-        self.comms = MOOS.comms
+        
         
     def Get_layers(self, filename_pnt, filename_poly, filename_line, 
                    print_t_lvl0=False, print_all_feat=True):
@@ -187,6 +199,61 @@ class Print_ENC(object):
         lat,lon = self.LonLat2UTM(x+self.x_origin, y+self.y_origin, inverse=True)
         return lat,lon
         
+    def calc_t_lvl(self, depth, WL, LayerName):
+        """ This function uses the water level and depth attributes for a  
+            feature and calculates the threat level for that obstacle.
+            
+            Inputs:
+                depth - Recorded depth for the obstacle
+                        (quantitative depth measurement)
+                WL - Water level for the obstacle 
+                        (qualitative depth measurement)
+                LayerName - Name of the layer for the object that was inputted
+                
+            Outputs:
+                threat level - Calculated threat level
+        """
+        WL_depth = self.calc_WL_depth(depth, WL)
+        current_depth = depth+self.tide
+        
+        # If it is Land set threat level to 5
+        if LayerName == 'LNDARE' or LayerName == 'DYKCON' or LayerName == 'PONTON' or LayerName == 'COALNE':
+            t_lvl = 5
+        elif LayerName == 'LIGHTS':
+            t_lvl = -2
+        # If it is a Buoy or Beacon set threat level to 3
+        elif LayerName == 'BOYISD' or LayerName == 'BOYSPP' or LayerName == 'BOYSAW' or LayerName == 'BOYLAT' or LayerName == 'BCNSPP' or LayerName == 'BCNLAT':
+            t_lvl = 3
+        elif LayerName == 'LNDMRK':
+            t_lvl = -1
+            
+        # The object is at or above the surface
+        elif ((WL_depth <= 0) or (current_depth <= 0)):
+            t_lvl = 4
+        # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<3
+        elif ((WL_depth < 1) or (current_depth < 1)):
+            t_lvl = 3
+        # Obstacle is alway below surface
+        elif ((WL_depth >= 1)or (current_depth >= 1)):
+            # 1<=Z<2 or depth is unknown (9999)
+            if ((WL_depth < 2) or (current_depth < 2) or (depth == 9999)):
+                t_lvl = 2
+            # 2<=Z<4
+            elif ((2 <= WL_depth <= 4) or (2 <= current_depth <= 4)):
+                t_lvl = 1
+            # Z > 4
+            else:
+                t_lvl = 0
+        else:
+            t_lvl = -3
+            print "FAILED, Z: {}".format(depth)
+            
+        return t_lvl
+    
+    def calc_WL_depth(self, depth, WL):
+        """ """
+        pass
+    
     def define_print_area(self, N_lat = 43.07511878, E_long = -70.68395689, 
                           S_lat = 43.05780589, W_long = -70.72434189):
         """ Define the area that we want to print.
@@ -217,37 +284,45 @@ class Print_ENC(object):
         """        
         feature = self.ENC_point_layer.GetNextFeature()
         while feature:    
-            geom = feature.GetGeometryRef()
-            t_lvl = feature.GetField(0) # Get the Threat Level for that feature
             time.sleep(.0001)
-    
-            # Convert the MOOS x,y position to Lat/Long and store it
-            new_x, new_y = self.LonLat2MOOSxy (geom.GetX(), geom.GetY())
-            location = 'x='+str(new_x)+',y='+str(new_y)+','
             
-            # Change the Color of the point based on the Threat Level
-            if t_lvl == 5: #Coast Line
-                color = 'vertex_color=black,'
-            elif t_lvl == 4:
-                color = 'vertex_color=red,'
-            elif t_lvl == 3:
-                color = 'vertex_color=darkorange,'
-            elif t_lvl == 2:
-                color = 'vertex_color=gold,'
-            elif t_lvl == 1:
-                color = 'vertex_color=greenyellow,'
-            elif t_lvl == 0:
-                color = 'vertex_color=green,'
-            elif t_lvl == -1: # Landmark
-                color = 'vertex_color=violet'
-            elif t_lvl == -2: # LIGHTS
-                color = 'vertex_color=cornflowerblue,'
+            MLLW_t_lvl = feature.GetField(0) # Get threat level (@ MLLW)
+            WL = feature.GetField(1)
+            depth = feature.GetField(2)
+            obs_type = feature.GetFeature(3)
+            t_lvl = self.calc_t_lvl(depth, WL, obs_type)
             
-            size =  'vertex_size=10,'   
-            m = location+size+color
-            
-            # Print the point
-            self.comms.notify('VIEW_POINT', m)
+            if self.first_print or MLLW_t_lvl == t_lvl:
+                geom = feature.GetGeometryRef()
+        
+                # Convert the MOOS x,y position to Lat/Long and store it
+                new_x, new_y = self.LonLat2MOOSxy (geom.GetX(), geom.GetY())
+                location = 'x={},y={},'.format(new_x, new_y)
+                
+                
+                # Change the Color of the point based on the Threat Level
+                if t_lvl == 5: #Coast Line
+                    color = 'vertex_color=black,'
+                elif t_lvl == 4:
+                    color = 'vertex_color=red,'
+                elif t_lvl == 3:
+                    color = 'vertex_color=darkorange,'
+                elif t_lvl == 2:
+                    color = 'vertex_color=gold,'
+                elif t_lvl == 1:
+                    color = 'vertex_color=greenyellow,'
+                elif t_lvl == 0:
+                    color = 'vertex_color=green,'
+                elif t_lvl == -1: # Landmark
+                    color = 'vertex_color=violet'
+                elif t_lvl == -2: # LIGHTS
+                    color = 'vertex_color=cornflowerblue,'
+                
+                size =  'vertex_size=10,'   
+                print_pnt = location+size+color
+                
+                # Print the point
+                self.MOOS.comms.notify('VIEW_POINT', print_pnt)
             feature = self.ENC_point_layer.GetNextFeature()
     
     def print_polygons(self):
@@ -260,48 +335,57 @@ class Print_ENC(object):
         feature = self.ENC_poly_layer.GetFeature(0)
         while feature:
             time.sleep(.0001)
-            geom = feature.GetGeometryRef() # Polygon from shapefile
+        
+            MLLW_t_lvl = feature.GetField(0) # Get threat level (@ MLLW)
+            WL = feature.GetField(1)
+            depth = feature.GetField(2)
+            obs_type = feature.GetField(3)
+            t_lvl = self.calc_t_lvl(depth, WL, obs_type) # Calculate the threat level with respect to the current tide
             
-            # Get the interesection of the polygon from the shapefile and the
-            #   outline of tiff from pMarnineViewer
-            intersection_poly = geom#.Intersection(self.print_area_filter) 
-            
-            # Get the ring of that intersection polygon
-            p_ring = intersection_poly.GetGeometryRef(0) 
-            
-            if p_ring:
-                # Determine how many vertices there are in the polygon
-                points = p_ring.GetPointCount()
-                vertex = 'pts={' # String to hold the vertices
-                # Cycle through the vertices and store them as a string
-                for p1 in xrange(points):
-                    lon, lat, z = p_ring.GetPoint(p1)
-                    p_x,p_y = self.LonLat2MOOSxy (lon, lat)
-                    vertex += str(p_x) + ','+ str(p_y)
-                    if (p1!=points-1):
-                        vertex += ':'
-                t_lvl = feature.GetField(0) # Get threat level
+            if self.first_print or MLLW_t_lvl != t_lvl:
+                geom = feature.GetGeometryRef() # Polygon from shapefile
                 
-                # Change the Color of the point based on the Threat Level
-                if t_lvl == 5:
-                    color = 'edge_color=black,vertex_color=black'
-                if t_lvl == 4:
-                    color = 'edge_color=red,vertex_color=red'
-                elif t_lvl == 3:
-                    color = 'edge_color=darkorange,vertex_color=darkorange'
-                elif t_lvl == 2:
-                    color = 'edge_color=gold,vertex_color=gold'
-                elif t_lvl == 1:
-                    color = 'edge_color=greenyellow,vertex_color=greenyellow'
-                elif t_lvl == 0:
-                    color = 'edge_color=green,vertex_color=green'
-                elif t_lvl == -1: # Landmark
-                    color = 'edge_color=violet,vertex_color=violet'
-                elif t_lvl == -2: # LIGHTS
-                    color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
-                  
-                if points != 0:
-                    self.comms.notify('VIEW_SEGLIST', vertex+'},vertex_size=2.5,edge_size=2,'+color)
+                # Get the interesection of the polygon from the shapefile and the
+                #   outline of tiff from pMarnineViewer
+                intersection_poly = geom#.Intersection(self.print_area_filter) 
+                
+                # Get the ring of that intersection polygon
+                p_ring = intersection_poly.GetGeometryRef(0) 
+                
+                if p_ring:
+                    # Determine how many vertices there are in the polygon
+                    points = p_ring.GetPointCount()
+                    vertex = 'pts={' # String to hold the vertices
+                    # Cycle through the vertices and store them as a string
+                    for p1 in xrange(points):
+                        lon, lat, z = p_ring.GetPoint(p1)
+                        p_x,p_y = self.LonLat2MOOSxy (lon, lat)
+                        vertex += str(p_x) + ','+ str(p_y)
+                        if (p1!=points-1):
+                            vertex += ':'
+                    
+                    vertex += '}'
+                    
+                    # Change the Color of the point based on the Threat Level
+                    if t_lvl == 5:
+                        color = 'edge_color=black,vertex_color=black'
+                    if t_lvl == 4:
+                        color = 'edge_color=red,vertex_color=red'
+                    elif t_lvl == 3:
+                        color = 'edge_color=darkorange,vertex_color=darkorange'
+                    elif t_lvl == 2:
+                        color = 'edge_color=gold,vertex_color=gold'
+                    elif t_lvl == 1:
+                        color = 'edge_color=greenyellow,vertex_color=greenyellow'
+                    elif t_lvl == 0:
+                        color = 'edge_color=green,vertex_color=green'
+                    elif t_lvl == -1: # Landmark
+                        color = 'edge_color=violet,vertex_color=violet'
+                    elif t_lvl == -2: # LIGHTS
+                        color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
+                      
+                    if points != 0:
+                        self.MOOS.comms.notify('VIEW_SEGLIST', '{},vertex_size=2.5,edge_size=2,{}'.format(vertex, color))
             feature = self.ENC_poly_layer.GetNextFeature()
             
     def poly_line_intersect(self, poly, line):
@@ -368,46 +452,53 @@ class Print_ENC(object):
         feature = self.ENC_line_layer.GetNextFeature()
         while feature:
             time.sleep(.0001)
-            line = feature.GetGeometryRef() # line from shapefile
             
-#            # Get the interesection of the line from the shapefile and the
-#            #   outline of tiff from pMarnineViewer
-#            line = self.poly_line_intersect(self.print_area_filter, feature.GetGeometryRef())
-    
-            points = line.GetPointCount()
+            MLLW_t_lvl = feature.GetField(0) # Get threat level
+            WL = feature.GetField(1)
+            depth = feature.GetField(2)
+            obs_type = feature.GetField(3)
+            t_lvl = self.calc_t_lvl(depth, WL, obs_type)
             
-            vertex = 'pts={' # String to hold the vertices
-            # Cycle through the vertices and store them as a string
-            for p2 in xrange(points):
-                lon, lat, z = line.GetPoint(p2)
-                p_x,p_y = self.LonLat2MOOSxy (lon, lat)
-                pos = '{},{}'.format(p_x, p_y)
-                vertex += pos
-                if (p2!=points-1):
-                    vertex += ':'
-            t_lvl = feature.GetField(0) # Get threat level
-            vertex += '}'
-            
-            # Change the Color of the point based on the Threat Level
-            if t_lvl == 5:
-                color = 'edge_color=black,vertex_color=black'
-            if t_lvl == 4:
-                color = 'edge_color=red,vertex_color=red'
-            elif t_lvl == 3:
-                color = 'edge_color=darkorange,vertex_color=darkorange'
-            elif t_lvl == 2:
-                color = 'edge_color=gold,vertex_color=gold'
-            elif t_lvl == 1:
-                color = 'edge_color=greenyellow,vertex_color=greenyellow'
-            elif t_lvl == 0:
-                color = 'edge_color=green,vertex_color=green'
-            elif t_lvl == -1: # Landmark
-                color = 'edge_color=violet,vertex_color=violet'
-            elif t_lvl == -2: # LIGHTS
-                color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
-            if points != 0:
-                line_info = '{},vertex_size=2.5,edge_size=2,{}'.format(vertex, color)
-                self.comms.notify('VIEW_SEGLIST', line_info)
+            if self.first_print or MLLW_t_lvl != t_lvl:
+                line = feature.GetGeometryRef() # line from shapefile
+                
+#                # Get the interesection of the line from the shapefile and the
+#                #   outline of tiff from pMarnineViewer
+#                line = self.poly_line_intersect(self.print_area_filter, feature.GetGeometryRef())
+        
+                points = line.GetPointCount()
+                
+                vertex = 'pts={' # String to hold the vertices
+                # Cycle through the vertices and store them as a string
+                for p2 in xrange(points):
+                    lon, lat, z = line.GetPoint(p2)
+                    p_x,p_y = self.LonLat2MOOSxy (lon, lat)
+                    pos = '{},{}'.format(p_x, p_y)
+                    vertex += pos
+                    if (p2!=points-1):
+                        vertex += ':'
+                        
+                vertex += '}'
+                # Change the Color of the point based on the Threat Level
+                if t_lvl == 5:
+                    color = 'edge_color=black,vertex_color=black'
+                if t_lvl == 4:
+                    color = 'edge_color=red,vertex_color=red'
+                elif t_lvl == 3:
+                    color = 'edge_color=darkorange,vertex_color=darkorange'
+                elif t_lvl == 2:
+                    color = 'edge_color=gold,vertex_color=gold'
+                elif t_lvl == 1:
+                    color = 'edge_color=greenyellow,vertex_color=greenyellow'
+                elif t_lvl == 0:
+                    color = 'edge_color=green,vertex_color=green'
+                elif t_lvl == -1: # Landmark
+                    color = 'edge_color=violet,vertex_color=violet'
+                elif t_lvl == -2: # LIGHTS
+                    color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
+                if points != 0:
+                    line_info = '{},vertex_size=2.5,edge_size=2,{}'.format(vertex, color)
+                    self.MOOS.comms.notify('VIEW_SEGLIST', line_info)
             feature = self.ENC_line_layer.GetNextFeature()
             
     def print_all(self):
@@ -417,6 +508,22 @@ class Print_ENC(object):
         self.print_points()
         self.print_polygons()
         self.print_lines()
+        self.first_print = False
+        while(True):
+            self.MOOS.Get_mail()
+            if (len(self.MOOS.MHW_offset)):
+                self.MHW_Offset = self.MOOS.MHW_offset[-1]
+                self.MOOS.MHW_offset=[]
+
+            if (len(self.MOOS.tide)!=0):
+                # Get the current tide
+                self.tide = self.MOOS.tide[-1]
+                self.MOOS.tide = []
+                self.print_points()
+                self.print_polygons()
+                self.print_lines()
+
+                
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
