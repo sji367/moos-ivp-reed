@@ -1,0 +1,124 @@
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5NH01E - PORTSMOUTH TO DOVER AND EXETER
+
+INDEX:
+CAUTION - CURRENTS
+AIDS TO NAVIGATION
+POLLUTION REPORTS
+SUPPLEMENTAL INFORMATION
+CAUTION - TEMPORARY
+CAUTION - DREDGED AREAS 
+CAUTION - SUBMARINE PIPELINES AND CABLES
+NOAA WEATHER RADIO BROADCASTS
+AUTHORITIES
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+CAUTION - LIMITATIONS
+WARNING - PRUDENT MARINER
+RADAR REFLECTORS
+
+
+NOTES:
+CAUTION - CURRENTS
+General navigation throughout the entire length of the 
+Pascataqua River system is severely hampered 
+by rapid tidal currents. Velocities vary by location 
+due to irregular width, depth, and direction of the river
+and tributaries. Hazardous crosscurrents result.  
+Navigation of deep-draft vessels is limited to a 3-hour 
+period from 1.5 hours before to 1.5 hours after slack water.
+Mariners are advised to exercise caution when approaching 
+wharfs.
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for 
+supplemental information concerning aids to 
+navigation.
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via 
+1-800-424-8802 (toll free), or to the nearest U.S. 
+Coast Guard facility if telephone communication 
+is impossible (33 CFR 153).
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot for important 
+supplemental information.
+
+CAUTION - TEMPORARY
+Temporary changes or defects in aids to 
+navigation are not indicated. See 
+Local Notice to Mariners.
+During some winter months or when endan-
+gered by ice, certain aids to navigation are 
+replaced by other types or removed.  For details 
+see U.S. Coast Guard Light List.
+
+CAUTION - DREDGED AREAS
+Improved channels are 
+subject to shoaling, particularly at the edges.
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and 
+submarine cables may exist within the area of 
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and 
+those that were originally buried may have 
+become exposed. Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas where 
+pipelines and cables may exist, and when 
+anchoring, dragging or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio station listed 
+below provides continuous weather broadcasts.  
+The reception range is typically 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 100 nautical miles for stations at 
+high elevations.
+
+Portland, ME		KDO-95    	162.550 MHz
+Boston, MA		KHB-35		162.475 MHz
+Concord, NH		WXJ-40		162.400 MHz
+Essex Marine, MA	WNG-574		162.425 MHz
+Stratham, NH	        KZZ-40		162.450 MHz
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast 
+Survey, with additional data from the Corps of Engineers, and U.S. 
+Coast Guard.
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to 
+http://coops.nos.noaa.gov
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as 
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National 
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial 
+broadcasting stations are subject to error and 
+should be used with caution.
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on 
+any single aid to navigation, particularly on 
+floating aids. See U.S. Coast Guard Light List 
+and U.S. Coast Pilot for details.
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar 
+reflector identification on these aids has been 
+omitted from this chart.
+
+END OF FILE
