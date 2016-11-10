@@ -20,7 +20,6 @@ from osgeo import ogr
 # Numpy is a useful tool for mathematical operations
 import numpy as np
 
-
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 class MOOS_comms(object):
@@ -41,6 +40,8 @@ class MOOS_comms(object):
         self.Next_WPT = []
         self.WPT_INDEX = []
         self.buff = []
+        self.origin_lat = []
+        self.origin_lon = []
 
     def Register_Vars(self):
         """ This function registers for the updates of the X,Y and heading at 
@@ -52,6 +53,8 @@ class MOOS_comms(object):
         self.comms.register('Next_WPT', 0)
         self.comms.register('WPT_INDEX', 0)
         self.comms.register('Buffer_dist', 0)
+        self.comms.register('LatOrigin', 0)
+        self.comms.register('LonOrigin', 0)
         return True
         
     def Set_time_warp(self, timewarp):
@@ -101,6 +104,10 @@ class MOOS_comms(object):
                     self.Next_WPT.append(x.string())
                 elif (x.name() == 'Buffer_dist'):
                     self.buff.append(x.string())
+                elif x.name()=='LatOrigin':
+                    self.origin_lat.append(x.string())
+                elif x.name()=='LongOrigin':
+                    self.origin_lon.append(x.string())
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
@@ -118,7 +125,7 @@ class WPT_Check_ENC(object):
     
     def __init__(self, buffer_dist=25, LatOrigin=43.071959194444446, 
                  LongOrigin=-70.711610833333339, debug = True,
-                 filename_poly='../../src/ENCs/US5NH02M/Shape/poly.shp',):
+                 filename_poly='../../src/ENCs/Shape/poly.shp',):
         """ Initialize varibles. 
             
             Inputs:
@@ -132,7 +139,6 @@ class WPT_Check_ENC(object):
         self.LatOrigin = LatOrigin
         self.LongOrigin = LongOrigin
         self.buffer_dist = buffer_dist
-        self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         self.filename_poly = filename_poly
         self.debug = debug
     
@@ -573,6 +579,7 @@ class WPT_Check_ENC(object):
         # Start connection to MOOS
         MOOS = MOOS_comms()
         MOOS.Initialize()
+        time.sleep(.11)
         
         # Open the file with the polygon obstacles
         driver = ogr.GetDriverByName('ESRI Shapefile')
@@ -589,6 +596,15 @@ class WPT_Check_ENC(object):
         self.first_pos = True
         self.x_int, self.y_int = [],[]
         self.wpt_index = 0
+        
+        MOOS.Get_mail()
+        # Get the Lat/Long Origin
+        if (len(MOOS.origin_lat) != 0 and len(MOOS.origin_lon) != 0): 
+            origin_lat = self.MOOS.origin_lat[-1]
+            origin_lon = self.MOOS.origin_lon[-1]
+            self.LatOrigin = float(origin_lat)
+            self.LongOrigin = float(origin_lon)
+        self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         
         if self.debug:
             print "Init"

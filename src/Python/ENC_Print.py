@@ -34,7 +34,7 @@ class MOOS_comms(object):
         self.comms = pymoos.comms()
         self.tide = []
         self.MHW_offset = []
-        self.ENCs = []
+#        self.ENCs = []
         self.origin_lat = []
         self.origin_lon = []
 
@@ -43,7 +43,6 @@ class MOOS_comms(object):
         """
         self.comms.register('Current_Tide', 0)
         self.comms.register('MHW_Offset', 0)
-        self.comms.register('ENCs', 0)
         self.comms.register('LatOrigin', 0)
         self.comms.register('LonOrigin', 0)
         return True
@@ -81,8 +80,6 @@ class MOOS_comms(object):
                 self.tide.append(x.string())
             elif x.name() == 'MHW_Offset':
                 self.MHW_offset.append(x.string()) 
-            elif x.name() == 'ENCs':
-                self.ENCs.append(x.string()) 
             elif x.name()=='LatOrigin':
                 self.origin_lat.append(x.string())
             elif x.name()=='LongOrigin':
@@ -98,16 +95,21 @@ class Print_ENC(object):
     # Define which UTM zone we are in
     LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
     
-    def __init__(self, LatOrigin=43.071959194444446, 
-                 LongOrigin=-70.711610833333339,
-                 filename_pnt='../../src/ENCs/US5NH02M/Shape/point.shp', 
-                 filename_poly='../../src/ENCs/US5NH02M/Shape/poly.shp', 
-                 filename_line='../../src/ENCs/US5NH02M/Shape/line.shp'):
+    def __init__(self, LatOrigin=43.071959194444446, print_t_lvl0=False,
+                 LongOrigin=-70.711610833333339,  print_all_feat=True,
+                 filename_pnt='../../src/ENCs/Shape/point.shp', 
+                 filename_poly='../../src/ENCs/Shape/poly.shp', 
+                 filename_line='../../src/ENCs/Shape/line.shp'):
         """ Initialize varibles. 
             
         Inputs:
             LatOrigin - Latitude origin for the pyproj conversion to UTM
             LongOrigin - Longitude origin for the pyproj conversion to UTM
+            print_t_lvl0 - Boolean for printing things that are threat level 0 
+                            True - Print object that are threat level 0
+                            False - Don't print object that are threat level 0
+            print_all_feat - Boolean for determining if we want to limit 
+                            spatially the objects printed to pMarineViewer
             filename_* - path to the shapefiles which are organized by geometry
                          type 
         """
@@ -116,6 +118,9 @@ class Print_ENC(object):
         self.print_area_filter = ogr.Geometry(ogr.wkbPolygon)
         self.first_print = True
         
+        self.print_t_lvl0 = print_t_lvl0
+        self.print_all_feat = print_all_feat 
+
         self.filename_pnt = filename_pnt
         self.filename_poly = filename_poly
         self.filename_line = filename_line
@@ -123,9 +128,9 @@ class Print_ENC(object):
         # Open a communication link to MOOS
         self.init_MOOS()
         self.tide = 0
-        
+#        print '{} \n {} \n {}'.format(self.filename_pnt, self.filename_poly, self.filename_line)
         # Find the point, polygon and line layers
-        self.Get_layers(filename_pnt, filename_poly, filename_line) 
+        self.Get_layers() 
     
     def init_MOOS(self):
         """ Initializes the communication link to MOOS. 
@@ -141,14 +146,7 @@ class Print_ENC(object):
         if (len(self.MOOS.MHW_offset) != 0):
             MLLW = self.MOOS.MHW_offset[-1]
             self.MHW_Offset = float(MLLW)
-#            self.MOOS.MHW_Offset = []
-            
-        # Get the desired ENC 
-        if (len(self.MOOS.ENCs) != 0):    
-            ENC = self.MOOS.ENCs[-1]
-            self.filename_pnt = '../../src/ENCs/{}/Shape/point.shp'.format(ENC)
-            self.filename_poly = '../../src/ENCs/{}/Shape/poly.shp'.format(ENC)
-            self.filename_line = '../../src/ENCs/{}/Shape/line.shp'.format(ENC)
+            self.MOOS.MHW_Offset = []
         
         # Get the Lat/Long Origin
         if (len(self.MOOS.origin_lat) != 0 and len(self.MOOS.origin_lon) != 0): 
@@ -159,20 +157,10 @@ class Print_ENC(object):
         self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         
         
-    def Get_layers(self, filename_pnt, filename_poly, filename_line, 
-                   print_t_lvl0=False, print_all_feat=False):
+    def Get_layers(self):
         """ This function defines the layers for the points, polygon and lines.
             It also can filter the layers spatially and to not contain objects 
             with threat level 0.
-        
-        Inputs:
-            filename_* - path to the shapefiles which are organized by geometry
-                         type 
-            print_t_lvl0 - Boolean for printing things that are threat level 0
-                            True - Print object that are threat level 0
-                            False - Don't print object that are threat level 0
-            print_all_feat - Boolean for determining if we want to limit 
-                            spatially the objects printed to pMarineViewer
         
         Outputs:
             self.ENC_point_layer- OGR layer that holds all the information from
@@ -184,25 +172,25 @@ class Print_ENC(object):
         """
         driver = ogr.GetDriverByName('ESRI Shapefile')
         # Get the Datasourse
-        self.ds_pnt = driver.Open(filename_pnt, 0)
-        self.ds_poly = driver.Open(filename_poly, 0)
-        self.ds_line = driver.Open(filename_line, 0)
+        self.ds_pnt = driver.Open(self.filename_pnt, 0)
+        self.ds_poly = driver.Open(self.filename_poly, 0)
+        self.ds_line = driver.Open(self.filename_line, 0)
         
         self.ENC_point_layer = self.ds_pnt.GetLayer()
         self.ENC_poly_layer = self.ds_poly.GetLayer()
         self.ENC_line_layer = self.ds_line.GetLayer()
         
-        self.filter_feat(print_t_lvl0, print_all_feat)
+        self.filter_feat()
             
-    def filter_feat(self, print_t_lvl0=False, print_all_feat=False):
+    def filter_feat(self):
         """ This function filters the layers and reset them so that they start 
             on the first layer when feature.GetNextFeature() is called.
             
         Inputs:
-            print_t_lvl0 - Boolean for printing things that are threat level 0
+            self.print_t_lvl0 - Boolean for printing things that are t_lvl 0 
                             True - Print object that are threat level 0
                             False - Don't print object that are threat level 0
-            print_all_feat - Boolean for determining if we want to limit 
+            self.print_all_feat - Boolean for determining if we want to limit 
                             spatially the objects printed to pMarineViewer
         """
         
@@ -216,7 +204,7 @@ class Print_ENC(object):
         self.ENC_poly_layer.SetAttributeFilter(None)
         self.ENC_line_layer.SetAttributeFilter(None)
         
-        if not print_t_lvl0:
+        if not self.print_t_lvl0:
             self.ENC_point_layer.SetAttributeFilter("t_lvl>0")
             self.ENC_poly_layer.SetAttributeFilter("t_lvl>0")
             self.ENC_line_layer.SetAttributeFilter("t_lvl>0")
@@ -229,7 +217,7 @@ class Print_ENC(object):
         self.ENC_poly_layer.SetSpatialFilter(self.print_area_filter)
         self.ENC_line_layer.SetSpatialFilter(self.print_area_filter)
         
-        if print_all_feat:  
+        if self.print_all_feat:  
             self.ENC_point_layer.SetSpatialFilter(None)
             self.ENC_poly_layer.SetSpatialFilter(None)
             self.ENC_line_layer.SetSpatialFilter(None)
@@ -298,11 +286,9 @@ class Print_ENC(object):
                 current_depth = depth+self.tide    
             # WL is unknown
             if WL == 0:
-#                print '0'
                 t_lvl = self.threat_level(current_depth)  
             # No Charted Depth
             elif current_depth == 9999:
-#                print '9999'
                 # If there is no depth, use the Water Level attribute to 
                 #   calculate the threat level
                 t_lvl = self.threat_level(self.calc_WL_depth(WL))
@@ -433,7 +419,7 @@ class Print_ENC(object):
         """
         i = 0
         layer = self.ENC_point_layer
-        
+        print layer.GetFeatureCount()
         feature = layer.GetNextFeature()
         while feature:
             time.sleep(.0001)
@@ -505,9 +491,12 @@ class Print_ENC(object):
                 if not self.first_print:
                     print 'Poly -  Old:{}, New{}'.format(MLLW_t_lvl, t_lvl)
                 
-                # Get the interesection of the polygon from the shapefile and the
-                #   outline of tiff from pMarnineViewer
-                intersection_poly = geom.Intersection(self.print_area_filter) 
+                if not self.print_all_feat:
+                    # Get the interesection of the polygon from the shapefile and the
+                    #   outline of tiff from pMarnineViewer
+                    intersection_poly = geom.Intersection(self.print_area_filter)
+                else:
+                    intersection_poly = geom
                 
                 # Get the ring of that intersection polygon
                 p_ring = intersection_poly.GetGeometryRef(0) 
@@ -629,9 +618,10 @@ class Print_ENC(object):
                 if not self.first_print:
                     print 'Line -  Old:{}, New{}'.format(MLLW_t_lvl, t_lvl)
                 
-#                # Get the interesection of the line from the shapefile and the
-#                #   outline of tiff from pMarnineViewer
-                line = self.poly_line_intersect(self.print_area_filter, feature.GetGeometryRef())
+                if not self.print_all_feat:
+                    # Get the interesection of the line from the shapefile and the
+                    #   outline of tiff from pMarnineViewer
+                    line = self.poly_line_intersect(self.print_area_filter, feature.GetGeometryRef())
         
                 points = line.GetPointCount()
                 label = 'label=line_{}'.format(i)

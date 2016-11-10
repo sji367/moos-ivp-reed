@@ -108,6 +108,7 @@ class config_file(object):
         
         list_config = parse_file(self.config_filename)
         for i in range(len(list_config)):
+            time.sleep(.01)
             param = list_config[i][0].lower()
             data = list_config[i][1]
             if Debug:
@@ -174,9 +175,11 @@ class config_file(object):
                         ENCs = self.default_ENCs
                     self.comms.notify('ENCs', str(ENCs))
                 else:
-                    for i in range(len(ENCs)):
-                        time.sleep(.001)
-                        self.comms.notify('ENCs', ENCs[i])
+                    all_ENCs = ENCs[0]
+                    for i in range(1,len(ENCs)):
+                        all_ENCs += ',{}'.format(ENCs[i])
+                    print all_ENCs
+                    self.comms.notify('ENCs', all_ENCs)
             elif (param=='tide_station_id'):
                 tide_station_ID = data
                 if tide_station_ID.lower() == 'default':

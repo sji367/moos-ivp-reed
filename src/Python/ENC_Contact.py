@@ -47,11 +47,8 @@ class MOOS_comms(object):
         self.NAV_X = []
         self.NAV_Y = []
         self.NAV_HEAD = []
-        # If there is no information on the current tide, then the first value 
-        #   will be 0.
         self.Tide = []
         self.MHW_Offset = []
-        # If there is no information on which ENC, use US5NH02
         self.ENCs = []
         self.origin_lat = []
         self.origin_lon = []
@@ -140,9 +137,9 @@ class Search_ENC(object):
     def __init__(self, search_dist=75, LatOrigin=43.071959194444446, 
                  LongOrigin=-70.711610833333339,
                  ENC_filename='../../src/ENCs/US5NH02M/US5NH02M.000', 
-                 filename_pnt='../../src/ENCs/US5NH02M/Shape/point.shp', 
-                 filename_poly='../../src/ENCs/US5NH02M/Shape/poly.shp', 
-                 filename_line='../../src/ENCs/US5NH02M/Shape/line.shp'):
+                 filename_pnt='../../src/ENCs/Shape/point.shp', 
+                 filename_poly='../../src/ENCs/Shape/poly.shp', 
+                 filename_line='../../src/ENCs/Shape/line.shp'):
         """ Initialize varibles. 
             
             Inputs:
@@ -157,7 +154,8 @@ class Search_ENC(object):
         self.LongOrigin = LongOrigin
         self.search_dist = search_dist
         self.search_area_poly = ogr.Geometry(ogr.wkbPolygon)
-        self.ENC_filename = ENC_filename
+        self.ENC_filename = []
+        self.ENC_filename.append(ENC_filename)
         self.filename_pnt = filename_pnt
         self.filename_poly = filename_poly
         self.filename_line = filename_line
@@ -703,9 +701,9 @@ class Search_ENC(object):
                 # Get the next feature
                 feat = layer.GetNextFeature()
         else:
-            print "Layer " + LayerName + " is not in the ENC"
+            print 'Layer {} is not in the ENC'.format(LayerName)
     
-    def read_ENC(self):
+    def read_ENC(self, cntr):
         """ This converts the ENC into OGR layers by geometry types. This 
             information will then be used by the all other functions in this 
             class.
@@ -718,14 +716,15 @@ class Search_ENC(object):
             ENC_line_layer - OGR layer that holds all the information from the 
                                 ENC that have line geometry
         """
+        if cntr == 0: 
+            # Create a OGR layer for the point obstacles, polygon obstacles and  
+            #   the line obstacles. 
+            self.BuildLayers()
         
-        # Create a OGR layer for the point obstacles, polygon obstacles and  
-        #   the line obstacles. 
-        self.BuildLayers()
+        self.ds = ogr.Open(self.ENC_filename[cntr])
         
         # Layers that are only points --> UWTROC, LIGHTS, BOYSPP, BOYISD, 
         #   BOYSAW, BOYLAT, BCNSPP, BCNLAT
-        
         self.ENC_Converter('UWTROC')
         self.ENC_Converter('LIGHTS')
         self.ENC_Converter('BOYSPP')
@@ -1206,15 +1205,19 @@ class Search_ENC(object):
             MOOS.MHW_Offset = []
         
         # Get the desired ENC 
-        if (len(MOOS.ENCs) != 0):    
+        if (len(MOOS.ENCs) != 0):
             ENC = MOOS.ENCs[-1]
-            self.ENC_filename = '../../src/ENCs/{}/{}.000'.format(ENC, ENC)
-            self.filename_pnt = '../../src/ENCs/{}/Shape/point.shp'.format(ENC)
-            self.filename_poly = '../../src/ENCs/{}/Shape/poly.shp'.format(ENC)
-            self.filename_line = '../../src/ENCs/{}/Shape/line.shp'.format(ENC)
-            
-        self.ds = ogr.Open(self.ENC_filename)
-        
+            ENC = ENC.split(',')
+            if path.exists('../../src/ENCs/{}/{}.000'.format(ENC[0], ENC[0])):
+                self.ENC_filename[0] = '../../src/ENCs/{}/{}.000'.format(ENC[0], ENC[0])
+            else:
+                print '{} does not exist.'.format(ENC[0])
+            for i in range(1,len(ENC)):
+                filename = '../../src/ENCs/{}/{}.000'.format(ENC[i], ENC[i])
+                if path.exists(filename):
+                    self.ENC_filename.append(filename)
+                else:
+                    print '{} does not exist.'.format(filename)
         # Get the Lat/Long Origin
         if (len(MOOS.origin_lat) != 0 and len(MOOS.origin_lon) != 0): 
             origin_lat = MOOS.origin_lat[-1]
@@ -1224,7 +1227,8 @@ class Search_ENC(object):
         self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         
         # Build the shapefile layers
-        self.read_ENC()
+        for ii in range(len(self.ENC_filename)):
+            self.read_ENC(ii)
         
         # Counter to remove the highlighted obstacles from pMarnineViewer that
         #   are not within the search area.
