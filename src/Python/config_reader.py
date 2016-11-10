@@ -159,24 +159,24 @@ class config_file(object):
             # ENCs and Tide Station
             elif (param=='origin'):
                 origin = data
-                if ',' not in origin:
+                if ((type(origin) is not list) or (type(origin) is list and len(origin) !=2)):
                     # If it is not 'default', print a warning
-                    if origin.lower() != 'default':
+                    if (type(origin) is list):
                         print('Invalid origin: {} - using the default {}'.format(origin, type(origin)))
-                    origin = self.default_origin
-                split_origin = origin.split(',')
-                LatOrigin = split_origin[0]
-                LongOrigin= split_origin[1]
-                if len(split_origin)>2:
-                    print('Too many data points: {}, using the first two.'.format(origin))
-                self.comms.notify('LatOrigin', str(LatOrigin))
-                self.comms.notify('LongOrigin', str(LongOrigin))
+                    origin = self.default_origin.split(',')
+                self.comms.notify('LatOrigin', str(origin[0]))
+                self.comms.notify('LongOrigin', str(origin[1]))
                     
             elif (param=='enc_name'):
                 ENCs = data
-                if ENCs.lower() == 'default':
-                    ENCs = self.default_ENCs
-                self.comms.notify('ENCs', '{}'.format(ENCs))
+                if type(ENCs) is not list:
+                    if ENCs.lower() == 'default':
+                        ENCs = self.default_ENCs
+                    self.comms.notify('ENCs', str(ENCs))
+                else:
+                    for i in range(len(ENCs)):
+                        time.sleep(.001)
+                        self.comms.notify('ENCs', ENCs[i])
             elif (param=='tide_station_id'):
                 tide_station_ID = data
                 if tide_station_ID.lower() == 'default':
