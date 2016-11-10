@@ -210,12 +210,12 @@ ProcessConfig = pMarineViewer
   tiff_file            = data/portsmouth2.tif
 
   // points obstacles
-  //set_pan_x            = 375
-  //set_pan_y            = 350
+  set_pan_x            = 375
+  set_pan_y            = 350
 
   // Through an Island
-  set_pan_x            = -385
-  set_pan_y            = 250
+  //set_pan_x            = -385
+  //set_pan_y            = 250
 
   // Landmarks
   //set_pan_x            = -5000//-1000//

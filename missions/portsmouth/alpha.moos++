@@ -7,6 +7,8 @@ ServerHost = localhost
 ServerPort = 9000
 Community  = ASV
 
+//----  Next Line was commented and replaced with a command line overload ---- //
+//MOOSTimeWarp = 1    (default)
 MOOSTimeWarp = 1
 TERM_REPORTING = true
 
@@ -303,3 +305,4 @@ ProcessConfig = uTermCommandFoo
   cmd  = return_true    -->  RETURN --> true
   cmd  = return_false   -->  RETURN --> false
 }
+
