@@ -32,14 +32,20 @@ class MOOS_comms(object):
     def __init__(self):
         # Open a communication link to MOOS
         self.comms = pymoos.comms()
-        self.tide = [0.0]
-        self.MHW_offset = [0.0]
+        self.tide = []
+        self.MHW_offset = []
+        self.ENCs = []
+        self.origin_lat = []
+        self.origin_lon = []
 
     def Register_Vars(self):
         """ Register for the current tide and the offset between MHW and MLLW.
         """
-        self.comms.register('Current_Tide',0)
-        self.comms.register('MHW_Offset',0)
+        self.comms.register('Current_Tide', 0)
+        self.comms.register('MHW_Offset', 0)
+        self.comms.register('ENCs', 0)
+        self.comms.register('LatOrigin', 0)
+        self.comms.register('LonOrigin', 0)
         return True
         
     def Set_time_warp(self, timewarp):
@@ -72,9 +78,15 @@ class MOOS_comms(object):
         # Store all values of the tide
         for x in info:
             if x.name() == 'Current_Tide':
-                self.tide.append(float(x.string()))
-            if x.name() == 'MHW_Offset':
-                self.MHW_offset.append(float(x.string()))
+                self.tide.append(x.string())
+            elif x.name() == 'MHW_Offset':
+                self.MHW_offset.append(x.string()) 
+            elif x.name() == 'ENCs':
+                self.ENCs.append(x.string()) 
+            elif x.name()=='LatOrigin':
+                self.origin_lat.append(x.string())
+            elif x.name()=='LongOrigin':
+                self.origin_lon.append(x.string())
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#       
@@ -101,15 +113,19 @@ class Print_ENC(object):
         """
         self.LatOrigin = LatOrigin
         self.LongOrigin = LongOrigin
-        self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         self.print_area_filter = ogr.Geometry(ogr.wkbPolygon)
         self.first_print = True
         
-        # Find the point, polygon and line layers
-        self.Get_layers(filename_pnt, filename_poly, filename_line)        
+        self.filename_pnt = filename_pnt
+        self.filename_poly = filename_poly
+        self.filename_line = filename_line
         
         # Open a communication link to MOOS
         self.init_MOOS()
+        self.tide = 0
+        
+        # Find the point, polygon and line layers
+        self.Get_layers(filename_pnt, filename_poly, filename_line) 
     
     def init_MOOS(self):
         """ Initializes the communication link to MOOS. 
@@ -120,11 +136,31 @@ class Print_ENC(object):
         self.MOOS = MOOS_comms()
         self.MOOS.Initialize()
         # Need this time to connect to MOOS
-        time.sleep(.11)
+        time.sleep(.25)
+        self.MOOS.Get_mail()
+        if (len(self.MOOS.MHW_offset) != 0):
+            MLLW = self.MOOS.MHW_offset[-1]
+            self.MHW_Offset = float(MLLW)
+#            self.MOOS.MHW_Offset = []
+            
+        # Get the desired ENC 
+        if (len(self.MOOS.ENCs) != 0):    
+            ENC = self.MOOS.ENCs[-1]
+            self.filename_pnt = '../../src/ENCs/{}/Shape/point.shp'.format(ENC)
+            self.filename_poly = '../../src/ENCs/{}/Shape/poly.shp'.format(ENC)
+            self.filename_line = '../../src/ENCs/{}/Shape/line.shp'.format(ENC)
+        
+        # Get the Lat/Long Origin
+        if (len(self.MOOS.origin_lat) != 0 and len(self.MOOS.origin_lon) != 0): 
+            origin_lat = self.MOOS.origin_lat[-1]
+            origin_lon = self.MOOS.origin_lon[-1]
+            self.LatOrigin = float(origin_lat)
+            self.LongOrigin = float(origin_lon)
+        self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         
         
     def Get_layers(self, filename_pnt, filename_poly, filename_line, 
-                   print_t_lvl0=False, print_all_feat=True):
+                   print_t_lvl0=False, print_all_feat=False):
         """ This function defines the layers for the points, polygon and lines.
             It also can filter the layers spatially and to not contain objects 
             with threat level 0.
@@ -156,19 +192,48 @@ class Print_ENC(object):
         self.ENC_poly_layer = self.ds_poly.GetLayer()
         self.ENC_line_layer = self.ds_line.GetLayer()
         
+        self.filter_feat(print_t_lvl0, print_all_feat)
+            
+    def filter_feat(self, print_t_lvl0=False, print_all_feat=False):
+        """ This function filters the layers and reset them so that they start 
+            on the first layer when feature.GetNextFeature() is called.
+            
+        Inputs:
+            print_t_lvl0 - Boolean for printing things that are threat level 0
+                            True - Print object that are threat level 0
+                            False - Don't print object that are threat level 0
+            print_all_feat - Boolean for determining if we want to limit 
+                            spatially the objects printed to pMarineViewer
+        """
+        
+        # Remove the old spatial filter
+        self.ENC_point_layer.SetSpatialFilter(None)
+        self.ENC_poly_layer.SetSpatialFilter(None)
+        self.ENC_line_layer.SetSpatialFilter(None)
+        
+        # Remove the old attribute filter
+        self.ENC_point_layer.SetAttributeFilter(None)
+        self.ENC_poly_layer.SetAttributeFilter(None)
+        self.ENC_line_layer.SetAttributeFilter(None)
+        
         if not print_t_lvl0:
             self.ENC_point_layer.SetAttributeFilter("t_lvl>0")
             self.ENC_poly_layer.SetAttributeFilter("t_lvl>0")
             self.ENC_line_layer.SetAttributeFilter("t_lvl>0")
             
         # Filter the layers to only include features within the area in 
-        #   pMarnineViewer
-        if not print_all_feat:
-            self.define_print_area()
-            self.ENC_point_layer.SetSpatialFilter(self.print_area_filter)
-            self.ENC_poly_layer.SetSpatialFilter(self.print_area_filter)
-            self.ENC_line_layer.SetSpatialFilter(self.print_area_filter)
-    
+        #   pMarnineViewer - Need to do this to reset the layers to start at 
+        #   first layer at feature.GetNextFeature().
+        self.define_print_area()
+        self.ENC_point_layer.SetSpatialFilter(self.print_area_filter)
+        self.ENC_poly_layer.SetSpatialFilter(self.print_area_filter)
+        self.ENC_line_layer.SetSpatialFilter(self.print_area_filter)
+        
+        if print_all_feat:  
+            self.ENC_point_layer.SetSpatialFilter(None)
+            self.ENC_poly_layer.SetSpatialFilter(None)
+            self.ENC_line_layer.SetSpatialFilter(None)
+            
     def LonLat2MOOSxy(self, lon, lat):
         """ This function converts Longitude and Latitude to MOOS X and Y
         
@@ -203,19 +268,16 @@ class Print_ENC(object):
         """ This function uses the water level and depth attributes for a  
             feature and calculates the threat level for that obstacle.
             
-            Inputs:
-                depth - Recorded depth for the obstacle
-                        (quantitative depth measurement)
-                WL - Water level for the obstacle 
-                        (qualitative depth measurement)
-                LayerName - Name of the layer for the object that was inputted
-                
-            Outputs:
-                threat level - Calculated threat level
-        """
-        WL_depth = self.calc_WL_depth(depth, WL)
-        current_depth = depth+self.tide
-        
+        Inputs:
+            depth - Recorded depth for the obstacle
+                    (quantitative depth measurement)
+            WL - Water level for the obstacle 
+                    (qualitative depth measurement)
+            LayerName - Name of the layer for the object that was inputted
+            
+        Outputs:
+            t_lvl - Calculated threat level
+        """    
         # If it is Land set threat level to 5
         if LayerName == 'LNDARE' or LayerName == 'DYKCON' or LayerName == 'PONTON' or LayerName == 'COALNE':
             t_lvl = 5
@@ -226,33 +288,120 @@ class Print_ENC(object):
             t_lvl = 3
         elif LayerName == 'LNDMRK':
             t_lvl = -1
+        else:
+            # Deal with the cases where the attributes are empty
+            if WL == None:
+                WL = 0 
+            if depth == None or depth == 9999:
+                current_depth = 9999
+            else:
+                current_depth = depth+self.tide    
+            # WL is unknown
+            if WL == 0:
+#                print '0'
+                t_lvl = self.threat_level(current_depth)  
+            # No Charted Depth
+            elif current_depth == 9999:
+#                print '9999'
+                # If there is no depth, use the Water Level attribute to 
+                #   calculate the threat level
+                t_lvl = self.threat_level(self.calc_WL_depth(WL))
+            # Neither the WL or depth are recorded - this is bad
+            elif ((current_depth == 9999) and (WL == 0)):
+                print 'FAILED, Threat Level will be set to 4'
+                t_lvl = 4
+            # If we have both the WL and the depth, use the depth measurement
+            else:
+#                WL_depth = self.calc_WL_depth(WL)
+#                # Go with the recorded depth unless it is more than a meter off
+#                if ((current_depth-WL_depth) < -1):
+#                    z = current_depth
+#                else:
+#                    z = WL_depth
+                WL_t_lvl = self.threat_level(self.calc_WL_depth(WL))
+                t_lvl = self.threat_level(current_depth)
+#                if WL_t_lvl != t_lvl:
+#                print 'WL:{} z:{}'.format(WL_t_lvl, t_lvl)
+#        print t_lvl
+        return t_lvl
+              
+    def threat_level(self, depth):
+        """ This function uses a depth for a feature (Determined by a sounding 
+            or realative to the WL attribute) and calculates the threat level 
+            for that obstacle.
             
-        # The object is at or above the surface
-        elif ((WL_depth <= 0) or (current_depth <= 0)):
+        Inputs:
+            depth - Recorded depth for the obstacle (actual or relative to WL)
+            
+        Outputs:
+            t_lvl - Calculated threat level
+        """
+        # Obstacle Partly submerged at high water, Always Dry, Awash, Floating, or 0>=Z
+        if (depth<=0):
             t_lvl = 4
-        # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<3
-        elif ((WL_depth < 1) or (current_depth < 1)):
+        # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<1
+        elif (depth< 1):
             t_lvl = 3
         # Obstacle is alway below surface
-        elif ((WL_depth >= 1)or (current_depth >= 1)):
+        elif (depth >= 1):
             # 1<=Z<2 or depth is unknown (9999)
-            if ((WL_depth < 2) or (current_depth < 2) or (depth == 9999)):
+            if (depth < 2):
                 t_lvl = 2
             # 2<=Z<4
-            elif ((2 <= WL_depth <= 4) or (2 <= current_depth <= 4)):
+            elif (depth >=2 and depth <= 4):
                 t_lvl = 1
             # Z > 4
             else:
                 t_lvl = 0
-        else:
-            t_lvl = -3
-            print "FAILED, Z: {}".format(depth)
-            
+                
         return t_lvl
-    
-    def calc_WL_depth(self, depth, WL):
-        """ """
-        pass
+        
+    def calc_WL_depth(self, WL):
+        """ This function updates the Water Level attribute with the current 
+            predicted tide. This is shoal biased. The values used in these  
+            calculations are from NOAA's Nautical Chart User Manual:
+                
+            http://portal.survey.ntua.gr/main/labs/carto/academic/persons/bnakos_site_nafp/documentation/noaa_chart_users_manual.pdf
+            
+        Inputs:
+            WL - Water level for the obstacle 
+                    (qualitative depth measurement)
+            
+        Outputs:
+            WL_depth - current depth in relation to the 
+        """
+        WL = float(WL)
+        feet2meters = 0.3048
+        if WL == 2:
+            # At least 2 feet above MHW. Being shoal biased, we will take the 
+            #   object's "charted" depth as 2 feet above MHW
+            WL_depth = self.tide-(2*feet2meters+self.MHW_Offset)
+            
+        elif WL == 3:
+            # At least 1 foot below MLLW. Being shoal biased, we will take the 
+            #   object's "charted" depth as 1 foot below MLLW
+            WL_depth = self.tide+1*feet2meters
+            
+        elif WL == 4:
+            # The range for these attributes 1 foot below MLLW and 1 foot above MHW
+            #   Therefore, we will be shoal biased and take 1 foot above MHW as the
+            #   object's "charted" depth.
+            WL_depth = self.tide-(1*feet2meters+self.MHW_Offset)
+            
+        elif WL == 5:
+            # The range for these attributes 1 foot below MLLW and 1 foot above 
+            #   MLLW. Therefore, we will be shoal biased and take 1 foot above MLLW
+            #   as the object's "charted" depth.
+            WL_depth = self.tide-1*feet2meters
+        elif WL == 0:
+            # Make the threat level completely dependant on the sounding depth
+            WL_depth = 99
+        else:
+            # All other Water levels (1, 6, and 7) don't have a quantitative 
+            #   descriptions. Therefore we will set it to 0.
+            WL_depth = 0
+            
+        return WL_depth
     
     def define_print_area(self, N_lat = 43.07511878, E_long = -70.68395689, 
                           S_lat = 43.05780589, W_long = -70.72434189):
@@ -281,24 +430,27 @@ class Print_ENC(object):
             
         Inputs:
             self.comms - Communication link to MOOS
-        """        
-        feature = self.ENC_point_layer.GetNextFeature()
-        while feature:    
+        """
+        i = 0
+        layer = self.ENC_point_layer
+        
+        feature = layer.GetNextFeature()
+        while feature:
             time.sleep(.0001)
             
             MLLW_t_lvl = feature.GetField(0) # Get threat level (@ MLLW)
             WL = feature.GetField(1)
             depth = feature.GetField(2)
-            obs_type = feature.GetFeature(3)
+            obs_type = feature.GetField(3)
             t_lvl = self.calc_t_lvl(depth, WL, obs_type)
             
-            if self.first_print or MLLW_t_lvl == t_lvl:
+            if self.first_print or MLLW_t_lvl != t_lvl:
                 geom = feature.GetGeometryRef()
-        
+                if not self.first_print:
+                    print 'Point -  Old:{}, New{}'.format(MLLW_t_lvl, t_lvl)
                 # Convert the MOOS x,y position to Lat/Long and store it
                 new_x, new_y = self.LonLat2MOOSxy (geom.GetX(), geom.GetY())
-                location = 'x={},y={},'.format(new_x, new_y)
-                
+                location = 'x={},y={},'.format(new_x, new_y)                
                 
                 # Change the Color of the point based on the Threat Level
                 if t_lvl == 5: #Coast Line
@@ -318,12 +470,14 @@ class Print_ENC(object):
                 elif t_lvl == -2: # LIGHTS
                     color = 'vertex_color=cornflowerblue,'
                 
+                label = ',label=point_{}'.format(i)
                 size =  'vertex_size=10,'   
-                print_pnt = location+size+color
-                
-                # Print the point
-                self.MOOS.comms.notify('VIEW_POINT', print_pnt)
-            feature = self.ENC_point_layer.GetNextFeature()
+                print_pnt = location+size+color+label
+                if t_lvl != 0:
+                    # Print the point
+                    self.MOOS.comms.notify('VIEW_POINT', print_pnt)
+            feature = layer.GetNextFeature()
+            i += 1
     
     def print_polygons(self):
         """ Print the polygons from the ENC that are in the area defined by the
@@ -332,7 +486,10 @@ class Print_ENC(object):
         Inputs:
             self.comms - Communication link to MOOS
         """
-        feature = self.ENC_poly_layer.GetFeature(0)
+        i = 0
+        layer = self.ENC_poly_layer
+        
+        feature = layer.GetNextFeature()
         while feature:
             time.sleep(.0001)
         
@@ -345,9 +502,12 @@ class Print_ENC(object):
             if self.first_print or MLLW_t_lvl != t_lvl:
                 geom = feature.GetGeometryRef() # Polygon from shapefile
                 
+                if not self.first_print:
+                    print 'Poly -  Old:{}, New{}'.format(MLLW_t_lvl, t_lvl)
+                
                 # Get the interesection of the polygon from the shapefile and the
                 #   outline of tiff from pMarnineViewer
-                intersection_poly = geom#.Intersection(self.print_area_filter) 
+                intersection_poly = geom.Intersection(self.print_area_filter) 
                 
                 # Get the ring of that intersection polygon
                 p_ring = intersection_poly.GetGeometryRef(0) 
@@ -365,7 +525,7 @@ class Print_ENC(object):
                             vertex += ':'
                     
                     vertex += '}'
-                    
+                    label = 'label=poly_{}'.format(i)
                     # Change the Color of the point based on the Threat Level
                     if t_lvl == 5:
                         color = 'edge_color=black,vertex_color=black'
@@ -384,9 +544,11 @@ class Print_ENC(object):
                     elif t_lvl == -2: # LIGHTS
                         color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
                       
-                    if points != 0:
-                        self.MOOS.comms.notify('VIEW_SEGLIST', '{},vertex_size=2.5,edge_size=2,{}'.format(vertex, color))
-            feature = self.ENC_poly_layer.GetNextFeature()
+                    if points != 0 and t_lvl != 0:
+                        poly_info = '{},vertex_size=2.5,edge_size=2,{},{}'.format(vertex, color, label)
+                        self.MOOS.comms.notify('VIEW_SEGLIST', poly_info)
+            i += 1
+            feature = layer.GetNextFeature()
             
     def poly_line_intersect(self, poly, line):
         """ This function determines if each point along a line is within a 
@@ -449,7 +611,9 @@ class Print_ENC(object):
         Inputs:
             self.comms - Communication link to MOOS
         """
-        feature = self.ENC_line_layer.GetNextFeature()
+        i = 0
+        layer = self.ENC_line_layer
+        feature = layer.GetNextFeature()
         while feature:
             time.sleep(.0001)
             
@@ -462,12 +626,15 @@ class Print_ENC(object):
             if self.first_print or MLLW_t_lvl != t_lvl:
                 line = feature.GetGeometryRef() # line from shapefile
                 
+                if not self.first_print:
+                    print 'Line -  Old:{}, New{}'.format(MLLW_t_lvl, t_lvl)
+                
 #                # Get the interesection of the line from the shapefile and the
 #                #   outline of tiff from pMarnineViewer
-#                line = self.poly_line_intersect(self.print_area_filter, feature.GetGeometryRef())
+                line = self.poly_line_intersect(self.print_area_filter, feature.GetGeometryRef())
         
                 points = line.GetPointCount()
-                
+                label = 'label=line_{}'.format(i)
                 vertex = 'pts={' # String to hold the vertices
                 # Cycle through the vertices and store them as a string
                 for p2 in xrange(points):
@@ -496,10 +663,11 @@ class Print_ENC(object):
                     color = 'edge_color=violet,vertex_color=violet'
                 elif t_lvl == -2: # LIGHTS
                     color = 'edge_color=cornflowerblue,vertex_color=cornflowerblue'
-                if points != 0:
-                    line_info = '{},vertex_size=2.5,edge_size=2,{}'.format(vertex, color)
+                if points != 0 and t_lvl != 0:
+                    line_info = '{},vertex_size=2.5,edge_size=2,{},{}'.format(vertex, color,label)
                     self.MOOS.comms.notify('VIEW_SEGLIST', line_info)
-            feature = self.ENC_line_layer.GetNextFeature()
+            i += 1
+            feature = layer.GetNextFeature()
             
     def print_all(self):
         """ This function prints all of the objects that are within the desired
@@ -512,13 +680,24 @@ class Print_ENC(object):
         while(True):
             self.MOOS.Get_mail()
             if (len(self.MOOS.MHW_offset)):
-                self.MHW_Offset = self.MOOS.MHW_offset[-1]
+                MLLW = self.MOOS.MHW_offset[-1]
+                try:
+                    self.MHW_Offset = float(MLLW)
+                except ValueError:
+                    print '{}'.format(MLLW)
+                print 'Offset: {}'.format(self.MHW_Offset)
                 self.MOOS.MHW_offset=[]
 
             if (len(self.MOOS.tide)!=0):
                 # Get the current tide
-                self.tide = self.MOOS.tide[-1]
+                TIDE = self.MOOS.tide[-1]
+                try:
+                    self.tide = float(TIDE)
+                except ValueError:
+                    print '{}'.format(TIDE)
+                print 'Tide: {}'.format(self.tide)
                 self.MOOS.tide = []
+                self.filter_feat()
                 self.print_points()
                 self.print_polygons()
                 self.print_lines()

@@ -68,7 +68,7 @@ class MOOS_comms(object):
         """ This function registers for the current X,Y, and heading and then
             connects to the server.
         """
-        # Set timewarp        
+        # Set timewarp
         self.Set_time_warp(1)
         
         # Register for desired variables
@@ -117,7 +117,7 @@ class WPT_Check_ENC(object):
     LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
     
     def __init__(self, buffer_dist=25, LatOrigin=43.071959194444446, 
-                 LongOrigin=-70.711610833333339, debug = False,
+                 LongOrigin=-70.711610833333339, debug = True,
                  filename_poly='../../src/ENCs/US5NH02M/Shape/poly.shp',):
         """ Initialize varibles. 
             
@@ -346,6 +346,16 @@ class WPT_Check_ENC(object):
         Output:
             self.skipped - Flag stating that a waypoint has been skipped
         """
+#        ASV_pos = ogr.Geometry(ogr.wkbPoint)
+#        ASV_pos.SetPoint_2D(0, ASV_x, ASV_y)
+#        if self.check_within:
+#            for k in range(len(self.intercept_poly)):
+#                poly = self.intercept_poly[k]
+#                print 'b4 dist {}'.format(len(self.intercept_poly))
+#                dist2interpt = poly.Distance(ASV_pos)
+#                print dist2interpt
+#                comms.notify('Dist', str(dist2interpt))
+            
         # If the waypoint is within a polygon, then switch to the next
         #   waypoint when it is comes within the buffer distance
         if self.check_within:
@@ -485,8 +495,8 @@ class WPT_Check_ENC(object):
         """
         self.check_intersection = False
         self.check_within = False
-        self.x_int, self.y_int = [],[]
-
+        self.x_int, self.y_int, self.intercept_poly = [],[],[]
+        
         # Set Previous Waypoint
         self.Set_Prev_WPT(ASV_x, ASV_y)        
         
@@ -503,12 +513,13 @@ class WPT_Check_ENC(object):
             #   obstacle. If it is, get the intersection between the 
             #   polygon and the planned path.
             if curr_WPT.Within(geom):
+                self.intercept_poly.append(geom)
                 # Get the X and Y intercepts
                 cur_x_int, cur_y_int, d_inside = self.PolyLineIntercept(geom)
                 self.check_within = True
-                pos = 'x='+str(cur_x_int) +','+'y='+str(cur_y_int)
-                print pos
-                comms.notify('VIEW_POINT',pos+',vertex_size=6,vertex_color=pink,active=true,label=int')
+                pos = 'x={},y={}'.format(cur_x_int,cur_y_int)
+                print_intersect_pnt =  pos+',vertex_size=6,vertex_color=pink,active=true,label=int'
+                comms.notify('VIEW_POINT', print_intersect_pnt)
                 self.x_int.append(cur_x_int)
                 self.y_int.append(cur_y_int)
                 

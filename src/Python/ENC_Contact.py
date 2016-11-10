@@ -49,8 +49,12 @@ class MOOS_comms(object):
         self.NAV_HEAD = []
         # If there is no information on the current tide, then the first value 
         #   will be 0.
-        self.Tide = [0]
-        self.MHW_Offset = [0]
+        self.Tide = []
+        self.MHW_Offset = []
+        # If there is no information on which ENC, use US5NH02
+        self.ENCs = []
+        self.origin_lat = []
+        self.origin_lon = []
 
     def Register_Vars(self):
         """ This function registers for the updates of the X,Y and heading at 
@@ -61,6 +65,9 @@ class MOOS_comms(object):
         self.comms.register('NAV_HEADING', 0)
         self.comms.register('Current_Tide',0)
         self.comms.register('MHW_Offset',0)
+        self.comms.register('ENCs',0)
+        self.comms.register('LatOrigin',0)
+        self.comms.register('LonOrigin',0)
         return True
         
     def Set_time_warp(self, timewarp):
@@ -105,9 +112,16 @@ class MOOS_comms(object):
                     self.NAV_HEAD.append(x.double())
             elif x.is_string():
                 if x.name()=='Current_Tide':
-                    self.Tide.append(float(x.string()))
+                    self.Tide.append(x.string())
                 elif x.name()=='MHW_Offset':
-                    self.MHW_Offset.append(float(x.string()))
+                    self.MHW_Offset.append(x.string())
+                elif x.name()=='ENCs':
+                    self.ENCs.append(x.string())
+                elif x.name()=='LatOrigin':
+                    self.origin_lat.append(x.string())
+                elif x.name()=='LongOrigin':
+                    self.origin_lon.append(x.string())
+                    
 
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
@@ -142,12 +156,14 @@ class Search_ENC(object):
         self.LatOrigin = LatOrigin
         self.LongOrigin = LongOrigin
         self.search_dist = search_dist
-        self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         self.search_area_poly = ogr.Geometry(ogr.wkbPolygon)
-        self.ds = ogr.Open(ENC_filename)
+        self.ENC_filename = ENC_filename
         self.filename_pnt = filename_pnt
         self.filename_poly = filename_poly
         self.filename_line = filename_line
+        # Want the first itteration to calculate threat level at MLLW
+        self.tide = 0
+        self.MHW_Offset = 0
     
     def ang4MOOS(self, angle):
         """ This fucntion converts a typical angle to one that is 0 degrees at
@@ -222,6 +238,11 @@ class Search_ENC(object):
             #   MLLW. Therefore, we will be shoal biased and take 1 foot above MLLW
             #   as the object's "charted" depth.
             WL_depth = self.tide-1*feet2meters
+            
+        elif WL == 0:
+            # Make the threat level completely dependant on the sounding depth
+            WL_depth = 99
+            
         else:
             # All other Water levels (1, 6, and 7) don't have a quantitative 
             #   descriptions. Therefore we will set it to 0.
@@ -229,7 +250,7 @@ class Search_ENC(object):
             
         return WL_depth
          
-    def calc_t_lvl(self, depth, WL):
+    def calc_t_lvl(self, depth, WL, LayerName):
         """ This function uses the water level and depth attributes for a  
             feature and calculates the threat level for that obstacle.
             
@@ -243,31 +264,77 @@ class Search_ENC(object):
             Outputs:
                 t_lvl - Calculated threat level
         """
-        current_depth = depth+self.tide
-        WL_depth = self.update_WL(WL)
-        
-        # Obstacle Partly submerged at high water, Always Dry, Awash, Floating, or 0>=Z
-        if (WL_depth<=0  or current_depth <= 0):
-            t_lvl = 4
-        # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<1
-        elif (WL_depth< 1 or current_depth < 1):
+        # If it is Land set threat level to 5
+        if LayerName == 'LNDARE' or LayerName == 'DYKCON' or LayerName == 'PONTON' or LayerName == 'COALNE':
+            t_lvl = 5
+        elif LayerName == 'LIGHTS':
+            t_lvl = -2
+        # If it is a Buoy or Beacon set threat level to 3
+        elif LayerName == 'BOYISD' or LayerName == 'BOYSPP' or LayerName == 'BOYSAW' or LayerName == 'BOYLAT' or LayerName == 'BCNSPP' or LayerName == 'BCNLAT':
             t_lvl = 3
-        # Obstacle is alway below surface
-        elif (current_depth >= 1):
-            # 1<=Z<2 or depth is unknown (9999)
-            if (WL_depth < 2 or current_depth < 2 or depth == 9999):
+        elif LayerName == 'LNDMRK':
+            t_lvl = -1
+        else:
+            # Deal with the cases where the attributes are empty
+            if WL == None:
+                WL = 0 
+            if depth == None or depth == 9999:
+                current_depth = 9999
+            else:
+                current_depth = depth+self.tide    
+            # WL is unknown
+            if WL == 0:
+                t_lvl = self.threat_level(current_depth)  
+            # No Charted Depth
+            elif current_depth == 9999:
+                # If there is no depth, use the Water Level attribute to 
+                #   calculate the threat level
+                t_lvl = self.threat_level(self.update_WL(WL))
+            # Neither the WL or depth are recorded - this is bad
+            elif ((current_depth == 9999) and (WL == 0)):
+                print 'FAILED, Threat Level will be set to 4'
+                t_lvl = 4
+            # If we have both the WL and the depth, use the depth measurement
+            else:
+#                WL_depth = self.calc_WL_depth(WL)
+#                # Go with the recorded depth unless it is more than a meter off
+#                if ((current_depth-WL_depth) < -1):
+#                    z = current_depth
+#                else:
+#                    z = WL_depth
+                t_lvl = self.threat_level(current_depth)
+
+        return t_lvl
+    
+    def threat_level(self, depth):
+        """ This function uses a depth for a feature (Determined by a sounding 
+            or realative to the WL attribute) and calculates the threat level 
+            for that obstacle.
+            
+        Inputs:
+            depth - Recorded depth for the obstacle (actual or relative to WL)
+            
+        Outputs:
+            t_lvl - Calculated threat level
+        """
+        # Above the water surface
+        if (depth<=0):
+            t_lvl = 4
+        # Near the water surface
+        elif (depth< 1):
+            t_lvl = 3
+        # Obstacle below surface
+        elif (depth >= 1):
+            # 1<=depth<2 
+            if (depth < 2):
                 t_lvl = 2
-            # 2<=Z<4
-            elif ((WL_depth >=2 and WL_depth <= 4) or (current_depth >=2 and current_depth <= 4)):
+            # 2<=depth<4
+            elif (depth >=2 and depth <= 4):
                 t_lvl = 1
-            # Z > 4
+            # Obstacle is deep (depth > 4m)
             else:
                 t_lvl = 0
-        else:
-            t_lvl = -1
-        if t_lvl == -1:
-            print "FAILED, Z: {}".format(depth)
-            
+                
         return t_lvl
             
                 
@@ -527,7 +594,7 @@ class Search_ENC(object):
                 # Create a new feature (attribute and geometry)
                 depth = float(pnt.GetZ())
                 new_feat = ogr.Feature(defn_pnt)
-                new_feat.SetField('T_lvl', self.calc_t_lvl(depth,0))
+                new_feat.SetField('T_lvl', self.calc_t_lvl(depth,0, LayerName_mp))
                 new_feat.SetField('Depth', depth)
                 new_feat.SetField('Type', LayerName_mp)
         
@@ -580,19 +647,7 @@ class Search_ENC(object):
                             depth = 9999
 
                 ## Update Threat Level
-                # If WL has been updated use the function calc_t_lvl to calculate threat level
-                if WL != 0 or LayerName == 'DEPCNT':
-                    t_lvl =  self.calc_t_lvl(depth, WL)
-                # If it is Land set threat level to 5
-                elif LayerName == 'LNDARE' or LayerName == 'DYKCON' or LayerName == 'PONTON' or LayerName == 'COALNE':
-                    t_lvl = 5
-                elif LayerName == 'LIGHTS':
-                    t_lvl = -2
-                # If it is a Buoy or Beacon set threat level to 3
-                elif LayerName == 'BOYISD' or LayerName == 'BOYSPP' or LayerName == 'BOYSAW' or LayerName == 'BOYLAT' or LayerName == 'BCNSPP' or LayerName == 'BCNLAT':
-                    t_lvl = 3
-                elif LayerName == 'LNDMRK':
-                    t_lvl = -1
+                t_lvl = self.calc_t_lvl(depth, WL, LayerName)
                 
                 # Reset the output layer
                 out_layer = None
@@ -754,6 +809,11 @@ class Search_ENC(object):
         self.ENC_point_layer.SetSpatialFilter(None)
         self.ENC_poly_layer.SetSpatialFilter(None)
         
+        # Remove the old attribute filter
+        self.ENC_point_layer.SetAttributeFilter(None)
+        self.ENC_poly_layer.SetAttributeFilter(None)
+        
+        
         # Filter out data to determine the search area
         self.ENC_point_layer.SetSpatialFilter(self.search_area_poly)
 #        self.ENC_poly_layer.SetSpatialFilter(self.search_area_poly)
@@ -809,8 +869,8 @@ class Search_ENC(object):
             num_obs += 1
             WL = feature.GetField(1)
             depth = feature.GetField(2)
-            t_lvl = self.calc_t_lvl(WL, depth)
             obs_type = feature.GetField(3)
+            t_lvl = self.calc_t_lvl(depth, WL, obs_type)
             obs_pos += '{},{},{}'.format(pos, t_lvl, obs_type)
 
             # Go to the next feature and increment the counter
@@ -1088,8 +1148,8 @@ class Search_ENC(object):
                     #   to the poly_str.
                     WL = feat.GetField(1)
                     depth = feat.GetField(2)
-                    t_lvl = self.calc_t_lvl(WL, depth)
                     obs_type = feat.GetField(3)
+                    t_lvl = self.calc_t_lvl(depth, WL, obs_type)
                     poly_obs_verticies = '{},{}@{}'.format(t_lvl, obs_type, poly_obs_verticies)
                     if counter_poly==0:
                         poly_info = poly_obs_verticies
@@ -1136,6 +1196,32 @@ class Search_ENC(object):
         # Start connection to MOOS
         MOOS = MOOS_comms()
         MOOS.Initialize()
+        time.sleep(.25)
+        
+        # Get the MHW_Offset 
+        MOOS.Get_mail()
+        if (len(MOOS.MHW_Offset) != 0):
+            MLLW = MOOS.MHW_Offset[-1]
+            self.MHW_Offset = float(MLLW)
+            MOOS.MHW_Offset = []
+        
+        # Get the desired ENC 
+        if (len(MOOS.ENCs) != 0):    
+            ENC = MOOS.ENCs[-1]
+            self.ENC_filename = '../../src/ENCs/{}/{}.000'.format(ENC, ENC)
+            self.filename_pnt = '../../src/ENCs/{}/Shape/point.shp'.format(ENC)
+            self.filename_poly = '../../src/ENCs/{}/Shape/poly.shp'.format(ENC)
+            self.filename_line = '../../src/ENCs/{}/Shape/line.shp'.format(ENC)
+            
+        self.ds = ogr.Open(self.ENC_filename)
+        
+        # Get the Lat/Long Origin
+        if (len(MOOS.origin_lat) != 0 and len(MOOS.origin_lon) != 0): 
+            origin_lat = MOOS.origin_lat[-1]
+            origin_lon =MOOS.origin_lon[-1]
+            self.LatOrigin = float(origin_lat)
+            self.LongOrigin = float(origin_lon)
+        self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
         
         # Build the shapefile layers
         self.read_ENC()
@@ -1178,11 +1264,13 @@ class Search_ENC(object):
             time.sleep(.001)
             MOOS.Get_mail()
             if len(MOOS.MHW_Offset) != 0:
-                self.MHW_Offset = MOOS.MHW_Offset[-1]
+                MLLW = MOOS.MHW_Offset[-1]
+                self.MHW_Offset = float(MLLW)
                 MOOS.MHW_Offset = []
                 
             if len(MOOS.Tide) != 0:
-                self.tide = MOOS.Tide[-1]
+                TIDE = MOOS.Tide[-1]
+                self.tide = float(TIDE)
                 MOOS.Tide = []
                 
             # If there is a new position and heading for the ASV, then filter  

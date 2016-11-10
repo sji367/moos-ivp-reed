@@ -2,13 +2,14 @@
 """
 Created on Wed Nov  2 09:40:06 2016
 
-@author: Sam Reed
+@author: Sam
 """
 
 from datetime import datetime as dt
 from pytides.tide import Tide
 import pytides.constituent as cons
 import numpy as np
+import os
 
 from parse_txt import parse_file
 
@@ -30,10 +31,12 @@ class MOOS_comms(object):
     def __init__(self):
         # Open a communication link to MOOS
         self.comms = pymoos.comms()
+        self.tide_station_ID = 'Fort_Point'
 
     def Register_Vars(self):
-        """ We dont need to register for variables.
+        """ Register for the ID for the Tide Station.
         """
+        self.comms.register('Tide_station_ID', 0)
         return True
         
     def Set_time_warp(self, timewarp):
@@ -60,22 +63,32 @@ class MOOS_comms(object):
         self.comms.run('localhost',9000,'Tides')
         
     def Get_mail(self):
-        """ We don't need to get mail. """
-        pass
+        """ Get the new value for the name of the tide station """
+        # Fetch the name of the tide station
+        info = self.comms.fetch()
+        
+        # Store the tide station's name
+        for x in info:
+            if x.is_string():
+                if x.name()=='Tide_station_ID':
+                    self.tide_station_ID = x.string()
     
 class tide_prediction(object):
     """ This publishes a tidal prediction based off of NOAA's tidal harmonic 
     """
-    def __init__(self, tide_station_name='Fort_Point', publish_rate=.1):
+    def __init__(self, publish_rate=.1):
         # Rate of the tidal prediction (Hz)
         self.publish_rate = publish_rate
         
         # Open a communication link to MOOS
-        self.init_MOOS()
+        MOOS = self.init_MOOS()
+        
+        # Get the name of the tide station
+        MOOS.Get_mail()
         
         # Determine which station was inputed - to make easier, we are converting 
         #   all inputs to a lowercase string
-        ts = str(tide_station_name).lower()
+        ts = str(MOOS.tide_station_ID).lower()
         if (ts == 'fort_point' or ts == 'fort point' or ts == '8423898'):
             self.tide_station = 'Fort_Point'
         elif (ts == 'wells' or ts == 'wells, me' or ts == '8419317'):
@@ -83,19 +96,25 @@ class tide_prediction(object):
         elif (ts == 'boston' or ts == 'boston, ma' or ts == '8443970'):
             self.tide_station = 'Boston'
         else:
-            print 'ERROR: Invalid Tide Station. Create a new file for {}.'.format(tide_station_name)
+            print 'ERROR: Invalid Tide Station. Create a new file for {}.'.format(MOOS.tide_station_ID)
+            print 'Will use Default Tide Station (Fort Point)'
+            self.tide_station = 'Fort_Point'
             
     def init_MOOS(self):
         """ Initializes the communication link to MOOS. 
         
         Ouputs:
             self.comms - Communication link to MOOS
+            MOOS - Object to access the MOOSDB
         """
         MOOS = MOOS_comms()
         MOOS.Initialize()
         # Need this time to connect to MOOS
-        time.sleep(.11)
+        time.sleep(.25)
+        
         self.comms = MOOS.comms
+        
+        return MOOS
         
     def get_model(self):
         """ This function gives a model of the predicted tides. To get tides at  
@@ -105,7 +124,7 @@ class tide_prediction(object):
         Output:
             self.tide - Model of the tides using NOAA's Harmonic Constituents 
         """     
-        station_filename = '../Tides/{}/{}.txt'.format(self.tide_station, self.tide_station)
+        station_filename = '../../src/Tides/{}/{}.txt'.format(self.tide_station, self.tide_station)
         
         station_info = parse_file(station_filename)
     
@@ -118,6 +137,7 @@ class tide_prediction(object):
         
         # We can add a constant offset (e.g. for a different datum, we will use
         #   relative to MLLW):
+        MHW = station_info[3][1]
 #       MTL = station_info[4][1]
         MSL = station_info[5][1]
         MLLW = station_info[6][1]
@@ -125,6 +145,9 @@ class tide_prediction(object):
         constituents.append(cons._Z0)
         published_phases.append(0)
         published_amplitudes.append(offset)
+        
+        
+        self.comms.notify('MHW_Offset', str(MHW-MLLW))
         
         # Build the model.
         assert(len(constituents) == len(published_phases) == len(published_amplitudes))
@@ -158,8 +181,11 @@ class tide_prediction(object):
             time.sleep(1/self.publish_rate)
 
 if __name__ == '__main__':
+    print os.getcwd()
     tide = tide_prediction()
     tide.run()
+    
+    
     
     
     
