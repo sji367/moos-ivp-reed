@@ -52,7 +52,7 @@ protected: // Configuration parameters
 
 protected: // State variables
   string m_obstacles, m_obs_info, m_WPT;
-  double m_ASV_x, m_ASV_y, m_ASV_head, m_speed, m_v_size, m_maxutil;
+  double m_ASV_x, m_ASV_y, m_ASV_head, m_speed, m_v_length, m_maxutil;
   int m_num_obs, m_WPT_x, m_WPT_y;
 	//poly_obs m_obstacle;
 	

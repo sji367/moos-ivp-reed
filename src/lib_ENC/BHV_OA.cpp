@@ -120,12 +120,11 @@ IvPFunction* BHV_OA::onRunState()
       postWMessage("Heading is not being defined.");
       return(0);
     }
-  else if (!ok7)
-    {
-      postWMessage("ASV length is not defined. Will use default of 4 meters.");
-    }
   else
     {
+      if (!ok7)
+	postWMessage("ASV length is not defined. Will use default of 4 meters.");
+      
       // Part 1b: Parse the obstacle information collected in the previous step
       // Parse the Waypoint Information
       if (ok2)
@@ -274,10 +273,13 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
 	    }
 	}
     }
-  ZAIC_Vector head_zaic_v(m_domain, "course");
   
   max_cost = *max_element(cost.begin(), cost.end());
   postMessage("Max_cost", doubleToString(max_cost));
+
+  // The lead parameter sets the distance from the perpendicular intersection
+  //  of the ASV's current location and the trackline that the waypoint
+  //  behavior steers toward.
   double lead;
   // Remove the lead waypoint parameter if cost > .5
   if (max_cost > 56)
@@ -291,6 +293,8 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
   else
     postMessage("WPT_UPDATE", "lead=8");
 
+  ZAIC_Vector head_zaic_v(m_domain, "course");
+  
   // Used for the ZAIC_Vector function
   vector<double> domain_vals, range_vals;
   int ii; // for loop iterator (set domain and range for ZAIC)

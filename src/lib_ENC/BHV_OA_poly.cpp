@@ -51,7 +51,7 @@ BHV_OA_poly::BHV_OA_poly(IvPDomain gdomain) :
   addInfoVars("Next_WPT, Poly_Obs, NAV_SPEED, NAV_X, NAV_Y, NAV_HEAD");
 
   m_maxutil = 100;
-  m_v_size = 4;
+  m_v_length = 4;
 }
 
 //---------------------------------------------------------------
@@ -66,9 +66,8 @@ bool BHV_OA_poly::setParam(string param, string val)
   double double_val = atof(val.c_str());
   
   // ASV Length
-  if((param == "length")) {
-    m_v_size = double_val;
-    postWMessage(val);
+  if((param == "vehicle_length")||(param == "vehicle_size")) {
+    m_v_length = double_val;
     return(true);
   }
   // If not handled above, then just return false;
@@ -85,11 +84,17 @@ IvPFunction* BHV_OA_poly::onRunState()
   IvPFunction *ipf = 0;
   
   // Part 2a: Get information from the InfoBuffer
-  bool ok1, ok2, ok3;
+  bool ok1, ok2, ok3, ok4, ok5, ok6, ok7;
   m_obstacles = getBufferStringVal("Poly_Obs", ok1);
   m_WPT = getBufferStringVal("Next_WPT", ok2);
   m_speed = getBufferDoubleVal("NAV_SPEED", ok3);
-  stringstream ss;
+  m_ASV_x = getBufferDoubleVal("NAV_X", ok4);
+  m_ASV_y = getBufferDoubleVal("NAV_Y", ok5);
+  m_ASV_head = getBufferDoubleVal("NAV_HEAD", ok6);
+  m_v_length = getBufferDoubleVal("ASV_length", ok7);
+
+  vector<string> temp_WPT, result, ASV_info;
+  
   // Check if there are new obstacles and speed and if there are, make a new IvPfunction
   if(!ok1) {
     postWMessage("No new obstacles info buffer.");
@@ -100,29 +105,44 @@ IvPFunction* BHV_OA_poly::onRunState()
       postWMessage("Speed is not being defined.");
       return(0);
     }
-  else
+  else if (!ok4 && !ok5)
     {
+      postWMessage("ASV position is not being defined.");
+      return(0);
+    }
+  else if (!ok6)
+    {
+      postWMessage("Heading is not being defined.");
+      return(0);
+    }
+  else 
+    {
+      if (!ok7)
+	  postWMessage("ASV length is not defined. Will use default of 4 meters.");
+      
       // Part 2b: Parse the obstacle information collected in the previous step
       // Parse the Waypoint Information
       if (ok2 and m_WPT!="first_point")
 	{
-	  vector<string> temp_WPT = parseString(m_WPT, ',');
+	  temp_WPT = parseString(m_WPT, ',');
 	  m_WPT_x = (int)floor(strtod(temp_WPT[0].c_str(), NULL));
 	  m_WPT_y = (int)floor(strtod(temp_WPT[1].c_str(), NULL));
 	}
       // Seperate the individual pieces of the obstacle
       // The format is:
       //   ASV_X,ASV_Y,heading:# of Obstacles:t_lvl,type @ min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y @ min_ang_dist,max_ang_dist,min_dist!t_lvl,type @ min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y @ min_ang_dist,max_ang_dist,min_dist!...
-      vector<string> result = parseString(m_obstacles, ':');
-
+      result = parseString(m_obstacles, ':');
+      
+      /*
       // Parse ASV info
-      vector<string> ASV_info = parseString(result[0], ',');
+      ASV_info = parseString(result[0], ',');
   
       // Convert strings to doubles
       m_ASV_x = strtod(ASV_info[0].c_str(), NULL);
       m_ASV_y = strtod(ASV_info[1].c_str(), NULL);
       m_ASV_head = strtod(ASV_info[2].c_str(), NULL);
-
+      */
+      
       // Parse the number of obstacles
       m_num_obs = (int)floor(strtod(result[1].c_str(), NULL));
       
@@ -171,20 +191,41 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   // Holds the maximum cost for each obstacle which will be used in adjusting the lead parameter
   vector <double> max_cost;
 
+  // Vectors holding the parsed information on the obstacles
+  vector<string> poly_info, poly_gen_info, poly_ang_info, poly_dist_info;
+
+  // Array holding the distance information (during the conversion to a double)
+  double d[3];
+
+  double utility, c, cost;
+  int cur_ang;
+  string x,y;
+  
+  double pnt_x, pnt_y;
+
+  // The buffer distance is to make sure that the ASV avoids the obstacle with some buffer 
+  int buffer_width, temp_buff;
+  
   for (unsigned int i=0;i<m_num_obs; i++)
     {
+      // Initialize vectors by clearing them
+      poly_info.clear();
+      poly_gen_info.clear();
+      poly_ang_info.clear();
+      poly_dist_info.clear();
+      
       // Initialize the stucture holding the information on the obstacle
       poly_obs obstacle;
 
       // Parse the individual obstacles
-      vector<string> poly_info = parseString(info[i], '@');
+      poly_info = parseString(info[i], '@');
       
       // Initialize attributes variable
       poly_attributes min_a, max_a, min_d;
 
       // General information on obstacle
       //    Type of obstacle and threat level
-      vector<string> poly_gen_info = parseString(poly_info[0], ',');
+      poly_gen_info = parseString(poly_info[0], ',');
 	  
       // Type of obstacle and threat level
       obstacle.t_lvl = (int)floor(strtod(poly_gen_info[0].c_str(), NULL));
@@ -192,8 +233,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 
       // Information on the angles
       //    minimum angle, maximum angle, angle of minimum distance
-      vector<string> poly_ang_info = parseString(poly_info[1], ',');
-      double pnt_x, pnt_y;
+      poly_ang_info = parseString(poly_info[1], ',');
       
       // min_angle
       pnt_x = (strtod(poly_ang_info[4].c_str(), NULL));
@@ -210,10 +250,9 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       
       // Information on the distance
       //    minimum angle distance, maximum angle distance, minimum distance
-      vector<string> poly_dist_info = parseString(poly_info[2], ',');
+      poly_dist_info = parseString(poly_info[2], ',');
       
       // Convert distances to a double and check to see if they are less than 1
-      double d[3];
       for (int ii = 0; ii<3; ii++)
 	{
 	  d[ii] = (strtod(poly_dist_info[ii].c_str(), NULL));
@@ -248,17 +287,12 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       obstacle.min_ang.b = obstacle.min_ang.cost - obstacle.min_ang.m*obstacle.min_ang.ang;
       obstacle.max_ang.b = obstacle.max_ang.cost - obstacle.max_ang.m*obstacle.max_ang.ang;
       
-      double utility, c, cost;
-      int cur_ang;
-      string x,y;
-      
       // Store the maximum cost for the obstacle so that it can be used later to adjust the lead parameter 
       max_cost.push_back(obstacle.min_dist.cost);
 
       // The buffer distance is to make sure that the ASV avoids the obstacle with some buffer
-      int buffer_width = 20;
+      buffer_width = 20;
       // If the maximum cost is greater than 100, increase the size of the saftey buffer
-      int temp_buff;
       if (obstacle.min_dist.cost > 100)
 	{
 	  temp_buff = floor(pow(2*obstacle.min_dist.cost/m_maxutil,2));
@@ -363,19 +397,22 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   // Clear the domain and range values
   domain_vals.clear();
   range_vals.clear();
+  
   // Find the maximum value in the max_cost vector, which holds the cost of the minimum distance point for each obstacle
   double maximum_value = *max_element(max_cost.begin(), max_cost.end());
-  double lead;
-
   postMessage("Max_Cost", maximum_value);
 
   // Remove the lead waypoint parameter if cost > .75
+  // The lead parameter sets the distance from the perpendicular intersection
+  //  of the ASV's current location and the trackline that the waypoint
+  //  behavior steers toward.
+  double lead;
   if (maximum_value > 75)
-    postMessage("WPT_UPDATE", "lead=50");
+    postMessage("WPT_UPDATE", "lead=100");
   else if (maximum_value > 33)
     {
-      // Increases linearly between 8 and 50 as the cost increases
-      lead = (maximum_value-33)+8; 
+      // Increases linearly between 8 and 100 as the cost increases
+      lead = 2*(maximum_value-33)+8; 
       postMessage("WPT_UPDATE", "lead="+doubleToString(lead));
     }
   else // If cost is small (>= .33) keep the nominal lead value
@@ -390,5 +427,5 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 // This function calcuates the cost of the individual points
 double BHV_OA_poly::Calc_Cost(int t_lvl, double dist)
 {
-  return pow((t_lvl/dist*m_v_size/m_speed*4.5),3)*m_maxutil;
+  return pow((t_lvl/dist*m_v_length/m_speed*4.5),3)*m_maxutil;
 }
