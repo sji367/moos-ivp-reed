@@ -52,10 +52,10 @@ BHV_OA::BHV_OA(IvPDomain gdomain) :
   m_domain = subDomain(m_domain, "course,speed");
 
   // Add any variables this behavior needs to subscribe for
-  addInfoVars("Next_WPT, Obstacles, NAV_SPEED, NAV_X, NAV_Y, NAV_HEAD");
+  addInfoVars("Next_WPT, Obstacles, NAV_SPEED, NAV_X, NAV_Y, NAV_HEAD, ASV_length");
 
   // Initialize Globals
-  m_v_size = 4;
+  m_v_length = 4;
   m_maxutil = 100;
 }
 
@@ -70,8 +70,8 @@ bool BHV_OA::setParam(string param, string val)
   // Get the numerical value of the param argument for convenience once
   double double_val = atof(val.c_str());
   
-  if((param == "vehicle_size") && isNumber(val)) {
-    m_v_size = atof(val.c_str());
+  if((param == "vehicle_size"|| param == "vehicle_length") && isNumber(val)) {
+    m_v_length = double_val;
     return(true);
   }
 
@@ -89,10 +89,16 @@ IvPFunction* BHV_OA::onRunState()
   IvPFunction *ipf = 0;
   
   // Part 1a: Get information from the InfoBuffer
-  bool ok1, ok2, ok3;
+  vector<string> temp_WPT, result, ASV_info;
+  
+  bool ok1, ok2, ok3, ok4, ok5, ok6, ok7;
   m_obstacles = getBufferStringVal("Obstacles", ok1);
   m_WPT = getBufferStringVal("Next_WPT", ok2);
   m_speed = getBufferDoubleVal("NAV_SPEED", ok3);
+  m_ASV_x = getBufferDoubleVal("NAV_X", ok4);
+  m_ASV_y = getBufferDoubleVal("NAV_Y", ok5);
+  m_ASV_head = getBufferDoubleVal("NAV_HEAD", ok6);
+  m_v_length = getBufferDoubleVal("ASV_length", ok7);
   
   // Check if there are new obstacles and speed and if there are, make a new IvPfunction
   if(!ok1) {
@@ -104,29 +110,43 @@ IvPFunction* BHV_OA::onRunState()
       postWMessage("Speed is not being defined.");
       return(0);
     }
+  else if (!ok4 && !ok5)
+    {
+      postWMessage("ASV position is not being defined.");
+      return(0);
+    }
+  else if (!ok6)
+    {
+      postWMessage("Heading is not being defined.");
+      return(0);
+    }
+  else if (!ok7)
+    {
+      postWMessage("ASV length is not defined. Will use default of 4 meters.");
+    }
   else
     {
       // Part 1b: Parse the obstacle information collected in the previous step
       // Parse the Waypoint Information
       if (ok2)
 	{
-	  vector<string> temp_WPT = parseString(m_WPT, ',');
+	  temp_WPT = parseString(m_WPT, ',');
 	  m_WPT_x = (int)floor(strtod(temp_WPT[0].c_str(), NULL));
 	  m_WPT_y = (int)floor(strtod(temp_WPT[1].c_str(), NULL));
 	}
       // Seperate the individual pieces of the obstacle
       // The format is:
       //   ASV_X,ASV_Y,heading:# of Obstacles:x,y,t_lvl,type!x,y,t_lvl,type!...
-      vector<string> result = parseString(m_obstacles, ':');
-
+      result = parseString(m_obstacles, ':');
+      /*
       // Parse ASV info
-      vector<string> ASV_info = parseString(result[0], ',');
+      ASV_info = parseString(result[0], ',');
   
       // Convert strings to doubles
       m_ASV_x = strtod(ASV_info[0].c_str(), NULL);
       m_ASV_y = strtod(ASV_info[1].c_str(), NULL);
       m_ASV_head = strtod(ASV_info[2].c_str(), NULL);
-
+      */
       // Parse the number of obstacles
       m_num_obs = (int)floor(strtod(result[1].c_str(), NULL));
 
@@ -161,20 +181,44 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
   string obs_type;
   int obs_t_lvl;
   vector<double> cost,obs_x, obs_y;
+  vector<string> info, x, y, ind_obs_info;
   vector<int> ang;
   string str, poly, obs_pos;
+  
+  // For loop iterator
+  //  (Sets each value of the gaussian depression for each obstacle)
+  int k; 
 
+  // Information on the obstacle
+  int width, cur_ang;
+  double amplitude, sigma;
+  
+  // This is the utility for the OA procedure for a particular
+  // angle in the gaussian window which describes how the cost
+  // falls off from directly towards the obstacle  
+  double utility;
+  double penalty; // maximum_utility - calc_utility
+  
+  // To start with, fill an array with maxiumum utility
+  double OA_util[360];
+  fill(OA_util,OA_util+360, m_maxutil);
+  
   //  First seperate the obstacles from one another
-  vector<string> info = parseString(m_obs_info, '!');
+  info = parseString(m_obs_info, '!');
   for (unsigned int i=0;i<info.size(); i++)
     {
+      // Clear the vectors
+      ind_obs_info.clear();
+      x.clear();
+      y.clear();
+      
       // Parse the individual obstacles
-      vector<string> ind_obs_info = parseString(info[i], ',');
+      ind_obs_info = parseString(info[i], ',');
 
       // Convert the strings to doubles and ints
-      vector<string> x = parseString(ind_obs_info[0], '=');
+      x = parseString(ind_obs_info[0], '=');
       obs_x.push_back(strtod(x[1].c_str(), NULL)); // Get rid of the 'x='
-      vector<string> y = parseString(ind_obs_info[1], '=');
+      y = parseString(ind_obs_info[1], '=');
       obs_y.push_back(strtod(y[1].c_str(), NULL)); // Get rid of the 'y='
       obs_t_lvl = (int)floor(strtod(ind_obs_info[2].c_str(), NULL));
     
@@ -185,12 +229,50 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
       ang.push_back(relAng(m_ASV_x, m_ASV_y, obs_x[i], obs_y[i]));
       dist = sqrt(pow(m_ASV_x-obs_x[i],2) +pow(m_ASV_y-obs_y[i],2));
 
-      // Make sure you dont divide by zero - if it is less than 1, set it 
-      //  equal to 1
+      // Make sure you dont divide by zero - if the distance to the object is 
+      //  less than 1, set it equal to 1
       if (dist <1)
 	dist = 1;
       cost.push_back(Calc_Cost(obs_t_lvl,dist));
-    
+
+      // If the cost is greater than 0, then calculate the gaussian depression
+      if (cost[i] > 0)
+	{
+	  // Set a limit for the cost as well as set sigma and the width 
+	  if (cost[i] > m_maxutil) 
+	    {
+	      amplitude = m_maxutil;
+	      width = (int)floor(20*cost[i]/m_maxutil);
+	      sigma = 8+width/8;
+	    }
+	  else
+	    {
+	      amplitude = cost[i];
+	      width = 20;
+	      sigma = 8;
+	    }
+
+	  // This calculates the utility of the Gaussian window
+	  // function and stores that value if it is less than the
+	  // current utility for all obstacles 
+	  for (k = 0; k< (2*width+1); k++)
+	    {
+	      // Calculate the angle that will be used in the gaussian window
+	      cur_ang = (int)floor((int)(ang[i]-(width)+k)%360);
+	      if (cur_ang < 0)
+		cur_ang += 360;
+
+	      // Calculate the Gaussian Depression Penalty Fuction
+	      penalty = Calc_Gaussian(cur_ang, ang[i], sigma, amplitude);
+	      utility = m_maxutil - penalty;
+
+	      // If the current utility value is less than the one for
+	      // the gaussian window then store the one for the
+	      // Gaussian window 
+	      if (utility<OA_util[cur_ang])
+		OA_util[cur_ang]=utility;
+	    }
+	}
     }
   ZAIC_Vector head_zaic_v(m_domain, "course");
   
@@ -198,12 +280,12 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
   postMessage("Max_cost", doubleToString(max_cost));
   double lead;
   // Remove the lead waypoint parameter if cost > .5
-  if (max_cost > .56)
+  if (max_cost > 56)
     postMessage("WPT_UPDATE", "lead=50");
-  else if (max_cost > .14)
+  else if (max_cost > 14)
     {
       // Should increase linearly between 8 and 50 as the cost increases
-      lead = (max_cost-.14)*100+8; 
+      lead = (max_cost-14)+8; 
       postMessage("WPT_UPDATE", "lead="+doubleToString(lead));
     }
   else
@@ -211,73 +293,20 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
 
   // Used for the ZAIC_Vector function
   vector<double> domain_vals, range_vals;
-  
-  // Fill the array with maxiumum utility
-  double OA_util[360];
-  fill(OA_util,OA_util+360, m_maxutil);
-
-  // Information on the obstacle
-  int width, cur_ang;
-
-  double amplitude, sigma;
+  int ii; // for loop iterator (set domain and range for ZAIC)
   if (max_cost != 0)
     {
-      for (unsigned int ii=0;ii<cost.size(); ii++)
-	{
-	  
-	  // Set a limit for the cost as well as set sigma and the width 
-	  if (cost[ii] > m_maxutil) 
-	    {
-	      amplitude = m_maxutil;
-	      width = (int)floor(20*cost[ii]/m_maxutil);
-	      sigma = 8+width/8;
-	    }
-	  else
-	    {
-	      amplitude = cost[ii];
-	      width = 20;
-	      sigma = 8;
-	    }
-
-	  // This is the utility for the OA procedure for a particular
-	  // angle in the gaussian window which describes how the cost
-	  // falls off from directly towards the obstacle  
-	  double utility;
-
-	  double penalty;
-
-	  // This calculates the utility of the Gaussian window
-	  // function and stores that value if it is less than the
-	  // current utility for all obstacles 
-	  for (int k = 0; k< (2*width+1); k++)
-	    {
-	      // Calculate the angle that will be used in the gaussian window
-	      cur_ang = (int)floor((int)(ang[ii]-(width)+k)%360);
-	      if (cur_ang < 0)
-		cur_ang += 360;
-
-	      // Calculate the Gaussian Depression Penalty Fuction
-	      penalty = Calc_Gaussian(cur_ang, ang[ii], sigma, amplitude);
-	      utility = m_maxutil - penalty;
-
-	      // If the current utility value is less than the one for
-	      // the gaussian window then store the one for the
-	      // Gaussian window 
-	      if (utility<OA_util[cur_ang])
-		  OA_util[cur_ang]=utility;
-	    }
-	}
       // Set the values for the angle (domain) and utility (range)
-      int iii=0;
-      domain_vals.push_back(iii); range_vals.push_back(OA_util[iii]);
-      for (iii = 1; iii<360; iii++)
+      domain_vals.push_back(ii); range_vals.push_back(OA_util[ii]);
+      for (ii = 1; ii<360; ii++)
 	{
-	  //if (OA_util[iii] != OA_util[iii-1])
-	  // {
-	      domain_vals.push_back(iii);
-	      range_vals.push_back(OA_util[iii]);
-	      // }
+	  if (OA_util[ii] != OA_util[ii-1])
+	    {
+	      domain_vals.push_back(ii);
+	      range_vals.push_back(OA_util[ii]);
+	    }
 	}
+      domain_vals.push_back(ii); range_vals.push_back(OA_util[ii]);
 
       head_zaic_v.setDomainVals(domain_vals);
       head_zaic_v.setRangeVals(range_vals);
@@ -294,13 +323,14 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
 }
 
 // This function calcuates the cost of the individual points
+//  Domain of the returned answer is [0, m_maxutil]
 double BHV_OA::Calc_Cost(int t_lvl, double dist)
 {
-  return pow((t_lvl/dist*m_v_size/m_speed*4.5),3)*m_maxutil;
+  return pow((t_lvl/dist*m_v_length/m_speed*4.5),3)*m_maxutil;
 }
 
 // This function calcuates a 1D gaussian given a point, mean, and standard
-//   deviation.
+//   deviation. (M_E is e=2.71828183)
 double BHV_OA::Calc_Gaussian(double x, double mu, double sigma, double amplitude)
 {
   return pow(M_E, -(pow((x - mu),2)/(2*(sigma * sigma))))*amplitude;
