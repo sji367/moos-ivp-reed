@@ -1080,7 +1080,7 @@ class Search_ENC(object):
 #        print '{} Max Ang: {},{} - Dist:{}, Ang:{}'.format(cntr,max_ang[0],max_ang[1],max_ang[2],max_ang[3])
         
         # Publish the critical points to the MOOSDB
-        pt1 = 'x={},y={},vertex_size=6.5,vertex_color=white,active=true,label=pt1_{}'.format(vertices_x[index_min_ang], vertices_y[index_min_ang], cntr)
+        pt1 = 'x={},y={},vertex_size=6.5,vertex_color=white,active=true,label=pt1_{}'.format(vertices_x[index_min_ang], vertices_y[index_min_ang], cntr)     
         comms.notify('VIEW_POINT', pt1)
         time.sleep(.0001)
         pt2 = 'x={},y={},vertex_size=6.5,vertex_color=white,active=true,label=pt2_{}'.format(vertices_x[index_max_ang], vertices_y[index_max_ang], cntr)
@@ -1123,6 +1123,11 @@ class Search_ENC(object):
                 
                 # Get the ring of that intersection polygon
                 p_ring = intersection_poly.GetGeometryRef(0) 
+                
+#                cent = geom_poly.Centroid()
+#                pos_x, pos_y = self.LonLat2MOOSxy(cent.GetX(), cent.GetY())
+#                print_c = 'x={},y={},active=true,vertex_color=cornflowerblue,vertex_size=12,label=cent_{}'.format(pos_x, pos_y, counter_poly)
+#                comms.notify('VIEW_POINT', print_c) 
                 
                 # There are two potential cases - There are vertices of the 
                 #   polygon within the search area and There are no vertices of

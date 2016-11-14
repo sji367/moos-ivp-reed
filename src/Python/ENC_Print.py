@@ -96,7 +96,7 @@ class Print_ENC(object):
     LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
     
     def __init__(self, LatOrigin=43.071959194444446, print_t_lvl0=False,
-                 LongOrigin=-70.711610833333339,  print_all_feat=True,
+                 LongOrigin=-70.711610833333339,  print_all_feat=False,
                  filename_pnt='../../src/ENCs/Shape/point.shp', 
                  filename_poly='../../src/ENCs/Shape/poly.shp', 
                  filename_line='../../src/ENCs/Shape/line.shp'):
@@ -663,9 +663,9 @@ class Print_ENC(object):
         """ This function prints all of the objects that are within the desired
             area to be printed to the pMarnineViewer.        
         """
-        self.print_points()
+#        self.print_points()
         self.print_polygons()
-        self.print_lines()
+#        self.print_lines()
         self.first_print = False
         while(True):
             self.MOOS.Get_mail()
@@ -688,9 +688,9 @@ class Print_ENC(object):
                 print 'Tide: {}'.format(self.tide)
                 self.MOOS.tide = []
                 self.filter_feat()
-                self.print_points()
+#                self.print_points()
                 self.print_polygons()
-                self.print_lines()
+#                self.print_lines()
 
                 
 
