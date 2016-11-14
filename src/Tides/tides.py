@@ -126,14 +126,17 @@ def prediction(tide, tide_station_name, start_date=dt(2016,10,23)):
 tide_station_name='Fort_Point'
 tide_FP = tidal_model(tide_station_name)
 pytide_pt_FP, NOAA_pt_FP, at_FP, t = prediction(tide_FP, tide_station_name)
-
 # Save as a .mat file for better plots
 savemat('FP_Tides_2016_Oct23.mat', mdict={'Pytides': pytide_pt_FP, 'NOAA': NOAA_pt_FP, 'Actual': at_FP, 'Time' : t})
 
 tide_station_name='Wells'
 tide_Wells = tidal_model(tide_station_name)
-prediction(tide_Wells, tide_station_name)
+pytide_pt_Wells, NOAA_pt_Wells, at_Wells, t = prediction(tide_Wells, tide_station_name)
+# Save as a .mat file for better plots
+savemat('WELLS_Tides_2016_Oct23.mat', mdict={'Pytides': pytide_pt_Wells, 'NOAA': NOAA_pt_Wells, 'Actual': at_Wells, 'Time' : t})
 
 tide_station_name='Boston'
 tide_Boston = tidal_model(tide_station_name)
-prediction(tide_Boston, tide_station_name)
+pytide_pt_Boston, NOAA_pt_Boston, at_Boston, t = prediction(tide_Boston, tide_station_name)
+# Save as a .mat file for better plots
+savemat('BOS_Tides_2016_Oct23.mat', mdict={'Pytides': pytide_pt_Boston, 'NOAA': NOAA_pt_Boston, 'Actual': at_Boston, 'Time' : t})
