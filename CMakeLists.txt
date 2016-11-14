@@ -12,6 +12,9 @@ PROJECT( IVP_EXTEND )
 #=============================================================================
 # Set the output directories for the binary and library files
 #=============================================================================
+SET(CMAKE_CXX_STANDARD 11)
+# This seems to also be needed for g++ 4.8.4 on Ubuntu 14.04 
+add_definitions(-std=c++11)
 
 GET_FILENAME_COMPONENT(IVP_EXTEND_BIN_DIR "${CMAKE_SOURCE_DIR}/bin"  ABSOLUTE )
 GET_FILENAME_COMPONENT(IVP_EXTEND_LIB_DIR "${CMAKE_SOURCE_DIR}/lib"  ABSOLUTE )
