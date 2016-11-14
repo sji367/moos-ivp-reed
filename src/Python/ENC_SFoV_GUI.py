@@ -387,43 +387,33 @@ def config_Underwater(underwater):
     text_r17_c3.configure(text=DIST_5)
     
 ##---------------------------------------------------------------------------##
-# This function updates the labels from the MOOS Variables
+# This function updates the labels from the MOOS Variables and communicates
+#   with MOOS
 ##---------------------------------------------------------------------------##
 def Refresher():
-    global LANDMARKS
-    global NAV_AIDS
-    global UNDERWATER
+    global MOOS
     
     # Fetch the new values from the MOOSDB
-    info = comms.fetch()
+    MOOS.Get_mail()
+    
     landmark = ''
     nav_aids = ''
     underwater = ''
     
-    # Determine what the new values from the MOOSDB really are and store them
-    for x in info:
-        if x.is_string():
-            if x.name() == 'Landmarks':
-                LANDMARKS.append(x.string())
-            elif x.name() == 'Nav_Aids':
-                NAV_AIDS.append(x.string())
-            elif x.name() == 'Underwater_Objects':
-                UNDERWATER.append(x.string())
-    
     # If there is a new Landmark string, get the newest value
-    if len(LANDMARKS) != 0:
-        landmark = LANDMARKS[LANDMARKS.__len__()-1]
-        LANDMARKS = []
+    if len(MOOS.LANDMARKS) != 0:
+        landmark = MOOS.LANDMARKS[-1]
+        MOOS.LANDMARKS = []
     
     # If there is a new Nav_Aid string, get the newest value 
-    if len(NAV_AIDS)!= 0:
-        nav_aids = NAV_AIDS[NAV_AIDS.__len__()-1]
-        NAV_AIDS = []
+    if len(MOOS.NAV_AIDS)!= 0:
+        nav_aids = MOOS.NAV_AIDS[-1]
+        MOOS.NAV_AIDS = []
     
     # If there is a new Underwater string, get the newest value
-    if len(UNDERWATER)!= 0:
-        underwater = UNDERWATER[UNDERWATER.__len__()-1]
-        UNDERWATER = []
+    if len(MOOS.UNDERWATER)!= 0:
+        underwater = MOOS.UNDERWATER[-1]
+        MOOS.UNDERWATER = []
     
     # Update the Landmarks labels from the new MOOS values or the null value if
     #   there was no new value posted
@@ -438,32 +428,110 @@ def Refresher():
     config_Underwater(underwater)
     
     # Update the labels every second
-    root.after(1000, Refresher) 
+    root.after(1000, Refresher)
+
+#-----------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------#
+class MOOS_comms(object):
+    """ This class id for MOOS communications. It has 2 parts:
+          1. Initialize comms
+              a. Register for variables
+              b. Connect to the server
+          2. Get new values.
+    """
+    def __init__(self):
+        # Open a communication link to MOOS
+        self.comms = pymoos.comms()
+        # Initialize the MOOS lists
+        self.LANDMARKS = []
+        self.NAV_AIDS  = []
+        self.UNDERWATER = []
+
+    def Register_Vars(self):
+        """ This function registers for the updates of the X,Y and heading at 
+            the rate of which it is being outputed from MOOS.
+        """
+        self.comms.register('Landmarks', 0)
+        self.comms.register('Nav_Aids', 0)
+        self.comms.register('Underwater_Objects', 0)
+        return True
+        
+    def Set_time_warp(self, timewarp):
+        if timewarp>1:
+            # Time Warp and Scaling factor constant
+            time_warp = timewarp
+            scaling_factor = 0.04*time_warp    
+            
+            # Set the timewarp and scale factor
+            pymoos.set_moos_timewarp(time_warp)
+            self.comms.set_comms_control_timewarp_scale_factor(scaling_factor)
+        
+    def Initialize(self):
+        """ This function registers for the current X,Y, and heading and then
+            connects to the server.
+        """
+        # Set timewarp        
+        self.Set_time_warp(1)
+        
+        # Register for desired variables
+        self.comms.set_on_connect_callback(self.Register_Vars)
+        
+        # Connect to the server
+        self.comms.run('localhost',9000,'GUI1')
+        
+    def Get_mail(self):
+        """ When called, this function fetches the new values for the objects
+            in the sensor field of view.
+        """
+        
+        # Fetch the values of the ASV position in meters (x,y) and heading
+        info = self.comms.fetch()
+        
+        # Store all values of the objects sensor field of view
+        for x in info:
+            if x.is_string():
+                if x.name()=='Landmarks':
+                    self.LANDMARKS.append(x.string())
+                elif x.name()=='Nav_Aids':
+                    self.NAV_AIDS.append(x.string())
+                elif x.name()=='Underwater_Objects':
+                    self.UNDERWATER.append(x.string())
+
+#-----------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------#
+
+
 
 ##---------------------------------------------------------------------------##
 # Register for updates of the MOOS variables Landmarks and Nav_Aids once every
 #   second
 ##---------------------------------------------------------------------------##
-def on_connect():
-    comms.register('Landmarks', 0)
-    comms.register('Nav_Aids', 0)
-    comms.register('Underwater_Objects', 0)
-    return True
-    
-# Initialize the MOOS connection and communication
-comms = pymoos.comms()
-comms.set_on_connect_callback(on_connect);
-comms.run('localhost',9000,'Camera')
+#def on_connect():
+#    comms.register('Landmarks', 0)
+#    comms.register('Nav_Aids', 0)
+#    comms.register('Underwater_Objects', 0)
+#    return True
+#    
+## Initialize the MOOS connection and communication
+#comms = pymoos.comms()
+#comms.set_on_connect_callback(on_connect);
+#comms.run('localhost',9000,'Camera')
+#
+## Declare the MOOS lists as GLOBALS
+#global LANDMARKS
+#global NAV_AIDS
+#global UNDERWATER
+#
+## Initialize the MOOS lists
+#LANDMARKS = []
+#NAV_AIDS  = []
+#UNDERWATER = []
 
-# Declare the MOOS lists as GLOBALS
-global LANDMARKS
-global NAV_AIDS
-global UNDERWATER
+global MOOS
 
-# Initialize the MOOS lists
-LANDMARKS = []
-NAV_AIDS  = []
-UNDERWATER = []
+# Initialize MOOS
+MOOS = MOOS_comms()
+MOOS.Initialize()
 
 # Run the GUI - it updates with new MOOS Variables every second
 root=tk.Tk()
