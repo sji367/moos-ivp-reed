@@ -48,7 +48,7 @@ BHV_OA_poly::BHV_OA_poly(IvPDomain gdomain) :
   // Add any variables this behavior needs to subscribe for
   //   Next_WPT --> Published by the Waypoint BHV
   //   Poly_Obs --> Published by ENC_Search
-  addInfoVars("Next_WPT, Poly_Obs, NAV_SPEED, NAV_X, NAV_Y, NAV_HEAD");
+  addInfoVars("Next_WPT, Poly_Obs, NAV_SPEED, NAV_X, NAV_Y, NAV_HEADING, ASV_length");
 
   m_maxutil = 100;
   m_v_length = 4;
@@ -90,8 +90,8 @@ IvPFunction* BHV_OA_poly::onRunState()
   m_speed = getBufferDoubleVal("NAV_SPEED", ok3);
   m_ASV_x = getBufferDoubleVal("NAV_X", ok4);
   m_ASV_y = getBufferDoubleVal("NAV_Y", ok5);
-  m_ASV_head = getBufferDoubleVal("NAV_HEAD", ok6);
-  m_v_length = getBufferDoubleVal("ASV_length", ok7);
+  m_ASV_head = getBufferDoubleVal("NAV_HEADING", ok6);
+  m_v_length = strtod(getBufferStringVal("ASV_length", ok7).c_str(), NULL);
 
   vector<string> temp_WPT, result, ASV_info;
   
@@ -203,7 +203,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   
   double pnt_x, pnt_y;
 
-  bool Debug = false;
+  bool Debug = true;
 
   // The buffer distance is to make sure that the ASV avoids the obstacle with some buffer 
   int buffer_width, temp_buff;
@@ -305,7 +305,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	}
 
       // Debugging
-      if Debug
+      if (Debug)
 	{
 	  postMessage("Angles", doubleToString(obstacle.min_ang.ang+buffer_width)+", "+ doubleToString(obstacle.min_dist.ang)+", " +doubleToString(obstacle.max_ang.ang+buffer_width));
 	  postMessage("Angles_no_buff", doubleToString(obstacle.min_ang.ang)+", "+ doubleToString(obstacle.min_dist.ang)+", " +doubleToString(obstacle.max_ang.ang));
@@ -325,12 +325,11 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	  // Set a maximum threshold on the cost.
 	  if (calculated_cost > m_maxutil)
 	      actual_cost = m_maxutil;
-	  else if (cost < 0)
+	  else if (calculated_cost < 0)
 	    calculated_cost = 0;
 	  else
-	    {
-	      actual_cost = calculated_cost;
-	    }
+	    actual_cost = calculated_cost;
+	  
 	  utility = m_maxutil-actual_cost;	  
 
 	  // Update the current angle
@@ -356,7 +355,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	  // Set a maximum threshold on the cost. 
 	  if (calculated_cost < 0)
 	    actual_cost = 0;
-	  else if (cost > m_maxutil)
+	  else if (calculated_cost > m_maxutil)
 	    actual_cost = m_maxutil;
 	  else
 	    actual_cost = calculated_cost;
@@ -383,11 +382,11 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   // Set the values for the angle (domain) and utility (range)
   for (iii = 1; iii<359; iii++)
     {
-      if (OA_util[iii] != (OA_util[iii-1]))
-	{
+      ///if (OA_util[iii] != (OA_util[iii-1]))
+      //{
 	  domain_vals.push_back(iii);
 	  range_vals.push_back((int)floor(OA_util[iii]));
-	}
+	  //}
     }
   // Make sure to include the last point
   domain_vals.push_back(iii+1); range_vals.push_back((int)floor(OA_util[iii+1]));
@@ -411,7 +410,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   // The lead parameter sets the distance from the perpendicular intersection
   //  of the ASV's current location and the trackline that the waypoint
   //  behavior steers toward.
-  Update_Lead_Param(maximum_cost_value)
+  Update_Lead_Param(maximum_cost_value);
   
   return(ivp_function);
 }
@@ -430,12 +429,12 @@ void BHV_OA_poly::Update_Lead_Param(double max_cost)
   double lead;
   
   // Set the lead waypoint parameter to a high number (150) if cost > 75
-  if (maximum_value > 75)
+  if (max_cost > 75)
     lead=150;
   
-  else if (maximum_value > 14)
+  else if (max_cost > 14)
     // Increases linearly between 8 and 100 as the cost increases
-    lead = 2*(maximum_value-14)+8;
+    lead = 2*(max_cost-14)+8;
   
   // If cost is small (>= 14) keep the nominal lead value    
   else 
