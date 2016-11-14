@@ -46,7 +46,7 @@ public:
 protected: // Local Utility functions
 	IvPFunction* buildZAIC_Vector();
 	double Calc_Cost(int t_lvl, double dist);
-	
+	void Update_Lead_Param(double max_cost);
 
 protected: // Configuration parameters
 

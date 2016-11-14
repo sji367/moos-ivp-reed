@@ -276,33 +276,18 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
   
   max_cost = *max_element(cost.begin(), cost.end());
   postMessage("Max_cost", doubleToString(max_cost));
-
-  // The lead parameter sets the distance from the perpendicular intersection
-  //  of the ASV's current location and the trackline that the waypoint
-  //  behavior steers toward.
-  double lead;
-  // Remove the lead waypoint parameter if cost > .5
-  if (max_cost > 56)
-    postMessage("WPT_UPDATE", "lead=50");
-  else if (max_cost > 14)
-    {
-      // Should increase linearly between 8 and 50 as the cost increases
-      lead = (max_cost-14)+8; 
-      postMessage("WPT_UPDATE", "lead="+doubleToString(lead));
-    }
-  else
-    postMessage("WPT_UPDATE", "lead=8");
-
-  ZAIC_Vector head_zaic_v(m_domain, "course");
   
+  ZAIC_Vector head_zaic_v(m_domain, "course");
   // Used for the ZAIC_Vector function
   vector<double> domain_vals, range_vals;
-  int ii; // for loop iterator (set domain and range for ZAIC)
+
+  // for loop iterator (set domain and range for ZAIC)
+  int ii; 
   if (max_cost != 0)
     {
       // Set the values for the angle (domain) and utility (range)
       domain_vals.push_back(ii); range_vals.push_back(OA_util[ii]);
-      for (ii = 1; ii<360; ii++)
+      for (ii = 1; ii<359; ii++)
 	{
 	  if (OA_util[ii] != OA_util[ii-1])
 	    {
@@ -310,7 +295,7 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
 	      range_vals.push_back(OA_util[ii]);
 	    }
 	}
-      domain_vals.push_back(ii); range_vals.push_back(OA_util[ii]);
+      domain_vals.push_back(ii+1); range_vals.push_back(OA_util[ii+1]);
 
       head_zaic_v.setDomainVals(domain_vals);
       head_zaic_v.setRangeVals(range_vals);
@@ -322,6 +307,10 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
       // Extract the IvP function
       ivp_function = head_zaic_v.extractIvPFunction();
       
+      // The lead parameter sets the distance from the perpendicular intersection
+      //  of the ASV's current location and the trackline that the waypoint
+      //  behavior steers toward.
+      Update_Lead_Param(max_cost);
     }
   return(ivp_function);
 }
@@ -340,3 +329,24 @@ double BHV_OA::Calc_Gaussian(double x, double mu, double sigma, double amplitude
   return pow(M_E, -(pow((x - mu),2)/(2*(sigma * sigma))))*amplitude;
 }
 
+// The lead parameter sets the distance from the perpendicular intersection
+//  of the ASV's current location and the trackline that the waypoint
+//  behavior steers toward.
+void BHV_OA::Update_Lead_Param(double max_cost)
+{
+  double lead;
+  
+  // Set the lead waypoint parameter to a high number (150) if cost > 75
+  if (maximum_value > 75)
+    lead=150;
+  
+  else if (maximum_value > 14)
+    // Increases linearly between 8 and 100 as the cost increases
+    lead = 2*(maximum_value-14)+8;
+  
+  // If cost is small (>= 14) keep the nominal lead value    
+  else 
+    lead=8;
+
+  postMessage("WPT_UPDATE", "lead="+doubleToString(lead));
+}
