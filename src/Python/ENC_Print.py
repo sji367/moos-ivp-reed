@@ -18,6 +18,9 @@ import pymoos
 # Used for delays
 import time
 
+from scipy.constants import foot as feet2meters
+
+
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 class MOOS_comms(object):
@@ -95,7 +98,7 @@ class Print_ENC(object):
     # Define which UTM zone we are in
     LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
     
-    def __init__(self, LatOrigin=43.071959194444446, print_t_lvl0=False,
+    def __init__(self, LatOrigin=43.071959194444446, print_t_lvl0=True,
                  LongOrigin=-70.711610833333339,  print_all_feat=False,
                  filename_pnt='../../src/ENCs/Shape/point.shp', 
                  filename_poly='../../src/ENCs/Shape/poly.shp', 
@@ -143,6 +146,7 @@ class Print_ENC(object):
         # Need this time to connect to MOOS
         time.sleep(.25)
         self.MOOS.Get_mail()
+        print 'Len: {}'.format(len(self.MOOS.MHW_offset))
         if (len(self.MOOS.MHW_offset) != 0):
             MLLW = self.MOOS.MHW_offset[-1]
             self.MHW_Offset = float(MLLW)
@@ -279,32 +283,39 @@ class Print_ENC(object):
         else:
             # Deal with the cases where the attributes are empty
             if WL == None:
-                WL = 0 
+                WL = 0
+            else:
+                WL_depth = self.calc_WL_depth(WL)
             if depth == None or depth == 9999:
                 current_depth = 9999
             else:
                 current_depth = depth+self.tide    
-            # WL is unknown
-            if WL == 0:
-                t_lvl = self.threat_level(current_depth)  
+            # Neither the WL or depth are recorded - this is bad
+            if ((current_depth == 9999) and (WL == 0)):
+                print 'FAILED, Threat Level will be set to 4'
+                t_lvl = 4
             # No Charted Depth
             elif current_depth == 9999:
                 # If there is no depth, use the Water Level attribute to 
-                #   calculate the threat level
-                t_lvl = self.threat_level(self.calc_WL_depth(WL))
-            # Neither the WL or depth are recorded - this is bad
-            elif ((current_depth == 9999) and (WL == 0)):
-                print 'FAILED, Threat Level will be set to 4'
-                t_lvl = 4
+                #   calculate the threat level. There is no quanitative 
+                #   description of qualitative WL attribute for IDs 1, 6 and 7.
+                #   Therefore, they will print a warning and set the threat
+                #   level to 4.
+                if WL in [1,6,7]:
+                    print 'Unknown Description of Water Level: {}, Threat Level will be set to 4.'.format(WL)
+                    t_lvl = 4
+                t_lvl = self.threat_level(WL_depth)
+            # WL is unknown
+            elif WL == 0:
+                t_lvl = self.threat_level(current_depth)  
             # If we have both the WL and the depth, use the depth measurement
             else:
-#                WL_depth = self.calc_WL_depth(WL)
 #                # Go with the recorded depth unless it is more than a meter off
 #                if ((current_depth-WL_depth) < -1):
 #                    z = current_depth
 #                else:
 #                    z = WL_depth
-                WL_t_lvl = self.threat_level(self.calc_WL_depth(WL))
+                WL_t_lvl = self.threat_level(WL_depth)
                 t_lvl = self.threat_level(current_depth)
 #                if WL_t_lvl != t_lvl:
 #                print 'WL:{} z:{}'.format(WL_t_lvl, t_lvl)
@@ -330,7 +341,7 @@ class Print_ENC(object):
             t_lvl = 3
         # Obstacle is alway below surface
         elif (depth >= 1):
-            # 1<=Z<2 or depth is unknown (9999)
+            # 1<=Z<2
             if (depth < 2):
                 t_lvl = 2
             # 2<=Z<4
@@ -357,7 +368,6 @@ class Print_ENC(object):
             WL_depth - current depth in relation to the 
         """
         WL = float(WL)
-        feet2meters = 0.3048
         if WL == 2:
             # At least 2 feet above MHW. Being shoal biased, we will take the 
             #   object's "charted" depth as 2 feet above MHW
@@ -399,6 +409,18 @@ class Print_ENC(object):
             S_lat - Southern latitude boundary
             W_long - Western longitude boundary
         """
+        # White Island
+#        E_long, N_lat = self.MOOSxy2LonLat(1606,-1184)
+#        W_long, S_lat = self.MOOSxy2LonLat(2076,-1462)    
+#        
+#        # Landmarks
+#        E_long, N_lat = self.MOOSxy2LonLat(5719,-9353)
+#        W_long, S_lat = self.MOOSxy2LonLat(8807,-11539) 
+        
+        # Through and Island
+#        E_long, N_lat = self.MOOSxy2LonLat(1021,-835)
+#        W_long, S_lat = self.MOOSxy2LonLat(1291,-1119)        
+#        
         # Start by creating the baseline for the search area polygon 
         ring = ogr.Geometry(ogr.wkbLinearRing)
         
@@ -663,9 +685,9 @@ class Print_ENC(object):
         """ This function prints all of the objects that are within the desired
             area to be printed to the pMarnineViewer.        
         """
-#        self.print_points()
+        self.print_points()
         self.print_polygons()
-#        self.print_lines()
+        #self.print_lines()
         self.first_print = False
         while(True):
             self.MOOS.Get_mail()
@@ -688,9 +710,9 @@ class Print_ENC(object):
                 print 'Tide: {}'.format(self.tide)
                 self.MOOS.tide = []
                 self.filter_feat()
-#                self.print_points()
+                self.print_points()
                 self.print_polygons()
-#                self.print_lines()
+                #self.print_lines()
 
                 
 

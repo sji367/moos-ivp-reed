@@ -30,6 +30,10 @@ import numpy as np
 import json
 
 from timeit import default_timer as timer
+
+from scipy.constants import foot as feet2meters
+
+import csv
 #-----------------------------------------------------------------------------#
 #-----------------------------------------------------------------------------#
 class MOOS_comms(object):
@@ -134,7 +138,7 @@ class Search_ENC(object):
     # Define which UTM zone we are in
     LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
     
-    def __init__(self, search_dist=75, LatOrigin=43.071959194444446, 
+    def __init__(self, search_dist=45, LatOrigin=43.071959194444446, 
                  LongOrigin=-70.711610833333339,
                  ENC_filename='../../src/ENCs/US5NH02M/US5NH02M.000', 
                  filename_pnt='../../src/ENCs/Shape/point.shp', 
@@ -159,15 +163,28 @@ class Search_ENC(object):
         self.filename_pnt = filename_pnt
         self.filename_poly = filename_poly
         self.filename_line = filename_line
+        self.first = True
+        self.angle2poly = np.zeros((2000,1000))
+        self.cntr1 = 0
         # Want the first itteration to calculate threat level at MLLW
         self.tide = 0
         self.MHW_Offset = 0
     
-    def ang4MOOS(self, angle):
+    def ang4MOOS(self, angle, array = False):
         """ This fucntion converts a typical angle to one that is 0 degrees at
         North
+        
+        Input:
+            angle - Angle or angles to be converted
+            array - Boolean if the angle is an array
+            
+        Outputs:
+            The angle(s) in MOOS's coordinate system
         """
-        return -(angle-90)
+        if array:
+            return np.mod(-(angle - np.ones_like(angle)*90),360)
+        else:
+            return np.mod(-(angle-90), 360)
         
     def LonLat2MOOSxy(self, lon, lat):
         """ This function converts Longitude and Latitude to MOOS X and Y
@@ -199,7 +216,7 @@ class Search_ENC(object):
         lat,lon = self.LonLat2UTM(x+self.x_origin, y+self.y_origin, inverse=True)
         return lat,lon
         
-    def update_WL(self, WL):
+    def calc_WL_depth(self, WL):
         """ This function updates the Water Level attribute with the current 
             predicted tide. This is shoal biased. The values used in these  
             calculations are from NOAA's Nautical Chart User Manual:
@@ -214,7 +231,6 @@ class Search_ENC(object):
             WL_depth - current depth in relation to the 
         """
         WL = float(WL)
-        feet2meters = 0.3048
         if WL == 2:
             # At least 2 feet above MHW. Being shoal biased, we will take the 
             #   object's "charted" depth as 2 feet above MHW
@@ -276,22 +292,31 @@ class Search_ENC(object):
             # Deal with the cases where the attributes are empty
             if WL == None:
                 WL = 0 
+            else:
+                WL_depth = self.calc_WL_depth(WL)
             if depth == None or depth == 9999:
                 current_depth = 9999
             else:
-                current_depth = depth+self.tide    
-            # WL is unknown
-            if WL == 0:
-                t_lvl = self.threat_level(current_depth)  
+                current_depth = depth+self.tide  
+            
+            # Neither the WL or depth are recorded - this is bad
+            if ((current_depth == 9999) and (WL == 0)):
+                print 'FAILED, Threat Level will be set to 4'
+                t_lvl = 4
             # No Charted Depth
             elif current_depth == 9999:
                 # If there is no depth, use the Water Level attribute to 
-                #   calculate the threat level
-                t_lvl = self.threat_level(self.update_WL(WL))
-            # Neither the WL or depth are recorded - this is bad
-            elif ((current_depth == 9999) and (WL == 0)):
-                print 'FAILED, Threat Level will be set to 4'
-                t_lvl = 4
+                #   calculate the threat level. There is no quanitative 
+                #   description of qualitative WL attribute for IDs 1, 6 and 7.
+                #   Therefore, they will print a warning and set the threat
+                #   level to 4.
+                if WL in [1,6,7]:
+                    print 'Unknown Description of Water Level: {}, Threat Level will be set to 4.'.format(WL)
+                    t_lvl = 4
+                t_lvl = self.threat_level(WL_depth)
+            # WL is unknown
+            elif WL == 0:
+                t_lvl = self.threat_level(current_depth)
             # If we have both the WL and the depth, use the depth measurement
             else:
 #                WL_depth = self.calc_WL_depth(WL)
@@ -990,7 +1015,7 @@ class Search_ENC(object):
         
         if num_points>0:
         # min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y @ min_ang_dist,max_ang_dist,min_dist
-            poly = '{},{},{},{},{},{}@{},{},{}'.format(x1,y1,x_small,y_small,x2,y2,d_min_ang, d_max_ang, min_dist)
+            poly = '{},{},{},{},{},{}'.format(x1,y1,x_small,y_small,x2,y2)
 #            poly = str(x1)+','+str(y1)+','+str(x_small)+','+str(y_small)+','+str(x2)+','+str(y2)+'@'+str(d_min_ang)+','+str(d_max_ang)+','+str(min_dist)
         else:
             poly = "No points"    
@@ -1041,6 +1066,8 @@ class Search_ENC(object):
             max_ang - 
             min_dist - 
         """
+        
+        ref_frame = 1;
         # Get the vertices of the polygon
         vertices_latlon = self.convert2np(feat)
         
@@ -1052,28 +1079,61 @@ class Search_ENC(object):
         ASV_x = ASV_X*pos
         ASV_y = ASV_Y*pos
         
-        # Calculte the distance and angle from the ASV to the polygon
-        dist2poly = np.sqrt(np.square(ASV_x-vertices_x)+np.square(ASV_y-vertices_y))
-        angle2poly = np.arctan2(ASV_y-vertices_y, ASV_x-vertices_x)*180/np.pi
+        # Calculte the distance and angle from the ASV to the polygon in MOOS's
+        #   reference frame
+        dist2poly = np.sqrt(np.square(ASV_x-vertices_x)+np.square(ASV_y-vertices_y))        
+        angle2poly = self.ang4MOOS(np.arctan2(vertices_y-ASV_y, vertices_x-ASV_x)*180/np.pi, array=True)
         
         # Determine the minimum distance, minimum angle, and maximum angle
         index_min_dist = np.argmin(dist2poly)
         index_min_ang = np.argmin(angle2poly)
         index_max_ang = np.argmax(angle2poly)
         
-        # There is one major issue with finding the minimum and maximum angles.
-        #   It is that when the angle switches from 360 to 0. This will lead to
-        #   incorrect angles being saved as the minimum and maximum. Therefore
-        #   if any of the any of the angles are near the cross over point, 
-        #   use the domain [0,360] instead of [-180, 180]
-        if ((angle2poly[index_min_ang] >150) or (angle2poly[index_max_ang] < -150)):
-            angle2poly = np.mod(angle2poly, 360)
+        if ((angle2poly[index_min_ang] < 10) and (angle2poly[index_max_ang] > 350)):
+            # Make the domain from [-180 to 180] not [0 to 360]
+            angle2poly[angle2poly>180] = angle2poly[angle2poly>180]-360
+            # Determine the minimum and maximum angle
             index_min_ang = np.argmin(angle2poly)
             index_max_ang = np.argmax(angle2poly)
+            ref_frame = 2
+        
+        if ((angle2poly[index_min_ang] <-170) and (angle2poly[index_max_ang] > 170)):
+            # Make the domain from [-270 to 90] not [-180 to 180]
+            angle2poly = np.mod(angle2poly, 360)
+            angle2poly[angle2poly>90] = angle2poly[angle2poly>90]-360
+            # Determine the minimum and maximum angle
+            index_min_ang = np.argmin(angle2poly)
+            index_max_ang = np.argmax(angle2poly)
+            ref_frame = 3
+            
+        if ((angle2poly[index_min_ang] <-260) and (angle2poly[index_max_ang] > 80)):
+            # Make the domain from [-90 to 270] not [-270 to 90]
+            angle2poly = np.mod(angle2poly, 360)
+            angle2poly[angle2poly>270] = angle2poly[angle2poly>270]-360
+            # Determine the minimum and maximum angle
+            index_min_ang = np.argmin(angle2poly)
+            index_max_ang = np.argmax(angle2poly)
+            ref_frame = 4
+        
+        # There is one major issue with finding the minimum and maximum angles.
+        #   It is that when the angle switches from -180 to 180. This will 
+        #   lead toincorrect angles being saved as the minimum and maximum. 
+        #   Thereforeif any of the any of the angles are near the cross over  
+        #   point, use the domain [0,360] instead of [-180, 180]
+#        if ((angle2poly[index_min_ang] < 10) and (angle2poly[index_max_ang] > 350)):
+#            # Make the domain from [-180 to 180] not [0 to 360]
+#            angle2poly[angle2poly<-180] = angle2poly[angle2poly<-180]+360
+#            # Determine the minimum and maximum angle
+#            index_min_ang = np.argmin(angle2poly)
+#            index_max_ang = np.argmax(angle2poly)
+#            ref_frame = 4
+            
         
         min_dist = [vertices_x[index_min_dist], vertices_y[index_min_dist], dist2poly[index_min_dist], angle2poly[index_min_dist]]
         min_ang = [vertices_x[index_min_ang], vertices_y[index_min_ang], dist2poly[index_min_ang], angle2poly[index_min_ang]]
         max_ang = [vertices_x[index_max_ang], vertices_y[index_max_ang], dist2poly[index_max_ang], angle2poly[index_max_ang]]
+        
+        print 'ref: {}, min ang: {}, min dist: {}, max ang {}'.format(ref_frame, min_ang[3], min_dist[3], max_ang[3])
         
 #        print '{} Min Dist: {},{} - Dist:{}, Ang:{}'.format(cntr,min_dist[0],min_dist[1],min_dist[2],min_dist[3])
 #        print '{} Min Ang: {},{} - Dist:{}, Ang:{}'.format(cntr,min_ang[0],min_ang[1],min_ang[2],min_ang[3])
@@ -1089,7 +1149,8 @@ class Search_ENC(object):
         pt3 = 'x={},y={},vertex_size=6.5,vertex_color=mediumblue,active=true,label=pt3_{}'.format(vertices_x[index_min_dist], vertices_y[index_min_dist], cntr)
         comms.notify('VIEW_POINT', pt3)        
         
-        crit_pnts  = '{},{},{},{},{},{}@{},{},{}'.format(min_ang[0],min_ang[1], min_dist[0],min_dist[1], max_ang[0],max_ang[1], min_ang[2], max_ang[2], min_dist[2])
+        # min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y 
+        crit_pnts  = '{},{},{},{},{},{},{}'.format(ref_frame,min_ang[0],min_ang[1], min_dist[0],min_dist[1], max_ang[0],max_ang[1])
         return crit_pnts#min_ang, max_ang, min_dist
         
     def publish_poly(self, X, Y, heading, comms):
@@ -1115,35 +1176,35 @@ class Search_ENC(object):
             geom_poly = feat.GetGeometryRef() # Polygon from shapefile
             if geom_poly.Intersects(self.search_area_poly): 
                 
-#                poly_obs_verticies = self.find_crit_pnts(feat, X, Y, comms, counter_poly)
+                poly_obs_verticies = self.find_crit_pnts(feat, X, Y, comms, counter_poly)
                 
-                # Get the interesection of the polygon from the shapefile and
-                #   the outline of tiff from pMarnineViewer
-                intersection_poly = geom_poly.Intersection(self.search_area_poly) 
-                
-                # Get the ring of that intersection polygon
-                p_ring = intersection_poly.GetGeometryRef(0) 
-                
-#                cent = geom_poly.Centroid()
-#                pos_x, pos_y = self.LonLat2MOOSxy(cent.GetX(), cent.GetY())
-#                print_c = 'x={},y={},active=true,vertex_color=cornflowerblue,vertex_size=12,label=cent_{}'.format(pos_x, pos_y, counter_poly)
-#                comms.notify('VIEW_POINT', print_c) 
-                
-                # There are two potential cases - There are vertices of the 
-                #   polygon within the search area and There are no vertices of
-                #   the polygon within the search area.
-                #
-                # Case 1: There are vertices within the search area therefore 
-                #   we will give the polygon string function the intersection
-                #   of the polygon and the search area
-                if p_ring:
-                    poly_obs_verticies = self.verify_poly(X, Y, heading, comms, intersection_poly.Buffer(0.00003), counter_poly)
-                    
-                # Case 2: there are no points in the the search window, 
-                #   therefore we are temperarily giving the entire polygon to 
-                #   the polygon function.
-                else:
-                    poly_obs_verticies = self.verify_poly(X, Y, heading, comms, geom_poly.Buffer(0.00003), counter_poly)
+#                # Get the interesection of the polygon from the shapefile and
+#                #   the outline of tiff from pMarnineViewer
+#                intersection_poly = geom_poly.Intersection(self.search_area_poly) 
+#                
+#                # Get the ring of that intersection polygon
+#                p_ring = intersection_poly.GetGeometryRef(0) 
+#                
+##                cent = geom_poly.Centroid()
+##                pos_x, pos_y = self.LonLat2MOOSxy(cent.GetX(), cent.GetY())
+##                print_c = 'x={},y={},active=true,vertex_color=cornflowerblue,vertex_size=12,label=cent_{}'.format(pos_x, pos_y, counter_poly)
+##                comms.notify('VIEW_POINT', print_c) 
+#                
+#                # There are two potential cases - There are vertices of the 
+#                #   polygon within the search area and There are no vertices of
+#                #   the polygon within the search area.
+#                #
+#                # Case 1: There are vertices within the search area therefore 
+#                #   we will give the polygon string function the intersection
+#                #   of the polygon and the search area
+#                if p_ring:
+#                    poly_obs_verticies = self.verify_poly(X, Y, heading, comms, intersection_poly.Buffer(0.00003), counter_poly)
+#                    
+#                # Case 2: there are no points in the the search window, 
+#                #   therefore we are temperarily giving the entire polygon to 
+#                #   the polygon function.
+#                else:
+#                    poly_obs_verticies = self.verify_poly(X, Y, heading, comms, geom_poly.Buffer(0.00003), counter_poly)
        
                 # If it is not the first polygon, then add a '!' to the end of 
                 #   the  string.
@@ -1266,7 +1327,7 @@ class Search_ENC(object):
             print (end-start)
         else:
             MOOS = self.Initialize()
-            
+#        try:    
         while(True):
             # Get the new values for the ASV's current position (x, y) and 
             #   heading.
@@ -1316,6 +1377,8 @@ class Search_ENC(object):
             #   last cycle
             else:
                 MOOS.comms.notify('dummy_var','')
+#        except KeyboardInterrupt:
+#            np.savetxt('angles2.csv',self.angle2poly, delimiter=",")
                 
 
 #-----------------------------------------------------------------------------#

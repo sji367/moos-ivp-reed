@@ -146,7 +146,7 @@ class tide_prediction(object):
         published_phases.append(0)
         published_amplitudes.append(offset)
         
-        
+        print str(MHW-MLLW)
         self.comms.notify('MHW_Offset', str(MHW-MLLW))
         
         # Build the model.
