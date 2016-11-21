@@ -126,8 +126,8 @@ IvPFunction* BHV_OA_poly::onRunState()
       if (ok2 and m_WPT!="first_point")
 	{
 	  temp_WPT = parseString(m_WPT, ',');
-	  m_WPT_x = (int)floor(strtod(temp_WPT[0].c_str(), NULL));
-	  m_WPT_y = (int)floor(strtod(temp_WPT[1].c_str(), NULL));
+	  m_WPT_x = stoi(temp_WPT[0]);
+	  m_WPT_y = stoi(temp_WPT[1]);
 	}
       // Seperate the individual pieces of the obstacle
       // The format is:
@@ -145,7 +145,7 @@ IvPFunction* BHV_OA_poly::onRunState()
       */
       
       // Parse the number of obstacles
-      m_num_obs = (int)floor(strtod(result[1].c_str(), NULL));
+      m_num_obs = stoi(result[1]);
       
       // Store the information on the obstacle if there are the right amount of parts in the Poly_obstacle string
       if (result.size()==3)
@@ -203,6 +203,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   string x,y;
 
   string Ang = "";
+  string Ang1 = "";
   string COST = "";
   string index= "";
   string update = ""; 
@@ -210,7 +211,9 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   double pnt_x, pnt_y;
 
   bool Debug = true;
-  
+  int safety = 85;
+  int buff_low = 0;
+  int buff_high = 0;
   string cur_ang_str= "";
   int cntr = 0;
   // The buffer distance is to make sure that the ASV avoids the obstacle with some buffer 
@@ -234,7 +237,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       poly_gen_info = parseString(poly_info[0], ',');
 	  
       // Type of obstacle and threat level
-      obstacle.t_lvl = (int)floor(strtod(poly_gen_info[0].c_str(), NULL));
+      obstacle.t_lvl = stoi(poly_gen_info[0]);
       obstacle.obs_type = poly_gen_info[1];
 
       // Information on the angles
@@ -242,27 +245,28 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       poly_ang_info = parseString(poly_info[1], ',');
       
       // Reference_frame
-      obstacle.ref_frame = strtod(poly_ang_info[0].c_str(), NULL);
+      obstacle.ref_frame = stoi(poly_ang_info[0]);
+      postMessage("Ref_frame", obstacle.ref_frame);
 
       // Min Angle
       obstacle.min_ang.x = (strtod(poly_ang_info[1].c_str(), NULL));
       obstacle.min_ang.y = (strtod(poly_ang_info[2].c_str(), NULL));
       obstacle.min_ang.ang = relAng(m_ASV_x, m_ASV_y, obstacle.min_ang.x,obstacle.min_ang.y);
-      //obstacle.min_ang.ang = convert_ref_frame(obstacle.min_ang.ang, obstacle.ref_frame);
+      obstacle.min_ang.ang = convert_ref_frame(obstacle.min_ang.ang, obstacle.ref_frame);
       obstacle.min_ang.dist = calc_dist2ASV(obstacle.min_ang.x, obstacle.min_ang.y);
 
       // Min Distance
       obstacle.min_dist.x = (strtod(poly_ang_info[3].c_str(), NULL));
       obstacle.min_dist.y = (strtod(poly_ang_info[4].c_str(), NULL));
       obstacle.min_dist.ang = relAng(m_ASV_x, m_ASV_y, obstacle.min_dist.x, obstacle.min_dist.y);
-      //obstacle.min_dist.ang = convert_ref_frame(obstacle.min_dist.ang, obstacle.ref_frame);
+      obstacle.min_dist.ang = convert_ref_frame(obstacle.min_dist.ang, obstacle.ref_frame);
       obstacle.min_dist.dist = calc_dist2ASV(obstacle.min_dist.x, obstacle.min_dist.y);
 
       // Max Angle
       obstacle.max_ang.x = (strtod(poly_ang_info[5].c_str(), NULL));
       obstacle.max_ang.y = (strtod(poly_ang_info[6].c_str(), NULL));
       obstacle.max_ang.ang = relAng(m_ASV_x, m_ASV_y, obstacle.max_ang.x, obstacle.max_ang.y);
-      //obstacle.max_ang.ang = convert_ref_frame(obstacle.max_ang.ang, obstacle.ref_frame);
+      obstacle.max_ang.ang = convert_ref_frame(obstacle.max_ang.ang, obstacle.ref_frame);
       obstacle.max_ang.dist = calc_dist2ASV(obstacle.max_ang.x, obstacle.max_ang.y);
 
       // Determine the cost for each angle that you have information on
@@ -327,8 +331,9 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       // Debugging
       if (Debug)
 	{
-	  Ang = doubleToString(obstacle.min_ang.ang-buffer_width)+","+ doubleToString(obstacle.min_dist.ang)+"," +doubleToString(obstacle.max_ang.ang+buffer_width);  
-	  postMessage("Angles", Ang);
+	  //Ang = doubleToString(obstacle.min_ang.ang-buffer_width)+","+ doubleToString(obstacle.min_dist.ang)+"," +doubleToString(obstacle.max_ang.ang+buffer_width);
+	  Ang1 = doubleToString(convert_ref_frame(obstacle.min_ang.ang, obstacle.ref_frame))+","+ doubleToString(convert_ref_frame(obstacle.min_dist.ang, obstacle.ref_frame))+"," +doubleToString(convert_ref_frame(obstacle.max_ang.ang, obstacle.ref_frame));  
+	  postMessage("Angles", Ang1);
 	  
 	  COST = doubleToString(obstacle.min_ang.cost)+","+ doubleToString(obstacle.min_dist.cost)+"," +doubleToString(obstacle.max_ang.cost);
 	  postMessage("cost", COST);
@@ -336,8 +341,30 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	  Ang = doubleToString(obstacle.min_ang.ang)+","+ doubleToString(obstacle.min_dist.ang)+"," +doubleToString(obstacle.max_ang.ang);
 	  postMessage("Angles_no_buff", Ang);
 	  
-	  cout << "!Ang_Cost," << i <<"," << Ang << "," << COST << endl;
+	  cout << "!Ang_Cost," << i <<"," << to_string(obstacle.ref_frame) << "," << Ang << "," << Ang1 << endl;
 	}
+
+      // If you are close to the obstacle place a safety buffer of atleast +/- 75 degrees around the closest point
+      if (obstacle.min_dist.dist < 10)
+	{
+	  for (int i = 1; i<safety; i++)
+	    {
+	      // Update the current buffer angles (Domain = [-360,360])
+	      buff_low = (int)floor(fmod(obstacle.min_dist.ang-i,360));
+	      buff_high = (int)floor(fmod(obstacle.min_dist.ang+i,360));
+	      
+	      // Make sure the angles are not negative (Domain = [0,360])
+	      if (buff_low < 0)
+		buff_low += 360;
+	      if (buff_high < 0)
+		buff_high += 360;
+	      
+	      // Set the OA Utility function
+	      OA_util[buff_low] = 0;
+	      OA_util[buff_high] = 0;
+	    }
+	}
+
       index= "";
       update = "";
       // This calculates the utility and stores that value if it is less than the current utility for all obstacles --> min angle to max cost
@@ -345,7 +372,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       for (double x1 = obstacle.min_ang.ang-buffer_width; x1<=obstacle.min_dist.ang; x1++)
 	{
 	  // Update the current angle (Domain = [-360,360])
-	  cur_ang = (int)floor((int)x1%360);
+	  cur_ang = (int)floor(fmod(x1,360));
 
 	  // Make sure it is not negative (Domain = [0,360])
 	  if (cur_ang<0)
@@ -361,7 +388,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 
 	  // Set a maximum threshold on the cost.
 	  if (calculated_cost > m_maxutil)
-	      actual_cost = m_maxutil;
+	    actual_cost = m_maxutil;
 	  else if (calculated_cost < 0)
 	    actual_cost = 0;
 	  else
@@ -385,7 +412,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       for (double x2 = obstacle.min_dist.ang; x2<=obstacle.max_ang.ang+buffer_width; x2++)
 	{
 	  // Update the current angle  (Domain = [-360,360])
-	  cur_ang = (int)floor((int)x2%360);
+	  cur_ang = (int)floor(fmod(x2,360));
 	  
 	  // Make sure it is not negative (Domain = [0,360])
 	  if (cur_ang < 0)
@@ -417,11 +444,10 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 	    }
 	  index += to_string(cur_ang)+",";
 	  update += to_string(floor(utility))+",";
-	    
 	}
     }
-  cout << "!Index," << index << endl;
-  cout << "!Update," << update<< endl;
+  //cout << "!Index," << index << endl;
+  //cout << "!Update," << update<< endl;
   // Store the first value
   int iii = 0;
   //domain_vals.push_back(iii); range_vals.push_back((int)floor(OA_util[iii]));
@@ -436,7 +462,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       ut += to_string((int)floor(OA_util[iii]))+",";
 	  //}
     }
-  cout << "!IvP," << ut << endl;
+  //cout << "!IvP," << ut << endl;
   // Make sure to include the last point
   //domain_vals.push_back(iii+1); range_vals.push_back((int)floor(OA_util[iii+1]));
 
@@ -501,7 +527,7 @@ double BHV_OA_poly::calc_dist2ASV(double x, double y)
     dist=1;
   return dist;
 }
-tuple<double, double> BHV_OA_poly::calc_m_b(poly_attributes left_pt, poly_attributes right_pt, double ref_frame)
+tuple<double, double> BHV_OA_poly::calc_m_b(poly_attributes left_pt, poly_attributes right_pt, int ref_frame)
 {
   double m,b;
   if (left_pt.ang != right_pt.ang)
@@ -518,34 +544,44 @@ tuple<double, double> BHV_OA_poly::calc_m_b(poly_attributes left_pt, poly_attrib
   return make_tuple(m,b);
 }
 
-double BHV_OA_poly::convert_ref_frame(double ang, double ref_frame)
+double BHV_OA_poly::convert_ref_frame(double ang, int ref_frame)
 {
-  double new_ang = 0;
-  // All angles start as [0, 360]
-  // if ref_frame == 1, the angles are in the reference frame [-90,270]
-  if (ref_frame == 1)
+  double cur_ang = 0;
+  // Update the current angle (Domain = [-360,360])
+  cur_ang = fmod(ang,360);
+
+  // Make sure it is not negative (Domain = [0,360]) aka reference frame 1
+  if (cur_ang<0)
+    cur_ang+=360;
+  switch(ref_frame)
     {
-      if (ang > 270)
-	new_ang = ang-360;
+    case 1: // Domain [0, 360]
+      // it is already in case 1
+      break;
+
+    case 2: // Domain [-180, 90]
+      if (cur_ang > 180)
+	cur_ang += -360;
+      break;
       
+    case 3: // Domain [-270, 90]
+      if (cur_ang > 90)
+	cur_ang += -360;
+
+    case 4: // Domain [-90, 270]
+      if (cur_ang > 270)
+	cur_ang += -360;
+      break;
+
+    default:
+      postWMessage("Invalid Reference Frame");
+      break;
     }
-  // if ref_frame == 2, the angles are in the reference frame [-270,90]
-  if (ref_frame == 2)
-    {
-      if (ang > 90)
-	new_ang = ang-360;
-    }
-  // if ref_frame == 3, the angles are in the reference frame [0,360]
-  else if (ref_frame == 3)
-    {
-      if (ang < 0)
-	new_ang = ang + 360;
-    }
-  // if ref_frame == 4, the angles are in the reference frame [-180,180]
-  else if (ref_frame == 4)
-    {
-      if (ang > 180)
-	new_ang = ang-360;
-    }
-  return new_ang;
+  return cur_ang;
+}
+
+double BHV_OA_poly::calc_RelAngle(double x, double y)
+{
+  double angle = atan2((y-m_ASV_y),(x-m_ASV_x));
+  return -(angle-90);
 }

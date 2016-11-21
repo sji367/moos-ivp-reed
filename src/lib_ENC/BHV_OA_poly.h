@@ -27,7 +27,7 @@ struct poly_attributes{
 struct poly_obs {
 	int t_lvl;
 	string obs_type;
-	double ref_frame;
+	int ref_frame;
 	poly_attributes min_ang, max_ang, min_dist;
 };
 
@@ -52,8 +52,9 @@ protected: // Local Utility functions
 	double Calc_Cost(int t_lvl, double dist);
 	void Update_Lead_Param(double max_cost);
 	double calc_dist2ASV(double x, double y);
-	tuple<double, double> calc_m_b(poly_attributes left_pt, poly_attributes right_pt, double ref_frame);
-	double convert_ref_frame(double ang, double ref_frame);
+	tuple<double, double> calc_m_b(poly_attributes left_pt, poly_attributes right_pt, int ref_frame);
+	double convert_ref_frame(double ang, int ref_frame);
+	double calc_RelAngle(double x, double y);
 
 protected: // Configuration parameters
 
