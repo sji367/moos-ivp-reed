@@ -45,6 +45,7 @@ class ENC_Contact : public CMOOSApp
 	void filter_feats();
 	string find_crit_pts(OGRPolygon *poPolygon, int num_obs);
 	void publish_poly();
+	double relAng(double xa, double ya, double xb, double yb);
 
 	CMOOSGeodesy m_Geodesy;
 

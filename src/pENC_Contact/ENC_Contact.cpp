@@ -55,7 +55,7 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
       vect_tide.push_back(atof(msg.GetString().c_str()));
     else if (name == "MHW_Offset"){
       m_MHW_Offset = atof(msg.GetString().c_str());
-      cout << "Offset: " << m_MHW_Offset << endl;
+      //cout << "Offset: " << m_MHW_Offset << endl;
     }
     
 #if 0 // Keep these around just for template
@@ -1211,7 +1211,7 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
   
   int pnt_cnt =poRing->getNumPoints();
   double x, y, lat, lon, ang;
-  int domain = 1;
+  int ref_frame = 1;
   string crit_pts = "";
   string pt_1,pt_2, pt_3;
   double min_ang, max_ang, min_dist;
@@ -1240,11 +1240,8 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
 	  vert_y.push_back(y);
 	  
 	  dist2poly.push_back(sqrt(pow((m_ASV_x-x),2)+pow((m_ASV_y-y),2)));
-	  ang = fmod(90-(atan2(m_ASV_x - x, m_ASV_y - y)*180/PI), 360);
-
-	  // fmod can output a negative angle
-	  if (ang < 0)
-	    ang += 360;
+	  ang = relAng(m_ASV_x, m_ASV_y,x,y);
+	  
 	  angle2poly360.push_back(ang);
 	  
 	  // Deal with the boundary cases. When the angle switches at the cross over point
@@ -1275,30 +1272,36 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
       // If it is on the boundary case for [0, 360] move to [-90, 270]
       if ((min_ang<10)&&(max_ang>350))
 	{
+	  // cout << "Old --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
 	  min_ang = *min_element(angle2poly270.begin(), angle2poly270.end());
 	  max_ang = *max_element(angle2poly270.begin(), angle2poly270.end());
-	  domain = 4;
+	  ref_frame = 4;
+	  //cout << "New --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
 	}
 
       // If it is on the boundary case for [-90, 270] move to [-180, 180]
       if ((min_ang<-80)&&(max_ang>260))
 	{
+	  //cout << "Old --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
 	  min_ang = *min_element(angle2poly180.begin(), angle2poly180.end());
 	  max_ang = *max_element(angle2poly180.begin(), angle2poly180.end());
-	  domain =2;
+	  ref_frame =2;
+	  //cout << "New --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
 	}
 
       // If it is on the boundary case for [-180, 180] move to [-270, 90]
       if ((min_ang<-170)&&(max_ang>170))
 	{
+	  //cout << "Old --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
 	  min_ang = *min_element(angle2poly90.begin(), angle2poly90.end());
-	  max_ang = *min_element(angle2poly90.begin(), angle2poly90.end());
-	  domain = 3;
+	  max_ang = *max_element(angle2poly90.begin(), angle2poly90.end());
+	  ref_frame = 3;
+	  //cout << "New --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
 	}
       
       // Determine the index of the minimum and maximum angle as well as the minimum distance 
       vector<double> ang_min, ang_max;
-      switch(domain)
+      switch(ref_frame)
 	{
 	case 1:
 	  ang_min = angle2poly360;
@@ -1350,9 +1353,8 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
       Notify("VIEW_POINT", pt_1);
       Notify("VIEW_POINT", pt_2);
       Notify("VIEW_POINT", pt_3);
-      
-      // ASV_X,ASV_Y,heading:# of Obstacles:t_lvl,type @ min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y @ min_ang_dist,max_ang_dist,min_dist!t_lvl,type @ min_ang_x,min_ang_y,min_dist_x,min_dist_y,max_ang_x,max_ang_y @ min_ang_dist,max_ang_dist,min_dist!...
-      crit_pts = to_string(domain)+","+x_ang_min +","+ y_ang_min +","+ x_dist_min +","+ y_dist_min +","+ x_ang_max +","+ y_ang_max;
+
+      crit_pts = to_string(ref_frame)+","+x_ang_min +","+ y_ang_min +","+ x_dist_min +","+ y_dist_min +","+ x_ang_max +","+ y_ang_max;
     }
   else
     {
@@ -1361,4 +1363,68 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
     }
   return crit_pts;
 }
+//-------------------------------------------------------------
+// Procedure: relAng
+//   Purpose: Returns relative angle of pt B to pt A. Treats A
+//            as the center.
+//
+//                   0
+//                   |
+//                   |
+//         270 ----- A ----- 90      
+//                   |
+//                   |
+//                  180
 
+double ENC_Contact::relAng(double xa, double ya, double xb, double yb)
+{ 
+  if((xa==xb)&&(ya==yb))
+    return(0);
+
+  double w   = 0;
+  double sop = 0;
+
+  if(xa < xb) {
+    if(ya==yb)  
+      return(90.0);
+    else
+      w = 90.0;
+  }
+  else if(xa > xb) {
+    if(ya==yb)  
+      return(270.0);
+    else
+      w = 270.0;
+  }
+
+  if(ya < yb) {
+    if(xa == xb) 
+      return(0.0);
+    if(xb > xa) 
+      sop = -1.0;
+    else 
+      sop =  1.0;
+  }
+  else if(yb < ya) {
+    if(xa == xb) 
+      return(180);
+    if(xb >  xa) 
+      sop =  1.0;
+    else 
+      sop = -1.0;
+  }
+
+  double ydiff = yb-ya;
+  double xdiff = xb-xa;
+  if(ydiff<0) ydiff = ydiff * -1.0;
+  if(xdiff<0) xdiff = xdiff * -1.0;
+
+  double avalPI = atan(ydiff/xdiff)*180.0/M_PI;
+  double retVal = (avalPI * sop) + w;
+
+  retVal = fmod(retVal, 360.0);
+  if (retVal<0.0)
+    retVal += 360.0;
+
+  return(retVal);
+}
