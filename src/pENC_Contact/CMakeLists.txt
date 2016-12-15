@@ -12,18 +12,21 @@ SET(SRC
 )
 
 
-# GDAL
-FIND_PACKAGE(GDAL REQUIRED)
-include_directories(${GDAL_INCLUDE_DIRS})
-
-
 ADD_EXECUTABLE(pENC_Contact ${SRC})
 
 TARGET_LINK_LIBRARIES(pENC_Contact
    ${MOOS_LIBRARIES}
    ${GDAL_LIBRARY}
    ${MOOSGeodesy_LIBRARIES}
-   mbutil
+   ${SYSTEM_LIBS}
+   helmivp
+   behaviors 
+   ivpbuild 
+   logic 
+   ivpcore 
+   bhvutil 
+   mbutil 
+   geometry
    m
    pthread)
 

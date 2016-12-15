@@ -23,9 +23,9 @@ ProcessConfig = ANTLER
 {
   MSBetweenLaunches = 200
 
-  Run = uProcessWatch	  @ NewConsole = false
-  Run = MOOSDB          @ NewConsole = false
-  Run = pENC_Contact	@ NewConsole = true
+  //Run = uProcessWatch	  @ NewConsole = false
+  //Run = MOOSDB          @ NewConsole = false
+  Run = pENC_Contact	@ NewConsole = false
 }
 
 //------------------------------------------------

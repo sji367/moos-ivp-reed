@@ -15,6 +15,7 @@
 #include <vector>
 #include <string>
 
+
 using namespace std;
 
 class ENC_Contact : public CMOOSApp
@@ -34,14 +35,16 @@ class ENC_Contact : public CMOOSApp
 	std::string category_landmark(int index);
 	std::string category_silo(int index);
 	double calc_WL_depth(double WL);
-	int calc_t_lvl(double depth, double WL, const char LayerName[7]);
+	int calc_t_lvl(double depth, double WL, string LayerName);
 	int threat_level(double depth);
 	void BuildLayers();
-	void ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLayer *PolyLayer, OGRLayer *LineLayer, const char LayerName[7]);
-	void LayerMultiPoint (OGRLayer *layer_mp, OGRLayer *Point_Layer, const char LayerName_mp[7]);
-	void build_search_poly(double search_dist, OGRGeometry *geom);
+	void ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLayer *PolyLayer, OGRLayer *LineLayer, string LayerName);
+	void LayerMultiPoint (OGRLayer *layer_mp, OGRLayer *Point_Layer, string LayerName_mp);
+	void build_search_poly(double search_dist);
 	void publish_points();
-	void filter_feats(double search_dist);
+	void filter_feats();
+	string find_crit_pts(OGRPolygon *poPolygon, int num_obs);
+	void publish_poly();
 
 	CMOOSGeodesy m_Geodesy;
 
