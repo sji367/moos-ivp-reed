@@ -1126,7 +1126,7 @@ void ENC_Contact::publish_points()
     }
   // Output to the MOOSDB a list of obstacles
   //   # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
-  obstacles = to_string(num_obs)+":"+obs_pos;
+  obstacles = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs)+":"+obs_pos;
   Notify("Obstacles", obstacles);
 
   // Determine if a new polygon was used
