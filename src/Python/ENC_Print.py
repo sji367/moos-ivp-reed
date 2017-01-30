@@ -100,9 +100,9 @@ class Print_ENC(object):
     
     def __init__(self, LatOrigin=43.071959194444446, print_t_lvl0=True,
                  LongOrigin=-70.711610833333339,  print_all_feat=False,
-                 filename_pnt='../../src/ENCs/Shape/point.shp', 
-                 filename_poly='../../src/ENCs/Shape/poly.shp', 
-                 filename_line='../../src/ENCs/Shape/line.shp'):
+                 filename_pnt='../../src/ENCs/Shape/Point.shp', 
+                 filename_poly='../../src/ENCs/Shape/Poly.shp', 
+                 filename_line='../../src/ENCs/Shape/Line.shp'):
         """ Initialize varibles. 
             
         Inputs:

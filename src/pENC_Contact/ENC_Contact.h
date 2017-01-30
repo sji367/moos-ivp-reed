@@ -40,7 +40,7 @@ class ENC_Contact : public CMOOSApp
 	void BuildLayers();
 	void ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLayer *PolyLayer, OGRLayer *LineLayer, string LayerName);
 	void LayerMultiPoint (OGRLayer *layer_mp, OGRLayer *Point_Layer, string LayerName_mp);
-	void build_search_poly(double search_dist);
+	void build_search_poly();
 	void publish_points();
 	void filter_feats();
 	string find_crit_pts(OGRPolygon *poPolygon, int num_obs);
@@ -56,12 +56,15 @@ class ENC_Contact : public CMOOSApp
    double       m_timewarp;
 	int max_pnts, max_poly;
 	std::vector <double> vect_x, vect_y, vect_head, vect_tide;
+
+	// GDAL
 	OGRLayer *Point_Layer, *Poly_Layer, *Line_Layer; 
 	GDALDataset *DS_pnt, *DS_poly, *DS_line;
-	//OGRGeometry *geom_pnt, *geom_poly, *geom_line;
 	OGRPolygon*  search_area_poly;
+
 	double m_ASV_x, m_ASV_y, m_ASV_head, m_ASV_length, m_ASV_width, m_ASV_draft;
 	double m_MHW_Offset, m_tide;
+	double m_search_dist, m_max_avoid_dist;
 	bool m_first_run;
 	std::string m_ENC;
 };

@@ -30,11 +30,11 @@ MACRO(ADD_BHV BHV_NAME)
 ENDMACRO(ADD_BHV)
 
 #--------------------------------------------------------
-#                                      	           BHV_OA
+#                                      	       BHV_OA_pnt
 #--------------------------------------------------------
-ADD_LIBRARY(BHV_OA SHARED 
-   BHV_OA.cpp )
-TARGET_LINK_LIBRARIES(BHV_OA
+ADD_LIBRARY(BHV_OA_pnt SHARED 
+   BHV_OA_pnt.cpp )
+TARGET_LINK_LIBRARIES(BHV_OA_pnt
    helmivp
    behaviors 
    ivpbuild 
@@ -42,7 +42,8 @@ TARGET_LINK_LIBRARIES(BHV_OA
    ivpcore 
    bhvutil 
    mbutil 
-   geometry 
+   geometry
+   ENC_geom
    ${SYSTEM_LIBS} )
 
 #--------------------------------------------------------
@@ -58,5 +59,6 @@ TARGET_LINK_LIBRARIES(BHV_OA_poly
    ivpcore 
    bhvutil 
    mbutil 
-   geometry 
+   geometry
+   ENC_geom
    ${SYSTEM_LIBS} )

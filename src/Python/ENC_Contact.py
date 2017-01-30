@@ -650,7 +650,7 @@ class Search_ENC(object):
             
                 ## Initialize WL, depth, and threat level
                 WL = 0
-                depth = 9999
+                depth = 9999.0
                 t_lvl = 0
                 
                 ## Cycle through the fields and store the ones that are useful
@@ -661,13 +661,14 @@ class Search_ENC(object):
                         if (WL in [1,6,7]):
                             print '{} - weird Water Level {}'.format(LayerName,WL)
                     elif name == 'VALSOU':
-                        depth = feat.GetField(i)
+                        depth = feat.GetFieldAsDouble(i)
                         if depth is None:
-                            depth = 9999
+                            depth = 9999.0
                     elif name == 'VALDCO': # value of the depth contour
-                        depth = feat.GetField(i)
+                        depth = feat.GetFieldAsDouble(i)
+                        print depth
                         if depth is None:
-                            depth = 9999
+                            depth = 9999.0
 
                 ## Update Threat Level
                 t_lvl = self.calc_t_lvl(depth, WL, LayerName)
@@ -1385,4 +1386,4 @@ class Search_ENC(object):
 #-----------------------------------------------------------------------------#
 e = Search_ENC()
 #m = e.Initialize()
-e.run(Time=True)
+#e.run(Time=True)

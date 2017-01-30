@@ -135,24 +135,16 @@ IvPFunction* BHV_OA::onRunState()
 	}
       // Seperate the individual pieces of the obstacle
       // The format is:
-      //   ASV_X,ASV_Y,heading:# of Obstacles:x,y,t_lvl,type!x,y,t_lvl,type!...
+      //   # of Obstacles:x,y,t_lvl,type!x,y,t_lvl,type!...
       result = parseString(m_obstacles, ':');
-      /*
-      // Parse ASV info
-      ASV_info = parseString(result[0], ',');
-  
-      // Convert strings to doubles
-      m_ASV_x = strtod(ASV_info[0].c_str(), NULL);
-      m_ASV_y = strtod(ASV_info[1].c_str(), NULL);
-      m_ASV_head = strtod(ASV_info[2].c_str(), NULL);
-      */
+      
       // Parse the number of obstacles
-      m_num_obs = (int)floor(strtod(result[1].c_str(), NULL));
+      m_num_obs = (int)floor(strtod(result[0].c_str(), NULL));
 
       // Store the information on the obstacle
-      if (result.size()==3)
+      if (result.size()==2)
 	{
-	  m_obs_info = result[2];
+	  m_obs_info = result[1];
 	  ipf = buildZAIC_Vector();
 	}      
     }
@@ -213,21 +205,22 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
       
       // Parse the individual obstacles
       ind_obs_info = parseString(info[i], ',');
-
+      
       // Convert the strings to doubles and ints
       x = parseString(ind_obs_info[0], '=');
       obs_x.push_back(strtod(x[1].c_str(), NULL)); // Get rid of the 'x='
       y = parseString(ind_obs_info[1], '=');
       obs_y.push_back(strtod(y[1].c_str(), NULL)); // Get rid of the 'y='
       obs_t_lvl = (int)floor(strtod(ind_obs_info[2].c_str(), NULL));
-    
+
+      
       // Type of obstacle
       obs_type = ind_obs_info[3];
-
+      
       // Calculate the angle and cost for the obstacle
       ang.push_back(relAng(m_ASV_x, m_ASV_y, obs_x[i], obs_y[i]));
       dist = sqrt(pow(m_ASV_x-obs_x[i],2) +pow(m_ASV_y-obs_y[i],2));
-
+      
       // Make sure you dont divide by zero - if the distance to the object is 
       //  less than 1, set it equal to 1
       if (dist <1)
@@ -250,7 +243,7 @@ IvPFunction *BHV_OA::buildZAIC_Vector()
 	      width = 20;
 	      sigma = 8;
 	    }
-
+	  
 	  // This calculates the utility of the Gaussian window
 	  // function and stores that value if it is less than the
 	  // current utility for all obstacles 

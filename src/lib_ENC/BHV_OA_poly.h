@@ -1,41 +1,26 @@
-/************************************************************/
-/*    NAME: Sam Reed                                        */
-/*    ORGN: UNH                                             */
-/*    FILE: BHV_OA_poly.h                                   */
-/*    DATE: June 2016                                       */
-/************************************************************/
-
-#ifndef A_HEADER
-#define A_HEADER
+/*
+ * BHV_OA_poly.h
+ *
+ *  Created on: Jan 22, 2017
+ *      Author: sji367
+ */
 
 #include <string>
-#include <tuple>
+#include <vector>
 #include "IvPBehavior.h"
 #include "AOF.h"
-#include "../../../MOOS_V10.0.3_May1215/MOOSCore/Core/libMOOS/include/MOOS/Compatibility/Core/MOOSGenLib/ProcessConfigReader.h"
+#include "poly.h"
 
-struct poly_attributes{
-	double ang;
-	double cost;
-	double dist;
-	double m;
-	double b;
-	double x;
-	double y;
-};
+using namespace std;
 
-struct poly_obs {
-	int t_lvl;
-	string obs_type;
-	int ref_frame;
-	poly_attributes min_ang, max_ang, min_dist;
-};
+#ifndef BHV_OA_POLY_H_
+#define BHV_OA_POLY_H_
 
 class BHV_OA_poly : public IvPBehavior {
 public:
   BHV_OA_poly(IvPDomain);
   ~BHV_OA_poly() {};
-  
+
   bool         setParam(std::string, std::string);
   void         onSetParamComplete() {};
   void         onCompleteState() {};
@@ -45,36 +30,28 @@ public:
   void         onRunToIdleState() {};
   void         onIdleToRunState() {};
   IvPFunction* onRunState();
-  
+
 
 protected: // Local Utility functions
 	IvPFunction* buildZAIC_Vector();
-	double Calc_Cost(int t_lvl, double dist);
-	void Update_Lead_Param(double max_cost);
-	double calc_dist2ASV(double x, double y);
-	tuple<double, double> calc_m_b(poly_attributes left_pt, poly_attributes right_pt, int ref_frame);
-	double convert_ref_frame(double ang, int ref_frame);
-	double calc_RelAngle(double x, double y);
-
-protected: // Configuration parameters
+	void getVertices(string, Poly&, Poly&, Poly&, vector<double>&);
+	double calcBuffer(double cost);
+	void calcVShape(double buffer_width, double (&OA_util)[360], Poly, Poly, Poly);
+	IvPFunction* setIVP_domain_range(double OA_util[360]);
+	void Update_Lead_Param(vector<double> vect_max_cost);
 
 protected: // State variables
   string m_obstacles, m_obs_info, m_WPT;
   double m_ASV_x, m_ASV_y, m_ASV_head, m_speed, m_v_length, m_maxutil;
   int m_num_obs, m_WPT_x, m_WPT_y;
-	//poly_obs m_obstacle;
-	
+
 };
-
-      // Initialize the stucture holding the information on the obstacle
-      poly_obs obstacle;
-      
-
 
 #define IVP_EXPORT_FUNCTION
 
 extern "C" {
-  IVP_EXPORT_FUNCTION IvPBehavior * createBehavior(std::string name, IvPDomain domain) 
+  IVP_EXPORT_FUNCTION IvPBehavior * createBehavior(std::string name, IvPDomain domain)
   {return new BHV_OA_poly(domain);}
 }
-#endif
+
+#endif /* BHV_OA_POLY_H_ */

@@ -16,12 +16,14 @@ INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 #============================================================================
 ADD_SUBDIRECTORY(lib_behaviors-test)
 ADD_SUBDIRECTORY(lib_ENC)
+ADD_SUBDIRECTORY(lib_ENC_geom)
 ADD_SUBDIRECTORY(lib_anrp_util)
 ADD_SUBDIRECTORY(pXRelayTest)
 ADD_SUBDIRECTORY(pExampleApp)
 ADD_SUBDIRECTORY(iZBoat)
 ADD_SUBDIRECTORY(iGPS_MB1)
 ADD_SUBDIRECTORY(iOS5000)
+ADD_SUBDIRECTORY(pENC_Contact)
 
 ##############################################################################
 #                           END of CMakeLists.txt

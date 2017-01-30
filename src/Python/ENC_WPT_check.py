@@ -125,7 +125,7 @@ class WPT_Check_ENC(object):
     
     def __init__(self, buffer_dist=25, LatOrigin=43.071959194444446, 
                  LongOrigin=-70.711610833333339, debug = True,
-                 filename_poly='../../src/ENCs/Shape/poly.shp',):
+                 filename_poly='../../src/ENCs/Shape/Poly.shp',):
         """ Initialize varibles. 
             
             Inputs:

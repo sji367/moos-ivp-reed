@@ -28,11 +28,9 @@ ENC_Contact::ENC_Contact()
   m_ASV_length = 4;
   m_ASV_width = 1;
   m_ASV_draft = 1;
+  m_search_dist = 50;
+  m_max_avoid_dist = 250;
   m_ENC = "US5NH02M";
-  
-  BuildLayers();
-
-  cout << "Initialized" << endl;
 }
 
 //---------------------------------------------------------
@@ -53,10 +51,8 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
       vect_head.push_back(msg.GetDouble());
     else if (name == "Current_Tide")
       vect_tide.push_back(atof(msg.GetString().c_str()));
-    else if (name == "MHW_Offset"){
+    else if (name == "MHW_Offset")
       m_MHW_Offset = atof(msg.GetString().c_str());
-      //cout << "Offset: " << m_MHW_Offset << endl;
-    }
     
 #if 0 // Keep these around just for template
     string key   = msg.GetKey();
@@ -109,7 +105,7 @@ bool ENC_Contact::Iterate()
       vect_y.clear();
 
       // need to add a global point, polygon and line geometry
-      build_search_poly(50);
+      build_search_poly();
       filter_feats();
       publish_points();
       publish_poly();
@@ -144,10 +140,15 @@ bool ENC_Contact::OnStartUp()
 	{
 	  if(param == "ENCS") {
 	    m_ENC = value;
+	    cout << value << endl;
 	  }
-	  else if(param == "MHW_OffSET") {
+	  else if(param == "MHW_OffSET")
 	    m_MHW_Offset = atof(value.c_str());
-	  }
+	  else if(param == "SEARCH_DIST")
+	    m_search_dist = atof(value.c_str());
+	  else if(param == "AVOID_DIST")
+	    m_max_avoid_dist = atof(value.c_str());
+	  
 	  // ASV Configuration
 	  else if (param == "ASV_LENGTH")
 	    m_ASV_length = atof(value.c_str());
@@ -187,7 +188,12 @@ bool ENC_Contact::OnStartUp()
   }
   
   m_timewarp = GetMOOSTimeWarp();
-  RegisterVariables();	
+  RegisterVariables();
+
+  // Build the ENC Layers
+  BuildLayers();
+  cout << "Initialized" << endl;
+  
   return(true);
 }
 
@@ -542,18 +548,11 @@ void ENC_Contact::BuildLayers()
     poDriver = GetGDALDriverManager()->GetDriverByName(pszDriverName );
     GDALDataset *ds_pnt, *ds_poly, *ds_line, *ds_ENC;
     OGRLayer *PointLayer, *PolyLayer, *LineLayer;
-    // Get the ENC
-    ds_ENC = (GDALDataset*) GDALOpenEx( "../../src/ENCs/US5NH02M/US5NH02M.000", GDAL_OF_VECTOR, NULL, NULL, NULL );
-    if( ds_ENC == NULL )
-      {
-	printf( "Open failed.\n" );
-	exit( 1 );
-      }
-    else
-      printf("It opened.\n");
-  
+    string ENC_filename="";
+    vector<string> all_ENCs = parseString(m_ENC,",");
+    
     // Create the shapefile
-     ds_pnt = poDriver->Create( "../../src/ENCs/Shape/Point.shp", 0, 0, 0, GDT_Unknown, NULL );
+    ds_pnt = poDriver->Create( "../../src/ENCs/Shape/Point.shp", 0, 0, 0, GDT_Unknown, NULL );
     if( ds_pnt == NULL )
       {
 	printf( "Creation of output file failed.\n" );
@@ -694,26 +693,39 @@ void ENC_Contact::BuildLayers()
         printf( "Creating visual field failed.\n" );
         exit( 1 );
     }
-    // Points only
-    LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG");
-    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, LineLayer, "UWTROC");
-    ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, LineLayer, "LIGHTS");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, LineLayer, "BOYSPP");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, LineLayer, "BOYISD");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PointLayer, PolyLayer, LineLayer, "BOYSAW");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, LineLayer, "BOYLAT");
-    ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, LineLayer, "BCNSPP");
-    ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, LineLayer, "BCNLAT");
+    //for (int i=0; i<all_ENCs.size(); i++)
+    //{
+    int i = 0;
+	// Get the ENC
+	ENC_filename= "../../src/ENCs/"+all_ENCs[i]+"/"+all_ENCs[i]+".000";
+	ds_ENC = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+	if( ds_ENC == NULL )
+	  {
+	    printf( "Open failed.\n" );
+	    exit( 1 );
+	  }
+	else
+	  cout << "Opened "<< m_ENC << endl; 
+	// Points only
+	LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG");
+	ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, LineLayer, "UWTROC");
+	ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, LineLayer, "LIGHTS");
+	ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, LineLayer, "BOYSPP");
+	ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, LineLayer, "BOYISD");
+	ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PointLayer, PolyLayer, LineLayer, "BOYSAW");
+	ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, LineLayer, "BOYLAT");
+	ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, LineLayer, "BCNSPP");
+	ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, LineLayer, "BCNLAT");
     
-    // Other Types
-    ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, LineLayer, "LNDARE");
-    ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, LineLayer, "PONTON");
-    ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, LineLayer, "DEPCNT");
-    ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, LineLayer, "DYKCON");
-    ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, LineLayer, "LNDMRK");
-    ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, LineLayer, "SILTNK");
-    ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, LineLayer, "WRECKS");
-    
+	// Other Types
+	ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, LineLayer, "LNDARE");
+	ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, LineLayer, "PONTON");
+	ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, LineLayer, "DEPCNT");
+	ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, LineLayer, "DYKCON");
+	ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, LineLayer, "LNDMRK");
+	ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, LineLayer, "SILTNK");
+	ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, LineLayer, "WRECKS");
+	//}
     // close the data sources - need this to save the new files
     GDALClose( ds_ENC );
     GDALClose( ds_pnt );
@@ -972,11 +984,11 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
   else
     {
       cout << "Layer " << LayerName << " is not in the ENC." << endl;
-      exit(1);
+      //exit(1);
     }
 }
 
-void ENC_Contact::build_search_poly(double search_dist)
+void ENC_Contact::build_search_poly()
 {
   /*
     This function builds the polygon which represents the area that
@@ -987,7 +999,7 @@ void ENC_Contact::build_search_poly(double search_dist)
         
     Outputs:
     search_area_poly - OGR Polygon that describes the area in which we 
-    want to seach the input layer for objects
+    want to search the input layer for objects
   */
   OGRLinearRing *poRing;
   //OGRPoint *pt;
@@ -995,8 +1007,8 @@ void ENC_Contact::build_search_poly(double search_dist)
   double lon1, lon2, lon3, lon4, lat1, lat2, lat3, lat4;
   double x1, x2, x3, x4, y1, y2, y3, y4;
   double theta = 45+fmod(m_ASV_head,90);
-  double add_sin = search_dist*sqrt(2)*sin(theta*PI/180);
-  double add_cos = search_dist*sqrt(2)*cos(theta*PI/180);
+  double add_sin = m_search_dist*sqrt(2)*sin(theta*PI/180);
+  double add_cos = m_search_dist*sqrt(2)*cos(theta*PI/180);
 
   x1 = m_ASV_x+add_sin;
   x2 = m_ASV_x-add_cos;
@@ -1113,8 +1125,8 @@ void ENC_Contact::publish_points()
       //}
     }
   // Output to the MOOSDB a list of obstacles
-  //  ASV_X,ASV_Y,Heading : # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
-  obstacles = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs)+":"+obs_pos;
+  //   # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
+  obstacles = to_string(num_obs)+":"+obs_pos;
   Notify("Obstacles", obstacles);
 
   // Determine if a new polygon was used
@@ -1363,6 +1375,13 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
     }
   return crit_pts;
 }
+
+/*
+void ang4ivp(vector<double> angles, vector<double> dist)
+{
+
+}
+*/
 //-------------------------------------------------------------
 // Procedure: relAng
 //   Purpose: Returns relative angle of pt B to pt A. Treats A
