@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;BHV_OA&apos; to &apos;BHV_OA2&apos;" description="Rename resource &apos;BHV_OA&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/BHV_OA" name="BHV_OA2" stamp="1485122558563" updateReferences="true"/>&#x0A;<refactoring comment="Delete resource &apos;BHV_OA2&apos;" deleteContents="false" description="Delete resource &apos;BHV_OA2&apos;" element1="/BHV_OA2" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1485122640566"/>
-</session>
