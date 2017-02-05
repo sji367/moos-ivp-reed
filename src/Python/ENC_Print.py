@@ -197,6 +197,9 @@ class Print_ENC(object):
             self.print_all_feat - Boolean for determining if we want to limit 
                             spatially the objects printed to pMarineViewer
         """
+        self.ENC_point_layer.ResetReading()
+        self.ENC_poly_layer.ResetReading()
+        self.ENC_line_layer.ResetReading()
         
         # Remove the old spatial filter
         self.ENC_point_layer.SetSpatialFilter(None)
@@ -286,16 +289,16 @@ class Print_ENC(object):
                 WL = 0
             else:
                 WL_depth = self.calc_WL_depth(WL)
-            if depth == None or depth == 9999:
-                current_depth = 9999
+            if depth == None or depth == 9999.0:
+                current_depth = 9999.0
             else:
                 current_depth = depth+self.tide    
             # Neither the WL or depth are recorded - this is bad
-            if ((current_depth == 9999) and (WL == 0)):
+            if ((current_depth == 9999.0) and (WL == 0)):
                 print 'FAILED, Threat Level will be set to 4'
                 t_lvl = 4
             # No Charted Depth
-            elif current_depth == 9999:
+            elif current_depth == 9999.0:
                 # If there is no depth, use the Water Level attribute to 
                 #   calculate the threat level. There is no quanitative 
                 #   description of qualitative WL attribute for IDs 1, 6 and 7.
@@ -334,18 +337,18 @@ class Print_ENC(object):
             t_lvl - Calculated threat level
         """
         # Obstacle Partly submerged at high water, Always Dry, Awash, Floating, or 0>=Z
-        if (depth<=0):
+        if (depth<=0.0):
             t_lvl = 4
         # Obstacle Covers and uncovers, Subject to inundation or flooding, or 0<Z<1
-        elif (depth< 1):
+        elif (depth< 1.0):
             t_lvl = 3
         # Obstacle is alway below surface
-        elif (depth >= 1):
+        elif (depth >= 1.0):
             # 1<=Z<2
-            if (depth < 2):
+            if (depth < 2.0):
                 t_lvl = 2
             # 2<=Z<4
-            elif (depth >=2 and depth <= 4):
+            elif (depth >=2.0 and depth <= 4.0):
                 t_lvl = 1
             # Z > 4
             else:
@@ -371,31 +374,31 @@ class Print_ENC(object):
         if WL == 2:
             # At least 2 feet above MHW. Being shoal biased, we will take the 
             #   object's "charted" depth as 2 feet above MHW
-            WL_depth = self.tide-(2*feet2meters+self.MHW_Offset)
+            WL_depth = self.tide-(2.0*feet2meters+self.MHW_Offset)
             
         elif WL == 3:
             # At least 1 foot below MLLW. Being shoal biased, we will take the 
             #   object's "charted" depth as 1 foot below MLLW
-            WL_depth = self.tide+1*feet2meters
+            WL_depth = self.tide+1.0*feet2meters
             
         elif WL == 4:
             # The range for these attributes 1 foot below MLLW and 1 foot above MHW
             #   Therefore, we will be shoal biased and take 1 foot above MHW as the
             #   object's "charted" depth.
-            WL_depth = self.tide-(1*feet2meters+self.MHW_Offset)
+            WL_depth = self.tide-(1.0*feet2meters+self.MHW_Offset)
             
         elif WL == 5:
             # The range for these attributes 1 foot below MLLW and 1 foot above 
             #   MLLW. Therefore, we will be shoal biased and take 1 foot above MLLW
             #   as the object's "charted" depth.
-            WL_depth = self.tide-1*feet2meters
+            WL_depth = self.tide-1.0*feet2meters
         elif WL == 0:
             # Make the threat level completely dependant on the sounding depth
-            WL_depth = 99
+            WL_depth = 99.0
         else:
             # All other Water levels (1, 6, and 7) don't have a quantitative 
             #   descriptions. Therefore we will set it to 0.
-            WL_depth = 0
+            WL_depth = 0.0
             
         return WL_depth
     
@@ -409,18 +412,18 @@ class Print_ENC(object):
             S_lat - Southern latitude boundary
             W_long - Western longitude boundary
         """
-        # White Island
+#        # White Island
 #        E_long, N_lat = self.MOOSxy2LonLat(1606,-1184)
 #        W_long, S_lat = self.MOOSxy2LonLat(2076,-1462)    
-#        
+        
 #        # Landmarks
 #        E_long, N_lat = self.MOOSxy2LonLat(5719,-9353)
 #        W_long, S_lat = self.MOOSxy2LonLat(8807,-11539) 
         
-        # Through and Island
+#        # Through and Island
 #        E_long, N_lat = self.MOOSxy2LonLat(1021,-835)
 #        W_long, S_lat = self.MOOSxy2LonLat(1291,-1119)        
-#        
+          
         # Start by creating the baseline for the search area polygon 
         ring = ogr.Geometry(ogr.wkbLinearRing)
         
@@ -454,11 +457,13 @@ class Print_ENC(object):
             
             if self.first_print or MLLW_t_lvl != t_lvl:
                 geom = feature.GetGeometryRef()
-                if not self.first_print:
-                    print 'Point -  Old:{}, New{}'.format(MLLW_t_lvl, t_lvl)
+                
                 # Convert the MOOS x,y position to Lat/Long and store it
                 new_x, new_y = self.LonLat2MOOSxy (geom.GetX(), geom.GetY())
-                location = 'x={},y={},'.format(new_x, new_y)                
+                location = 'x={},y={},'.format(new_x, new_y)     
+                
+                if not self.first_print:
+                    print 'Point -  Old:{}, New{} --> x={},y={}'.format(MLLW_t_lvl, t_lvl,new_x, new_y)
                 
                 # Change the Color of the point based on the Threat Level
                 if t_lvl == 5: #Coast Line
@@ -479,11 +484,14 @@ class Print_ENC(object):
                     color = 'vertex_color=cornflowerblue,'
                 
                 label = ',label=point_{}'.format(i)
-                size =  'vertex_size=10,'   
-                print_pnt = location+size+color+label
-                if t_lvl != 0:
-                    # Print the point
-                    self.MOOS.comms.notify('VIEW_POINT', print_pnt)
+                size =  'vertex_size=10,'
+                if t_lvl == 0:
+                    active = ',active=false'
+                else:
+                    active = ',active=true'
+                print_pnt = location+size+color+active+label
+                # Print the point
+                self.MOOS.comms.notify('VIEW_POINT', print_pnt)
             feature = layer.GetNextFeature()
             i += 1
     

@@ -38,8 +38,6 @@ BHV_OA_pnt::BHV_OA_pnt(IvPDomain gdomain) :
   // Initialize Globals
   m_v_length = 4;
   m_maxutil = 100;
-
-  cout << "constructor" << endl;
 }
 
 //---------------------------------------------------------------
@@ -58,8 +56,6 @@ bool BHV_OA_pnt::setParam(string param, string val)
       m_v_length = double_val;
       return(true);
     }
-
-  cout << "Param" << endl;
   
   // If not handled above, then just return false;
   return(false);
@@ -74,8 +70,6 @@ IvPFunction* BHV_OA_pnt::onRunState()
   // Part 1: Build the IvP function
   IvPFunction *ipf = 0;
 
-  cout << "!abc run "<< endl;
-  
   // Part 1a: Get information from the InfoBuffer
   vector<string> temp_WPT, result, ASV_info;
 
@@ -87,7 +81,7 @@ IvPFunction* BHV_OA_pnt::onRunState()
   m_ASV_y = getBufferDoubleVal("NAV_Y", ok5);
   m_ASV_head = getBufferDoubleVal("NAV_HEADING", ok6);
   m_v_length = getBufferDoubleVal("ASV_length", ok7);
-
+  cout << "!abc check "<< endl;
   // Check if there are new obstacles and speed and if there are, make a new IvPfunction
   if(!ok1)
     {
@@ -128,8 +122,8 @@ IvPFunction* BHV_OA_pnt::onRunState()
       result = parseString(m_obstacles, ':');
       
       // Parse the number of obstacles
-      m_num_obs = (int)floor(strtod(result[1].c_str(), NULL));
-
+      m_num_obs = (int)floor(strtod(result[0].c_str(), NULL));
+      
       // Store the information on the obstacle
       if (result.size()==3)
 	{
@@ -167,21 +161,26 @@ IvPFunction *BHV_OA_pnt::buildZAIC_Vector()
   obstacle.clear();
   info.clear();
   max_cost.clear();
-
+  
   // Then separate the obstacles from one another
   info = parseString(m_obs_info, '!');
-
-  for (int i; i<info.size(); i++)
+  
+  for (int i=0; i<info.size(); i++)
     {
       Point object = Point();
+      cout << "!abc construct" << endl;
       obstacle.push_back(object);
+      
       getPoint(info[i], obstacle[i], max_cost);
+      cout << "!abc getPoint" << endl;
       if (obstacle[i].getCost()>0){
 	calcGaussWindow(OA_util, obstacle[i]);
+	cout << "!abc calc window" << endl;
       }
     }
 
   Update_Lead_Param(max_cost);
+  cout << "!abc return" << endl;
   return setIVP_domain_range(OA_util);
 }
 
@@ -191,22 +190,22 @@ void BHV_OA_pnt::getPoint(string info, Point& Obstacle, vector<double>& max_cost
   vector<string> x, y, ind_obs_info;;
 
   // Parse the individual obstacles
-  ind_obs_info = parseString(info, '@');
+  ind_obs_info = parseString(info, ',');
 
   // Get rid of the 'x=' and 'y='
   x = parseString(ind_obs_info[0], '=');
   y = parseString(ind_obs_info[1], '=');
   Obstacle.setXY(strtod(x[1].c_str(), NULL),strtod(y[1].c_str(), NULL));
-
+  
   // Set the reference frame (1 for all points), threat level and the obstacle type
   Obstacle.setStatics(1, (int)floor(strtod(ind_obs_info[2].c_str(), NULL)), ind_obs_info[3]);
-
+  
   // Calculate and set the angle for the obstacle
   Obstacle.setAngle(relAng(m_ASV_x, m_ASV_y, Obstacle.getX(), Obstacle.getY()));
-
+  
   // Calculate and set the cost and distance of the point obstacle
   Obstacle.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
-
+  
   //Store the maximum cost
   max_cost.push_back(Obstacle.getCost());
 }

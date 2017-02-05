@@ -54,7 +54,7 @@ class ENC_Contact : public CMOOSApp
  private: // State variables
    unsigned int m_iterations;
    double       m_timewarp;
-	int max_pnts, max_poly;
+	int m_max_pnts, m_max_poly;
 	std::vector <double> vect_x, vect_y, vect_head, vect_tide;
 
 	// GDAL

@@ -177,10 +177,8 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   //  Then separate the obstacles from one another
   info = parseString(m_obs_info, '!');
 
-  cout << "Failed start" << endl;
   for (int i=0; i<info.size(); i++)
     {
-      cout << "Failed 0a " << endl;
       // Make new polygon vertices
       Poly polygon_min_ang = Poly();
       Poly polygon_min_dist = Poly();
@@ -190,14 +188,12 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       min_ang.push_back(polygon_min_ang);
       min_dist.push_back(polygon_min_dist);
       max_ang.push_back(polygon_max_ang);
-      cout << "Failed 2a " << endl;
 
       getVertices(info[i], min_ang[i], min_dist[i], max_ang[i], max_cost);
-      cout << "Failed 3a " << endl;
+      
       buffer_width = calcBuffer(min_dist[i].getCost());
-      cout << "Failed 4a " << endl;
+      
       calcVShape(buffer_width, OA_util, min_ang[i], min_dist[i], max_ang[i]);
-      cout << "Failed 5a " << endl;
     }
   Update_Lead_Param(max_cost);
   return setIVP_domain_range(OA_util);
@@ -272,11 +268,12 @@ void BHV_OA_poly::calcVShape(double buffer_width, double (&OA_util)[360], Poly m
 {
   int buff_high, buff_low;
   double calculated_cost, actual_cost, utility;
-  int safety, cur_ang;
+  int safety = 90;
+  int cur_ang = 0;
   // If you are close to the obstacle place a safety buffer of atleast +/- 75 degrees around the closest point
   if (min_dist.getDist() < 10)
     {
-      for (int i = 1; i<safety; i++)
+      for (int i = 0; i<safety; i++)
 	{
 	  // Update the current buffer angles (Domain = [-360,360])
 	  buff_low = (int)floor(fmod(min_dist.getAngle()-i,360));

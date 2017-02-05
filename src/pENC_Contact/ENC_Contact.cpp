@@ -53,17 +53,6 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
       vect_tide.push_back(atof(msg.GetString().c_str()));
     else if (name == "MHW_Offset")
       m_MHW_Offset = atof(msg.GetString().c_str());
-    
-#if 0 // Keep these around just for template
-    string key   = msg.GetKey();
-    string comm  = msg.GetCommunity();
-    double dval  = msg.GetDouble();
-    string sval  = msg.GetString(); 
-    string msrc  = msg.GetSource();
-    double mtime = msg.GetTime();
-    bool   mdbl  = msg.IsDouble();
-    bool   mstr  = msg.IsString();
-#endif
    }
 	
    return(true);
@@ -915,7 +904,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	      new_feat->SetField("Type", LayerName.c_str());
 	      new_feat->SetField("Cat", cat.c_str());
 	      new_feat->SetField("Visual", vis);
-	      //*/
+	      
 	      // Make the point
 	      poPoint = ( OGRPoint * )geom;
 		
@@ -1045,7 +1034,6 @@ void ENC_Contact::build_search_poly()
 
 void ENC_Contact::filter_feats()
 {
-  //OGRGeometry filter = search_area_poly->GetGeometryRef();
   // Remove old spatial filter
   Point_Layer->SetSpatialFilter(NULL);
   Poly_Layer->SetSpatialFilter(NULL);
@@ -1092,8 +1080,6 @@ void ENC_Contact::publish_points()
   while( (poFeature = Point_Layer->GetNextFeature()) != NULL )
     {
       geom = poFeature->GetGeometryRef();
-      //if (geom->Within(search_area_poly))
-      //{
       poPoint = ( OGRPoint * )geom;
 		
       // Get the lat and long position of the point and convert it to UTM 
@@ -1110,6 +1096,7 @@ void ENC_Contact::publish_points()
       obs_type =poFeature->GetFieldAsString(3);
       
       t_lvl = calc_t_lvl(depth, WL, obs_type);
+      
       if (t_lvl > 0)
 	{
 	  // Highlight the point on pMarnineViewer
@@ -1125,17 +1112,17 @@ void ENC_Contact::publish_points()
       //}
     }
   // Output to the MOOSDB a list of obstacles
-  //   # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
+  //  ASV_X,ASV_Y,ASV_Head # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
   obstacles = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs)+":"+obs_pos;
   Notify("Obstacles", obstacles);
-
+  
   // Determine if a new polygon was used
-  if (max_pnts < num_obs)
-    max_pnts = num_obs;
+  if (m_max_pnts < num_obs)
+    m_max_pnts = num_obs;
   
   // Remove highlighted point obstacles (shown as polygons) from 
   //  pMarineViewer if they are outside of the search area
-  for (int i=num_obs; i<max_pnts; i++)
+  for (int i=num_obs; i<m_max_pnts; i++)
     {
       remove_highlight = "format=radial,x= 0,y=0,radius=25,pts=8,edge_size=5,vertex_size=2,active=false,label=hpnt_"+to_string(i);
       Notify("VIEW_POLYGON", remove_highlight);
@@ -1202,10 +1189,10 @@ void ENC_Contact::publish_poly()
   //cout << Poly_Obs << endl;
   Notify("Poly_Obs", Poly_Obs);
   
-  if (max_poly < num_obs)
-    max_poly = num_obs;
+  if (m_max_poly < num_obs)
+    m_max_poly = num_obs;
   
-  for (int ii = num_obs; ii<max_poly; ii++)
+  for (int ii = num_obs; ii<m_max_poly; ii++)
     {
       pt_1 = "x=10000,y=10000,vertex_color=white,active=false,label=pt1_"+to_string(ii);
       pt_2 = "x=10000,y=10000,vertex_color=white,active=false,label=pt2_"+to_string(ii);

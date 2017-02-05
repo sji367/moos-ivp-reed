@@ -1,0 +1,15 @@
+!SESSION 2017-01-22 13:58:36.546 -----------------------------------------------
+eclipse.buildId=debbuild
+java.version=1.8.0_111
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY org.eclipse.cdt.core 1 0 2017-01-22 14:01:20.094
+!MESSAGE Indexed 'BHV_OA' (0 sources, 0 headers) in 0.002 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2017-01-22 14:02:39.129
+!MESSAGE Indexed 'BHV_OA2' (0 sources, 0 headers) in 0.001 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2017-01-22 14:04:00.282
+!MESSAGE Indexed 'BHV_OA' (5 sources, 152 headers) in 8.08 sec: 13,892 declarations; 25,457 references; 9 unresolved inclusions; 0 syntax errors; 148 unresolved names (0.37%)
