@@ -43,7 +43,7 @@ TARGET_LINK_LIBRARIES(BHV_OA_pnt
    bhvutil 
    mbutil 
    geometry
-   ENC_geom
+   ENC_util
    ${SYSTEM_LIBS} )
 
 #--------------------------------------------------------
@@ -60,5 +60,5 @@ TARGET_LINK_LIBRARIES(BHV_OA_poly
    bhvutil 
    mbutil 
    geometry
-   ENC_geom
+   ENC_util
    ${SYSTEM_LIBS} )

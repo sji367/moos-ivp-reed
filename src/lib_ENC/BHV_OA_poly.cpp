@@ -205,6 +205,11 @@ void BHV_OA_poly::getVertices(string info, Poly& min_angle, Poly& min_dist, Poly
   // Vectors holding the parsed information on the obstacles
   vector<string> poly_info, poly_gen_info, poly_ang_info;
 
+  // Deals with the 0/360 cross over. If the angles of the "V" cross over
+  //  the 0/360 boundary, then the domain will be
+  //    [-buffer_0_360, 360-buffer_0_360]
+  double buffer_0_360;
+
   // Parse the individual obstacles
   poly_info = parseString(info, '@');
 
@@ -225,11 +230,16 @@ void BHV_OA_poly::getVertices(string info, Poly& min_angle, Poly& min_dist, Poly
   min_angle.setStatics(stoi(poly_ang_info[0]), stoi(poly_gen_info[0]), poly_gen_info[1]);
   min_dist.setStatics(stoi(poly_ang_info[0]), stoi(poly_gen_info[0]), poly_gen_info[1]);
   max_angle.setStatics(stoi(poly_ang_info[0]), stoi(poly_gen_info[0]), poly_gen_info[1]);
+
+  // Determine the 0/360 buffer
+  buffer_0_360 = relAng(m_ASV_x, m_ASV_y, min_angle.getX(), min_angle.getY());
   
   // Calculate and set the angle for the critical points
-  min_angle.setAngle(relAng(m_ASV_x, m_ASV_y, min_angle.getX(), min_angle.getY()));
-  min_dist.setAngle(relAng(m_ASV_x, m_ASV_y, min_dist.getX(), min_dist.getY()));
-  max_angle.setAngle(relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY()));
+  min_angle.setAngle(relAng(m_ASV_x, m_ASV_y, min_angle.getX(), min_angle.getY()),buffer_0_360);
+  min_dist.setAngle(relAng(m_ASV_x, m_ASV_y, min_dist.getX(), min_dist.getY()),buffer_0_360);
+  max_angle.setAngle(relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY()),buffer_0_360);
+
+  postMessage("Angles", to_string(min_angle.getAngle())+", "+to_string(min_dist.getAngle())+", "+to_string(max_angle.getAngle()));
 
   // Calculate and set the cost and distance of the the critical points "V"
   min_angle.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);

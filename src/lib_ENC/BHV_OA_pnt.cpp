@@ -197,8 +197,8 @@ void BHV_OA_pnt::getPoint(string info, Point& Obstacle, vector<double>& max_cost
   y = parseString(ind_obs_info[1], '=');
   Obstacle.setXY(strtod(x[1].c_str(), NULL),strtod(y[1].c_str(), NULL));
   
-  // Set the reference frame (1 for all points), threat level and the obstacle type
-  Obstacle.setStatics(1, (int)floor(strtod(ind_obs_info[2].c_str(), NULL)), ind_obs_info[3]);
+  // Set the threat level and the obstacle type
+  Obstacle.setStatics((int)floor(strtod(ind_obs_info[2].c_str(), NULL)), ind_obs_info[3]);
   
   // Calculate and set the angle for the obstacle
   Obstacle.setAngle(relAng(m_ASV_x, m_ASV_y, Obstacle.getX(), Obstacle.getY()));
