@@ -14,6 +14,7 @@
 #include "ogrsf_frmts.h" // for gdal/ogr
 #include <cmath> // for pow and sqrt
 #include <algorithm> // for min_element and max_element
+#include "envelope.h"
 
 using namespace std;
 //---------------------------------------------------------
@@ -1209,25 +1210,24 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
   poRing = poPolygon->getExteriorRing();
   
   int pnt_cnt =poRing->getNumPoints();
-  double x, y, lat, lon, ang;
-  int ref_frame = 1;
+  int min_ang_index, max_ang_index, min_dist_index;
+  int i;
+  
+  double min_ang, max_ang, min_dist;
+  double x, y, lat, lon, ang, prev_ang, first_ang;
+  
   string crit_pts = "";
   string pt_1,pt_2, pt_3;
-  double min_ang, max_ang, min_dist;
-  int min_ang_index, max_ang_index, min_dist_index;
+  string ref_frame = "";
+  
   vector<double> vert_x, vert_y;
   
   if (poRing != NULL)
     {
-      // angle2poly* = angle with different domains. Each one of these arrays contain the same
-      //  angle just different domains.
-      //   *360 -> [0,360]
-      //   *270 -> [-90,270]
-      //   *180 -> [-180,180]
-      //   *90  -> [-270,90]
-      vector<double>  dist2poly, angle2poly360, angle2poly270, angle2poly180, angle2poly90;
-  
-      for (int i=0; i<pnt_cnt; i++)
+      vector<vector<double>> angle2poly;
+      vector<double>  dist2poly;
+      Envelope poly_envs = Envelope();
+      for (i=0; i<pnt_cnt; i++)
 	{
 	  // GetX = Longitude, GetY = Latitude 
 	  lon = poRing->getX(i);
@@ -1240,97 +1240,44 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
 	  
 	  dist2poly.push_back(sqrt(pow((m_ASV_x-x),2)+pow((m_ASV_y-y),2)));
 	  ang = relAng(m_ASV_x, m_ASV_y,x,y);
-	  
-	  angle2poly360.push_back(ang);
-	  
-	  // Deal with the boundary cases. When the angle switches at the cross over point
-	  //  (EX: angle2poly360 - between 360 and 0) we want to use a different domain.
-	  
-	  // Domain --> [-90,270]
-	  if (ang > 270)
-	    angle2poly270.push_back(ang-360);
+
+	  if (i>0)
+	    poly_envs.store_angle(ang,prev_ang,(double)i,angle2poly);
 	  else
-	    angle2poly270.push_back(ang);
-      
-	  // Domain --> [-180,180]
-	  if (ang > 180)
-	    angle2poly180.push_back(ang-360);
-	  else
-	    angle2poly180.push_back(ang);
-      
-	  // Domain --> [-270,90]
-	  if (ang > 90)
-	    angle2poly90.push_back(ang-360);
-	  else
-	    angle2poly90.push_back(ang);
+	    first_ang = ang;
+
+	  prev_ang = ang;
 	}
+      // The angle of the first vertex should be compared to the angle
+      //  of the last vertex.
+      poly_envs.store_angle(first_ang,prev_ang,(double)i,angle2poly);
+      cout << "Store" << endl;
       
+      // Determine the minimum and maximum angles
+      poly_envs.calcEnvelope(angle2poly);
+      cout << "env\n";
+      min_ang = poly_envs.GetMinAng();
+      cout << "min " << min_ang << endl;
+      
+      max_ang = poly_envs.GetMaxAng();
+      cout << "max " << max_ang << endl;
+
+      // Deal with the cross over point (0/360 boundary)
+      if (min_ang < max_ang)
+	ref_frame = "0,";
+      else
+	ref_frame = "1,";
+      
+      // Get their index
+      min_ang_index = poly_envs.GetMinAngIndex();
+      max_ang_index = poly_envs.GetMaxAngIndex();
+      
+      // Determine the minimum distance
       min_dist = *min_element(dist2poly.begin(), dist2poly.end());
-      min_ang = *min_element(angle2poly360.begin(), angle2poly360.end());
-      max_ang = *max_element(angle2poly360.begin(), angle2poly360.end());
-      // If it is on the boundary case for [0, 360] move to [-90, 270]
-      if ((min_ang<10)&&(max_ang>350))
-	{
-	  // cout << "Old --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
-	  min_ang = *min_element(angle2poly270.begin(), angle2poly270.end());
-	  max_ang = *max_element(angle2poly270.begin(), angle2poly270.end());
-	  ref_frame = 4;
-	  //cout << "New --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
-	}
 
-      // If it is on the boundary case for [-90, 270] move to [-180, 180]
-      if ((min_ang<-80)&&(max_ang>260))
-	{
-	  //cout << "Old --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
-	  min_ang = *min_element(angle2poly180.begin(), angle2poly180.end());
-	  max_ang = *max_element(angle2poly180.begin(), angle2poly180.end());
-	  ref_frame =2;
-	  //cout << "New --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
-	}
-
-      // If it is on the boundary case for [-180, 180] move to [-270, 90]
-      if ((min_ang<-170)&&(max_ang>170))
-	{
-	  //cout << "Old --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
-	  min_ang = *min_element(angle2poly90.begin(), angle2poly90.end());
-	  max_ang = *max_element(angle2poly90.begin(), angle2poly90.end());
-	  ref_frame = 3;
-	  //cout << "New --> Ref: " << ref_frame << " Min: " <<  min_ang << " Max: " << max_ang << endl;
-	}
-      
-      // Determine the index of the minimum and maximum angle as well as the minimum distance 
-      vector<double> ang_min, ang_max;
-      switch(ref_frame)
-	{
-	case 1:
-	  ang_min = angle2poly360;
-	  ang_max = angle2poly360;
-	  break;
-	case 2:
-	  ang_min = angle2poly180;
-	  ang_max = angle2poly180;
-	  break;
-	case 3:
-	  ang_min = angle2poly90;
-	  ang_max = angle2poly90;
-	  break;
-	case 4:
-	  ang_min = angle2poly270;
-	  ang_max = angle2poly270;
-	  break;
-	default:
-	  ang_min = angle2poly360;
-	  ang_max = angle2poly360;
-	  break;
-	}
-      
-      // Deterimine which index is the min/max angle and min distance
+      // Deterimine which vertex is the min distance
       for (int i=0; i<pnt_cnt; i++)
 	{
-	  if (ang_min[i] == min_ang)
-	    min_ang_index = i;
-	  if (ang_max[i] == max_ang)
-	    max_ang_index = i;
 	  if (min_dist ==dist2poly.at(i))
 	    min_dist_index = i;
 	}
@@ -1345,15 +1292,15 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
       y_ang_max = to_string(vert_y.at(max_ang_index));
       
       // Post hints to pMarineViewer about the critical points
-      pt_1 = "x="+x_ang_min+",y="+y_ang_min+",vertex_color=white,vertex_size=7,label=pt1_"+to_string(num_obs);
+      pt_3 = "x="+x_ang_min+",y="+y_ang_min+",vertex_color=white,vertex_size=7,label=pt1_"+to_string(num_obs);
       pt_2 = "x="+x_dist_min+",y="+y_dist_min+",vertex_color=mediumblue,vertex_size=7,label=pt2_"+to_string(num_obs);
-      pt_3 = "x="+x_ang_max+",y="+y_ang_max+",vertex_color=white,vertex_size=7,label=pt3_"+to_string(num_obs);
+      pt_1 = "x="+x_ang_max+",y="+y_ang_max+",vertex_color=white,vertex_size=7,label=pt3_"+to_string(num_obs);
       
       Notify("VIEW_POINT", pt_1);
       Notify("VIEW_POINT", pt_2);
       Notify("VIEW_POINT", pt_3);
 
-      crit_pts = to_string(ref_frame)+","+x_ang_min +","+ y_ang_min +","+ x_dist_min +","+ y_dist_min +","+ x_ang_max +","+ y_ang_max;
+      crit_pts = ref_frame+ +","+x_ang_max +"," + y_ang_max +","+ x_dist_min +","+ y_dist_min +","+x_ang_min +","+ y_ang_min;
     }
   else
     {

@@ -33,10 +33,16 @@ ProcessConfig = ANTLER
 
 ProcessConfig = pENC_Contact
 {
-   AppTick   = 4
-   CommsTick = 4
+   AppTick   = 6
+   CommsTick = 6
 
 	ENCs = US5NH02M
+	ASV_Length = 1.8
+	ASV_Width = 1
+
+	search_dist = 75
+	avoid_dist = 200
+	
 }
 
 /------------------------------------------
