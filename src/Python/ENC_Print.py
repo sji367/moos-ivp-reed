@@ -693,7 +693,7 @@ class Print_ENC(object):
         """ This function prints all of the objects that are within the desired
             area to be printed to the pMarnineViewer.        
         """
-        self.print_points()
+        #self.print_points()
         self.print_polygons()
         #self.print_lines()
         self.first_print = False
@@ -718,7 +718,7 @@ class Print_ENC(object):
                 print 'Tide: {}'.format(self.tide)
                 self.MOOS.tide = []
                 self.filter_feat()
-                self.print_points()
+                #self.print_points()
                 self.print_polygons()
                 #self.print_lines()
 
