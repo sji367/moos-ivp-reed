@@ -698,7 +698,6 @@ void ENC_Contact::BuildLayers()
 	  cout << "Opened "<< m_ENC << endl; 
 	// Points only
 	LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG");
-
 	ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, LineLayer, "UWTROC");
 	ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, LineLayer, "LIGHTS");
 	ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, LineLayer, "BOYSPP");
@@ -899,8 +898,6 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	  
 	  if (LayerName=="DEPCNT"){
 	    depth = poFeature->GetFieldAsDouble("VALDCO");
-	    cout << i << " " << depth << endl;
-	    i++;
 	  }
 	  
 	  t_lvl = calc_t_lvl(depth, WL, LayerName);
@@ -1014,8 +1011,6 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	  OGRFeature::DestroyFeature( new_feat );
 	  
 	}
-      if (LayerName=="DEPCNT")
-	cout << "# of contours: " << i << endl;
     }
   else
     {
