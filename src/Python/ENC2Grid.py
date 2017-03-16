@@ -4,16 +4,26 @@ Created on Tue Mar  7 10:24:18 2017
 
 @author: sji367
 """
+import sys
 import numpy as np
 import ogr, gdal
 from scipy.interpolate import griddata
-from scipy.io import savemat
+from scipy.io import savemat,loadmat
 from time import time
+
+from pandas import DataFrame
+
+# pyproj is a library that converts lat long coordinates into UTM
+import pyproj 
+
+# Define which UTM zone we are in
+
+
 
 class ENC_Grid():
     def __init__(self, filename_point= '../../src/ENCs/Shape/grid/Point.shp',
          filename_poly= '../../src/ENCs/Shape/grid/Poly.shp',
-         filename_line= '../../src/ENCs/Shape/grid/Line.shp', grid_size = 20):
+         filename_line= '../../src/ENCs/Shape/grid/Line.shp', grid_size = 15):
         
         self.filename_point = filename_point
         self.filename_poly = filename_poly
@@ -30,8 +40,30 @@ class ENC_Grid():
         self.y_min = extent[2]
         self.y_max = extent[3]
         
+        # To convert things to UTM
+        self.LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
+        self.LatOrigin=43.071959194444446
+        self.LongOrigin=-70.711610833333339
+        self.x_origin, y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)        
+        
         # For timers
         self.start = time()
+        
+    def LonLat2MOOSxy(self, lon, lat):
+        """ This function converts Longitude and Latitude to MOOS X and Y
+        
+        Inputs:
+            lat - Latitude to be converted to UTM
+            lon - Longitude to be converted to UTM
+            
+        Output:
+            x - Corresponding X location in UTM
+            y - Corresponding Y location in UTM
+        """
+        x,y = self.LonLat2UTM(lon, lat)
+        x += -self.x_origin
+        y += -self.y_origin
+        return x,y 
         
     def shp2array(self, source_layer, NoData_value = 255, burn_depth=False):
         """ This function rasterizes the inputed shapefile layer. To do so, it  
@@ -48,7 +80,8 @@ class ENC_Grid():
                 
             Outputs:
                 array - rasterized layer stored in a numpy array
-        """        
+        """  
+#        source_layer.GetSpatialRef()
         # Create the destination data source
         x_res = int((self.x_max - self.x_min) / self.grid_size)
         y_res = int((self.y_max - self.y_min) / self.grid_size)
@@ -57,13 +90,11 @@ class ENC_Grid():
         band = target_ds.GetRasterBand(1)
         band.Fill(np.nan)
         band.SetNoDataValue(NoData_value)
-        
         # Rasterize
         if burn_depth:
             gdal.RasterizeLayer(target_ds, [1], source_layer, burn_values=[1], options=["ATTRIBUTE=Depth",'ALL_TOUCHED=True'])
         else:
-            gdal.RasterizeLayer(target_ds, [1], source_layer, burn_values=[1], options=['ALL_TOUCHED=True'])
-            
+            gdal.RasterizeLayer(target_ds, [1], source_layer, burn_values=[1], options=['ALL_TOUCHED=True']) 
         # Read as array
         return band.ReadAsArray()
         
@@ -122,10 +153,9 @@ class ENC_Grid():
             
         return np.array(matrix)
         
-    def line2XYZ(self, layer, max_segment=10):
-        """ This function takes in a GDAL line layer (depth contour), 
-            segmentizes each line andthen outputs a numpy array of the XYZ data 
-            of each vertex.
+    def line2XYZ(self, layer):
+        """ This function takes in a GDAL line layer (depth contour), and 
+            outputs a numpy array of the XYZ data of each vertex.
             
             Input:
                 layer - GDAL line layer used to find the XYZ coordinates
@@ -139,9 +169,6 @@ class ENC_Grid():
         for i in range(layer.GetFeatureCount()):
             feat = layer.GetNextFeature()
             geom = feat.GetGeometryRef()
-            # Segmentize the line so that the entire contour is taken into 
-            #  account in the grid
-            geom.Segmentize(max_segment)
             # Cycle through each point in the segmentized line and store the 
             #   XYZ coordinates of each vertex
             for iPnt in range(geom.GetPointCount()):
@@ -150,7 +177,7 @@ class ENC_Grid():
                 matrix.append([x,y,z])
         return np.array(matrix)
         
-    def poly2XYZ(self, layer, land_z = -10):
+    def poly2XYZ(self, layer, land_z = -5):
         """ This function takes in a GDAL polygon layer (land area) and outputs
              a numpy array of the XYZ data.
             
@@ -165,18 +192,22 @@ class ENC_Grid():
         # Rasterize the polygon layer (aka grid it)
         array_poly=self.shp2array(layer)
         # The non-zero points are the polygons
-        no0=np.nonzero(array_poly)
+        no0=np.nonzero(array_poly) # 
         matrix = []
         # Now cycle through these points and store the XY data along with the 
         #   default land height data given by land_z
         for i in range(len(no0[0])):
-            x = no0[1][i]*self.grid_size+12.5+self.x_min
-            y = self.y_max-(no0[0][i]*self.grid_size+12.5)
+            gridX = int(no0[1][i])
+            gridY = int(no0[0][i])
+#            print '{} {}'.format(gridX, gridY)
+            x,y = self.grid2xy(gridX, gridY)
+#            x = no0[1][i]*self.grid_size+self.grid_size/2+self.x_min
+#            y = self.y_max-(no0[0][i]*self.grid_size+self.grid_size/2)
             matrix.append([x,y,land_z])
         
         return np.array(matrix)
         
-    def grid_data(self, rawXYZ, method = 'linear', Remove_nan=True, nan_value = -15):
+    def grid_data(self, rawXYZ, method = 'linear', Remove_nan=False, nan_value = -15):
         """ This function grids the raw XYZ data and does a linear 
                 interpolation on the grid. 
             
@@ -251,68 +282,101 @@ class ENC_Grid():
         # Grid and interpolate the raw depth data
         interp = self.grid_data(raw)
         return  raw,interp
+        
+    def xy2grid(self, x,y):
+        """ Converts the local UTM to the grid coordinates. """
+        gridX = (x-self.x_min-self.grid_size/2.0)/self.grid_size
+        gridY = (y-self.y_min-self.grid_size/2.0)/self.grid_size
+    
+        return gridX,gridY
+        
+    def grid2xy(self, gridX, gridY):
+        """ Converts the grid coordinates to the local UTM. """
+#        print '{} {}'.format(gridX, gridY)
+        x = gridX*self.grid_size+self.x_min+self.grid_size/2.0
+        y = gridY*self.grid_size+self.y_min+self.grid_size/2.0      
+        
+        return x,y
+        
+    def ENC_Outline(self):
+        """ Gets an outline of the ENC Coverage and stores it to a .mat 
+            file.
+        """
+        ## Store ENC Coverage
+        ENC_filename='../../src/ENCs/US5NH02M/US5NH02M.000'
+        ds = ogr.Open(ENC_filename)
+        coverage = ds.GetLayerByName("M_COVR")
+        coverage.ResetReading()
+        area = []
+        for i in range(coverage.GetFeatureCount()):
+            feat = coverage.GetNextFeature()
+            if feat.GetFieldAsDouble('CATCOV') == 1:
+                geom = feat.GetGeometryRef()
+                ring = geom.GetGeometryRef(0)
+                for j in range (ring.GetPointCount()):
+                    x,y = self.LonLat2MOOSxy(ring.GetX(j), ring.GetY(j))
+                    x2,y2 = self.xy2grid(x,y)
+                    area.append([x2,y2])
+        savemat('../../src/ENCs/Shape/grid/outline.mat', {'outline':np.array(area)})
 
-GRID = ENC_Grid() 
-raw,interp = GRID.Build_Grid()
-end = time()
-print 'Total Time: {}'.format(end-GRID.start)
-savemat('../../src/ENCs/Shape/grid/grid.mat', {'raw':raw,'interp':interp})  
 
-# Get the Z values
-#l.SetAttributeFilter(None)#"Type='SOUNDG'")
-#z=[]
-#for j in range(3):
-#    l=layers[j]
-#    l.ResetReading()
-#    for i in range(l.GetFeatureCount()):
-#        f = l.GetNextFeature()
-#        g = f.GetGeometryRef()
-#        wkt = g.ExportToWkt()    
-#        z.append(f.GetFieldAsDouble("Depth"))
-#
-## Define pixel_size and NoData value of new raster
-#pixel_size = 25
-#NoData_value = 255
-#
-#array_pnt= shp2array(layers[0], extent)
-##array_poly=shp2array(layers[1], extent)
-#array_line=shp2array(layers[2], extent)
-#
-##array = make1array(array_pnt, array_poly, array_line)
-#
-##savemat('../../../../array.mat', {'point':array_pnt,'poly':array_poly, 'line':array_line, 'all':array})
-#
-#
-#
-#
-##feat = layers[2].GetNextFeature()
-##while(feat):
-#   
-#     
-#matrix = poly2pnt(layers[1], extent)
-#savemat('../../../../newer.mat', {'xy':matrix})  
+def main(argv):
+    # Set the grid size if given
+    if len(argv)>=1:
+        GRID = ENC_Grid(grid_size=float(argv[0]))
+    else:
+        print 'Assume grid size is 15'
+        GRID = ENC_Grid()
+    
+    raw,interp = GRID.Build_Grid()    
+    end = time()
+    print 'Total Elapsed Time: {}'.format(GRID.start-end)
+    # Set the type of output file    
+    if len(argv)>1:
+        output = str(argv[1]).upper()
+    else:
+        output = 'CSV'
+    print 'Saving to {} file(s).'.format(output)
+    
+    # Save the data as either a .mat file or .csv file
+    if output == 'MATLAB' or output == 'MAT':
+        savemat('../../src/ENCs/Shape/grid/grid.mat', {'interp':interp})
+    elif output == 'CSV':
+        df = DataFrame(interp)
+        df.to_csv("../../src/ENCs/Shape/grid/grid.csv")
+    elif output == 'BOTH':
+        savemat('../../src/ENCs/Shape/grid/grid.mat', {'interp':interp})
+        df = DataFrame(interp)
+        df.to_csv("../../src/ENCs/Shape/grid/grid.csv")
+    else:
+        print 'Invalid output file type. Use Matlab/CSV/Both.'
 
-#def make1array(array1, array2, array3):
-#    # Convert all of the arrays to the same size
-#    Row1, Col1 = self.numRowsCols(array1)
-#    Row2, Col2 = numRowsCols(array2)
-#    Row3, Col3 = numRowsCols(array3)
-#    
-#    maxRow = max([Row1, Row2, Row3])
-#    maxCol = max([Col1, Col2, Col3])
-#    
-#    if maxRow > Row1:
-#        array1 = np.concatenate((array1,np.zeros([maxRow-Row1,Col1])),axis=0)
-#    if maxRow > Row2:
-#        array2 = np.concatenate((array2,np.zeros([maxRow-Row2,Col2])),axis=0)
-#    if maxRow > Row3:
-#        array3 = np.concatenate((array3,np.zeros([maxRow-Row3,Col3])),axis=0)
-#    if maxRow > Col1:
-#        array1 = np.concatenate((array1,np.zeros([maxRow,maxCol-Col1])),axis=1)
-#    if maxRow > Col2:
-#        array2 = np.concatenate((array2,np.zeros([maxRow,maxCol-Col2])),axis=1)
-#    if maxRow > Col3:
-#        array3 = np.concatenate((array3,np.zeros([maxRow,maxCol-Col3])),axis=1)
-#        
-#    return np.maximum(np.maximum(array1,array2),array3)
+if __name__ == '__main__':
+    if len(sys.argv) <= 3:
+        if (sys.argv) > 1:
+            main(sys.argv[1:])
+        else:
+            main()
+    else:
+        print('Usage: ENC2Grid.py grid_size Matlab/CSV/Both')
+        print('       ENC2Grid.py grid_size')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     

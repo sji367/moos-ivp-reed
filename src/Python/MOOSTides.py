@@ -9,7 +9,7 @@ from datetime import datetime as dt
 from pytides.tide import Tide
 import pytides.constituent as cons
 import numpy as np
-import os
+#import os
 
 from parse_txt import parse_file
 
@@ -181,7 +181,7 @@ class tide_prediction(object):
             time.sleep(1/self.publish_rate)
 
 if __name__ == '__main__':
-    print os.getcwd()
+#    print os.getcwd()
     tide = tide_prediction()
     tide.run()
     

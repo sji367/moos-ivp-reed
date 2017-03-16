@@ -427,12 +427,15 @@ class Print_ENC(object):
         # Start by creating the baseline for the search area polygon 
         ring = ogr.Geometry(ogr.wkbLinearRing)
         
+        E_x, N_y = self.LonLat2MOOSxy(E_long, N_lat)
+        W_x, S_y = self.LonLat2MOOSxy(W_long, S_lat)
+        
         # Build a ring of the points fot the search area polygon
-        ring.AddPoint(W_long, N_lat)
-        ring.AddPoint(E_long, N_lat)
-        ring.AddPoint(E_long, S_lat)
-        ring.AddPoint(W_long, S_lat)
-        ring.AddPoint(W_long, N_lat)
+        ring.AddPoint(W_x, N_y)
+        ring.AddPoint(E_x, N_y)
+        ring.AddPoint(E_x, S_y)
+        ring.AddPoint(W_x, S_y)
+        ring.AddPoint(W_x, N_y)
         self.print_area_filter.AddGeometry(ring) # Add the ring to the previously created polygon
         
     def print_points(self):
@@ -459,7 +462,9 @@ class Print_ENC(object):
                 geom = feature.GetGeometryRef()
                 
                 # Convert the MOOS x,y position to Lat/Long and store it
-                new_x, new_y = self.LonLat2MOOSxy (geom.GetX(), geom.GetY())
+#                new_x, new_y = self.LonLat2MOOSxy (geom.GetX(), geom.GetY())
+                new_x = geom.GetX()
+                new_y = geom.GetY()
                 location = 'x={},y={},'.format(new_x, new_y)     
                 
                 if not self.first_print:
@@ -537,8 +542,9 @@ class Print_ENC(object):
                     vertex = 'pts={' # String to hold the vertices
                     # Cycle through the vertices and store them as a string
                     for p1 in xrange(points):
-                        lon, lat, z = p_ring.GetPoint(p1)
-                        p_x,p_y = self.LonLat2MOOSxy (lon, lat)
+#                        lon, lat, z = p_ring.GetPoint(p1)
+#                        p_x,p_y = self.LonLat2MOOSxy (lon, lat)
+                        p_x, p_y, z = p_ring.GetPoint(p1)
                         vertex += str(p_x) + ','+ str(p_y)
                         if (p1!=points-1):
                             vertex += ':'
@@ -658,8 +664,9 @@ class Print_ENC(object):
                 vertex = 'pts={' # String to hold the vertices
                 # Cycle through the vertices and store them as a string
                 for p2 in xrange(points):
-                    lon, lat, z = line.GetPoint(p2)
-                    p_x,p_y = self.LonLat2MOOSxy (lon, lat)
+#                    lon, lat, z = line.GetPoint(p2)
+#                    p_x,p_y = self.LonLat2MOOSxy (lon, lat)
+                    p_x, p_y, z = line.GetPoint(p2)
                     pos = '{},{}'.format(p_x, p_y)
                     vertex += pos
                     if (p2!=points-1):
@@ -693,7 +700,7 @@ class Print_ENC(object):
         """ This function prints all of the objects that are within the desired
             area to be printed to the pMarnineViewer.        
         """
-        #self.print_points()
+        self.print_points()
         self.print_polygons()
         #self.print_lines()
         self.first_print = False
@@ -718,7 +725,7 @@ class Print_ENC(object):
                 print 'Tide: {}'.format(self.tide)
                 self.MOOS.tide = []
                 self.filter_feat()
-                #self.print_points()
+                self.print_points()
                 self.print_polygons()
                 #self.print_lines()
 
