@@ -10,7 +10,6 @@ import ogr, gdal
 from scipy.interpolate import griddata
 from scipy.io import savemat,loadmat
 from time import time
-
 from pandas import DataFrame
 
 # pyproj is a library that converts lat long coordinates into UTM
@@ -200,9 +199,9 @@ class ENC_Grid():
             gridX = int(no0[1][i])
             gridY = int(no0[0][i])
 #            print '{} {}'.format(gridX, gridY)
-            x,y = self.grid2xy(gridX, gridY)
-#            x = no0[1][i]*self.grid_size+self.grid_size/2+self.x_min
-#            y = self.y_max-(no0[0][i]*self.grid_size+self.grid_size/2)
+#            x,y = self.grid2xy(gridX, gridY)
+            x = gridX*self.grid_size+self.grid_size/2+self.x_min
+            y = self.y_max-(gridY*self.grid_size+self.grid_size/2)
             matrix.append([x,y,land_z])
         
         return np.array(matrix)
@@ -273,8 +272,11 @@ class ENC_Grid():
         """
         # Get the raw data
         point = self.point2XYZ(self.layers[0])
+        print 'Points: {}'.format(time()-self.start)
         poly = self.poly2XYZ(self.layers[1])
+        print 'Poly: {}'.format(time()-self.start)
         line = self.line2XYZ(self.layers[2])
+        print 'Lines: {}'.format(time()-self.start)
         
         # Combine the raw data into 1 array
         raw = np.concatenate((point,poly,line))
@@ -330,7 +332,7 @@ def main(argv):
     
     raw,interp = GRID.Build_Grid()    
     end = time()
-    print 'Total Elapsed Time: {}'.format(GRID.start-end)
+    print 'Total Elapsed Time: {}'.format(end-GRID.start)
     # Set the type of output file    
     if len(argv)>1:
         output = str(argv[1]).upper()
@@ -348,8 +350,10 @@ def main(argv):
         savemat('../../src/ENCs/Shape/grid/grid.mat', {'interp':interp})
         df = DataFrame(interp)
         df.to_csv("../../src/ENCs/Shape/grid/grid.csv")
+    elif output== 'NONE':
+        pass
     else:
-        print 'Invalid output file type. Use Matlab/CSV/Both.'
+        print 'Invalid output file type. Use Matlab/CSV/Both/None.'
 
 if __name__ == '__main__':
     if len(sys.argv) <= 3:
