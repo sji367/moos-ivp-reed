@@ -157,7 +157,6 @@ vector<int> A_Star::AStar_Search()
   Node n0, child;
   
   priority_queue<Node, vector<Node>, less<Node>> frontier;
-  //int pqi =0; // priority queue index
   
   n0 = Node(xStart, yStart, 0,0); // Start node
   n0.updatePriority(xFinish,yFinish);
@@ -170,7 +169,7 @@ vector<int> A_Star::AStar_Search()
       frontier.pop(); // Remove the node from the frontier
       x = n0.getX();
       y = n0.getY();
-      //cout << "Node: " << x << ", " << y  << endl;
+      
       if (closed_nodes_map[y][x] != 1){
 	open_nodes_map[y][x] = 0;
 	// mark it on the closed nodes map
@@ -180,6 +179,7 @@ vector<int> A_Star::AStar_Search()
 	  // Generate the path from finish to start by following the 
 	  //  directions.
 	  return ReconstructPath(direction_map);
+	
 	for (int i = 0; i<num_directions; i++)
 	  {
 	    new_x = x+dx[i];
@@ -192,7 +192,7 @@ vector<int> A_Star::AStar_Search()
 		    child = Node(new_x, new_y, n0.getCost(), n0.getPriority());
 		    child.calcCost(dx[i], dy[i]);
 		    child.updatePriority(xFinish, yFinish);
-		    //cout << " New Pos " << i <<": " << new_x << ", " << new_y << ", P: " << child.getPriority() << endl;
+		    
 		    // If the child node is not in the open list, add it to
 		    //  the list
 		    if ((open_nodes_map[new_y][new_x] == 0) ||
@@ -210,36 +210,6 @@ vector<int> A_Star::AStar_Search()
 			// Mark the direction of the parent node 
 			direction_map[new_y][new_x] = getParent(i);
 		      }
-		    /*
-		      else if (open_nodes_map[new_y][new_x] > child.getPriority())
-		      {
-		      // Update the priority info
-		      open_nodes_map[new_y][new_x] = child.getPriority();
-		      // Update the parent direction info
-		      direction_map[new_y][new_x] = getParent(i);
-		      
-		      // Replace the node by emptying one pq to the other
-		      //  one except the node to be replaced will be ignored
-		      //  and the new node will be pushed in instead
-		      while ((frontier[pqi].top().getX() != new_x) &&
-		      (frontier[pqi].top().gety() != new_y))
-		      {
-		      frontier[1-pqi].push(pq[pqi][0]);
-		      frontier[pqi].pop();
-		      }
-		      frontier[pqi].pop(); // remove the wanted node
-		      // Empty the larger size priority queue to the
-		      //  smaller one
-		      if (frontier[pqi].size() > frontier[1-pqi].size())
-		      pqi = 1-pqi;
-		      while (!frontier[pqi].empty())
-		      {
-		      frontier[1-pqi].push(pq[pqi].top());
-		      frontier[pqi].pop(pq[pqi]);
-		      }
-		      pqi = 1-pqi;
-		      frontier[pqi].push(child); // add the better node instead
-		    */
 		  }
 	      }
 	  }
