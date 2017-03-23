@@ -78,6 +78,14 @@ In order for generated IvP Behaviors to be recognized by the IvP Helm, you
 should add the library directory to the "IVP_BEHAVIOR_DIRS" environment 
 variable.
 
+#=============================================================================
+# Dependances
+#=============================================================================
+GDAL - For both python and C++ (http://www.gdal.org/)
+pymoos - Python MOOS bindings (https://github.com/themoos/python-moos)
+strtk - Tool to assist in csv parsing (https://github.com/ArashPartow/strtk)
+
+
 ##############################################################################
 #                               END of README
 ##############################################################################
