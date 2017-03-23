@@ -78,6 +78,7 @@ public:
 	void setFinish(int x, int y) {setFinishX(x); setFinishY(y); };
 	void setStartFinish(int x1, int y1, int x2, int y2)  {setStart(x1,y1); setFinish(x2, y2); };
 
+	// Sets the bounds of the grid (used when runing A* on a subset of the overall map)
 	void setGridXYBounds(int xmin, int xmax, int ymin, int ymax) {x_min = xmin; x_max = xmax; y_min = ymin; y_max = ymax; };
 
 	// Number of Neighboors one wants to investigate from each cell. A larger
@@ -117,7 +118,7 @@ public:
 	void printMap(vector<int> route, double total_time) {printMap(route, total_time, true); };
 
 	// Set Occupancy Grid
-	void setMap(vector<vector<int>> MAP) {Map=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,0,m,n); };
+	void setMap(vector<vector<int>> MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,0,m,n); };
 
 	// Build the default map (Simple Map with a cross down the middle)
 	void build_default_map(int N, int M, int config);

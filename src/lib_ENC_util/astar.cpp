@@ -40,12 +40,23 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, int connecting_dist)
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
+/*
+Number of Neighboors one wants to investigate from each cell. A larger
+   number of nodes means that the path can be alligned in more directions.
+
+   Connecting_Distance=1-> Path can  be alligned along 8 different direction.
+   Connecting_Distance=2-> Path can be alligned along 16 different direction.
+   Connecting_Distance=3-> Path can be alligned along 32 different direction.
+   Connecting_Distance=4-> Path can be alligned along 56 different direction.
+   ETC......
+*/
 void A_Star::NeighborsMask(int Connecting_Dist)
 {
   int twice = 2*Connecting_Dist;
   int Mid = Connecting_Dist;
   int r_size = 2*Connecting_Dist+1;
-  
+
+  // Mask of the desired neighbors
   vector<vector<int>> new_neighbors (r_size, vector<int>(r_size,1));
 
   // Remove the positions that are the same directions
@@ -74,8 +85,8 @@ void A_Star::NeighborsMask(int Connecting_Dist)
 	    }
 	}
     }
-	      
-        
+
+  // Number of directions that the algorithm will search
   num_directions = dx.size();
 }
 
@@ -122,18 +133,20 @@ bool A_Star::extendedPathValid(int i, int x, int y)
   bool Flag = true;
   double temp = 1;
   int JumpCells, YPOS, XPOS;
-  
+
+  // Only run this when the path is more than 1 grid cell away
   if ((abs(dx[i])>1)||(abs(dy[i])>1))
     {
       // Need to check that the path does not pass an object
       JumpCells=2*max(abs(dx[i]),abs(dy[i]))-1;
       for (int K=1; K<JumpCells; K++)
 	{
+	  // intermediate positions
 	  YPOS=int(round(K*temp*dy[i]/JumpCells));
 	  XPOS=int(round(K*temp*dx[i]/JumpCells));
 	  // This is actual check to see if the intermediate grid cells
 	  //  intersect an obstacle
-	  if (Map[y+YPOS][x+XPOS]==1)
+	  if (Map[y+YPOS][x+XPOS]<100)
 	    Flag=false;
 	}
     }
@@ -143,11 +156,9 @@ bool A_Star::extendedPathValid(int i, int x, int y)
 void A_Star::runA_Star(bool meta)
 {
   vector<int> route;
-  cout << "Starting Search..." << endl;
   clock_t start = clock();
   route = AStar_Search();
   double total_time = (clock() - start)*0.001;
-  cout << "Search Complete!" << endl;
   printMap(route, total_time, meta);
 }
 
@@ -172,12 +183,14 @@ vector<int> A_Star::AStar_Search()
   open_nodes_map[yStart][xStart] = n0.getPriority(); // Mark start node on map
   while (!frontier.empty())
     {
+      // A* explores from the highest priority node in the frontier
       n0 = frontier.top();
       n0.updatePriority(xFinish,yFinish);
       frontier.pop(); // Remove the node from the frontier
       x = n0.getX();
       y = n0.getY();
-      
+
+      // If it is a new node, explore the node's neighbors
       if (closed_nodes_map[y][x] != 1){
 	open_nodes_map[y][x] = 0;
 	// mark it on the closed nodes map
@@ -192,17 +205,22 @@ vector<int> A_Star::AStar_Search()
 	  {
 	    new_x = x+dx[i];
 	    new_y = y+dy[i];
+	    // Place the node in the frontier if the neighbor is within the
+	    //  map dimensions, not an obstacle, and not closed.
 	    if ((new_x >= 0)&&(new_x < n)&&(new_y >= 0)&&(new_y < m)&&
 		(Map[new_y][new_x] > 100)&&(closed_nodes_map[new_y][new_x]!=1))
 	      {
+		// Check to see if the extended path goes through obstacles 
 		if (extendedPathValid(i, x, y))
 		  {
+		    // Build the new node
 		    child = Node(new_x, new_y, n0.getCost(), n0.getPriority());
 		    child.calcCost(dx[i], dy[i]);
 		    child.updatePriority(xFinish, yFinish);
 		    
-		    // If the child node is not in the open list, add it to
-		    //  the list
+		    // If the child node is not in the open list or the
+		    //  current priority is better than the stored one, 
+		    //  add it to the frontier
 		    if ((open_nodes_map[new_y][new_x] == 0) ||
 			(open_nodes_map[new_y][new_x] > child.getPriority()))
 		      {
@@ -235,6 +253,8 @@ string A_Star::markRoute(vector<int> route)
   int x, y, direction, route_len;
   string WPT;
   route_len = route.size();
+  
+  // Simplify the map for printing if using non-default map
   if (!default_map)
     {
       for (int y=0; y<n; y++)
@@ -248,22 +268,24 @@ string A_Star::markRoute(vector<int> route)
 	    }
 	}
     }
+  
+  // New waypoints are when placed the heading changes  
   if (route_len > 0)
     {
       x = xStart;
       y = yStart;
+      // Mark Start
       Map[y][x] = 2;
       WPT="points = pts{"+to_string(x+x_min)+","+to_string(y+y_min)+":";
-      cout << "Route: ";
+      //cout << "["+to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
       for (int i=0; i<route_len; i++)
 	{
-	  cout << route[i] << " ";
 	  direction = route[i];
 	  x += dx[direction];
 	  y += dy[direction];
 	  if (i<route_len-1)
 	    {
-	      // If you are continueing with on the same path
+	      // If you are continueing with on the same path,
 	      //  don't store the new waypoint
 	      if (route[i]==route[i+1])
 		Map[y][x] = 3;
@@ -271,12 +293,14 @@ string A_Star::markRoute(vector<int> route)
 		{
 		  Map[y][x] = 4;
 		  WPT+= to_string(x+x_min)+","+to_string(y+y_min)+":";
+		  //cout << to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
 		}
 	    }
 	}
-      cout << endl;
+      // Mark finish
       Map[y][x] = 5;
       WPT += to_string(x+x_min)+","+to_string(y+y_min)+"}";
+      //cout << to_string(x+x_min) <<","+to_string(y+y_min)+"]" << endl;
     }  
   return WPT;
 }
@@ -302,6 +326,7 @@ void A_Star::printMap(vector<int> route, double total_time, bool print_meta)
       cout << "Start: " << xStart << ", " << yStart << endl;
       cout << "Finish: " << xFinish << ", "  << yFinish << endl;
       cout << "Time to generate the route: " << total_time<< " (ms)" << endl;
+      cout << "Number of directions searched: " << getNumDir() << endl;
       cout << WPTs << endl;
     }
         
@@ -346,6 +371,7 @@ void A_Star::build_default_map(int N, int M, int config)
   for (int y = N/8; y<7*N/8; y++)
     MAP[y][M/2] = 1;
 
+  // Different Start/Finish Configurations
   start_finish.push_back({0, 0, N - 1, M - 1});
   start_finish.push_back({0, M - 1, N - 1, 0});
   start_finish.push_back({N / 2 - 1, M / 2 - 1, N / 2 + 1, M / 2 + 1});
@@ -355,7 +381,8 @@ void A_Star::build_default_map(int N, int M, int config)
   start_finish.push_back({0, M / 2 - 1, N - 1, M / 2 + 1});
   start_finish.push_back({N - 1, M / 2 + 1, 0, M / 2 - 1});
 
-  config= config%8;
+  // Pick a configuration
+  config= config%8; // Make sure the value is between 0 and 7
   xStart = start_finish[config][0];
   yStart = start_finish[config][1];
   xFinish = start_finish[config][2];
@@ -365,6 +392,9 @@ void A_Star::build_default_map(int N, int M, int config)
   setMap(MAP);
   default_map = true;
 }
+
+// Use your own map from a csv file that contains the grid and define the
+//  coordinate dimensions of a subset of the map to be used for A*.
 void A_Star::build_map(string filename, int x_min, int x_max, int y_min, int y_max)
 {
   strtk::token_grid::options option;
@@ -393,6 +423,7 @@ void A_Star::build_map(string filename, int x_min, int x_max, int y_min, int y_m
   default_map = false;
 }
 
+// Use your own map from a csv file that contains the grid
 void A_Star::build_map(string filename)
 {
   strtk::token_grid::options option;
@@ -414,12 +445,13 @@ void A_Star::build_map(string filename)
 	}
     }
   cout << "Map loaded" << endl;
-  FullMap=MAP;
+  
   // Set the new map
   setMap(MAP);
   default_map = false;
 }
 
+// Define the coordinate dimensions of a subset of the map to be used for A*.
 void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 {
   // Set the bounds of the map (in grid coordinate system)
@@ -428,6 +460,7 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
   n = y_max - y_min;
   m = x_max - x_min;
   
+  // Fill the map
   vector<vector<int>> MAP (n, vector<int> (m,0));
   for (int y=0; y<n; ++y)
     {
@@ -439,6 +472,7 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
   Map=MAP;      
 }
 
+// How we are sorting the frontier priority queue 
 bool operator<(const Node& lhs, const Node& rhs)
 {
   return lhs.getPriority() > rhs.getPriority();
