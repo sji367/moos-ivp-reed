@@ -13,7 +13,9 @@ A_Star::A_Star()
   yStart = 0;
   xFinish = 0;
   yFinish = 0;
-  default_map = true;
+  grid_size=5;
+  xTop = -4459;
+  yTop = -12386;
   setGridXYBounds(0,0,0,0);
   NeighborsMask(2); // Set dx, dy, and num_directions
 }
@@ -24,7 +26,9 @@ A_Star::A_Star(int connecting_dist)
   yStart = 0;
   xFinish = 0;
   yFinish = 0;
-  default_map = true;
+  grid_size=5;
+  xTop = -4459;
+  yTop = -12386;
   setGridXYBounds(0,0,0,0);
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
@@ -35,7 +39,22 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, int connecting_dist)
   yStart = y1;
   xFinish = x2;
   yFinish = y2;
-  default_map = true;
+  grid_size=5;
+  xTop = -4459;
+  yTop = -12386;
+  setGridXYBounds(0,0,0,0);
+  NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
+}
+
+A_Star::A_Star(int x1, int y1, int x2, int y2, double gridSize, double TopX, double TopY, int connecting_dist)
+{
+  xStart = x1;
+  yStart = y1;
+  xFinish = x2;
+  yFinish = y2;
+  grid_size = gridSize;
+  xTop = TopX;
+  yTop = TopY;
   setGridXYBounds(0,0,0,0);
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
@@ -251,21 +270,21 @@ vector<int> A_Star::AStar_Search()
 string A_Star::markRoute(vector<int> route)
 {
   int x, y, direction, route_len;
+  double localX = 0;
+  double localY = 0;
+  
   string WPT;
   route_len = route.size();
   
-  // Simplify the map for printing if using non-default map
-  if (!default_map)
+  // Simplify the map for printing
+  for (int i=0; i<n; i++)
     {
-      for (int y=0; y<n; y++)
+      for (int j=0; j<m; j++)
 	{
-	  for (int x=0; x<m; x++)
-	    {
-	      if (Map[y][x]>100)
-		Map[y][x]=0;
-	      else
-		Map[y][x]=1;
-	    }
+	  if (Map[i][j]>100)
+	    Map[i][j]=0;
+	  else
+	    Map[i][j]=1;
 	}
     }
   
@@ -274,15 +293,22 @@ string A_Star::markRoute(vector<int> route)
     {
       x = xStart;
       y = yStart;
+
+      printTop();
+      printBounds();
+      
+      grid2xy(localX, localY, x, y);
+      
       // Mark Start
       Map[y][x] = 2;
-      WPT="points = pts{"+to_string(x+x_min)+","+to_string(y+y_min)+":";
+      WPT="points = pts{"+to_string(localX)+","+to_string(localY)+":";
       //cout << "["+to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
-      for (int i=0; i<route_len; i++)
+      for (int i=0; i<route_len-1; i++)
 	{
 	  direction = route[i];
 	  x += dx[direction];
 	  y += dy[direction];
+	  grid2xy(localX, localY, x, y);
 	  if (i<route_len-1)
 	    {
 	      // If you are continueing with on the same path,
@@ -292,14 +318,18 @@ string A_Star::markRoute(vector<int> route)
 	      else
 		{
 		  Map[y][x] = 4;
-		  WPT+= to_string(x+x_min)+","+to_string(y+y_min)+":";
+		  WPT+= to_string(localX)+","+to_string(localY)+":";
 		  //cout << to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
 		}
 	    }
 	}
       // Mark finish
+      direction = route[route_len-1];
+      x += dx[direction];
+      y += dy[direction];
+      grid2xy(localX, localY, x, y);
       Map[y][x] = 5;
-      WPT += to_string(x+x_min)+","+to_string(y+y_min)+"}";
+      WPT += to_string(localX)+","+to_string(localY)+"}";
       //cout << to_string(x+x_min) <<","+to_string(y+y_min)+"]" << endl;
     }  
   return WPT;
@@ -357,19 +387,15 @@ void A_Star::printMap(vector<int> route, double total_time, bool print_meta)
 // Build the default map
 void A_Star::build_default_map(int N, int M, int config)
 {
-  // Set size of map
-  n=N;
-  m=M;
-
   // Now build the map
-  vector<vector<int>> MAP (N, vector<int>(M,0));
+  vector<vector<int>> MAP (N, vector<int>(M,110));
   vector<vector<int>> start_finish;
   
   // Place an cross obstacle in the middle
   for (int x = M/8; x<7*M/8; x++)
-    MAP[N/2][x] = 1;
+    MAP[N/2][x] = 0;
   for (int y = N/8; y<7*N/8; y++)
-    MAP[y][M/2] = 1;
+    MAP[y][M/2] = 0;
 
   // Different Start/Finish Configurations
   start_finish.push_back({0, 0, N - 1, M - 1});
@@ -390,7 +416,8 @@ void A_Star::build_default_map(int N, int M, int config)
 
   // Set the derived map
   setMap(MAP);
-  default_map = true;
+  // Sets the grid and local coordinate system as the same system
+  setConversionMeta(1, 0, 0); 
 }
 
 // Use your own map from a csv file that contains the grid and define the
@@ -420,7 +447,6 @@ void A_Star::build_map(string filename, int x_min, int x_max, int y_min, int y_m
   // Subset the map
   FullMap=MAP;
   subsetMap(x_min, x_max, y_min, y_max);
-  default_map = false;
 }
 
 // Use your own map from a csv file that contains the grid
@@ -448,7 +474,6 @@ void A_Star::build_map(string filename)
   
   // Set the new map
   setMap(MAP);
-  default_map = false;
 }
 
 // Define the coordinate dimensions of a subset of the map to be used for A*.

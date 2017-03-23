@@ -65,8 +65,9 @@ class A_Star
 public:
 	// Constuctors/Deconstructor
 	A_Star();
-	A_Star(int x1, int y1, int x2, int y2, int connecting_dist);
 	A_Star(int connecting_dist);
+	A_Star(int x1, int y1, int x2, int y2, int connecting_dist);
+	A_Star(int x1, int y1, int x2, int y2, double gridSize, double TopX, double TopY, int connecting_dist);
 	~A_Star() {};
 
 	// These functions set the start and finsh coordinates
@@ -80,6 +81,9 @@ public:
 
 	// Sets the bounds of the grid (used when runing A* on a subset of the overall map)
 	void setGridXYBounds(int xmin, int xmax, int ymin, int ymax) {x_min = xmin; x_max = xmax; y_min = ymin; y_max = ymax; };
+
+	// Sets the metadata for conversions to/from the grid world 
+	void setConversionMeta(double gridSize, double topX, double topY) {grid_size=gridSize; xTop = topX; yTop = topY; };
 
 	// Number of Neighboors one wants to investigate from each cell. A larger
         //    number of nodes means that the path can be alligned in more directions.
@@ -118,7 +122,7 @@ public:
 	void printMap(vector<int> route, double total_time) {printMap(route, total_time, true); };
 
 	// Set Occupancy Grid
-	void setMap(vector<vector<int>> MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,0,m,n); };
+	void setMap(vector<vector<int>> MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); };
 
 	// Build the default map (Simple Map with a cross down the middle)
 	void build_default_map(int N, int M, int config);
@@ -145,13 +149,21 @@ public:
 	// Check to see if the extened path is valid
 	bool extendedPathValid(int i, int x, int y);
 
+	// Functions to convert to/from the grid world
+	void xy2grid(double x, double y, int &gridX, int &gridY) {gridX = (x-xTop-grid_size/2.0)/grid_size- x_min; gridY = (y-yTop-grid_size/2.0)/grid_size- y_min; };
+	void grid2xy(double &x, double &y, int gridX, int gridY) {x = (gridX+x_min)*grid_size+ xTop+grid_size/2.0; y = (gridY+y_min)*grid_size+ yTop+grid_size/2.0; };
+
+	void printTop() {cout << grid_size << "," << xTop << "," << yTop << endl; }; 
+	void printBounds() {cout << x_min << "," << x_max << "," << y_min << "," << y_max << endl; };
+        
 protected:
-	int xStart, yStart, xFinish, yFinish, n, m, num_directions;
+	int xStart, yStart, xFinish, yFinish;
+	int n, m, num_directions;
+	double grid_size, xTop, yTop;
 	int x_min, x_max, y_min, y_max;
 	vector<int> dx, dy;
 	vector<vector<int>> Map;
 	vector<vector<int>> FullMap;
-	bool default_map;
 };
 
 bool operator<(Node& lhs, Node& rhs);
