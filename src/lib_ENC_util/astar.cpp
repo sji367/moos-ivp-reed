@@ -13,6 +13,8 @@ A_Star::A_Star()
   yStart = 0;
   xFinish = 0;
   yFinish = 0;
+  default_map = true;
+  setGridXYBounds(0,0,0,0);
   NeighborsMask(2); // Set dx, dy, and num_directions
 }
 
@@ -22,6 +24,8 @@ A_Star::A_Star(int connecting_dist)
   yStart = 0;
   xFinish = 0;
   yFinish = 0;
+  default_map = true;
+  setGridXYBounds(0,0,0,0);
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
@@ -31,6 +35,8 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, int connecting_dist)
   yStart = y1;
   xFinish = x2;
   yFinish = y2;
+  default_map = true;
+  setGridXYBounds(0,0,0,0);
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
@@ -137,9 +143,11 @@ bool A_Star::extendedPathValid(int i, int x, int y)
 void A_Star::runA_Star(bool meta)
 {
   vector<int> route;
+  cout << "Starting Search..." << endl;
   clock_t start = clock();
   route = AStar_Search();
-  clock_t total_time = clock() - start;
+  double total_time = (clock() - start)*0.001;
+  cout << "Search Complete!" << endl;
   printMap(route, total_time, meta);
 }
 
@@ -185,7 +193,7 @@ vector<int> A_Star::AStar_Search()
 	    new_x = x+dx[i];
 	    new_y = y+dy[i];
 	    if ((new_x >= 0)&&(new_x < n)&&(new_y >= 0)&&(new_y < m)&&
-		(Map[new_y][new_x] != 1)&&(closed_nodes_map[new_y][new_x]!=1))
+		(Map[new_y][new_x] > 100)&&(closed_nodes_map[new_y][new_x]!=1))
 	      {
 		if (extendedPathValid(i, x, y))
 		  {
@@ -227,12 +235,25 @@ string A_Star::markRoute(vector<int> route)
   int x, y, direction, route_len;
   string WPT;
   route_len = route.size();
+  if (!default_map)
+    {
+      for (int y=0; y<n; y++)
+	{
+	  for (int x=0; x<m; x++)
+	    {
+	      if (Map[y][x]>100)
+		Map[y][x]=0;
+	      else
+		Map[y][x]=1;
+	    }
+	}
+    }
   if (route_len > 0)
     {
       x = xStart;
       y = yStart;
       Map[y][x] = 2;
-      WPT="("+to_string(y)+", "+to_string(x)+")";
+      WPT="points = pts{"+to_string(x+x_min)+","+to_string(y+y_min)+":";
       cout << "Route: ";
       for (int i=0; i<route_len; i++)
 	{
@@ -249,13 +270,13 @@ string A_Star::markRoute(vector<int> route)
 	      else
 		{
 		  Map[y][x] = 4;
-		  WPT+=", ("+to_string(y)+", "+to_string(x)+")";
+		  WPT+= to_string(x+x_min)+","+to_string(y+y_min)+":";
 		}
 	    }
 	}
       cout << endl;
       Map[y][x] = 5;
-      WPT += ",("+to_string(y)+", "+to_string(x)+")";
+      WPT += to_string(x+x_min)+","+to_string(y+y_min)+"}";
     }  
   return WPT;
 }
@@ -269,7 +290,7 @@ This function prints out the map to std output where:
         'X' = New Waypoint
         '@' = route (no new waypoint)
 */
-void A_Star::printMap(vector<int> route, int total_time, bool print_meta)
+void A_Star::printMap(vector<int> route, double total_time, bool print_meta)
 {
   int xy;
   string WPTs;
@@ -286,7 +307,7 @@ void A_Star::printMap(vector<int> route, int total_time, bool print_meta)
         
   // display the map with the route
   cout << "Map: \n";
-  for (int y=0; y<n; y++)
+  for (int y=n-1; y>=0; y--)
     {
       for (int x=0; x<m; x++)
 	{
@@ -309,7 +330,7 @@ void A_Star::printMap(vector<int> route, int total_time, bool print_meta)
 }
 
 // Build the default map
-void A_Star::default_map(int N, int M, int config)
+void A_Star::build_default_map(int N, int M, int config)
 {
   // Set size of map
   n=N;
@@ -342,6 +363,80 @@ void A_Star::default_map(int N, int M, int config)
 
   // Set the derived map
   setMap(MAP);
+  default_map = true;
+}
+void A_Star::build_map(string filename, int x_min, int x_max, int y_min, int y_max)
+{
+  strtk::token_grid::options option;
+  option.column_delimiters = ",";
+
+  // Read in the file
+  strtk::token_grid grid(filename, option);
+
+  // Initialize the 2D vector
+  strtk::token_grid::row_type row = grid.row(0);
+  vector<vector<int>> MAP (grid.row_count()-1, vector<int>(row.size()-1,0));
+  
+  for(size_t i = 1; i < grid.row_count(); ++i)
+    {
+      row = grid.row(i);
+      for(size_t j = 1; j < row.size(); ++j)
+	{
+	  MAP[i-1][j-1] = row.get<int>(j);
+	}
+    }
+  cout << "Map loaded" << endl;
+  
+  // Subset the map
+  FullMap=MAP;
+  subsetMap(x_min, x_max, y_min, y_max);
+  default_map = false;
+}
+
+void A_Star::build_map(string filename)
+{
+  strtk::token_grid::options option;
+  option.column_delimiters = ",";
+
+  // Read in the file
+  strtk::token_grid grid(filename, option);
+
+  // Initialize the 2D vector
+  strtk::token_grid::row_type row = grid.row(0);
+  vector<vector<int>> MAP (grid.row_count()-1, vector<int>(row.size()-1,0));
+  
+  for(size_t i = 1; i < grid.row_count(); ++i)
+    {
+      row = grid.row(i);
+      for(size_t j = 1; j < row.size(); ++j)
+	{
+	  MAP[i-1][j-1] = row.get<int>(j);
+	}
+    }
+  cout << "Map loaded" << endl;
+  FullMap=MAP;
+  // Set the new map
+  setMap(MAP);
+  default_map = false;
+}
+
+void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
+{
+  // Set the bounds of the map (in grid coordinate system)
+  setGridXYBounds(xmin, xmax, ymin, ymax);
+  
+  n = y_max - y_min;
+  m = x_max - x_min;
+  
+  vector<vector<int>> MAP (n, vector<int> (m,0));
+  for (int y=0; y<n; ++y)
+    {
+      for (int x=0; x<m; ++x)
+	{
+	  MAP[y][x] = FullMap[y+y_min][x+x_min];
+	}
+    }
+  Map=MAP;      
 }
 
 bool operator<(const Node& lhs, const Node& rhs)

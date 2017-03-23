@@ -14,6 +14,7 @@
 #include <stdlib.h> // for atoi and atof (string to double/int)
 #include <algorithm> // for max_element and sort
 #include <queue> // for priority_queue
+#include "strtk.hpp" // for csv parsing
 
 using namespace std;
 
@@ -67,7 +68,18 @@ public:
 	A_Star(int x1, int y1, int x2, int y2, int connecting_dist);
 	A_Star(int connecting_dist);
 	~A_Star() {};
-	
+
+	// These functions set the start and finsh coordinates
+	void setStartX(int x) {xStart = x; };
+	void setStartY(int y) {yStart = y; };
+	void setFinishX(int x) {xFinish = x; };
+	void setFinishY(int y) {yFinish = y; };
+	void setStart(int x, int y) {setStartX(x); setStartY(y); };
+	void setFinish(int x, int y) {setFinishX(x); setFinishY(y); };
+	void setStartFinish(int x1, int y1, int x2, int y2)  {setStart(x1,y1); setFinish(x2, y2); };
+
+	void setGridXYBounds(int xmin, int xmax, int ymin, int ymax) {x_min = xmin; x_max = xmax; y_min = ymin; y_max = ymax; };
+
 	// Number of Neighboors one wants to investigate from each cell. A larger
         //    number of nodes means that the path can be alligned in more directions.
 	//
@@ -101,14 +113,21 @@ public:
         //        'F' = Finish
         //        'X' = New Waypoint
         //        '@' = route (no new waypoint)
-	void printMap(vector<int> route, int total_time, bool print_meta);
-	void printMap(vector<int> route, int total_time) {printMap(route, total_time, true); };
+	void printMap(vector<int> route, double total_time, bool print_meta);
+	void printMap(vector<int> route, double total_time) {printMap(route, total_time, true); };
 
 	// Set Occupancy Grid
-	void setMap(vector<vector<int>> MAP) {Map=MAP; n=MAP.size(); m=MAP[0].size(); };
+	void setMap(vector<vector<int>> MAP) {Map=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,0,m,n); };
 
-	// Build the default map
-	void default_map(int N, int M, int config);
+	// Build the default map (Simple Map with a cross down the middle)
+	void build_default_map(int N, int M, int config);
+
+	// Use your own map from a csv file that contains the grid
+	void build_map(string filename);
+	void build_map(string filename, int x_min, int x_max, int y_min, int y_max); // Builds master map and then only uses subset of map for A*
+
+	// Use a subset of the map for the A* search
+	void subsetMap(int xmin, int xmax, int ymin, int ymax);
 
 	// Outputs either dx or dy
 	vector<int> get_dx() {return dx; };
@@ -121,13 +140,17 @@ public:
 	// Get the parent of the node
 	int getParent(int i) {return (num_directions-i-1)%num_directions; };
 	int getNumDir() {return num_directions; };
+
 	// Check to see if the extened path is valid
 	bool extendedPathValid(int i, int x, int y);
 
 protected:
 	int xStart, yStart, xFinish, yFinish, n, m, num_directions;
+	int x_min, x_max, y_min, y_max;
 	vector<int> dx, dy;
 	vector<vector<int>> Map;
+	vector<vector<int>> FullMap;
+	bool default_map;
 };
 
 bool operator<(Node& lhs, Node& rhs);
