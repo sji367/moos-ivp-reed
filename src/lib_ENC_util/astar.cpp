@@ -7,51 +7,101 @@
 
 #include "astar.h"
 
+int Node::calcMinDepth()
+{
+  int depth_thresh;
+  double draft =ShipMeta.getDraft();
+  if (draft > .33)
+    depth_thresh = static_cast<int>(draft*300);
+  else
+    depth_thresh = 100;
+  return depth_thresh;
+}
+
+// Depth threshold is also in meters and is 15 times the minimum depth
+int Node::depthCost(int depth_threshold)
+{
+  int depth_cost = 0;
+  double weight = 1.0/30.0;
+  if (depth < depth_threshold)
+    depth_cost = static_cast<int>((depth_threshold-depth)*weight);
+  
+  return depth_cost;
+}
+
+int Node::time2shoreCost(int old_depth, double speed, int dist)
+{
+  // Calculate the time to shore
+  double time_theshold, seafloor_slope, time2crash;
+  int min_depth;
+  double weight = 100;
+  
+  min_depth = calcMinDepth();
+  time_theshold = 2*ShipMeta.getTurnRadius()*speed;
+  seafloor_slope = (1.0*(old_depth-depth))/dist; //cm depth per meter spatially
+  if (seafloor_slope <= 0)
+    return 0;
+  else
+    {
+      time2crash = (depth-min_depth)/(seafloor_slope*speed);
+      
+      if (time_theshold > time2crash){
+	//cout << time2crash << endl;
+	return weight*(time_theshold - time2crash);
+      }
+      else
+	return 0;
+    }
+
+}
+
 A_Star::A_Star()
 {
-  xStart = 0;
-  yStart = 0;
-  xFinish = 0;
-  yFinish = 0;
+  valid_start = true;
+  valid_finish = true;
+  setStart_Grid(0,0);
+  setFinish_Grid(0,0);
+  depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
+  tide = 0;
   grid_size=5;
-  xTop = -4459;
-  yTop = -12386;
+  xTop = -4459; // value for the US5NH02M ENC
+  yTop = -12386; // value for the US5NH02M ENC
   setGridXYBounds(0,0,0,0);
   NeighborsMask(2); // Set dx, dy, and num_directions
 }
 
 A_Star::A_Star(int connecting_dist)
 {
-  xStart = 0;
-  yStart = 0;
-  xFinish = 0;
-  yFinish = 0;
+  setStart_Grid(0,0);
+  setFinish_Grid(0,0);
+  depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
+  tide = 0;
   grid_size=5;
-  xTop = -4459;
-  yTop = -12386;
+  xTop = -4459; // value for the US5NH02M ENC
+  yTop = -12386; // value for the US5NH02M ENC
   setGridXYBounds(0,0,0,0);
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
-A_Star::A_Star(int x1, int y1, int x2, int y2, int connecting_dist)
+A_Star::A_Star(int x1, int y1, int x2, int y2, int depthCutoff, int connecting_dist)
 {
-  xStart = x1;
-  yStart = y1;
-  xFinish = x2;
-  yFinish = y2;
+  setStart(x1,y1);
+  setFinish(x2,y2);
+  depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
+  tide = 0;
   grid_size=5;
-  xTop = -4459;
-  yTop = -12386;
+  xTop = -4459; // value for the US5NH02M ENC
+  yTop = -12386; // value for the US5NH02M ENC
   setGridXYBounds(0,0,0,0);
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
-A_Star::A_Star(int x1, int y1, int x2, int y2, double gridSize, double TopX, double TopY, int connecting_dist)
+A_Star::A_Star(int x1, int y1, int x2, int y2, int depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist)
 {
-  xStart = x1;
-  yStart = y1;
-  xFinish = x2;
-  yFinish = y2;
+  setStart(x1,y1);
+  setFinish(x2,y2);
+  depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
+  tide = 0;
   grid_size = gridSize;
   xTop = TopX;
   yTop = TopY;
@@ -74,6 +124,10 @@ void A_Star::NeighborsMask(int Connecting_Dist)
   int twice = 2*Connecting_Dist;
   int Mid = Connecting_Dist;
   int r_size = 2*Connecting_Dist+1;
+
+  // Remove the old values for dx and dy
+  dx.clear();
+  dy.clear();
 
   // Mask of the desired neighbors
   vector<vector<int>> new_neighbors (r_size, vector<int>(r_size,1));
@@ -122,7 +176,7 @@ Output:
          start to the finish
     
 */
-vector<int> A_Star::ReconstructPath(vector<vector<int>> direction_map)
+string A_Star::ReconstructPath(vector<vector<int>> direction_map)
 {
   vector<int> path;
   bool first_time = true;
@@ -143,7 +197,7 @@ vector<int> A_Star::ReconstructPath(vector<vector<int>> direction_map)
       x += dx[j];
       y += dy[j];
     }
-  return path;
+  return markRoute(path);
 }
 
 // Check to see if the extended path runs through any obstacles
@@ -165,41 +219,112 @@ bool A_Star::extendedPathValid(int i, int x, int y)
 	  XPOS=int(round(K*temp*dx[i]/JumpCells));
 	  // This is actual check to see if the intermediate grid cells
 	  //  intersect an obstacle
-	  if (Map[y+YPOS][x+XPOS]<100)
+	  if (Map[y+YPOS][x+XPOS]<depth_cutoff)
 	    Flag=false;
 	}
     }
   return Flag;
 }
 
-void A_Star::runA_Star(bool meta)
+bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin)
 {
-  vector<int> route;
-  clock_t start = clock();
-  route = AStar_Search();
-  double total_time = (clock() - start)*0.001;
-  printMap(route, total_time, meta);
+  string route;
+  bool found_path;
+
+  clock_t start;
+  double total_time;
+  
+  checkStartFinish();
+  if ((getStartValid()) && (getFinishValid()))
+    {
+      cout << "Valid Start/Finish" << endl;
+      start = clock();
+      route = AStar_Search();
+      total_time = (clock() - start)*0.001;
+    }
+  found_path = !(route.empty());
+  // Only print the map if a route was found
+  if (found_path){
+    if (yes_print)
+      printMap(route, total_time);
+    if (MOOS_WPT)
+      buildMOOSFile(filename, route);
+    if (L84_WPT)
+      {
+	L84 newfile = L84(filename, route, LatOrigin, LongOrigin);
+        newfile.writeL84();
+      }
+  }
+  else
+    cout << "No path found!" << endl;
+   
+  return found_path;
 }
 
-// This function runs A*. It outputs the generated path as an string
-//    where each movement is stored as a number corrisponding to the
-//    index of the neighbor mask.
-vector<int> A_Star::AStar_Search()
+void A_Star::buildMOOSFile(string filename, string WPTs)
+{
+  ofstream MOOS;
+  MOOS.open (filename+".bhv");
+  // Build the bhv file
+  string BHV_file;
+  BHV_file = "Behavior = BHV_Waypoint\n{\n";
+  BHV_file += "  name      = waypt_survey\n";
+  BHV_file += "  pwt       = 100\n";
+  BHV_file += "  condition = RETURN = false\n";
+  BHV_file += "  condition = DEPLOY = true\n";
+  BHV_file += "  endflag   = RETURN = true\n";
+  BHV_file += "  idleflag  = WPTING = idle\n";
+  BHV_file += "  runflag   = WPTING = running\n";
+  BHV_file += "  endflag   = WPTING = end\n";
+  BHV_file += "  inactiveflag = WPTING = inactive\n";
+  BHV_file += "  UPDATES   = WPT_UPDATE\n";
+  BHV_file += "  perpetual = true\n";
+  BHV_file += "  lead = 8\n";
+  BHV_file += "  lead_damper = 1\n";
+  BHV_file += "  speed ="+to_string(getDesiredSpeed()) + "\n";
+  BHV_file += "  capture_radius = 5.0\n";
+  BHV_file += "  slip_radius = 15.0\n";
+  BHV_file += "  repeat = 1\n";
+  MOOS << BHV_file;
+  
+  vector<string> vect_WPTs;
+  char delimiter = ',';
+  vect_WPTs = split(WPTs, delimiter);
+  MOOS << "  points = pts={";
+  for (int i=0; i<vect_WPTs.size(); i++)
+    {
+      MOOS << vect_WPTs[i];
+      if (i%2 == 0)
+	MOOS << ",";
+      else
+	MOOS << ":";
+    }
+  MOOS << "}\n";
+  MOOS << "}\n";
+  MOOS.close();
+}
+
+// This function runs A*. It outputs the generated path as a string
+string A_Star::AStar_Search()
 {
   vector<vector<int>> direction_map (n, vector<int>(m,0));
   vector<vector<int>> open_nodes_map (n, vector<int>(m,0));
   vector<vector<int>> closed_nodes_map (n, vector<int>(m,0));
   
-  vector<int> path, no_path;
   int x,y, new_x, new_y;
   Node n0, child;
-  
   priority_queue<Node, vector<Node>, less<Node>> frontier;
   
-  n0 = Node(xStart, yStart, 0,0); // Start node
+  // Start node
+  n0 = Node(xStart, yStart, Map[xStart][yStart], 0,0); 
   n0.updatePriority(xFinish,yFinish);
+  n0.setShipMeta(ShipMeta);
   frontier.push(n0);
-  open_nodes_map[yStart][xStart] = n0.getPriority(); // Mark start node on map
+  
+  // Mark start node on map
+  open_nodes_map[yStart][xStart] = n0.getPriority();
+  cout << "depth cutoff " << depth_cutoff << endl;
+  // Run A*
   while (!frontier.empty())
     {
       // A* explores from the highest priority node in the frontier
@@ -226,15 +351,19 @@ vector<int> A_Star::AStar_Search()
 	    new_y = y+dy[i];
 	    // Place the node in the frontier if the neighbor is within the
 	    //  map dimensions, not an obstacle, and not closed.
-	    if ((new_x >= 0)&&(new_x < n)&&(new_y >= 0)&&(new_y < m)&&
-		(Map[new_y][new_x] > 100)&&(closed_nodes_map[new_y][new_x]!=1))
+	    if ((new_x >= 0)&&(new_x < m)&&(new_y >= 0)&&(new_y < n)&&
+		(Map[new_y][new_x] > depth_cutoff)&&
+		(closed_nodes_map[new_y][new_x]!=1))
 	      {
 		// Check to see if the extended path goes through obstacles 
 		if (extendedPathValid(i, x, y))
 		  {
 		    // Build the new node
-		    child = Node(new_x, new_y, n0.getCost(), n0.getPriority());
-		    child.calcCost(dx[i], dy[i]);
+		    child = Node(new_x, new_y, Map[new_y][new_x],
+				 n0.getCost(), n0.getPriority());
+		    child.setShipMeta(ShipMeta);
+		    //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
+		    child.calcCost(dx[i], dy[i], depth_cutoff*15);
 		    child.updatePriority(xFinish, yFinish);
 		    
 		    // If the child node is not in the open list or the
@@ -262,7 +391,7 @@ vector<int> A_Star::AStar_Search()
       }
     }
   cout << "No path found." << endl;
-  return no_path;
+  return "";
 
 }
 
@@ -281,7 +410,7 @@ string A_Star::markRoute(vector<int> route)
     {
       for (int j=0; j<m; j++)
 	{
-	  if (Map[i][j]>100)
+	  if (Map[i][j]>depth_cutoff)
 	    Map[i][j]=0;
 	  else
 	    Map[i][j]=1;
@@ -293,16 +422,13 @@ string A_Star::markRoute(vector<int> route)
     {
       x = xStart;
       y = yStart;
-
-      printTop();
-      printBounds();
       
       grid2xy(localX, localY, x, y);
       
       // Mark Start
       Map[y][x] = 2;
-      WPT="points = pts{"+to_string(localX)+","+to_string(localY)+":";
-      //cout << "["+to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
+      WPT=to_string(localX)+","+to_string(localY)+",";
+      cout << "["+to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
       for (int i=0; i<route_len-1; i++)
 	{
 	  direction = route[i];
@@ -318,8 +444,8 @@ string A_Star::markRoute(vector<int> route)
 	      else
 		{
 		  Map[y][x] = 4;
-		  WPT+= to_string(localX)+","+to_string(localY)+":";
-		  //cout << to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
+		  WPT+= to_string(localX)+","+to_string(localY)+",";
+		  cout << to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
 		}
 	    }
 	}
@@ -329,8 +455,8 @@ string A_Star::markRoute(vector<int> route)
       y += dy[direction];
       grid2xy(localX, localY, x, y);
       Map[y][x] = 5;
-      WPT += to_string(localX)+","+to_string(localY)+"}";
-      //cout << to_string(x+x_min) <<","+to_string(y+y_min)+"]" << endl;
+      WPT += to_string(localX)+","+to_string(localY);
+      cout << to_string(x+x_min) <<","+to_string(y+y_min)+"]" << endl;
     }  
   return WPT;
 }
@@ -344,23 +470,19 @@ This function prints out the map to std output where:
         'X' = New Waypoint
         '@' = route (no new waypoint)
 */
-void A_Star::printMap(vector<int> route, double total_time, bool print_meta)
+void A_Star::printMap(string WPTs, double total_time)
 {
   int xy;
-  string WPTs;
-  if (route.size()>0)
-    WPTs = markRoute(route);
-  if (print_meta)
-    {
-      cout << "Map Size (X,Y): " <<  m << ", " << n << endl;
-      cout << "Start: " << xStart << ", " << yStart << endl;
-      cout << "Finish: " << xFinish << ", "  << yFinish << endl;
-      cout << "Time to generate the route: " << total_time<< " (ms)" << endl;
-      cout << "Number of directions searched: " << getNumDir() << endl;
-      cout << WPTs << endl;
-    }
+
+  // Print Meta Data
+  cout << "Map Size (X,Y): " <<  m << ", " << n << endl;
+  cout << "Start: " << xStart << ", " << yStart << endl;
+  cout << "Finish: " << xFinish << ", "  << yFinish << endl;
+  cout << "Time to generate the route: " << total_time<< " (ms)" << endl;
+  cout << "Number of directions searched: " << getNumDir() << endl;
+  cout << WPTs << endl;
         
-  // display the map with the route
+  // Display the map with the route
   cout << "Map: \n";
   for (int y=n-1; y>=0; y--)
     {
@@ -495,6 +617,83 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 	}
     }
   Map=MAP;      
+}
+
+void A_Star::checkStart()
+{
+  if (Map[yStart][xStart] < depth_cutoff)
+    {
+      cout << "Invalid Start position" << endl;
+      valid_start = false; 
+    }
+  else
+    valid_start = true;
+}
+
+void A_Star::checkFinish()
+{
+  if (Map[yFinish][xFinish] < depth_cutoff)
+    {
+      cout << "Invalid finish position" << endl;
+      valid_finish = false; 
+    }
+  else
+    valid_finish = true;
+}
+
+void Vessel_Dimensions::getVesselMeta()
+{
+  double length = 0;
+  double width = 0;
+  double draft = 0;
+  int mobility=0;
+  double turn_radius = 0;
+  string know_TR;
+  
+  cout << "What is the vessel length? (in meters) ";
+  cin >> length;
+
+  cout << endl << "What is the vessel width? (in meters) ";
+  cin >> width;
+
+  cout << endl << "What is the vessel draft? (in meters) ";
+  cin >> draft;
+
+  cout << endl << "Do you know the vessel turn radius? (Y/N) ";
+  cin >> know_TR;
+
+  if ((know_TR == "Y") || (know_TR == "YES")||(know_TR == "y")||(know_TR == "yes")){
+    cout << endl << "What is the vessel turn radius? (in meters) ";
+    cin >> turn_radius;
+  }
+  else
+    {
+      cout << endl << "How would you rate the mobility on a scale from 1 to 5? ";
+      
+      cin >> mobility;
+      turn_radius = (6-mobility)*length;
+    }
+  set_ship_meta(turn_radius, length, width, draft);
+}
+
+void A_Star::setDesiredSpeed()
+{
+  cout << "What is the desired speed for this waypoint? (in knots)";
+  cin >> desired_speed;
+
+  desired_speed *= 0.514444;
+    
+}
+
+int A_Star::calcMinDepth()
+{
+  int depth_thresh;
+  double draft =ShipMeta.getDraft();
+  if (draft > .33)
+    depth_thresh = static_cast<int>(draft*300);
+  else
+    depth_thresh = 100;
+  return depth_thresh;
 }
 
 // How we are sorting the frontier priority queue 

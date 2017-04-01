@@ -1,0 +1,9 @@
+//------------------------------------------------
+// pAStar config block
+
+ProcessConfig = pAStar
+{
+   AppTick   = 4
+   CommsTick = 4
+}
+

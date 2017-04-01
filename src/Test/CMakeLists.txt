@@ -4,7 +4,7 @@
 #--------------------------------------------------------
 
 SET(SRC
-  test.cpp
+  t.cpp
 )
 
 ADD_EXECUTABLE(iTest ${SRC})
