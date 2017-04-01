@@ -36,7 +36,7 @@ ProcessConfig = ANTLER
   Run = pHostInfo       @ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
   //Run = uXMS	@ NewConsole = true
-  //Run = pMarineViewer	  @ NewConsole = false
+  Run = pMarineViewer	  @ NewConsole = false
 }
 
 
@@ -67,7 +67,7 @@ ProcessConfig = uFldNodeBroker
   //TRY_SHORE_HOST = pshare_route=multicast_2
   //TRY_SHORE_HOST = pshare_route=192.168.200.130:9300
   //TRY_SHORE_HOST = pshare_route=192.168.8.202:9300
-  TRY_SHORE_HOST = pshare_route=192.168.200.250:9300
+  TRY_SHORE_HOST = pshare_route=192.168.56.128:9300
 
   BRIDGE = src=VIEW_POLYGON
   BRIDGE = src=VIEW_POINT
@@ -84,7 +84,7 @@ ProcessConfig = pShare
   AppTick   = 2
   CommsTick = 2
 
-  Input = route = localhost:9301
+  Input = route = 192.168.56.128:9301
 
   //Input = route = localhost:9000
   //Input = route = multicast_2
@@ -206,7 +206,7 @@ ProcessConfig = pEchoVar
   AppTick   = 30
   CommsTick = 30
 
-  // Use iGPS_MB1 for the GPS device
+  // Use iGPS for the GPS device
   echo = GPS_LATITUDE     -> NAV_LAT
   echo = GPS_LONGITUDE    -> NAV_LONG
   echo = GPS_X            -> NAV_X
