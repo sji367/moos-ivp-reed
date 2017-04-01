@@ -24,7 +24,7 @@ TARGET_LINK_LIBRARIES(pAStar
    ENC_util
    geometry
 
-   #mbutil 
-   #geometry
+   mbutil 
+   geometry
 )
 
