@@ -18,13 +18,13 @@ ADD_SUBDIRECTORY(lib_behaviors-test)
 ADD_SUBDIRECTORY(lib_ENC)
 ADD_SUBDIRECTORY(lib_ENC_util)
 ADD_SUBDIRECTORY(lib_anrp_util)
-ADD_SUBDIRECTORY(pAStar)
+#ADD_SUBDIRECTORY(pAStar)
 ADD_SUBDIRECTORY(iZBoat)
 ADD_SUBDIRECTORY(iGPS_MB1)
 ADD_SUBDIRECTORY(iOS5000)
 ADD_SUBDIRECTORY(pENC_Contact)
 ADD_SUBDIRECTORY(Build_ENC_Grid)
-#ADD_SUBDIRECTORY(Test)
+ADD_SUBDIRECTORY(Test)
 
 ##############################################################################
 #                           END of CMakeLists.txt
