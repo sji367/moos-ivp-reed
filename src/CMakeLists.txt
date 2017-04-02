@@ -25,6 +25,7 @@ ADD_SUBDIRECTORY(iOS5000)
 ADD_SUBDIRECTORY(pENC_Contact)
 ADD_SUBDIRECTORY(Build_ENC_Grid)
 ADD_SUBDIRECTORY(Test)
+ADD_SUBDIRECTORY(serial)
 
 ##############################################################################
 #                           END of CMakeLists.txt
