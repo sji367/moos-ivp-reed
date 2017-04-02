@@ -31,20 +31,22 @@ Behavior = BHV_Waypoint
                lead = 8
         lead_damper = 1
               speed = 4   // meters per second
-       capture_line = true
+       //capture_line = true
      capture_radius = 5.0
         slip_radius = 15.0
-             
-	currix = 3
-
+ 
              repeat = 1
 
-	// Many Point Obstacles
-	//points = format=lawnmower, x=100, y=-1160, height=60, width=200, lane_width=20, edge_size=10
+	// Transit from UNH Pier
+	//points = 100,-1000
 
+
+	// Many Point Obstacles
+	points = format=lawnmower, x=100, y=-1160, height=60, width=200, lane_width=20, edge_size=10
+	
 	// Through an island
 	//points = format=lawnmower, x=1006, y=-981, height=60, width=200, lane_width=20, edge_size=10
-	points = 1050,-974:1200,-974
+	//points = 1050,-974:1200,-974
 
 	// Landmarks
 	//points = 6634,-10344:6850,-10550 //7615,-8450:7647,-8853:7088,-8904
@@ -55,6 +57,7 @@ Behavior = BHV_Waypoint
 	
 	// White Island
 	//points = format=lawnmower, x=1938, y=-1372, height=60, width=200, lane_width=20, edge_size=10
+	//currix =2
 
 	//points = 1565,-838:1565,-885
     visual_hints = nextpt_color=white
@@ -84,11 +87,12 @@ Behavior=BHV_Waypoint
           points = 59,-1165//150,-800
 }
 
-//----------------------------------------------
-Behavior=BHV_OA_poly
-{
-  name       = poly_OA
-  pwt        = 100
 
+
+//----------------------------------------------
+Behavior=BHV_OA_pnt
+{
+  name       = pnt_OA
+  pwt        = 100
 }
 

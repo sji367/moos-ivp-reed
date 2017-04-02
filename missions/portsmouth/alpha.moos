@@ -31,9 +31,26 @@ ProcessConfig = ANTLER
   Run = pHelmIvP        @ NewConsole = false
   Run = pMarineViewer	  @ NewConsole = false
   Run = pNodeReporter	  @ NewConsole = false
-	Run = pRegisterVar		@ NewConsole = false
+	Run = pENC_Contact		@ NewConsole = true
 	//Run = uXMS			@ NewConsole = true
-	//Run = uFunctionVis		@ NewConsole = false
+	Run = uFunctionVis		@ NewConsole = false
+}
+
+//------------------------------------------------
+// pENC_Contact config block
+
+ProcessConfig = pENC_Contact
+{
+   AppTick   = 4
+   CommsTick = 4
+
+	ENCs = US5NH02M
+	ASV_Length = 1.8
+	ASV_Width = 1
+
+	search_dist = 62.5 // In either direction
+	avoid_dist = 200
+	
 }
 
 //------------------------------------------
@@ -121,13 +138,18 @@ ProcessConfig = uSimMarine
   //start_y       = -10300//-8433
   //start_y       = -1296//-1100//-949//-20 //-1070//-885//-981//
 
-  // Through an island
-  start_x	= 1000
-  start_y	= -981 
 
-  // Many Points
-  //start_x	= -25
-  //start_y	= -1150
+  // Transit from UNH Pier
+  //start_x	= 0
+  //start_y	= -20
+
+  // Through an island
+  //start_x	= 1000
+  //start_y	= -981 
+
+  // Many Points/Polygons
+  start_x	= -25
+  start_y	= -1150
 
   // Landmarks
   //start_x       = 6600
@@ -137,7 +159,7 @@ ProcessConfig = uSimMarine
   //start_x       = 1889
   //start_y       = -1270
 
-  start_heading = 180
+  start_heading = 90
   start_speed   = 0
 
   prefix        = NAV
@@ -209,13 +231,18 @@ ProcessConfig = pMarineViewer
 
   tiff_file            = data/portsmouth2.tif
 
+  // Transit from UNH Pier
+  //set_pan_x            = 275
+  //set_pan_y            = -475
+  zoom                 = 4.5
+
   // points obstacles
-  //set_pan_x            = 375
-  //set_pan_y            = 350
+  set_pan_x            = 375
+  set_pan_y            = 350
 
   // Through an Island
-  set_pan_x            = -385
-  set_pan_y            = 250
+  //set_pan_x            = -385
+  //set_pan_y            = 250
 
   // Landmarks
   //set_pan_x            = -5000//-1000//
@@ -225,7 +252,7 @@ ProcessConfig = pMarineViewer
   //set_pan_x            = -1000//
   //set_pan_y            = 450//
 
-  zoom                 = 5//0.65//
+  //zoom                 = 5//0.65//
   vehicle_shape_scale  = 1.5//3
 
   trails_point_size   = 1
@@ -251,7 +278,7 @@ ProcessConfig = pMarineViewer
   button_two = RETURN # RETURN=true
   button_three = CONTINUE # CONTINUE=true
 	
-	SCOPE= ENCs, WPT_UPDATE, Poly_Obs, Obstacles, num_obs
+	SCOPE= Angles,Min,Current_Tide,ENCs, WPT_UPDATE, Poly_Obs, Obstacles, num_obs
 
   action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false
   action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERIDE=false
@@ -303,3 +330,4 @@ ProcessConfig = uTermCommandFoo
   cmd  = return_true    -->  RETURN --> true
   cmd  = return_false   -->  RETURN --> false
 }
+

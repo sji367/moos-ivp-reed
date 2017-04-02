@@ -122,7 +122,7 @@ IvPFunction* BHV_OA_pnt::onRunState()
       result = parseString(m_obstacles, ':');
       
       // Parse the number of obstacles
-      m_num_obs = (int)floor(strtod(result[0].c_str(), NULL));
+      m_num_obs = (int)floor(strtod(result[1].c_str(), NULL));
       
       // Store the information on the obstacle
       if (result.size()==3)
@@ -168,11 +168,11 @@ IvPFunction *BHV_OA_pnt::buildZAIC_Vector()
   for (int i=0; i<info.size(); i++)
     {
       Point object = Point();
-      cout << "!abc construct" << endl;
+      cout << "!abc construct "<<info.size() << endl;
       obstacle.push_back(object);
       
       getPoint(info[i], obstacle[i], max_cost);
-      cout << "!abc getPoint" << endl;
+      cout << "!abc getPoint " << obstacle[i].getCost()<< endl;
       if (obstacle[i].getCost()>0){
 	calcGaussWindow(OA_util, obstacle[i]);
 	cout << "!abc calc window" << endl;
@@ -198,11 +198,12 @@ void BHV_OA_pnt::getPoint(string info, Point& Obstacle, vector<double>& max_cost
   Obstacle.setXY(strtod(x[1].c_str(), NULL),strtod(y[1].c_str(), NULL));
   
   // Set the threat level and the obstacle type
+  cout << (int)floor(strtod(ind_obs_info[2].c_str(), NULL)) <<" " <<ind_obs_info[3];
   Obstacle.setStatics((int)floor(strtod(ind_obs_info[2].c_str(), NULL)), ind_obs_info[3]);
   
   // Calculate and set the angle for the obstacle
   Obstacle.setAngle(relAng(m_ASV_x, m_ASV_y, Obstacle.getX(), Obstacle.getY()));
-  
+
   // Calculate and set the cost and distance of the point obstacle
   Obstacle.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
   
@@ -219,15 +220,16 @@ void BHV_OA_pnt::calcGaussWindow(double (&OA_util)[360], Point & Obstacle)
   if (Obstacle.getCost() > m_maxutil)
     {
       amplitude = m_maxutil;
-      width = (int)floor(20*Obstacle.getCost()/m_maxutil);
-      sigma = 8+width/8;
+      //width = (int)floor(20*Obstacle.getCost()/m_maxutil);
+      sigma = 8+Obstacle.getCost()/m_maxutil;
     }
   else
     {
       amplitude = Obstacle.getCost();
-      width = 20;
+      //width = 20;
       sigma = 8;
     }
+  width = 3*sigma;
 
   // This calculates the utility of the Gaussian window
   // function and stores that value if it is less than the

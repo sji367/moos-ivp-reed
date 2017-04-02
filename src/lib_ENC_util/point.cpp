@@ -46,10 +46,16 @@ void Point::calcDist(double ASV_x, double ASV_y)
   dist = sqrt(pow(ASV_x-x,2) +pow(ASV_y-y,2));
   if (dist<1)
     dist=1;
+  cout << "dist: " << dist << endl;
 }
 
 void Point::calcCost(double v_length, double speed, double maxutil)
 {
-  cost = pow((t_lvl/dist*v_length/speed*4.5),3)*maxutil;
+  // make sure you cannot divide by zero
+  if (speed==0)
+    cost=0;
+  else
+    cost = pow((t_lvl/dist*v_length/speed*4.5),2)*maxutil;
+  cout << cost << endl;
 }
 
