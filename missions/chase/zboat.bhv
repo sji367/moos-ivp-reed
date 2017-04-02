@@ -21,7 +21,7 @@ Behavior = BHV_Waypoint
            speed = 6.0
   capture_radius = 2.0
      slip_radius = 8.0
-          points = 0,0:0,1
+          points = pts={0,0:0,1}
 }
 
 //----------------------------------------------
@@ -37,8 +37,8 @@ Behavior=BHV_Waypoint
   endflag    = MISSION = complete
 	updates = RETURN_UPDATES
 
-           speed = 6.0
-  capture_radius = 2.0
-     slip_radius = 8.0
-          points = 0:10
+	speed = 6.0
+	capture_radius = 2.0
+	slip_radius = 8.0
+	point = 0,10
 }
