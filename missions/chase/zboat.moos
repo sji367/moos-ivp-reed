@@ -23,20 +23,20 @@ ProcessConfig = ANTLER
 
   Run = MOOSDB          @ NewConsole = false
   //Run = pLogger         @ NewConsole = false
-  Run = uSimMarine      @ NewConsole = false
+  //Run = uSimMarine      @ NewConsole = false
   Run = pMarinePID      @ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
   Run = uProcessWatch   @ NewConsole = false
-  //Run = iGPS	        @ NewConsole = false 
+  Run = iGPS	        @ NewConsole = false 
   //Run = iOS5000		@ NewConsole = false
-  //Run = iZBoat		@ NewConsole = false
+  Run = iZBoat		@ NewConsole = false
   Run = pEchoVar        @ NewConsole = false
   Run = pNodeReporter   @ NewConsole = false
   Run = pShare          @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
   //Run = uXMS	@ NewConsole = true
-  Run = pMarineViewer	  @ NewConsole = false
+  //Run = pMarineViewer	  @ NewConsole = false
 }
 
 
@@ -67,7 +67,7 @@ ProcessConfig = uFldNodeBroker
   //TRY_SHORE_HOST = pshare_route=multicast_2
   //TRY_SHORE_HOST = pshare_route=192.168.200.130:9300
   //TRY_SHORE_HOST = pshare_route=192.168.8.202:9300
-  TRY_SHORE_HOST = pshare_route=192.168.1.205:9300
+  TRY_SHORE_HOST = pshare_route=192.168.1.204:9300
 
   BRIDGE = src=VIEW_POLYGON
   BRIDGE = src=VIEW_POINT
@@ -84,8 +84,8 @@ ProcessConfig = pShare
   AppTick   = 2
   CommsTick = 2
 
-  #Input = route = 192.168.56.128:9301
-  Input = route = 192.168.56.128:9301
+  //Input = route = 192.168.56.128:9301
+  Input = route = 192.168.1.205:9301
 
   //Input = route = localhost:9000
   //Input = route = multicast_2
@@ -161,9 +161,7 @@ ProcessConfig = iGPS
   CommsTick  = 5
 
   PORT = /dev/ttyUSB1
-  //BAUDRATE = 4800
   BAUDRATE = 19200
-  //BAUDRATE = 115200 
 }
 
 
@@ -174,7 +172,7 @@ ProcessConfig = iOS5000
   AppTick    = 40
   CommsTick  = 40
 
-  PORT = /dev/ttyUSB0
+  PORT = /dev/ttyUSB2
   BAUDRATE = 19200
   HANDSHAKING = FALSE
   STREAMING = FALSE
@@ -189,7 +187,7 @@ ProcessConfig = iZBoat
   CommsTick = 5
 
   // Serial port configuration
-  PORT = /dev/ttyS0
+  PORT = /dev/ttyUSB0
   BAUDRATE = 115200
   HANDSHAKING = FALSE
   STREAMING = FALSE
@@ -231,7 +229,7 @@ ProcessConfig = pHelmIvP
 
   bhv_dir_not_found_ok = true
 
-  behaviors  = zboat.bhv
+  behaviors  = alpha.bhv
   domain     = course:0:359:360
   domain     = speed:0:4:21
 
