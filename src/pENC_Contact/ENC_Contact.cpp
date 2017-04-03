@@ -443,7 +443,7 @@ int ENC_Contact::calc_t_lvl(double depth, double WL, string LayerName)
       // Neither the WL or depth are recorded - this is bad
       if ((current_depth == 9999) && (WL == 0))
 	{
-	  cout << "FAILED, Threat Level will be set to 4." << endl;
+	  cout << "No depth or WL -> Threat Level will be set to 4." << endl;
 	  t_lvl = 4;
 	}
       // No Charted Depth
@@ -899,8 +899,6 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	  
 	  if (LayerName=="DEPCNT"){
 	    depth = poFeature->GetFieldAsDouble("VALDCO");
-	    cout << i << " " << depth << endl;
-	    i++;
 	  }
 	  
 	  t_lvl = calc_t_lvl(depth, WL, LayerName);
@@ -1014,8 +1012,6 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	  OGRFeature::DestroyFeature( new_feat );
 	  
 	}
-      if (LayerName=="DEPCNT")
-	cout << "# of contours: " << i << endl;
     }
   else
     {
