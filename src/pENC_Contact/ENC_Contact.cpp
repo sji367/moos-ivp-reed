@@ -1233,7 +1233,7 @@ void ENC_Contact::publish_poly()
     {
       Poly_Obs = Poly_Obs+":"+poly_info;
     }
-  //cout << Poly_Obs << endl;
+  
   Notify("Poly_Obs", Poly_Obs);
   
   if (m_max_poly < num_obs)
@@ -1300,17 +1300,13 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
       // The angle of the first vertex should be compared to the angle
       //  of the last vertex.
       poly_envs.store_angle(first_ang,prev_ang,(double)i,angle2poly);
-      cout << "Store" << endl;
       
       // Determine the minimum and maximum angles
       poly_envs.calcEnvelope(angle2poly);
-      cout << "env\n";
       
       min_ang = poly_envs.GetMinAng();
-      //cout << "min " << min_ang << endl;
       
       max_ang = poly_envs.GetMaxAng();
-      //cout << "max " << max_ang << endl;
 
       // Deal with the cross over point (0/360 boundary)
       if (min_ang < max_ang)
@@ -1334,19 +1330,17 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
       
       // Make string representations for each x,y points for ease of use
       string x_ang_min, y_ang_min, x_dist_min, y_dist_min, x_ang_max, y_ang_max;
-      cout << "min a" << endl;
+      
       x_ang_min = to_string(vert_x.at(min_ang_index));
       y_ang_min = to_string(vert_y.at(min_ang_index));
-      cout << "min d" << endl;
+      
       x_dist_min = to_string(vert_x.at(min_dist_index));
       y_dist_min = to_string(vert_y.at(min_dist_index));
-      cout << "max a" << endl;
+      
       x_ang_max = to_string(vert_x.at(max_ang_index));
       y_ang_max = to_string(vert_y.at(max_ang_index));
 
-      cout << "Min: " << min_ang << ", " << relAng(m_ASV_x, m_ASV_y, vert_x.at(min_ang_index),vert_y.at(min_ang_index)) << endl;
-      cout << "Max: " << max_ang << ", " << relAng(m_ASV_x, m_ASV_y, vert_x.at(max_ang_index),vert_y.at(max_ang_index)) << endl;
-      
+     
       // Post hints to pMarineViewer about the critical points
       pt_1 = "x="+x_ang_min+",y="+y_ang_min+",vertex_color=white,vertex_size=7,label=pt1_"+to_string(num_obs);
       pt_2 = "x="+x_dist_min+",y="+y_dist_min+",vertex_color=mediumblue,vertex_size=7,label=pt2_"+to_string(num_obs);

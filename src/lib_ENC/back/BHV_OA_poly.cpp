@@ -425,7 +425,7 @@ IvPFunction* BHV_OA_poly::setIVP_domain_range(double OA_util[360])
 void BHV_OA_poly::Update_Lead_Param(vector<double> vect_max_cost)
 {
   double lead;
-  double max_cost = *max_element(vect_max_cost.begin(), vect_max_cost.end());;
+  double max_cost = *max_element(vect_max_cost.begin(), vect_max_cost.end());
   // Set the lead waypoint parameter to a high number (150) if cost > 75
   if (max_cost > 75)
     lead=150;

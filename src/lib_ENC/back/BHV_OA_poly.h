@@ -34,7 +34,8 @@ public:
 
 protected: // Local Utility functions
 	IvPFunction* buildZAIC_Vector();
-	void getVertices(int, string, Poly&, Poly&, Poly&, vector<double>&);
+	void getVertices(string, Poly&, Poly&, Poly&, vector<double>&);
+	void getVertices(int i,string info, Poly& min_angle, Poly& min_dist, Poly& max_angle, vector<double>& max_cost);
 	double calcBuffer(double cost);
 	void calcVShape(double buffer_width, double (&OA_util)[360], Poly, Poly, Poly);
 	IvPFunction* setIVP_domain_range(double OA_util[360]);

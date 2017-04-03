@@ -1,5 +1,5 @@
 /*
- * BHV_OA_poly.h
+ * BHV_OA_pnt.h
  *
  *  Created on: Jan 22, 2017
  *      Author: sji367
@@ -9,17 +9,17 @@
 #include <vector>
 #include "IvPBehavior.h"
 #include "AOF.h"
-#include "poly.h"
+#include "point.h"
 
 using namespace std;
 
-#ifndef BHV_OA_POLY_H_
-#define BHV_OA_POLY_H_
+#ifndef BHV_OA_PNT_H_
+#define BHV_OA_PNT_H_
 
-class BHV_OA_poly : public IvPBehavior {
+class BHV_OA_pnt : public IvPBehavior {
 public:
-  BHV_OA_poly(IvPDomain);
-  ~BHV_OA_poly() {};
+  BHV_OA_pnt(IvPDomain);
+  ~BHV_OA_pnt() {};
 
   bool         setParam(std::string, std::string);
   void         onSetParamComplete() {};
@@ -34,9 +34,10 @@ public:
 
 protected: // Local Utility functions
 	IvPFunction* buildZAIC_Vector();
-	void getVertices(int, string, Poly&, Poly&, Poly&, vector<double>&);
-	double calcBuffer(double cost);
-	void calcVShape(double buffer_width, double (&OA_util)[360], Poly, Poly, Poly);
+	void getPoint(string, Point&, vector<double>&);
+	void calcBuffer(double& buffer_width, double cost);
+	void calcGaussWindow(double (&OA_util)[360], Point&);
+	double calc_Gaussian(double x, double mu, double sigma, double amplitude);
 	IvPFunction* setIVP_domain_range(double OA_util[360]);
 	void Update_Lead_Param(vector<double> vect_max_cost);
 
@@ -51,7 +52,6 @@ protected: // State variables
 
 extern "C" {
   IVP_EXPORT_FUNCTION IvPBehavior * createBehavior(std::string name, IvPDomain domain)
-  {return new BHV_OA_poly(domain);}
+  {return new BHV_OA_pnt(domain);}
 }
-
-#endif /* BHV_OA_POLY_H_ */
+#endif /* BHV_OA_PNT_H_ */

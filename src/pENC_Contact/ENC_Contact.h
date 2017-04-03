@@ -15,7 +15,6 @@
 #include <vector>
 #include <string>
 
-
 using namespace std;
 
 class ENC_Contact : public CMOOSApp
