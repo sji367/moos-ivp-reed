@@ -39,13 +39,26 @@ Poly::Poly(double X, double Y)
   t_lvl = 0;
 }
 
+// Makes sure that the maximum angle is actually bigger than the minimum angle
 void Poly::setAngle(double Angle, double boundary)
 {
-  if (ref_frame == 0)
+  if ((ref_frame == 0)||(boundary==0))
     ang = Angle;
   else
-    ang = Angle-boundary;
+    ang = Angle-360;
+  /*
+  if ((ref_frame == 0)||(boundary==0))
+    ang = Angle;
+  else
+    {
+      ang = fmod(360+(Angle-boundary),360);
+      // Make sure it is in the domain [0,360]
+      if (ang<0)
+	ang += 360;
+    }
+  */
 }
+
 
 void Poly::setStatics(int Ref_Frame, int T_Lvl, string Obs_Type)
 {

@@ -37,7 +37,7 @@ BHV_OA_poly::BHV_OA_poly(IvPDomain gdomain) :
   IvPBehavior::setParam("name", "ENC_OA_poly");
 
   // Declare the behavior decision space
-  m_domain = subDomain(m_domain, "course,speed");
+  m_domain = subDomain(m_domain, "course");
 
   // Add any variables this behavior needs to subscribe for
   //   Next_WPT --> Published by the Waypoint BHV
@@ -189,7 +189,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       min_dist.push_back(polygon_min_dist);
       max_ang.push_back(polygon_max_ang);
 
-      getVertices(info[i], min_ang[i], min_dist[i], max_ang[i], max_cost);
+      getVertices(i, info[i], min_ang[i], min_dist[i], max_ang[i], max_cost);
       
       buffer_width = calcBuffer(min_dist[i].getCost());
       
@@ -200,7 +200,7 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 }
 
 
-void BHV_OA_poly::getVertices(string info, Poly& min_angle, Poly& min_dist, Poly& max_angle, vector<double>& max_cost)
+void BHV_OA_poly::getVertices(int i,string info, Poly& min_angle, Poly& min_dist, Poly& max_angle, vector<double>& max_cost)
 {
   // Vectors holding the parsed information on the obstacles
   vector<string> poly_info, poly_gen_info, poly_ang_info;
@@ -232,14 +232,16 @@ void BHV_OA_poly::getVertices(string info, Poly& min_angle, Poly& min_dist, Poly
   max_angle.setStatics(stoi(poly_ang_info[0]), stoi(poly_gen_info[0]), poly_gen_info[1]);
 
   // Determine the 0/360 buffer
-  buffer_0_360 = relAng(m_ASV_x, m_ASV_y, min_angle.getX(), min_angle.getY());
+  buffer_0_360 = relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY());
+
+  postMessage("Min", buffer_0_360);
   
   // Calculate and set the angle for the critical points
   min_angle.setAngle(relAng(m_ASV_x, m_ASV_y, min_angle.getX(), min_angle.getY()),buffer_0_360);
   min_dist.setAngle(relAng(m_ASV_x, m_ASV_y, min_dist.getX(), min_dist.getY()),buffer_0_360);
-  max_angle.setAngle(relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY()),buffer_0_360);
+  max_angle.setAngle(relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY()),0);//buffer_0_360);
 
-  postMessage("Angles", to_string(min_angle.getAngle())+", "+to_string(min_dist.getAngle())+", "+to_string(max_angle.getAngle()));
+  postMessage("Angles", to_string(i)+": "+to_string(min_angle.getAngle())+", "+to_string(min_dist.getAngle())+", "+to_string(max_angle.getAngle()));
 
   // Calculate and set the cost and distance of the the critical points "V"
   min_angle.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
@@ -256,6 +258,8 @@ void BHV_OA_poly::getVertices(string info, Poly& min_angle, Poly& min_dist, Poly
 
 // The buffer distance is to make sure that the ASV avoids the obstacle
 //  with some buffer
+//  Starts at 20 degrees and if the cost is bigger than 70, then the
+//  buffer is increased to a maximum of 100
 double BHV_OA_poly::calcBuffer(double cost)
 {
   double temp_buff = 0;
@@ -272,6 +276,8 @@ double BHV_OA_poly::calcBuffer(double cost)
       buffer_width += temp_buff;
       postMessage("buffer_w", buffer_width);
     }
+
+  return buffer_width;
 }
 
 void BHV_OA_poly::calcVShape(double buffer_width, double (&OA_util)[360], Poly min_angle, Poly min_dist, Poly max_angle)
@@ -280,7 +286,7 @@ void BHV_OA_poly::calcVShape(double buffer_width, double (&OA_util)[360], Poly m
   double calculated_cost, actual_cost, utility;
   int safety = 90;
   int cur_ang = 0;
-  // If you are close to the obstacle place a safety buffer of atleast +/- 75 degrees around the closest point
+  // If you are close to the obstacle place a safety buffer of atleast +/- 90 degrees around the closest point
   if (min_dist.getDist() < 10)
     {
       for (int i = 0; i<safety; i++)
