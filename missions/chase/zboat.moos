@@ -22,9 +22,9 @@ ProcessConfig = ANTLER
   MSBetweenLaunches = 400
 
   Run = MOOSDB          @ NewConsole = false
-  //Run = pLogger         @ NewConsole = false
+  Run = pLogger         @ NewConsole = false
   //Run = uSimMarine      @ NewConsole = false
-  Run = pMarinePID      @ NewConsole = true
+  Run = pMarinePID      @ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
   Run = uProcessWatch   @ NewConsole = false
   Run = iGPS_MB1        @ NewConsole = false 
@@ -36,7 +36,7 @@ ProcessConfig = ANTLER
   Run = pHostInfo       @ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
   //Run = uXMS	@ NewConsole = true
-  Run = pMarineViewer	  @ NewConsole = false
+  //Run = pMarineViewer	  @ NewConsole = false
 }
 
 
