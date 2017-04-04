@@ -24,10 +24,10 @@ ProcessConfig = ANTLER
   Run = MOOSDB          @ NewConsole = false
   //Run = pLogger         @ NewConsole = false
   //Run = uSimMarine      @ NewConsole = false
-  Run = pMarinePID      @ NewConsole = false
+  Run = pMarinePID      @ NewConsole = true
   Run = pHelmIvP        @ NewConsole = false
   Run = uProcessWatch   @ NewConsole = false
-  Run = iGPS	        @ NewConsole = false 
+  Run = iGPS_MB1        @ NewConsole = false 
   //Run = iOS5000		@ NewConsole = false
   Run = iZBoat		@ NewConsole = false
   Run = pEchoVar        @ NewConsole = false
@@ -36,7 +36,7 @@ ProcessConfig = ANTLER
   Run = pHostInfo       @ NewConsole = false
   Run = uFldNodeBroker  @ NewConsole = false
   //Run = uXMS	@ NewConsole = true
-  //Run = pMarineViewer	  @ NewConsole = false
+  Run = pMarineViewer	  @ NewConsole = false
 }
 
 
@@ -70,6 +70,8 @@ ProcessConfig = uFldNodeBroker
   TRY_SHORE_HOST = pshare_route=192.168.1.204:9300
 
   BRIDGE = src=VIEW_POLYGON
+  BRIDGE = src=PWM
+//  BRIDGE = src=RETURN
   BRIDGE = src=VIEW_POINT
   BRIDGE = src=VIEW_SEGLIST
   BRIDGE = src=APPCAST
@@ -155,13 +157,18 @@ ProcessConfig = pLogger
 //------------------------------------------
 // GPS config blocks
 
-ProcessConfig = iGPS
+ProcessConfig = iGPS_MB1
 {
-  AppTick    = 5
-  CommsTick  = 5
+  AppTick    = 40
+  CommsTick  = 40
 
   PORT = /dev/ttyUSB1
-  BAUDRATE = 19200
+   BAUDRATE = 19200
+   HANDSHAKING = FALSE
+   STREAMING = FALSE
+
+//  IgnoreSats = true
+
 }
 
 
@@ -211,8 +218,8 @@ ProcessConfig = pEchoVar
   echo = GPS_X            -> NAV_X
   echo = GPS_Y            -> NAV_Y
   //echo = GPS_HEADING      -> NAV_HEADING // THIS IS WHEN YOU HAVE $GPHDT NMEA STRING
-  //echo = GPS_VTG_HEADING	-> NAV_HEADING
-  echo = OS5000_HEADING	  -> NAV_HEADING
+  echo = GPS_VTG_HEADING	-> NAV_HEADING
+  //echo = OS5000_HEADING	  -> NAV_HEADING
   echo = GPS_SPEED        -> NAV_SPEED
 }
 
@@ -229,7 +236,7 @@ ProcessConfig = pHelmIvP
 
   bhv_dir_not_found_ok = true
 
-  behaviors  = alpha.bhv
+  behaviors  = zboat.bhv
   domain     = course:0:359:360
   domain     = speed:0:4:21
 
@@ -313,14 +320,9 @@ ProcessConfig = pMarineViewer
 
   left_context[polyvert] = POLY_VERT=x=$(XPOS),y=$(YPOS)
 
-  scope  = WPT_EFFICIENCY_LEG
-  scope  = WPT_EFFICIENCY_SUM
-  scope  = WPT_EFFICIENCY_VAL
+  scope  = DESIRED_THRUST
+  scope  = DESIRED_RUDDER
   scope  = RETURN
-  scope  = WPT_STAT
-  scope  = VIEW_SEGLIST
-  scope  = VIEW_POINT
-  scope  = VIEW_POLYGON
   scope  = MODE
 
   button_one = DEPLOY # DEPLOY=true 

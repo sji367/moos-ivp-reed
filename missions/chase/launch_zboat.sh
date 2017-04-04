@@ -28,6 +28,7 @@ pAntler $COMMUNITY.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
 uMAC $COMMUNITY.moos
 
 printf "Killing all processes ... \n"
-kill %1 
+kill %1
 mykill
+./../../scripts/stop_zboat.py
 printf "Done killing processes.   \n"
