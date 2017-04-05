@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-import sys
-import time
 import serial
 
 class ZBoatTester(object):
@@ -50,3 +48,7 @@ def main():
         this_tester.set_autonomy_mode()
         this_tester.write_pwm_values(1.5,1.5,1.5)
         this_tester.set_manual_mode()
+
+
+if __name__ == '__main__':
+    main()
