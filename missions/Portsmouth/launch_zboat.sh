@@ -40,5 +40,5 @@ python ../../src/Python/pub_points.py >& /dev/null &
 printf "Killing all processes ... \n"
 kill %1 %2 %3
 mykill
-./../../scripts/stop_zboat.py
+./../../scripts/turn_off_zboat.py
 printf "Done killing processes.   \n"
