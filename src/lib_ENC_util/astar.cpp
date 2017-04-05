@@ -233,8 +233,9 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
 
   clock_t start;
   double total_time;
-  
+  cout << "Running A*\n";
   checkStartFinish();
+  cout << "after" << endl;
   if ((getStartValid()) && (getFinishValid()))
     {
       cout << "Valid Start/Finish" << endl;
@@ -242,6 +243,8 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
       route = AStar_Search();
       total_time = (clock() - start)*0.001;
     }
+  else
+    cout << "Invalid Start/Finish" << endl;
   found_path = !(route.empty());
   // Only print the map if a route was found
   if (found_path){
@@ -616,9 +619,12 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 	  MAP[y][x] = FullMap[y+y_min][x+x_min];
 	}
     }
-  Map=MAP;      
+  Map=MAP;
+  xStart-= xmin;
+  yStart-= ymin;
+  xFinish-= xmin;
+  yFinish-= ymin;
 }
-
 void A_Star::checkStart()
 {
   if (Map[yStart][xStart] < depth_cutoff)

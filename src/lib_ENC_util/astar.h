@@ -163,6 +163,10 @@ public:
 	// Outputs either dx or dy
 	vector<int> get_dx() {return dx; };
 	vector<int> get_dy() {return dy; };
+	
+	// Gets Finish position
+	int getStartX() {return xStart; };
+	int getStartY() {return yStart; };
 
 	// Gets Finish position
 	int getFinishX() {return xFinish; };
@@ -184,7 +188,7 @@ public:
 	// These functions set the start and finsh coordinates (in the grid world)
 	void setStart(double x, double y) {int gridX,gridY; xy2grid(x,y,gridX,gridY); xStart = gridX; yStart = gridY; };
 	void setFinish(double x, double y) {int gridX,gridY; xy2grid(x,y,gridX,gridY); xFinish = gridX; yFinish = gridY; };
-	void setStartFinish(int x1, int y1, int x2, int y2)  {setStart_Grid(x1,y1); setFinish_Grid(x2, y2); };
+	void setStartFinish(double x1, double y1, double x2, double y2)  {setStart(x1,y1); setFinish(x2, y2); };
 
 	// Check to see if the start/finish waypoints are valid
 	void checkStart();
