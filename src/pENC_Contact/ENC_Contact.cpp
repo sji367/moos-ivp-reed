@@ -409,7 +409,7 @@ double ENC_Contact::calc_WL_depth(double WL)
   Outputs:
   t_lvl - Calculated threat level
 */
-int ENC_Contact::calc_t_lvl(double depth, double WL, string LayerName)
+int ENC_Contact::calc_t_lvl(double &depth, double WL, string LayerName)
 {
   int t_lvl = 0;
   double WL_depth = 0;
@@ -428,13 +428,6 @@ int ENC_Contact::calc_t_lvl(double depth, double WL, string LayerName)
     t_lvl = -1;
   else
     {
-      /*
-      // Deal with the cases where the attributes are empty
-      if (WL == NULL)
-	WL = 0;
-      else
-	WL_depth = calc_WL_depth(WL);
-      */
       if (depth == 9999)
 	current_depth = 9999;
       else
@@ -445,6 +438,7 @@ int ENC_Contact::calc_t_lvl(double depth, double WL, string LayerName)
 	{
 	  cout << "No depth or WL -> Threat Level will be set to 4." << endl;
 	  t_lvl = 4;
+	  depth=-2;
 	}
       // No Charted Depth
       else if (current_depth == 9999)
@@ -456,11 +450,14 @@ int ENC_Contact::calc_t_lvl(double depth, double WL, string LayerName)
 	  //   level to 4.
 	  if ((WL == 1)||(WL == 6)||(WL == 7))
 	    {
-	      cout << "Unknown Description of Water Level: " << WL << ", Threat Level will be set to 4." << endl;
+	      cout << "Unknown Description of Water Level: " << WL <<
+		", Threat Level will be set to 4." << endl;
 	      t_lvl = 4;
 	    }
-	  else
-	    t_lvl = threat_level(WL_depth);
+	  else {
+	    depth = calc_WL_depth(WL);
+	    t_lvl = threat_level(calc_WL_depth(WL));
+	  }
 	}
       // If WL is unknown, use current detpth
       else if (WL == 0)
