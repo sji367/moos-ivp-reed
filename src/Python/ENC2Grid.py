@@ -8,7 +8,7 @@ import sys
 import numpy as np
 import ogr, gdal
 from scipy.interpolate import griddata
-from scipy.io import savemat,loadmat
+from scipy.io import savemat
 from time import time
 from pandas import DataFrame
 
@@ -22,7 +22,7 @@ import pyproj
 class ENC_Grid():
     def __init__(self, filename_point= '../../src/ENCs/Shape/grid/Point.shp',
          filename_poly= '../../src/ENCs/Shape/grid/Poly.shp',
-         filename_line= '../../src/ENCs/Shape/grid/Line.shp', grid_size = 15):
+         filename_line= '../../src/ENCs/Shape/grid/Line.shp', grid_size = 5):
         
         self.filename_point = filename_point
         self.filename_poly = filename_poly
@@ -33,11 +33,11 @@ class ENC_Grid():
         self.BuildLayers()
         
         # Maximum extent of the grid
-        extent = self.multiLayer_envelope()
-        self.x_min = extent[0]
-        self.x_max = extent[1]
-        self.y_min = extent[2]
-        self.y_max = extent[3]
+        self.extent = self.multiLayer_envelope()
+        self.x_min = self.extent[0]
+        self.x_max = self.extent[1]
+        self.y_min = self.extent[2]
+        self.y_max = self.extent[3]
         
         # To convert things to UTM
         self.LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
@@ -80,7 +80,6 @@ class ENC_Grid():
             Outputs:
                 array - rasterized layer stored in a numpy array
         """  
-#        source_layer.GetSpatialRef()
         # Create the destination data source
         x_res = int((self.x_max - self.x_min) / self.grid_size)
         y_res = int((self.y_max - self.y_min) / self.grid_size)
@@ -148,7 +147,7 @@ class ENC_Grid():
             x=geom.GetX()
             y=geom.GetY()
             z=feat.GetFieldAsDouble("Depth")
-            matrix.append([x,y,z])
+            matrix.append([x,y,self.convertZ2int(z)])
             
         return np.array(matrix)
         
@@ -173,7 +172,7 @@ class ENC_Grid():
             for iPnt in range(geom.GetPointCount()):
                 x,y,z = geom.GetPoint(iPnt)
                 z = feat.GetFieldAsDouble("Depth")
-                matrix.append([x,y,z])
+                matrix.append([x,y,self.convertZ2int(z)])
         return np.array(matrix)
         
     def poly2XYZ(self, layer, land_z = -5):
@@ -193,20 +192,22 @@ class ENC_Grid():
         # The non-zero points are the polygons
         no0=np.nonzero(array_poly) # 
         matrix = []
+        z = self.convertZ2int(land_z)
         # Now cycle through these points and store the XY data along with the 
         #   default land height data given by land_z
         for i in range(len(no0[0])):
             gridX = int(no0[1][i])
             gridY = int(no0[0][i])
-#            print '{} {}'.format(gridX, gridY)
-#            x,y = self.grid2xy(gridX, gridY)
             x = gridX*self.grid_size+self.grid_size/2+self.x_min
             y = self.y_max-(gridY*self.grid_size+self.grid_size/2)
-            matrix.append([x,y,land_z])
+            matrix.append([x,y,z])
         
         return np.array(matrix)
         
-    def grid_data(self, rawXYZ, method = 'linear', Remove_nan=False, nan_value = -15):
+    def convertZ2int(self, z):
+        return (z)*100
+        
+    def grid_data(self, rawXYZ, method = 'linear', Remove_nan=True, nan_value = -10):
         """ This function grids the raw XYZ data and does a linear 
                 interpolation on the grid. 
             
@@ -237,15 +238,12 @@ class ENC_Grid():
         X, Y = np.meshgrid(x,y)
         
         # Interpolate the data
-        interp = griddata((rawXYZ.T[0], rawXYZ.T[1]), rawXYZ.T[2], (X, Y), method=method)
-        
-        # Remove all NANS
         if Remove_nan:
-            n, m = self.numRowsCols(X)
-            for i in range(n):
-                for j in range(m):
-                    if np.isnan(interp[i][j]):
-                        interp[i][j] = nan_value
+            interp = griddata((rawXYZ.T[0], rawXYZ.T[1]), rawXYZ.T[2], (X, Y), method=method, fill_value=self.convertZ2int(nan_value))
+        else:
+            interp = griddata((rawXYZ.T[0], rawXYZ.T[1]), rawXYZ.T[2], (X, Y), method=method)
+
+        interp.astype(int)
         return interp
     
     def BuildLayers(self):
@@ -282,7 +280,7 @@ class ENC_Grid():
         raw = np.concatenate((point,poly,line))
         
         # Grid and interpolate the raw depth data
-        interp = self.grid_data(raw)
+        interp = self.add_point_obs(self.grid_data(raw))
         return  raw,interp
         
     def xy2grid(self, x,y):
@@ -320,6 +318,29 @@ class ENC_Grid():
                     x2,y2 = self.xy2grid(x,y)
                     area.append([x2,y2])
         savemat('../../src/ENCs/Shape/grid/outline.mat', {'outline':np.array(area)})
+        
+    def add_point_obs(self, interp):
+        """ This adds the other points that have depth (ie not bouys, beacons, 
+            lights, landmarks or soundings) to the grid. """
+        ds = ogr.Open('../../src/ENCs/Shape/Point.shp')
+        layer = ds.GetLayerByName('Point')
+        layer.SetAttributeFilter("Type!='SOUNDG'")
+        layer.ResetReading()
+        feat = layer.GetNextFeature()
+        while (feat):
+            geom = feat.GetGeometryRef()
+            x,y = geom.GetPoint_2D()
+            grid_x, grid_y = self.xy2grid(x,y)
+            depth = feat.GetFieldAsDouble('Depth')
+            if depth != 9999:
+                new_depth = self.convertZ2int(depth)
+                interp[int(np.floor(grid_y))][int(grid_x)] = new_depth
+                interp[int(grid_y)][int(np.round(grid_x))]=new_depth
+                interp[int(np.round(grid_y))][int(grid_x)]=new_depth
+                interp[int(np.round(grid_y))][int(np.round(grid_x))]=new_depth
+            feat = layer.GetNextFeature()
+            
+        return interp
 
 
 def main(argv):
@@ -327,10 +348,10 @@ def main(argv):
     if len(argv)>=1:
         GRID = ENC_Grid(grid_size=float(argv[0]))
     else:
-        print 'Assume grid size is 15'
+        print 'Assume grid size is 5 meters'
         GRID = ENC_Grid()
-    
-    raw,interp = GRID.Build_Grid()    
+
+    raw,interp = GRID.Build_Grid()   
     end = time()
     print 'Total Elapsed Time: {}'.format(end-GRID.start)
     # Set the type of output file    
@@ -344,8 +365,9 @@ def main(argv):
     if output == 'MATLAB' or output == 'MAT':
         savemat('../../src/ENCs/Shape/grid/grid.mat', {'interp':interp})
     elif output == 'CSV':
-        df = DataFrame(interp)
+        df = DataFrame(interp, dtype=int)
         df.to_csv("../../src/ENCs/Shape/grid/grid.csv")
+        return df
     elif output == 'BOTH':
         savemat('../../src/ENCs/Shape/grid/grid.mat', {'interp':interp})
         df = DataFrame(interp)
@@ -354,13 +376,15 @@ def main(argv):
         pass
     else:
         print 'Invalid output file type. Use Matlab/CSV/Both/None.'
+    
+    return GRID
 
 if __name__ == '__main__':
     if len(sys.argv) <= 3:
         if (sys.argv) > 1:
-            main(sys.argv[1:])
+            grid = main(sys.argv[1:])
         else:
-            main()
+            grid = main()
     else:
         print('Usage: ENC2Grid.py grid_size Matlab/CSV/Both')
         print('       ENC2Grid.py grid_size')
