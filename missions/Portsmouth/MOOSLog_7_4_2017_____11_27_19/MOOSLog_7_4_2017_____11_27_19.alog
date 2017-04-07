@@ -1,0 +1,232 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_7_4_2017_____11_27_19/MOOSLog_7_4_2017_____11_27_19.alog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1491578838.47
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+0.519           DB_EVENT             MOOSDB_zboat    connected=pMarinePID 
+0.671           LOGGER_DIRECTORY     pLogger         ./MOOSLog_7_4_2017_____11_27_19 
+0.915           DB_EVENT             MOOSDB_zboat    connected=pHelmIvP 
+1.015           DB_EVENT             MOOSDB_zboat    connected=uMAC_7650 
+1.078           MOOS_DEBUG           pMarinePID      ** NEW CONTROLLER GAINS ARE ** 
+1.078           MOOS_DEBUG           pMarinePID      YAW_PID_KP             = 1.100 
+1.078           MOOS_DEBUG           pMarinePID      YAW_PID_KD             = 0.000 
+1.078           MOOS_DEBUG           pMarinePID      YAW_PID_KI             = 0.300 
+1.078           MOOS_DEBUG           pMarinePID      YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.078           MOOS_DEBUG           pMarinePID      MAXRUDDER              = 45.000 
+1.087           MOOS_DEBUG           pMarinePID      SPEED_PID_KP           = 0.700 
+1.087           MOOS_DEBUG           pMarinePID      SPEED_PID_KD           = 0.000 
+1.087           MOOS_DEBUG           pMarinePID      SPEED_PID_KI           = 0.000 
+1.087           MOOS_DEBUG           pMarinePID      SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.087           MOOS_DEBUG           pMarinePID      MAXTHRUST              = 50.000 
+1.303           DB_EVENT             MOOSDB_zboat    connected=uProcessWatch 
+1.528           PLOGGER_CMD          pHelmIvP        COPY_FILE_REQUEST = mission2.bhv 
+1.528           MOOS_DEBUG           pHelmIvP        pHelmIvP AllStop: ManualOverride 
+1.528           DESIRED_SPEED        pHelmIvP        0.00000      
+1.528           DESIRED_HEADING      pHelmIvP        0.00000      
+1.598           DB_TIME              MOOSDB_zboat    1491578840.06572 
+1.598           DB_UPTIME            MOOSDB_zboat    1.98827      
+1.598           DB_CLIENTS           MOOSDB_zboat    uProcessWatch,uMAC_7650,pHelmIvP,pMarinePID,pLogger, 
+1.600           DB_QOS               MOOSDB_zboat    pHelmIvP=0:0.279188:0.279188:0,pLogger=0:0.193119:0.131845:0,pMarinePID=0:0.182867:0.182867:0,uMAC_7650=0:0.156164:0.156164:0,uProcessWatch=0:0.181913:0.181913:0, 
+1.090           DESIRED_RUDDER       pMarinePID      0.00000      
+1.090           DESIRED_THRUST       pMarinePID      0.00000      
+1.527           DEPLOY               pHelmIvP:HELM_VAR_INIT false 
+1.527           ASTAR                pHelmIvP:HELM_VAR_INIT true 
+1.528           IVPHELM_ALLSTOP      pHelmIvP        ManualOverride 
+1.567           APPCAST_REQ_ZBOAT    uMAC_7650       node=zboat,app=all,duration=0.1,key=uMAC_7650startup,thresh=any 
+1.567           APPCAST_REQ          uMAC_7650       node=all,app=all,duration=3.0,key=uMAC_7650:app,thresh=run_warning 
+1.567           APPCAST_REQ_ALL      uMAC_7650       node=all,app=all,duration=3.0,key=uMAC_7650:app,thresh=run_warning 
+1.711           DB_EVENT             MOOSDB_zboat    connected=iGPS_MB1 
+1.856           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=1!@#node=zboat!@#iter=1!@#messages=Summary: All Present!@!@Antler List: iGPS_MB1,iZBoat,pEchoVar,pHelmIvP,pHostInfo,pLogger!@             pMarinePID,pNodeReporter,pShare,uFldNodeBroker!@             !@                                         Current    Max     !@ProcName         Watch Reason   Status   CPU Load   CPU Load!@--------------   ------------   ------   --------   --------!@iGPS_MB1         ANT            [7;32mOK[0m       0.00       0.00    !@iZBoat           ANT            [7;32mOK[0m       0.00       0.00    !@pEchoVar         ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pHostInfo        ANT            [7;32mOK[0m       0.00       0.00    !@pLogger          ANT       DB   [7;32mOK[0m       0.00       0.00    !@pMarinePID       ANT       DB   [7;32mOK[0m       0.00       0.00    !@pNodeReporter    ANT            [7;32mOK[0m       0.00       0.00    !@pShare           ANT            [7;32mOK[0m       0.00       0.00    !@uFldNodeBroker   ANT            [7;32mOK[0m       0.00       0.00    !@!@#!@#events_total=8!@#events=Noted to be present: [pShare]!@Noted to be present: [pNodeReporter]!@Noted to be present: [pEchoVar]!@Noted to be present: [iZBoat]!@Noted to be present: [iGPS_MB1]!@Noted to be present: [pHelmIvP]!@Noted to be present: [pMarinePID]!@Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+1.527           RETURN               pHelmIvP:HELM_VAR_INIT false 
+1.527           STATIONING           pHelmIvP:HELM_VAR_INIT false 
+1.527           simple               pHelmIvP:HELM_VAR_INIT false 
+1.528           IVPHELM_REGISTER     pHelmIvP        STATIONING 
+1.528           IVPHELM_DOMAIN       pHelmIvP        speed,0,4,21:course,0,359,360 
+1.528           IVPHELM_MODESET      pHelmIvP         
+1.528           IVPHELM_CPU          pHelmIvP        7.99847      
+1.528           IVPHELM_STATE        pHelmIvP        PARK 
+1.528           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+1.528           PHELMIVP_ITER_LEN    pHelmIvP        0.00016      
+2.029           IVPHELM_CPU          pHelmIvP        13.99656     
+2.029           IVPHELM_STATE        pHelmIvP        PARK 
+2.029           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+2.029           PHELMIVP_ITER_LEN    pHelmIvP        0.00015      
+2.029           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=2!@#node=zboat!@#iter=2!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+2.114           DB_EVENT             MOOSDB_zboat    connected=iZBoat 
+2.167           APPCAST_REQ          uMAC_7650       node=all,app=all,duration=3.0,key=uMAC_7650:app,thresh=run_warning 
+2.167           APPCAST_REQ_ALL      uMAC_7650       node=all,app=all,duration=3.0,key=uMAC_7650:app,thresh=run_warning 
+2.516           DB_EVENT             MOOSDB_zboat    connected=pEchoVar 
+2.529           IVPHELM_CPU          pHelmIvP        0.00000      
+2.529           IVPHELM_STATE        pHelmIvP        PARK 
+2.529           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+2.529           PHELMIVP_ITER_LEN    pHelmIvP        0.00008      
+2.906           DB_EVENT             MOOSDB_zboat    connected=pNodeReporter 
+3.030           IVPHELM_CPU          pHelmIvP        0.00000      
+3.030           IVPHELM_STATE        pHelmIvP        PARK 
+3.030           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+3.030           PHELMIVP_ITER_LEN    pHelmIvP        0.00010      
+1.853           PROC_WATCH_TIME_WARP uProcessWatch   1.00000      
+1.854           PROC_WATCH_EVENT     uProcessWatch   Noted to be present: [pLogger] 
+1.855           PROC_WATCH_SUMMARY   uProcessWatch   All Present 
+1.855           PROC_WATCH_FULL_SUMMARY uProcessWatch   uFldNodeBroker(1/0),pHostInfo(1/0),pShare(1/0),pNodeReporter(1/0),pEchoVar(1/0),iZBoat(1/0),iGPS_MB1(1/0),pHelmIvP(1/0),pMarinePID(1/0),pLogger(1/0) 
+2.671           ZBOAT_PWM            iZBoat          !pwm, *, 1.500, 1.500, 1.500, *, *
+ 
+2.856           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00137      
+2.856           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00010      
+2.931           GPS_E                iGPS_MB1        3.62147      
+2.931           GPS_N                iGPS_MB1        -27.22806    
+2.931           GPS_SAT              iGPS_MB1        10.00000     
+2.931           GPS_TIME             iGPS_MB1        152746.40000 
+2.931           GPS_X                iGPS_MB1        3.62147      
+2.931           GPS_Y                iGPS_MB1        -27.22806    
+2.931           GPS_LATITUDE         iGPS_MB1        43.07171     
+2.931           GPS_LONGITUDE        iGPS_MB1        -70.71156    
+2.931           GPS_SUMMARY          iGPS_MB1        time=1491578841.398277,n=-27.228061,e=3.621475,x=3.621475,y=-27.228061,lat=43.071715,lon=-70.711560,sat=10,hdop=2.000000 
+2.951           GPS_VTG_HEADING      iGPS_MB1        353.11000    
+2.951           GPS_SPEED            iGPS_MB1        0.22636      
+2.967           GPS_HEADING          iGPS_MB1        315.62500    
+3.030           PHELMIVP_ITER_GAP    pHelmIvP        1.00078      
+3.069           APPCAST              pEchoVar        proc=pEchoVar!@#iter=1!@#node=zboat!@#iter=1!@#messages=conditions_met:   true!@hold_messages:    true!@echo_latest_only: false!@!@==================================================!@Echoes: (6)!@==================================================!@!@Source                Dest         Hits  Posts!@---------------  ---  -----------  ----  -----!@GPS_LATITUDE     -->  NAV_LAT      0     0    !@GPS_LONGITUDE    -->  NAV_LONG     0     0    !@GPS_X            -->  NAV_X        0     0    !@GPS_Y            -->  NAV_Y        0     0    !@GPS_VTG_HEADING  -->  NAV_HEADING  0     0    !@GPS_SPEED        -->  NAV_SPEED    0     0    !@!@==================================================!@Flips: (0)!@==================================================!@!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.071           DB_EVENT             MOOSDB_zboat    disconnected=uMAC_7650 
+3.103           NAV_X                pEchoVar        3.62147      
+3.103           NAV_Y                pEchoVar        -27.22806    
+3.103           NAV_LAT              pEchoVar        43.07171     
+3.103           NAV_LONG             pEchoVar        -70.71156    
+3.103           NAV_HEADING          pEchoVar        353.11000    
+3.103           NAV_SPEED            pEchoVar        0.22636      
+3.108           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00547      
+3.108           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00010      
+3.133           GPS_TIME             iGPS_MB1        152746.60000 
+3.133           GPS_E                iGPS_MB1        3.61776      
+3.133           GPS_N                iGPS_MB1        -27.17751    
+3.133           GPS_SAT              iGPS_MB1        10.00000     
+3.133           GPS_X                iGPS_MB1        3.61776      
+3.133           GPS_Y                iGPS_MB1        -27.17751    
+3.133           GPS_LATITUDE         iGPS_MB1        43.07172     
+3.133           GPS_LONGITUDE        iGPS_MB1        -70.71156    
+3.133           GPS_SUMMARY          iGPS_MB1        time=1491578841.600406,n=-27.177509,e=3.617755,x=3.617755,y=-27.177509,lat=43.071715,lon=-70.711560,sat=10,hdop=2.000000 
+3.136           NAV_X                pEchoVar        3.61776      
+3.136           NAV_Y                pEchoVar        -27.17751    
+3.136           NAV_LAT              pEchoVar        43.07172     
+3.136           NAV_LONG             pEchoVar        -70.71156    
+3.154           GPS_VTG_HEADING      iGPS_MB1        354.19000    
+3.154           GPS_SPEED            iGPS_MB1        0.23664      
+3.169           GPS_HEADING          iGPS_MB1        315.76800    
+3.169           NAV_HEADING          pEchoVar        354.19000    
+3.169           NAV_SPEED            pEchoVar        0.23664      
+3.308           DB_EVENT             MOOSDB_zboat    connected=pShare 
+3.335           GPS_TIME             iGPS_MB1        152746.80000 
+3.335           GPS_E                iGPS_MB1        3.61234      
+3.335           GPS_N                iGPS_MB1        -27.12481    
+3.335           GPS_SAT              iGPS_MB1        10.00000     
+3.335           GPS_X                iGPS_MB1        3.61234      
+3.335           GPS_Y                iGPS_MB1        -27.12481    
+3.335           GPS_LATITUDE         iGPS_MB1        43.07172     
+3.335           GPS_LONGITUDE        iGPS_MB1        -70.71156    
+3.335           GPS_SUMMARY          iGPS_MB1        time=1491578841.802649,n=-27.124812,e=3.612342,x=3.612342,y=-27.124812,lat=43.071716,lon=-70.711560,sat=10,hdop=2.000000 
+3.356           GPS_VTG_HEADING      iGPS_MB1        352.80000    
+3.356           GPS_SPEED            iGPS_MB1        0.25208      
+3.358           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00046      
+3.358           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00013      
+3.361           GPS_HEADING          iGPS_MB1        316.05900    
+3.368           NAV_LAT              pEchoVar        43.07172     
+3.368           NAV_LONG             pEchoVar        -70.71156    
+3.401           NAV_X                pEchoVar        3.61234      
+3.401           NAV_Y                pEchoVar        -27.12481    
+3.401           NAV_HEADING          pEchoVar        352.80000    
+3.401           NAV_SPEED            pEchoVar        0.25208      
+3.457           NODE_REPORT_LOCAL    pNodeReporter   NAME=zboat,X=3.61,Y=-27.12,SPD=0.25,HDG=352.8,LAT=43.07171571,LON=-70.71155969,TYPE=SHIP,MODE=PARK,ALLSTOP=ManualOverride,YAW=1.69646,TIME=1491578841.92,LENGTH=4 
+3.457           APPCAST              pNodeReporter   proc=pNodeReporter!@#iter=1!@#node=zboat!@#iter=1!@#messages=Paused: false!@Vehicle Configuration:!@----------------------------!@     Vehicle name: zboat!@     Vehicle type: SHIP!@   Vehicle length: 4.0!@!@Blackout Configuration:!@----------------------------!@Blackout interval: 0.00!@Blackout variance: 0.00!@!@AltNav Config and Status:!@----------------------------!@   ALT_NAV_PREFIX: !@     ALT_NAV_NAME: _GT!@ ALT_NAV_POSTINGS: 0!@!@Node Report Summary:!@----------------------------!@Reports Posted: 1!@ Latest Report: NAME=zboat,X=3.61,Y=-27.12,SPD=0.25,HDG=352.8,!@                LAT=43.07171571,LON=-70.71155969,TYPE=SHIP,!@                MODE=PARK,ALLSTOP=ManualOverride,YAW=1.69646,!@                TIME=1491578841.92,LENGTH=4!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.530           PHELMIVP_ITER_GAP    pHelmIvP        1.00170      
+3.530           IVPHELM_CPU          pHelmIvP        0.00000      
+3.530           IVPHELM_STATE        pHelmIvP        PARK 
+3.530           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+3.530           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+3.537           GPS_TIME             iGPS_MB1        152747.00000 
+3.537           GPS_E                iGPS_MB1        3.60572      
+3.537           GPS_N                iGPS_MB1        -27.07361    
+3.537           GPS_SAT              iGPS_MB1        10.00000     
+3.537           GPS_X                iGPS_MB1        3.60572      
+3.537           GPS_Y                iGPS_MB1        -27.07361    
+3.538           GPS_LATITUDE         iGPS_MB1        43.07172     
+3.538           GPS_LONGITUDE        iGPS_MB1        -70.71156    
+3.538           GPS_SUMMARY          iGPS_MB1        time=1491578842.004781,n=-27.073608,e=3.605717,x=3.605717,y=-27.073608,lat=43.071716,lon=-70.711560,sat=10,hdop=2.000000 
+3.558           GPS_VTG_HEADING      iGPS_MB1        350.76000    
+3.558           GPS_SPEED            iGPS_MB1        0.25208      
+3.599           GPS_HEADING          iGPS_MB1        316.37500    
+3.599           DB_TIME              MOOSDB_zboat    1491578842.06626 
+3.599           DB_UPTIME            MOOSDB_zboat    3.98881      
+3.599           DB_CLIENTS           MOOSDB_zboat    pNodeReporter,pEchoVar,iZBoat,iGPS_MB1,uProcessWatch,pShare,pHelmIvP,pMarinePID,pLogger, 
+3.600           NAV_X                pEchoVar        3.60572      
+3.600           NAV_Y                pEchoVar        -27.07361    
+3.600           NAV_LAT              pEchoVar        43.07172     
+3.600           NAV_LONG             pEchoVar        -70.71156    
+3.600           NAV_HEADING          pEchoVar        350.76000    
+3.600           NAV_SPEED            pEchoVar        0.25208      
+3.601           DB_QOS               MOOSDB_zboat    iGPS_MB1=0:0.257015:0.169039:0,iZBoat=0:0.221968:0.221968:0,pEchoVar=0:0.227928:0.160217:0,pHelmIvP=0:0.279188:0.221968:0,pLogger=0:0.239849:0.121832:0,pMarinePID=0:0.213146:0.1719:0,pNodeReporter=0:0.216961:0.216961:0,uProcessWatch=0:0.230074:0.181913:0, 
+3.609           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00513      
+3.609           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00008      
+3.704           DB_EVENT             MOOSDB_zboat    connected=pHostInfo 
+3.735           GPS_TIME             iGPS_MB1        152747.20000 
+3.735           GPS_E                iGPS_MB1        3.59879      
+3.735           GPS_N                iGPS_MB1        -27.02455    
+3.735           GPS_SAT              iGPS_MB1        10.00000     
+3.735           GPS_X                iGPS_MB1        3.59879      
+3.735           GPS_Y                iGPS_MB1        -27.02455    
+3.735           GPS_LATITUDE         iGPS_MB1        43.07172     
+3.735           GPS_LONGITUDE        iGPS_MB1        -70.71156    
+3.735           GPS_SUMMARY          iGPS_MB1        time=1491578842.202205,n=-27.024546,e=3.598790,x=3.598790,y=-27.024546,lat=43.071717,lon=-70.711560,sat=10,hdop=2.000000 
+3.755           GPS_VTG_HEADING      iGPS_MB1        348.78000    
+3.755           GPS_SPEED            iGPS_MB1        0.25208      
+3.761           GPS_HEADING          iGPS_MB1        315.86100    
+3.766           NAV_X                pEchoVar        3.59879      
+3.766           NAV_Y                pEchoVar        -27.02455    
+3.766           NAV_LAT              pEchoVar        43.07172     
+3.766           NAV_LONG             pEchoVar        -70.71156    
+3.766           NAV_HEADING          pEchoVar        348.78000    
+3.766           NAV_SPEED            pEchoVar        0.25208      
+3.859           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00104      
+3.859           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00004      
+3.937           GPS_TIME             iGPS_MB1        152747.40000 
+3.937           GPS_E                iGPS_MB1        3.59388      
+3.937           GPS_N                iGPS_MB1        -26.98041    
+3.937           GPS_SAT              iGPS_MB1        10.00000     
+3.937           GPS_X                iGPS_MB1        3.59388      
+3.937           GPS_Y                iGPS_MB1        -26.98041    
+3.937           GPS_LATITUDE         iGPS_MB1        43.07172     
+3.937           GPS_LONGITUDE        iGPS_MB1        -70.71156    
+3.937           GPS_SUMMARY          iGPS_MB1        time=1491578842.404269,n=-26.980413,e=3.593881,x=3.593881,y=-26.980413,lat=43.071717,lon=-70.711560,sat=10,hdop=2.000000 
+3.957           GPS_VTG_HEADING      iGPS_MB1        349.11000    
+3.957           GPS_SPEED            iGPS_MB1        0.23150      
+3.958           NODE_REPORT_LOCAL    pNodeReporter   NAME=zboat,X=3.6,Y=-27.02,SPD=0.25,HDG=348.78,LAT=43.07171661,LON=-70.71155988,TYPE=SHIP,MODE=PARK,ALLSTOP=ManualOverride,INDEX=1,YAW=1.7666223,TIME=1491578842.42,LENGTH=4 
+3.963           GPS_HEADING          iGPS_MB1        315.89800    
+3.965           NAV_LAT              pEchoVar        43.07172     
+3.965           NAV_LONG             pEchoVar        -70.71156    
+3.998           NAV_X                pEchoVar        3.59388      
+3.998           NAV_Y                pEchoVar        -26.98041    
+3.998           NAV_HEADING          pEchoVar        349.11000    
+3.998           NAV_SPEED            pEchoVar        0.23150      
+4.031           PHELMIVP_ITER_GAP    pHelmIvP        1.00167      
+4.031           IVPHELM_CPU          pHelmIvP        0.00000      
+4.031           IVPHELM_STATE        pHelmIvP        PARK 
+4.031           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+4.031           PHELMIVP_ITER_LEN    pHelmIvP        0.00015      
+4.110           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00386      
+4.110           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00016      
+4.112           DB_EVENT             MOOSDB_zboat    connected=uFldNodeBroker 
+4.129           GPS_TIME             iGPS_MB1        152747.60000 
+4.129           GPS_E                iGPS_MB1        3.58941      
+4.129           GPS_N                iGPS_MB1        -26.93457    
+4.129           GPS_SAT              iGPS_MB1        10.00000     
+4.129           GPS_X                iGPS_MB1        3.58941      
+4.129           GPS_Y                iGPS_MB1        -26.93457    
+4.130           GPS_LATITUDE         iGPS_MB1        43.07172     
+4.130           GPS_LONGITUDE        iGPS_MB1        -70.71156    
+4.130           GPS_SUMMARY          iGPS_MB1        time=1491578842.596846,n=-26.934568,e=3.589413,x=3.589413,y=-26.934568,lat=43.071717,lon=-70.711560,sat=10,hdop=2.000000 
+4.131           NAV_LAT              pEchoVar        43.07172     
+4.131           NAV_LONG             pEchoVar        -70.71156    
+4.150           GPS_VTG_HEADING      iGPS_MB1        350.38000    
+4.150           GPS_SPEED            iGPS_MB1        0.22121      
+4.164           NAV_X                pEchoVar        3.58941      
+4.164           NAV_Y                pEchoVar        -26.93457    
+4.166           GPS_HEADING          iGPS_MB1        315.69400    

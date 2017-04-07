@@ -3,8 +3,8 @@
 initialize   DEPLOY = false
 initialize   RETURN = false
 initialize   STATIONING = false
-initialize   simple = true
-initialize   ASTAR = false
+initialize   simple = false//true
+initialize   ASTAR = true//false
 
 
 Behavior = BHV_Waypoint
@@ -67,11 +67,11 @@ Behavior = BHV_StationKeep
 }
 
 //----------------------------------------------
-Behavior=BHV_OA_pnt
-{
-  name       = pnt_OA
-  pwt        = 100
-}
+//Behavior=BHV_OA_pnt
+//{
+//  name       = pnt_OA
+//  pwt        = 100
+//}
 
 
 
