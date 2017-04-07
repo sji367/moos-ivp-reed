@@ -34,7 +34,7 @@ class ENC_Contact : public CMOOSApp
 	std::string category_landmark(int index);
 	std::string category_silo(int index);
 	double calc_WL_depth(double WL);
-	int calc_t_lvl(double depth, double WL, string LayerName);
+	int calc_t_lvl(double &depth, double WL, string LayerName);
 	int threat_level(double depth);
 	void BuildLayers();
 	void ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLayer *PolyLayer, OGRLayer *LineLayer, string LayerName);
