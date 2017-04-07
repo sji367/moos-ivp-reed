@@ -11,9 +11,13 @@ Community  = zboat
 MOOSTimeWarp = 1
 TERM_REPORTING = true
 
+// CCOM Pier
+LatOrigin  = 43.071959194444446
+LongOrigin = -70.711610833333339
+
 // Chase Tank
-LatOrigin  = 43.1358694
-LongOrigin = -70.9391542
+//LatOrigin  = 43.1358694
+//LongOrigin = -70.9391542
 
 //------------------------------------------
 // Antler configuration  block
@@ -37,6 +41,7 @@ ProcessConfig = ANTLER
   Run = uFldNodeBroker  @ NewConsole = false
   //Run = uXMS	@ NewConsole = true
   //Run = pMarineViewer	  @ NewConsole = false
+  //Run = pPub_Points	  @ NewConsole = false
 }
 
 
@@ -48,29 +53,26 @@ ProcessConfig = ANTLER
 // pHostInfo
 ProcessConfig = pHostInfo                                       
 {                                                               
-  AppTick   = 1                                                 
-  CommsTick = 1                                                 
+  AppTick   = 8                                                 
+  CommsTick = 8                                                 
                                                                 
-  TEMP_FILE_DIR  = ./                                           
-  //DEFAULT_HOSTIP = 192.168.200.223    // default is "localhost"  
-                                                                
-  //DEFAULT_HOSTIP_FORCE = 192.168.200.223
+  TEMP_FILE_DIR  = ./ 
 }
 
 //------------------------------------------  
 // uFldNodeBroker
 ProcessConfig = uFldNodeBroker
 {
-  AppTick   = 1
-  CommsTick = 1
+  AppTick   = 8
+  CommsTick = 8
 
-  //TRY_SHORE_HOST = pshare_route=multicast_2
-  //TRY_SHORE_HOST = pshare_route=192.168.200.130:9300
-  //TRY_SHORE_HOST = pshare_route=192.168.8.202:9300
   TRY_SHORE_HOST = pshare_route=192.168.1.204:9300
-
+  BRIDGE = src=NAV_X, alias=NAV_X
+  BRIDGE = src=NAV_Y, alias=NAV_Y
+  BRIDGE = src=NAV_SPEED, alias=NAV_SPEED 
+  BRIDGE = SRC=NAV_HEADING, alias=NAV_HEADING
   BRIDGE = src=VIEW_POLYGON
-  BRIDGE = src=PWM
+  BRIDGE = src=PWM, alias=PWM
 //  BRIDGE = src=RETURN
   BRIDGE = src=VIEW_POINT
   BRIDGE = src=VIEW_SEGLIST
@@ -83,19 +85,10 @@ ProcessConfig = uFldNodeBroker
 // pShare
 ProcessConfig = pShare
 {
-  AppTick   = 2
-  CommsTick = 2
+  AppTick   = 8
+  CommsTick = 8
 
-  //Input = route = 192.168.56.128:9301
   Input = route = 192.168.1.205:9301
-
-  //Input = route = localhost:9000
-  //Input = route = multicast_2
-
-  //Output = src_name = NODE_REPORT_LOCAL, dest_name=NODE_REPORT, route=192.168.42.10:9300
-  //Output = src_name = NODE_MESSAGE_LOCAL, dest_name=NODE_MESSAGE, route=192.168.42.10:9300
-  //Output = src_name = VIEW_*, route = 192.168.42.10:9300
-  //Output = src_name = APPCAST, route = 192.168.42.10:9300
 }
 
 //------------------------------------------
@@ -228,9 +221,8 @@ ProcessConfig = pEchoVar
 
 ProcessConfig = pHelmIvP
 {
-  AppTick    = 10
-  AppTick    = 4
-  CommsTick  = 4
+  AppTick    = 2
+  CommsTick  = 2
 
   term_report_interval=0
 
@@ -257,20 +249,20 @@ ProcessConfig = pMarinePID
   // SIM_INSTABILITY = 20
 
   // Yaw PID controller
-  yaw_pid_kp         = 1.2
+  yaw_pid_kp         = 1.1
   yaw_pid_kd         = 0.0
   yaw_pid_ki         = 0.3
   yaw_pid_integral_limit = 0.07
 
   // Speed PID controller
-  speed_pid_kp       = 1.0
+  speed_pid_kp       = 0.7
   speed_pid_kd       = 0.0
   speed_pid_ki       = 0.0
   speed_pid_integral_limit = 0.07
 
   //MAXIMUMS
   maxrudder    = 45
-  maxthrust    = 100
+  maxthrust    = 50
 
   // A non-zero SPEED_FACTOR overrides use of SPEED_PID
   // Will set DESIRED_THRUST = DESIRED_SPEED * SPEED_FACTOR
@@ -309,6 +301,8 @@ ProcessConfig = pMarineViewer
   //datum_viewable = true
   //datum_size     = 18
   //gui_size = small
+  left_context[t_lvl1] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=1 x=$(XPOS) y=$(YPOS),vertex_size=5, vertex_color=greenyellow
+  left_context[t_lvl1] = NEW_POINTS = x=$(XPOS),y=$(YPOS),1,Phantom
 
   left_context[survey-point] = DEPLOY=true
   left_context[survey-point] = MOOS_MANUAL_OVERIDE=false
@@ -337,6 +331,11 @@ ProcessConfig = pMarineViewer
   action  = UPDATES_RETURN=speed=1.4
 }
 
+ProcessConfig = pPub_Points
+{
+  AppTick    = 10
+  CommsTick  = 10
+}
 //------------------------------------------------
 // uXMS config block
 ProcessConfig = uXMS
