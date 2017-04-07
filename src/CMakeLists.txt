@@ -25,7 +25,7 @@ ADD_SUBDIRECTORY(iOS5000)
 ADD_SUBDIRECTORY(pENC_Contact)
 ADD_SUBDIRECTORY(Build_ENC_Grid)
 ADD_SUBDIRECTORY(Test)
-#ADD_SUBDIRECTORY(serial)
+ADD_SUBDIRECTORY(pPub_Points)
 ADD_SUBDIRECTORY(lib_SimpleSerial)
 
 ##############################################################################
