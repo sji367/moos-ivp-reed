@@ -11,9 +11,14 @@ Community  = shoreside
 MOOSTimeWarp = 1
 TERM_REPORTING = true
 
+
+// CCOM Pier
+LatOrigin  = 43.071959194444446
+LongOrigin = -70.711610833333339 
+
 // Chase Tank
-LatOrigin  = 43.1358694
-LongOrigin = -70.9391542
+//LatOrigin  = 43.1358694
+//LongOrigin = -70.9391542
 
 //------------------------------------------
 // Antler configuration  block
@@ -22,12 +27,16 @@ ProcessConfig = ANTLER
   MSBetweenLaunches = 400
 
   Run = MOOSDB          @ NewConsole = false
-  //Run = pLogger         @ NewConsole = false
+  Run = uSimMarine	@ NewConsole = false
+  Run = pLogger         @ NewConsole = false
+  //Run = pHelmIvP	@ NewConsole = false
   Run = pMarineViewer	  @ NewConsole = false
   Run = uProcessWatch	  @ NewConsole = false
   Run = pShare            @ NewConsole = false
   Run = pHostInfo       @ NewConsole = false
   Run = uFldShoreBroker  @ NewConsole = false
+  Run = pPub_Points	@ NewConsole = true
+
 }
 
 //------------------------------------------
@@ -36,8 +45,8 @@ ProcessConfig = ANTLER
 
 ProcessConfig = pHostInfo                                       
 {                                                               
-  AppTick   = 1                                                 
-  CommsTick = 1                                                 
+  AppTick   = 8                                                 
+  CommsTick = 8                                                 
                                                                 
   TEMP_FILE_DIR  = ./                                           
   DEFAULT_HOSTIP = localhost    // default is "localhost"  
@@ -47,19 +56,22 @@ ProcessConfig = pHostInfo
 
 ProcessConfig = uFldShoreBroker                                 
 {                                                               
-  AppTick   = 1
-  CommsTick = 1                   
+  AppTick   = 8
+  CommsTick = 8                  
                                                                 
   //bridge = src=DEPLOY_ALL, alias=DEPLOY
   //bridge = src=DEPLOY_$V,  alias=DEPLOY
                                                                 
   bridge = src=RETURN, alias=RETURN
+  bridge = src=DESIRED_SPEED, alias=DESIRED_SPEED
+  bridge = src=DESIRED_HEADING, alias=DESIRED_HEADING
   bridge = src=DEPLOY, alias=DEPLOY
   bridge = src=STATIONING, alias=STATIONING
+  bridge = src=Obstacles, src=Obstacles
   bridge = src=simple, alias=simple
   bridge = src=ASTAR, alias=ASTAR
   bridge = src=NODE_REPORT_LOCAL, alias=NODE_REPORT
-  bridge  = src=APPCAST_REQ, alias=APPCAST_REQ
+  bridge = src=APPCAST_REQ, alias=APPCAST_REQ
   bridge = src=MOOS_MANUAL_OVERIDE, alias=MOOS_MANUAL_OVERIDE
 
                                                                 
@@ -70,8 +82,8 @@ ProcessConfig = uFldShoreBroker
                                                            
 ProcessConfig = pShare
 {
-  AppTick   = 2
-  CommsTick = 2
+  AppTick   = 8
+  CommsTick = 8
 
   input = route = localhost:9300
 }
@@ -79,6 +91,31 @@ ProcessConfig = pShare
 //------------------------------------------
 // Other Config
 //------------------------------------------
+
+ProcessConfig = pPub_Points                                       
+{                                                               
+  AppTick   = 8                                                 
+  CommsTick = 8                                                                      
+}
+
+//------------------------------------------
+// pHelmIvP config block
+
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  term_report_interval=0
+
+  bhv_dir_not_found_ok = true
+
+  behaviors  = mission2.bhv
+  domain     = course:0:359:360
+  domain     = speed:0:4:21
+
+  ok_skew    = any
+}
 
 //------------------------------------------
 // uProcessWatch config block
@@ -191,4 +228,21 @@ ProcessConfig = pMarineViewer
   vehicles_name_mode = names
   trails_viewable = false
 	tiff_viewable = true
+}
+
+ProcessConfig = uSimMarine
+{
+  AppTick	= 4
+  CommsTick	= 4
+
+  start_x       = 0
+  start_y       = 0
+
+  start_heading = 180
+  start_speed   = 0
+
+  prefix        = NAV
+
+  turn_rate     = 40
+  thrust_map    = 0:0, 20:1, 40:2, 60:3, 80:4, 100:5
 }
