@@ -1,0 +1,18 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_7_4_2017_____11_10_21/MOOSLog_7_4_2017_____11_10_21.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1491577821.12
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.077717   MOOS_DEBUG           pMarinePID           ** NEW CONTROLLER GAINS ARE ** 
+1.077746   MOOS_DEBUG           pMarinePID           YAW_PID_KP             = 1.100 
+1.077755   MOOS_DEBUG           pMarinePID           YAW_PID_KD             = 0.000 
+1.077766   MOOS_DEBUG           pMarinePID           YAW_PID_KI             = 0.300 
+1.077775   MOOS_DEBUG           pMarinePID           YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.077788   MOOS_DEBUG           pMarinePID           MAXRUDDER              = 45.000 
+1.086007   MOOS_DEBUG           pMarinePID           SPEED_PID_KP           = 0.700 
+1.086024   MOOS_DEBUG           pMarinePID           SPEED_PID_KD           = 0.000 
+1.086034   MOOS_DEBUG           pMarinePID           SPEED_PID_KI           = 0.000 
+1.086057   MOOS_DEBUG           pMarinePID           SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.086068   MOOS_DEBUG           pMarinePID           MAXTHRUST              = 50.000 
+2.429251   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum NÁ7042.68220993,W,2,10,0.9,6.763,M,-32.997,M,5.0,0138*7B 
+2.531079   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum $GPVTG,45.50 
