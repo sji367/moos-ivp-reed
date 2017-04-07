@@ -1,0 +1,7 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_7_4_2017_____11_16_53/MOOSLog_7_4_2017_____11_16_53.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1491578212.87
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.391938   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+15.71806   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
