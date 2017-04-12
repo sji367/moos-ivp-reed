@@ -225,11 +225,12 @@ def Draw():
 ##---------------------------------------------------------------------------##    
 def config_Landmarks(landmark):
     # Landmark Globals for Grid
-    global text_r1_c0, text_r1_c1, text_r1_c2, text_r1_c3
-    global text_r2_c0, text_r2_c1, text_r2_c2, text_r2_c3
-    global text_r3_c0, text_r3_c1, text_r3_c2, text_r3_c3
-    global text_r4_c0, text_r4_c1, text_r4_c2, text_r4_c3
-    global text_r5_c0, text_r5_c1, text_r5_c2, text_r5_c3    
+    
+    global text_r7_c0, text_r7_c1, text_r7_c2, text_r7_c3
+    global text_r8_c0, text_r8_c1, text_r8_c2, text_r8_c3
+    global text_r9_c0, text_r9_c1, text_r9_c2, text_r9_c3
+    global text_r10_c0, text_r10_c1, text_r10_c2, text_r10_c3
+    global text_r11_c0, text_r11_c1, text_r11_c2, text_r11_c3    
     
     # Parse Landmark string for type, lat, long and distance
     L = landmark.split('!')
@@ -247,62 +248,7 @@ def config_Landmarks(landmark):
             exec "lat_%s=''" % (i+1)
             exec "lon_%s=''" % (i+1)
             exec "DIST_%s=''" % (i+1)
-    
-    # Update the labels text
-    text_r1_c0.configure(text=TYPE_1)
-    text_r1_c1.configure(text=lat_1)
-    text_r1_c2.configure(text=lon_1)
-    text_r1_c3.configure(text=DIST_1)
-    
-    text_r2_c0.configure(text=TYPE_2)
-    text_r2_c1.configure(text=lat_2)
-    text_r2_c2.configure(text=lon_2)
-    text_r2_c3.configure(text=DIST_2)
-    
-    text_r3_c0.configure(text=TYPE_3)
-    text_r3_c1.configure(text=lat_3)
-    text_r3_c2.configure(text=lon_3)
-    text_r3_c3.configure(text=DIST_3)
-    
-    text_r4_c0.configure(text=TYPE_4)
-    text_r4_c1.configure(text=lat_4)
-    text_r4_c2.configure(text=lon_4)
-    text_r4_c3.configure(text=DIST_4)
-    
-    text_r5_c0.configure(text=TYPE_5)
-    text_r5_c1.configure(text=lat_5)
-    text_r5_c2.configure(text=lon_5)
-    text_r5_c3.configure(text=DIST_5)
-
-##---------------------------------------------------------------------------##
-# This function updates the configuration labels for the Navigational Aid 
-#   obstacles from the MOOS Variables passed as an input
-##---------------------------------------------------------------------------##   
-def config_Nav_Aids(nav_aids):
-    # Nav_Aids Globals for Grid
-    global text_r7_c0, text_r7_c1, text_r7_c2, text_r7_c3
-    global text_r8_c0, text_r8_c1, text_r8_c2, text_r8_c3
-    global text_r9_c0, text_r9_c1, text_r9_c2, text_r9_c3
-    global text_r10_c0, text_r10_c1, text_r10_c2, text_r10_c3
-    global text_r11_c0, text_r11_c1, text_r11_c2, text_r11_c3
-    
-    # Parse Nav_Aids string for type, lat, long and distance
-    NA = nav_aids.split('!')
-    for i in range(5):
-        if i <len(NA) and nav_aids != '':
-            TYPE,LAT,LON,DIST = NA[i].split(',')
-            letters,lat = LAT.split(':')
-            letters,lon = LON.split(':')
-            exec "TYPE_%s=TYPE" % (i+1)
-            exec "lat_%s=lat" % (i+1)
-            exec "lon_%s=lon" % (i+1)
-            exec "DIST_%s=DIST" % (i+1)
-        else:
-            exec "TYPE_%s=''" % (i+1)
-            exec "lat_%s=''" % (i+1)
-            exec "lon_%s=''" % (i+1)
-            exec "DIST_%s=''" % (i+1)
-    
+       
     # Update the labels text
     text_r7_c0.configure(text=TYPE_1)
     text_r7_c1.configure(text=lat_1)
@@ -328,6 +274,61 @@ def config_Nav_Aids(nav_aids):
     text_r11_c1.configure(text=lat_5)
     text_r11_c2.configure(text=lon_5)
     text_r11_c3.configure(text=DIST_5)
+
+##---------------------------------------------------------------------------##
+# This function updates the configuration labels for the Navigational Aid 
+#   obstacles from the MOOS Variables passed as an input
+##---------------------------------------------------------------------------##   
+def config_Nav_Aids(nav_aids):
+    # Nav_Aids Globals for Grid
+    global text_r1_c0, text_r1_c1, text_r1_c2, text_r1_c3
+    global text_r2_c0, text_r2_c1, text_r2_c2, text_r2_c3
+    global text_r3_c0, text_r3_c1, text_r3_c2, text_r3_c3
+    global text_r4_c0, text_r4_c1, text_r4_c2, text_r4_c3
+    global text_r5_c0, text_r5_c1, text_r5_c2, text_r5_c3 
+    
+    # Parse Nav_Aids string for type, lat, long and distance
+    NA = nav_aids.split('!')
+    for i in range(5):
+        if i <len(NA) and nav_aids != '':
+            TYPE,LAT,LON,DIST = NA[i].split(',')
+            letters,lat = LAT.split(':')
+            letters,lon = LON.split(':')
+            exec "TYPE_%s=TYPE" % (i+1)
+            exec "lat_%s=lat" % (i+1)
+            exec "lon_%s=lon" % (i+1)
+            exec "DIST_%s=DIST" % (i+1)
+        else:
+            exec "TYPE_%s=''" % (i+1)
+            exec "lat_%s=''" % (i+1)
+            exec "lon_%s=''" % (i+1)
+            exec "DIST_%s=''" % (i+1)
+
+    # Update the labels text
+    text_r1_c0.configure(text=TYPE_1)
+    text_r1_c1.configure(text=lat_1)
+    text_r1_c2.configure(text=lon_1)
+    text_r1_c3.configure(text=DIST_1)
+    
+    text_r2_c0.configure(text=TYPE_2)
+    text_r2_c1.configure(text=lat_2)
+    text_r2_c2.configure(text=lon_2)
+    text_r2_c3.configure(text=DIST_2)
+    
+    text_r3_c0.configure(text=TYPE_3)
+    text_r3_c1.configure(text=lat_3)
+    text_r3_c2.configure(text=lon_3)
+    text_r3_c3.configure(text=DIST_3)
+    
+    text_r4_c0.configure(text=TYPE_4)
+    text_r4_c1.configure(text=lat_4)
+    text_r4_c2.configure(text=lon_4)
+    text_r4_c3.configure(text=DIST_4)
+    
+    text_r5_c0.configure(text=TYPE_5)
+    text_r5_c1.configure(text=lat_5)
+    text_r5_c2.configure(text=lon_5)
+    text_r5_c3.configure(text=DIST_5)
 
 ##---------------------------------------------------------------------------##
 # This function updates the configuration labels for the underwater obstacles

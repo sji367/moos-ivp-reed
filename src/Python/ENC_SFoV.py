@@ -99,8 +99,8 @@ class ENC_SFoV(object):
     # Define which UTM zone we are in
     LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')    
     
-    def __init__(self, sensor_head=0, sensor_max_dist=1500, sensor_FoV_ang=45,
-                 obs_type=['underwater'], LatOrigin=43.071959194444446, 
+    def __init__(self, sensor_head=0, sensor_max_dist=500, sensor_FoV_ang=45,
+                 obs_type=['landmark', 'nav_aid'], LatOrigin=43.071959194444446, 
                  LongOrigin=-70.711610833333339,
                  ENC_filename='../../src/ENCs/US5NH02M/US5NH02M.000'):
         """ Initialize varibles. 
@@ -681,7 +681,7 @@ class ENC_SFoV(object):
         elif sensor_type == 'Landmark':
             color = 'edge_color=salmon'
         elif sensor_type == 'Nav_aid':
-            color = 'edge_color=seagreen'
+            color = 'edge_color=red'
             
         FoV_Filter = 'pts={'+str(A_x)+','+str(A_y)+':'+str(B_x)+','+str(B_y)+\
             ':'+str(C_x)+','+str(C_y)+'},label=Sensor_FoV_'+sensor_type+','+color
@@ -887,7 +887,6 @@ class ENC_SFoV(object):
             layer = self.ds.GetLayerByName(layers[i])
             # Set spatial filter
             layer.SetSpatialFilter(poly_filter)
-            
             # print all 
             feat = layer.GetNextFeature()
             while feat:
@@ -903,6 +902,9 @@ class ENC_SFoV(object):
                     
                 obj_type = self.category_nav_aid(feat, layers[i])
                 pt_x, pt_y = self.LonLat2MOOSxy(pt_lon,pt_lat)
+                
+                if layers[i] == 'BOYLAT':
+                    print pt_x, pt_y
                 
                 xpos_na.append(pt_x)
                 ypos_na.append(pt_y)
@@ -964,7 +966,7 @@ class ENC_SFoV(object):
                 self.Landmarks(X, Y, heading, Landmarks_layers, comms)
             elif (self.obs_type[i] == "underwater"):   
                 self.Underwater_Objs(X, Y, heading, Underwater_layers, comms)
-            elif (self.obs_type[i] == "nav_aid"):
+            if (self.obs_type[i] == "nav_aid"):
                 self.Nav_Aids(X, Y, heading, Nav_aids_layers, comms)
     
     def run(self):

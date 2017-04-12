@@ -1,7 +1,0 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% LOG FILE:       ./MOOSLog_7_4_2017_____11_12_53/MOOSLog_7_4_2017_____11_12_53.ylog
-%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
-%% LOGSTART               1491577973.31
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-25.41064   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: NothingToDo 
-25.65389   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
