@@ -7,7 +7,6 @@
 
 #include <vector>
 #include <iostream>
-#include "MBUtils.h"
 #include <string>
 #include <ctime>
 #include <cmath> // For sqrt and pow
@@ -15,7 +14,7 @@
 #include <algorithm> // for max_element and sort
 #include <queue> // for priority_queue
 #include "strtk.hpp" // for csv parsing
-#include "MBUtils.h"
+//#include "MBUtils.h"
 #include <iostream>
 #include <fstream>
 #include "L84.h"
@@ -120,7 +119,7 @@ public:
 
 	//Generate the path from finish to start by following the directions
         //    in the direction map.
-	string ReconstructPath(vector<vector<int>> direction_map);
+        string ReconstructPath(vector<vector<int> > direction_map);
 
 	// Check to see if the extened path is valid
 	bool extendedPathValid(int i, int x, int y);
@@ -130,10 +129,10 @@ public:
 
 	// This function runs A* and prints out the result
 	bool runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin);
-	bool runA_Star(bool yes_print, bool L84_WPT, string filename, double LatOrigin, double LongOrigin) {runA_Star(yes_print,false,L84_WPT, filename, LatOrigin,LongOrigin); };
-	bool runA_Star(bool yes_print, bool MOOS_WPT, string filename) {runA_Star(yes_print,MOOS_WPT,false,filename, 0,0); };
-	bool runA_Star(bool yes_print) {runA_Star(yes_print,false,false, "", 0,0); };
-	bool runA_Star() {runA_Star(true,false,false, "", 0,0); };
+        bool runA_Star(bool yes_print, bool L84_WPT, string filename, double LatOrigin, double LongOrigin) {return runA_Star(yes_print,false,L84_WPT, filename, LatOrigin,LongOrigin); };
+        bool runA_Star(bool yes_print, bool MOOS_WPT, string filename) {return runA_Star(yes_print,MOOS_WPT,false,filename, 0,0); };
+        bool runA_Star(bool yes_print) {return runA_Star(yes_print,false,false, "", 0,0); };
+        bool runA_Star() {return runA_Star(true,false,false, "", 0,0); };
 	
 	// This function marks the route on the map
 	string markRoute(vector<int> route);
@@ -155,7 +154,7 @@ public:
 	void build_map(string filename, int x_min, int x_max, int y_min, int y_max); // Builds master map and then only uses subset of map for A*
 
 	// Set Occupancy Grid
-	void setMap(vector<vector<int>> MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); };
+        void setMap(vector<vector<int> > MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); };
 
 	// Use a subset of the map for the A* search
 	void subsetMap(int xmin, int xmax, int ymin, int ymax);
@@ -235,8 +234,8 @@ protected:
 	Vessel_Dimensions ShipMeta;
 	int depth_cutoff; //in Centimeters
 	vector<int> dx, dy;
-	vector<vector<int>> Map;
-	vector<vector<int>> FullMap;
+        vector<vector<int> > Map;
+        vector<vector<int> > FullMap;
 };
 
 bool operator<(Node& lhs, Node& rhs);

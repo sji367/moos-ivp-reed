@@ -67,7 +67,7 @@ A_Star::A_Star()
   xTop = -4459; // value for the US5NH02M ENC
   yTop = -12386; // value for the US5NH02M ENC
   setGridXYBounds(0,0,0,0);
-  NeighborsMask(2); // Set dx, dy, and num_directions
+  NeighborsMask(8); // Set dx, dy, and num_directions
 }
 
 A_Star::A_Star(int connecting_dist)
@@ -235,7 +235,6 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
   double total_time;
   cout << "Running A*\n";
   checkStartFinish();
-  cout << "after" << endl;
   if ((getStartValid()) && (getFinishValid()))
     {
       cout << "Valid Start/Finish" << endl;
@@ -620,13 +619,16 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 	}
     }
   Map=MAP;
+  /*
   xStart-= xmin;
   yStart-= ymin;
   xFinish-= xmin;
   yFinish-= ymin;
+  */
 }
 void A_Star::checkStart()
 {
+  cout << "Start: " <<xStart << ", " << yStart << endl;
   if (Map[yStart][xStart] < depth_cutoff)
     {
       cout << "Invalid Start position" << endl;
@@ -638,6 +640,7 @@ void A_Star::checkStart()
 
 void A_Star::checkFinish()
 {
+  cout << "Finish: " <<xFinish << ", " << yFinish << endl;
   if (Map[yFinish][xFinish] < depth_cutoff)
     {
       cout << "Invalid finish position" << endl;

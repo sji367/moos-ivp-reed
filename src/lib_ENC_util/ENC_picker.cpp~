@@ -1,0 +1,203 @@
+#include <ENC_picker.h>
+/*
+using namespace std;
+class determine_ENC():
+    # Define which UTM zone we are in
+    LonLat2UTM = pyproj.Proj(proj='utm', zone=19, ellps='WGS84')
+    
+    def __init__(self, position=[0,0], rootdir='../../src/ENCs/', 
+                 csvname = '../../src/ENCs/ENCList.csv', UTM=True, 
+                 LatOrigin=43.071959194444446, LongOrigin=-70.711610833333339):
+        self.rootdir =rootdir
+        self.csvname = csvname
+        
+        self.LatOrigin = LatOrigin
+        self.LongOrigin = LongOrigin
+        self.x_origin, self.y_origin = self.LonLat2UTM(self.LongOrigin, self.LatOrigin)
+        
+        self.ENC_Names = []
+        self.poly=[]
+        self.chart=[]
+        self.RNC_name = []
+        self.scale = []
+        
+        # Build the OGR point
+        if UTM:
+            self.lon, self.lat= self.MOOSxy2LonLat(position[0], position[1])
+        else:
+            self.lon = position[0]
+            self.lat = position[1]
+        self.pnt = ogr.Geometry(ogr.wkbPoint)
+        self.pnt.AddPoint(self.lon, self.lat)
+        
+        # Build the polygon and 
+        self.directory_walk()
+        self.parse_ENC_csv(self.csvname)
+            
+    def LonLat2MOOSxy(self, lon, lat):
+        """ This function converts Longitude and Latitude to MOOS X and Y
+        
+        Inputs:
+            lat - Latitude to be converted to UTM
+            lon - Longitude to be converted to UTM
+            
+        Output:
+            x - Corresponding X location in UTM
+            y - Corresponding Y location in UTM
+        """
+        x,y = self.LonLat2UTM(lon, lat)
+        x += -self.x_origin
+        y += -self.y_origin
+        return x,y  
+            
+    def MOOSxy2LonLat(self, x, y):
+        """ This function converts MOOS X,Y to Longitude and Latitude
+        
+        Inputs:
+            x - X location in UTM coordinates
+            y - Y location in UTM coordinates
+            
+        Output:
+            lat - Corresponding latitude location
+            lon - Corresponding longitude location
+        """
+        lat,lon = self.LonLat2UTM(x+self.x_origin, y+self.y_origin, inverse=True)
+        return lat,lon
+
+    def directory_walk(self):
+        """ Walk the directory and store the ENC datasource. """
+        for subdir, dirs, files in os.walk(self.rootdir):
+            for file in files:
+                filepath = subdir + os.sep + file
+        
+                if filepath.endswith(".000"):
+                    self.ENC_Names.append(filepath)
+                    ds = ogr.Open(filepath)
+                    layer = ds.GetLayerByName('M_NPUB')
+                    feat = layer.GetNextFeature()
+                    geom = feat.GetGeometryRef()
+                    
+                    newpoly = ogr.Geometry(ogr.wkbPolygon)
+                    newpoly = ogr.CreateGeometryFromWkb(geom.ExportToWkb())
+                    self.poly.append(newpoly)
+                    
+                    sorce_indication = feat.GetFieldAsString('SORIND')
+                    # Parse the information to get the RNC chart number
+                    #  In the format:
+                    #    Country, Authority, Source, ID-Code
+                    self.chart.append(sorce_indication.split(',')[-1].split(' ')[-1])
+                
+                if filepath.endswith(".csv"):
+                    self.csvname = filepath
+                    
+    def parse_ENC_csv(self, filename='../ENCs/ENCList.csv', first_row = True):
+        """ Parse the file where the RNC name and scale are stored. We only 
+                care about the first and second row as they hold the chart name
+                and scale.
+            
+            Inputs:
+                filename - Name of the csv file
+                first_row - Boolean describing whether or not the first row has
+                        data or just column names
+                
+            """
+        with open(filename, 'rb') as csvfile:
+            ENCreader = csv.reader(csvfile, delimiter=',')
+            for row in ENCreader:
+                if first_row:
+                    first_row = False
+                elif row[1] != 'nan':
+                    self.RNC_name.append(row[0])
+                    self.scale.append(int(row[1]))
+                
+                    
+                    
+    def pick_ENC(self):
+        """ This function choses the ENC that should be run and returns the 
+            chart scale and the path to the chart. """
+        ENC = '0'
+        Scale = np.inf
+        for i in range(len(self.poly)):
+            if self.pnt.Within(self.poly[i]):
+#                print self.ENC_Names[i]
+                for ii in range(len(self.RNC_name)):
+                    if self.RNC_name[ii] == self.chart[i]:
+                        if self.scale[ii]< Scale:
+                            Scale = self.scale[ii]
+                            ENC = self.ENC_Names[i]
+                        break
+        return ENC,Scale
+ */
+
+ENC_Picker::ENC_Picker()
+{
+  RNC.clear();
+  setOrigin(0,0);
+  root_directory = "~/moos-ivp/moos-ivp-reed/src/ENCs";
+  csvfile = root_directory+"ENCList.csv";
+}
+
+ENC_Picker::ENC_Picker(double latOrigin,double lonOrigin)
+{
+  RNC.clear();
+  setOrigin(latOrigin, lonOrigin);
+  root_directory = "~/moos-ivp/moos-ivp-reed/src/ENCs";
+  csvfile = root_directory+"ENCList.csv";
+}
+
+ENC_Picker::ENC_Picker(string root_dir, string csvfilename, double latOrigin,double lonOrigin)
+{
+  RNC.clear();
+  setOrigin(latOrigin, lonOrigin);
+  root_directory = root_dir;
+  csvfile = csvfilename;
+}
+
+void ENC_Picker::parse_csv()
+{
+  // Make sure that the RNC map is clear
+  RNC.clear();
+  
+  strtk::token_grid::options option;
+  option.column_delimiters = ",";
+
+  // Read in the file
+  strtk::token_grid grid(filename, option);
+  strtk::token_grid::row_type row;
+
+  // Skip the headers and any chart that does not have an associated scale
+  for(size_t i = 1; i < grid.row_count(); ++i)
+    {
+      row = grid.row(i);
+      if (row.get<string>(1)!="nan")
+	{
+	  RNC[row.get<string>(0)] = row.get<int>(1);
+	}
+    }
+}
+
+void ENC_Picker::directory_walk()
+{
+
+}
+
+void ENC_Picker::pick_ENC(string &RNC_name, int &chart_scale)
+{
+  string ENC;
+  int temp_scale;
+  chart_scale = -1;
+  
+  auto search = RNC.find(ENC);
+  if(search != RNC.end())
+    {
+      temp_scale = search->second;
+      if ((temp_scale < chart_scale)||(chart_scale==-1)
+	{
+	  chart_scale = temp_scale;
+	  cout << "Found " << search->first << " " << temp_scale << '\n';
+	}
+    }
+  else 
+    cout << ENC << " not found" << endl;
+  
+}
