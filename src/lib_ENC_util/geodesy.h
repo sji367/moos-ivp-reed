@@ -20,19 +20,22 @@ class Geodesy
 {
 public:
 	// Constructor
-	Geodesy() {Initialise(0, 0); UTM_Zone=0; };
-	Geodesy(double LatOrigin, double LonOrigin) {Initialise(LatOrigin, LonOrigin); };
-	~Geodesy() {};
+        Geodesy() {Initialise(0, 0); UTM_Zone=0; }
+        Geodesy(double LatOrigin, double LonOrigin) {Initialise(LatOrigin, LonOrigin); }
+        ~Geodesy() {}
+
+        double getLatOrigin() { return LatOrigin; }
+        double getLonOrigin() { return LonOrigin; }
 
 	void Initialise(double Lat_Origin, double Lon_Origin);
 
 	void LatLong2UTM(double Lat, double Lon, double &x, double &y);
 	void UTM2LatLong(double x, double y, double &Lat, double &Lon);
 
-	void LatLong2LocalUTM(double Lat, double Lon, double &x, double &y) {LatLong2UTM(Lat, Lon, x, y); x-=x_origin; y-=y_origin; };
-	void LocalUTM2LatLong(double x, double y, double &Lat, double &Lon) {x+=x_origin; y+=y_origin; UTM2LatLong(x, y, Lat, Lon); };
+        void LatLong2LocalUTM(double Lat, double Lon, double &x, double &y) {LatLong2UTM(Lat, Lon, x, y); x-=x_origin; y-=y_origin; }
+        void LocalUTM2LatLong(double x, double y, double &Lat, double &Lon) {x+=x_origin; y+=y_origin; UTM2LatLong(x, y, Lat, Lon); }
 	
-	int getUTMZone(double longitude) {return 1+(longitude+180.0)/6.0; };
+        int getUTMZone(double longitude) {return 1+(longitude+180.0)/6.0; }
 
 private:
 	double LatOrigin, LonOrigin;

@@ -403,9 +403,12 @@ string A_Star::markRoute(vector<int> route)
   int x, y, direction, route_len;
   double localX = 0;
   double localY = 0;
-  
   string WPT;
   route_len = route.size();
+
+  // Initialize the print map 2d vector
+  vector<vector<int> > temp (n, vector<int>(m, 0)); 
+  Map2print= temp; 
   
   // Simplify the map for printing
   for (int i=0; i<n; i++)
@@ -413,9 +416,9 @@ string A_Star::markRoute(vector<int> route)
       for (int j=0; j<m; j++)
 	{
 	  if (Map[i][j]>depth_cutoff)
-	    Map[i][j]=0;
+	    Map2print[i][j]=0;
 	  else
-	    Map[i][j]=1;
+	    Map2print[i][j]=1;
 	}
     }
   
@@ -428,7 +431,7 @@ string A_Star::markRoute(vector<int> route)
       grid2xy(localX, localY, x, y);
       
       // Mark Start
-      Map[y][x] = 2;
+      Map2print[y][x] = 2;
       WPT=to_string(localX)+","+to_string(localY)+",";
       cout << "["+to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
       for (int i=0; i<route_len-1; i++)
@@ -442,10 +445,10 @@ string A_Star::markRoute(vector<int> route)
 	      // If you are continueing with on the same path,
 	      //  don't store the new waypoint
 	      if (route[i]==route[i+1])
-		Map[y][x] = 3;
+		Map2print[y][x] = 3;
 	      else
 		{
-		  Map[y][x] = 4;
+		  Map2print[y][x] = 4;
 		  WPT+= to_string(localX)+","+to_string(localY)+",";
 		  cout << to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
 		}
@@ -456,7 +459,7 @@ string A_Star::markRoute(vector<int> route)
       x += dx[direction];
       y += dy[direction];
       grid2xy(localX, localY, x, y);
-      Map[y][x] = 5;
+      Map2print[y][x] = 5;
       WPT += to_string(localX)+","+to_string(localY);
       cout << to_string(x+x_min) <<","+to_string(y+y_min)+"]" << endl;
     }  
@@ -490,7 +493,7 @@ void A_Star::printMap(string WPTs, double total_time)
     {
       for (int x=0; x<m; x++)
 	{
-	  xy = Map[y][x];
+	  xy = Map2print[y][x];
 	  if (xy == 0)
 	    cout << ". "; // space
 	  else if (xy == 1)
@@ -628,7 +631,6 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 }
 void A_Star::checkStart()
 {
-  cout << "Start: " <<xStart << ", " << yStart << endl;
   if (Map[yStart][xStart] < depth_cutoff)
     {
       cout << "Invalid Start position" << endl;
@@ -640,7 +642,6 @@ void A_Star::checkStart()
 
 void A_Star::checkFinish()
 {
-  cout << "Finish: " <<xFinish << ", " << yFinish << endl;
   if (Map[yFinish][xFinish] < depth_cutoff)
     {
       cout << "Invalid finish position" << endl;

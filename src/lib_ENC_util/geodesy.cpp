@@ -5,16 +5,12 @@ void Geodesy::Initialise(double Lat_Origin, double Lon_Origin)
   LatOrigin =Lat_Origin;
   LonOrigin=Lon_Origin;
   UTM_Zone=getUTMZone(Lon_Origin);
-
-  cout << UTM_Zone << endl;
   
   UTM.SetWellKnownGeogCS("WGS84");
   UTM.SetUTM(UTM_Zone, signbit(Lat_Origin));
   
   LatLong.SetWellKnownGeogCS("WGS84");
-  cout << "set\n";
   LatLong2UTM(LatOrigin, LonOrigin, x_origin, y_origin);
-  cout << "Origin: " << y_origin << ", " << x_origin << endl;
 }
 
 void Geodesy::LatLong2UTM(double Lat, double Lon, double &x, double &y)

@@ -24,6 +24,11 @@ using namespace std;
 #ifndef ASTAR_H_
 #define ASTAR_H_
 
+
+/* --------------------------------------------------------------------------
+This class is used to store the information on the vessel's metadata including
+the ship's length, width, draft and turning radius. 
+--------------------------------------------------------------------------- */
 class Vessel_Dimensions
 {
 public:
@@ -45,6 +50,16 @@ private:
 	double TurnRadius, length, width, draft;
 };
 
+
+/* --------------------------------------------------------------------------
+This class is used in A* to store the information on the nodes of the graph.
+The cost for each node can be determined with 3 different methods:
+	-minimizing the distance traveled
+	-combination of the minimum distance traveled and maximizing the
+		depth under the ship
+	-combination of the minimum distance traveled and maximizing the 
+		time to shore
+--------------------------------------------------------------------------- */
 class Node
 {
 public:
@@ -69,16 +84,19 @@ public:
 	double getPriority() {return priority; };
 	double getPriority() const {return priority; };
 
-	// Set the new cost to go to the node 
-	void calcCost(int dx, int dy) {current_cost += calcDistance(dx,dy); }; // (10*distance as an int)
-	void calcCost(int dx, int dy, int depth_thresh) {current_cost += calcDistance(dx,dy) + depthCost(depth_thresh); }; // (10*distance as an int) + cummilative depth
-	void calcCost(int dx, int dy, int old_depth, double speed) {int dist=calcDistance(dx,dy); current_cost += dist + time2shoreCost(old_depth, speed, dist); };// (10*distance as an int) + time2crash
+	// Set the new cost to go to the node where the distance is stored as an int and decimeters (10*distance)
+	void calcCost(int dx, int dy) {current_cost += calcDistance(dx,dy); }; // cumlative distance traveled (times 10 and as an int)
+	// cumlative distance traveled (times 10 and as an int) + cummilative depth (in cm and as an int)
+	void calcCost(int dx, int dy, int depth_thresh) {current_cost += calcDistance(dx,dy) + depthCost(depth_thresh); }; 
+	// cumlative distance traveled (times 10 and as an int) + time2crash
+	void calcCost(int dx, int dy, int old_depth, double speed) {int dist=calcDistance(dx,dy); current_cost += dist + time2shoreCost(old_depth, speed, dist); };
 	
+	// Calculates the depth classified as an obstacle by A* as 300*draft (aka depth in cm)
 	int calcMinDepth();
-	int depthCost(int depth_threshold);
-	int time2shoreCost(int old_depth, double speed, int dist);
+	int depthCost(int depth_threshold); // Calculates the cost of traveling through the cells depth 
+	int time2shoreCost(int old_depth, double speed, int dist); // Calculates the cost based on the approximate time to crashing into the shore
 	
-	// Estimate the remaining cost to go to the destination 
+	// Estimate the remaining cost to go to the destination (heuristic - straight line distance)
 	int estimateRemainingCost(int xDest, int yDest) {return calcDistance(xPos-xDest, yPos-yDest); };
 	
 	// Update the priority
@@ -96,7 +114,28 @@ protected:
 	Vessel_Dimensions ShipMeta;
 };
 
-
+/* --------------------------------------------------------------------------
+This class actually runs the A* graph search algorithm. There are a multitude
+of different options however in the typical use, the constructor is called 
+which allows the user to set how how many neighbors to investagate, the depth
+that is classified as an obstacle by A*, the start and finish coordinates, and 
+a few other options. Then the map is built using a preloaded csv file, a simple
+default map of an cross, or from an ENC (STILL NEEDS TO BE DONE). The start
+and finish positions can be inputed at any time and are in either the grid 
+coordinate system or in local UTM. Then the user can either run A* from a set
+of commands:
+	-AStar_Search: runs the search algorithm without checking if the 
+		waypoints are valid and outputs the A* generated waypoints 
+		in a comma seperated string in the grid coordinate system
+	-runA_Star: Runs A* after checking the waypoints to see if they are
+		valid. Once A* has been run, the function can then be set to
+		output different types of files:
+			-Print to STD output
+			-Output a .bhv MOOS file
+			-Output a L84 file
+		If the user wants to generate a new MOOS and/or L84 file, a
+		base filename must be given.  
+--------------------------------------------------------------------------- */
 class A_Star
 {
 public:
@@ -124,15 +163,15 @@ public:
 	// Check to see if the extened path is valid
 	bool extendedPathValid(int i, int x, int y);
 
-	// This function runs A* search. It outputs the generated path as a string
+	// This function runs A* search. It outputs the generated WPTs as a comma seperated string
 	string AStar_Search();
 
 	// This function runs A* and prints out the result
 	bool runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin);
-        bool runA_Star(bool yes_print, bool L84_WPT, string filename, double LatOrigin, double LongOrigin) {return runA_Star(yes_print,false,L84_WPT, filename, LatOrigin,LongOrigin); };
-        bool runA_Star(bool yes_print, bool MOOS_WPT, string filename) {return runA_Star(yes_print,MOOS_WPT,false,filename, 0,0); };
-        bool runA_Star(bool yes_print) {return runA_Star(yes_print,false,false, "", 0,0); };
-        bool runA_Star() {return runA_Star(true,false,false, "", 0,0); };
+        bool runA_Star(bool yes_print, bool L84_WPT, string filename, double LatOrigin, double LongOrigin) {return runA_Star(yes_print,false,L84_WPT, filename, LatOrigin,LongOrigin); };// Boolean for std out and L84
+        bool runA_Star(bool yes_print, bool MOOS_WPT, string filename) {return runA_Star(yes_print,MOOS_WPT,false,filename, 0,0); }; // Boolean for std out and MOOS
+        bool runA_Star(bool yes_print) {return runA_Star(yes_print,false,false, "", 0,0); }; // Boolean for std out
+        bool runA_Star() {return runA_Star(true,false,false, "", 0,0); };// just to std out
 	
 	// This function marks the route on the map
 	string markRoute(vector<int> route);
@@ -236,6 +275,7 @@ protected:
 	vector<int> dx, dy;
         vector<vector<int> > Map;
         vector<vector<int> > FullMap;
+	vector<vector<int> > Map2print;
 };
 
 bool operator<(Node& lhs, Node& rhs);

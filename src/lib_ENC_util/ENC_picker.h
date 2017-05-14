@@ -20,10 +20,10 @@ public:
 	ENC_Picker(double latOrigin,double lonOrigin);
 	ENC_Picker(double latOrigin, double lonOrigin, string root_dir, string csvfilename);
 	ENC_Picker(double latOrigin, double lonOrigin, string root_dir);
-	~ENC_Picker() {};
+        ~ENC_Picker() {}
 
 	// Sets the lat/longoOrigin
-	void setOrigin(double latOrigin,double lonOrigin) {LatOrigin=latOrigin; LonOrigin=lonOrigin; point= new OGRPoint(lonOrigin,latOrigin); };
+        void setOrigin(double latOrigin,double lonOrigin) {LatOrigin=latOrigin; LonOrigin=lonOrigin; point= new OGRPoint(lonOrigin,latOrigin); }
 
 	// Walk the directory and store the ENC datasource. 
 	void build_ENC_outlines();
