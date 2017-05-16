@@ -77,9 +77,8 @@ public:
 private:
     Geodesy geod;
     vector<OGRLayer*> desired_layers;
-    unsigned cntr;
     string ENC_filename;
-    vector<std::pair<Point, unsigned> > data;
+    vector<Point> data;
     vector<vector<int> > Map;
     double minX, minY, maxX, maxY;
     int grid_size;

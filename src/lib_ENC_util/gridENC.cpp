@@ -16,7 +16,7 @@ Grid_ENC::Grid_ENC()
     maxY = 0;
     grid_size = 5;
     buffer_size = 5;
-    cntr =0;
+    ENC_filename = "/home/sji367/moos-ivp/moos-ivp-reed/src/ENCs/US5NH02M/US5NH02M.000";
 }
 
 Grid_ENC::Grid_ENC(string ENC_Filename, int Grid_size, double buffer_dist, Geodesy Geod)
@@ -29,7 +29,6 @@ Grid_ENC::Grid_ENC(string ENC_Filename, int Grid_size, double buffer_dist, Geode
     grid_size = Grid_size;
     ENC_filename = ENC_Filename;
     buffer_size = buffer_dist;
-    cntr =0;
 }
 
 
@@ -116,8 +115,7 @@ void Grid_ENC::rasterizeMultiPoints(OGRLayer *Layer)
 
                 //xyz.insert(xyz.end(), { gridX, gridY, depth });
                 //data.push_back(xyz);
-                data.push_back(std::make_pair(Point(gridX, gridY, depth), cntr));
-                cntr++;
+                data.push_back(Point(gridX, gridY, depth));
             }
         }
     }
@@ -154,8 +152,7 @@ void Grid_ENC::rasterizePoints(OGRLayer *Layer)
             depth = int(round(z*100));
 
             //xyz.insert(xyz.end(), { gridX, gridY, depth });
-            data.push_back(std::make_pair(Point(gridX, gridY, depth), cntr));
-            cntr++;
+            data.push_back(Point(gridX, gridY, depth));
         }
     }
     else
@@ -202,9 +199,7 @@ void Grid_ENC::rasterizeLine(OGRLayer *Layer, double segment_size)
                 //z = poLine->getZ(j);
                 depth = int(round(z*100));
 
-                //xyz.insert(xyz.end(), { gridX, gridY, depth });
-                //data.push_back(xyz);
-                data.push_back(std::make_pair(Point(gridX, gridY, depth), cntr));
+                data.push_back(Point(gridX, gridY, depth));
             }
         }
     }
@@ -261,9 +256,7 @@ void Grid_ENC::rasterizePoly(OGRLayer * Layer, double segment_size)
                 //z = ring->getZ(j);
                 depth = int(round(z*100));
 
-                //xyz.insert(xyz.end(), { gridX, gridY, depth });
-                data.push_back(std::make_pair(Point(gridX, gridY, depth), cntr));
-                cntr ++;
+                data.push_back(Point(gridX, gridY, depth));
             }
 
             // Now we need all of the points inside of the polygon
@@ -281,10 +274,7 @@ void Grid_ENC::rasterizePoly(OGRLayer * Layer, double segment_size)
                     point->setY(lat);
                     if (point->Within(poPoly))
                     {
-                        data.push_back(std::make_pair(Point(gridX, gridY, depth), cntr));
-                        cntr++;
-                        //xyz.insert(xyz.end(), { gridX, gridY, depth });
-                        //data.push_back(xyz);
+                        data.push_back(Point(gridX, gridY, depth));
                     }
                 }
             }
@@ -401,7 +391,7 @@ OGRPolygon* Grid_ENC::BufferPoly_LatLon(OGRPolygon* poly, double buffer_dist)
     else
         poly->Buffer(diffLon);
 }
-/*
+
 // Using this format:
 //  http://stackoverflow.com/questions/19850354/cgal-retrieve-vertex-index-after-delaunay-triangulation
 void Grid_ENC::makeMap()
@@ -413,6 +403,8 @@ void Grid_ENC::makeMap()
   vector<int> x,y,z;
   vector<double> d;
   double Z;
+
+  int minX, maxX, minY, maxY;
   
   Delaunay dt(data.begin(), data.end());
 
@@ -472,7 +464,7 @@ void Grid_ENC::makeMap()
 	}
     }
 }
-*/
+
 double Grid_ENC::dist(int x1, int y1, int x2, int y2)
 {
   return (pow((x1-x2),2)+pow((y1-y2),2));
