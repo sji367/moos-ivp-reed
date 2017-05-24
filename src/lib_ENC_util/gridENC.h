@@ -16,14 +16,6 @@
 #include <ogr_geometry.h> // OGRPoint, OGRGeometry etc
 #include <ogr_feature.h> // OGRFeature
 #include "geodesy.h"
-#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
-#include <CGAL/Projection_traits_xy_3.h>
-#include <CGAL/Delaunay_triangulation_2.h>
-
-typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-typedef CGAL::Projection_traits_xy_3<K>  Gt;
-typedef CGAL::Delaunay_triangulation_2<Gt> Delaunay;
-typedef K::Point_3   Point;
 
 using namespace std;
 
@@ -51,7 +43,6 @@ public:
     void rasterizeLine(OGRLayer * Layer, double segment_size);
 
     // Interpolate the map using linterp library
-    void delaunayTri(Delaunay & tri);
     void makeMap();
 
     // Returns the interpolated map
@@ -63,7 +54,8 @@ public:
     void LatLong2Grid(double lat, double lon, int &gridX, int &gridY);
     void Grid2LatLong(int gridX, int gridY, double &lat, double &lon);
 
-    void EnvelopeInUTM(OGREnvelope *env, double &x_min, double & y_min, double &x_max, double &y_max);
+    void EnvelopeInUTM(OGREnvelope* env, double &x_min, double &y_min, double &x_max, double &y_max);
+    void EnvelopeInUTM(OGRLayer* layer);
 
     // Put in functions to make a minimum segment length in meters for polygons/lines in lat/lon
     OGRLineString* SegmentLine_LatLon(OGRLineString* line, double segment_dist);
@@ -78,10 +70,57 @@ private:
     Geodesy geod;
     vector<OGRLayer*> desired_layers;
     string ENC_filename;
-    vector<Point> data;
+    vector<vector<int> > data;
     vector<vector<int> > Map;
     double minX, minY, maxX, maxY;
     int grid_size;
+    double buffer_size;
+
+};
+
+class ENC_grid
+{
+public:
+    // Constructor/deconstuctor
+    ENC_grid();
+    ENC_grid(string ENC_Filename, double Grid_size, double buffer_dist, double lat, double lon);
+    ENC_grid(string ENC_Filename, double Grid_size, double buffer_dist, Geodesy Geod);
+    ~ENC_grid() {}
+
+    // Initialize Geodesy
+    void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
+    
+    void buildDelaunayPoly();
+
+    // Get the minimum and maximum x/y values (in local UTM) of the ENC
+    void getENC_MinMax(GDALDataset* ds);
+
+    // Functions to deal with build the delaunay polygon 
+    void rasterizeLayer(OGRLayer* layer, string layerName);
+    void multipointFeat(OGRFeature* feat, OGRGeometry* geom);
+    void pointFeat(OGRFeature* feat, OGRGeometry* geom);
+    void polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerName);
+    void lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName);  
+
+    void makeGrid(OGRGeometry *geom);
+    void run();
+    double calc_dist_sq(int x1, int y1, int x2, int y2);
+
+    // Functions for converting between the grid, local UTM, and Lat/Long
+    void UTM2grid(double x, double y, int &gridX, int &gridY) { xy2grid(x+geod.getXOrigin(),y+geod.getYOrigin(), gridX, gridY);}
+    void xy2grid(double x, double y, int &gridX, int &gridY);
+    void grid2xy(int gridX, int gridY, double &x, double &y);
+    void LatLong2Grid(double lat, double lon, int &gridX, int &gridY);
+    void Grid2LatLong(int gridX, int gridY, double &lat, double &lon);
+
+private:
+    Geodesy geod;
+    OGRPolygon *delaunayPoly, *delaunayLand_poly;
+    OGRLinearRing *delaunayRing, *delaunayLand_ring;
+    string ENC_filename;
+    vector<vector<int> > Map;
+    double minX, minY, maxX, maxY;
+    double grid_size;
     double buffer_size;
 
 };

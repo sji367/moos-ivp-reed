@@ -46,21 +46,66 @@ void Grid_ENC::MakeBaseMap(int segment_size)
 
     GDALDataset* ds;
     OGRLayer* layer;
-    OGREnvelope* ENC_envelope;
+    //OGREnvelope* ENC_envelope;
+
+    cout << ENC_filename << endl;
 
     ds = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+    cout << "ds" << endl;
+    layer = ds->GetLayerByName("M_COVR");
+    cout << "layer" << endl;
+    //cout << layer->GetExtent(ENC_envelope) << endl; // get the min/max lat and long
 
-    layer = ds->GetLayerByName("M_NPUB");
-    layer->GetExtent(ENC_envelope); // get the min/max lat and long
+    //cout << "Envelope" << endl;
+    EnvelopeInUTM(layer);//, minX, minY, maxX, maxY);
 
-    EnvelopeInUTM(ENC_envelope, minX, minY, maxX, maxY);
-
+    cout << "Envelope" << endl;
     rasterizeMultiPoints(ds->GetLayerByName("SOUNDG"));
+    cout << "Point" << endl;
     rasterizePoly(ds->GetLayerByName("LNDARE"), segment_size);
+    cout << "Poly" << endl;
     rasterizeLine(ds->GetLayerByName("DEPCNT"), segment_size);
+    cout << "Line" << endl;
 }
 
-void Grid_ENC::EnvelopeInUTM(OGREnvelope *env, double &x_min, double &y_min, double &x_max, double &y_max)
+void Grid_ENC::EnvelopeInUTM(OGRLayer* layer)//, double &x_min, double &y_min, double &x_max, double &y_max)
+{
+	OGRFeature* feat;
+	OGRLinearRing* ring;
+	OGRGeometry* geom;
+	OGRPolygon* coverage;
+
+	vector<double> x,y;
+	double UTM_x, UTM_y;
+
+	layer->ResetReading();
+	feat = layer->GetNextFeature();
+	// Cycle through the points and store all x and y values of the layer
+	for (int i=0; i<layer->GetFeatureCount(); i++)
+	{
+		if (feat->GetFieldAsDouble("CATCOV") == 1)
+		{
+			geom = feat->GetGeometryRef();
+			coverage = ( OGRPolygon * )geom;
+            ring = coverage->getExteriorRing();
+            for (int j =0;  j<ring->getNumPoints(); j++)
+			{
+				geod.LatLong2LocalUTM(ring->getY(j), ring->getX(j), UTM_x, UTM_y);
+				x.push_back(UTM_x);
+				y.push_back(UTM_y);
+			}
+		}
+		feat = layer->GetNextFeature();
+	}
+
+	// Find the min and max of the X and Y values
+	minX = *min_element(x.begin(), x.end());
+    maxX = *max_element(x.begin(), x.end());
+    minY = *min_element(y.begin(), y.end());
+    maxY = *max_element(y.begin(), y.end());
+}
+
+void Grid_ENC::EnvelopeInUTM(OGREnvelope* env, double &x_min, double &y_min, double &x_max, double &y_max)
 {
     // Initialize x and y vectors to be 4x1 with 0s
     vector<double> x(4,0);
@@ -113,9 +158,7 @@ void Grid_ENC::rasterizeMultiPoints(OGRLayer *Layer)
                 z = poPoint->getZ();
                 depth = int(round(z*100));
 
-                //xyz.insert(xyz.end(), { gridX, gridY, depth });
-                //data.push_back(xyz);
-                data.push_back(Point(gridX, gridY, depth));
+                data.push_back({gridX, gridY, depth});
             }
         }
     }
@@ -139,7 +182,6 @@ void Grid_ENC::rasterizePoints(OGRLayer *Layer)
         // Cycle though all points in the layer and store all xyz values
         while( (feat = Layer->GetNextFeature()) != NULL )
         {
-            //xyz.clear();
             geom = feat->GetGeometryRef();
             poPoint = poPoint = ( OGRPoint * )geom;
             // Get the location in the grid coordinate system
@@ -152,7 +194,7 @@ void Grid_ENC::rasterizePoints(OGRLayer *Layer)
             depth = int(round(z*100));
 
             //xyz.insert(xyz.end(), { gridX, gridY, depth });
-            data.push_back(Point(gridX, gridY, depth));
+            data.push_back({gridX, gridY, depth});
         }
     }
     else
@@ -168,7 +210,7 @@ void Grid_ENC::rasterizeLine(OGRLayer *Layer, double segment_size)
 
     double lat,lon, z;
     int gridX, gridY, depth;
-    //vector<int> xyz;
+    vector<int> xyz;
 
     layerName = Layer->GetName();
 
@@ -199,7 +241,7 @@ void Grid_ENC::rasterizeLine(OGRLayer *Layer, double segment_size)
                 //z = poLine->getZ(j);
                 depth = int(round(z*100));
 
-                data.push_back(Point(gridX, gridY, depth));
+                data.push_back({gridX, gridY, depth});
             }
         }
     }
@@ -211,18 +253,20 @@ void Grid_ENC::rasterizePoly(OGRLayer * Layer, double segment_size)
 {
     OGRFeature* feat;
     OGRGeometry *geom;
-    OGRPoint *point;
+    OGRPoint *poPoint;
     OGRPolygon *poPoly;
     OGRLinearRing *ring;
-    OGREnvelope *env;
+    //OGREnvelope *env;
 
     string layerName;
     double lat,lon, z;
     int gridX, gridY, depth;
-    vector<int> xyz;
+    vector<int> x,y, xyz;
 
-    double xmin, ymin, xmax, ymax;
+    //double xmin, ymin, xmax, ymax;
     int gridXmin, gridYmin, gridXmax, gridYmax;
+    int cntr = 0;
+    string geom_name;
 
     layerName = Layer->GetName();
     Layer->ResetReading();
@@ -232,51 +276,82 @@ void Grid_ENC::rasterizePoly(OGRLayer * Layer, double segment_size)
         //  for each vertex in the polygon
         while( (feat = Layer->GetNextFeature()) != NULL )
         {
+            cout << cntr << " out of " << Layer->GetFeatureCount() << endl;
+            cntr++;
             geom = feat->GetGeometryRef();
-            poPoly = ( OGRPolygon * )geom;
-            poPoly = BufferPoly_LatLon(poPoly, buffer_size);
-            poPoly = SegmentPoly_LatLon(poPoly,segment_size);
-            ring = poPoly->getExteriorRing();
-
+			
             if (Layer->GetName()=="LNDARE")
-              z = -5; // Set land depth to 5 meters above the surface
+            	z = -5; // Set land depth to 5 meters above the surface
             else
                 z = feat->GetFieldAsDouble("VALSOU"); // otherwise use the sounding value
 
-            // Store the exterior ring
-            for (int j=0; j<ring->getNumPoints(); j++)
+            geom_name = geom->getGeometryName();
+            if (geom_name == "POINT")
             {
-                xyz.clear();
-                lon = ring->getX(j);
-                lat = ring->getY(j);
+                poPoint = ( OGRPoint * )geom;
+                lon = poPoint->getX();
+                lat = poPoint->getY();
 
                 LatLong2Grid(lat,lon,gridX, gridY);
 
                 // Get depth as int in cm
-                //z = ring->getZ(j);
                 depth = int(round(z*100));
 
-                data.push_back(Point(gridX, gridY, depth));
+                data.push_back({gridX, gridY, depth});
             }
-
-            // Now we need all of the points inside of the polygon
-            ring->getEnvelope(env);
-            EnvelopeInUTM(env, xmin, ymin, xmax, ymax);
-            xy2grid(xmin, ymin, gridXmin, gridYmin);
-            xy2grid(xmax, ymax, gridXmax, gridYmax);
-            for (int y = gridYmin; y<gridYmax; y++)
+            else if (geom_name == "POLYGON")
             {
-                for (int x = gridXmin; x<gridXmax; x++)
+                cout << "inside" << endl;
+                poPoly = ( OGRPolygon * )geom;
+
+                poPoly = BufferPoly_LatLon(poPoly, buffer_size);
+                cout << "inside2" << endl;
+                poPoly = SegmentPoly_LatLon(poPoly,segment_size);
+                cout << "inside3" << endl;
+                ring = poPoly->getExteriorRing();
+
+                cout << ring->getNumPoints() << endl;
+
+                // Store the exterior ring
+                for (int j=0; j<ring->getNumPoints(); j++)
                 {
-                    Grid2LatLong(x,y, lat,lon);
-                    point = (OGRPoint *)OGRGeometryFactory::createGeometry(wkbPoint25D);
-                    point->setX(lon);
-                    point->setY(lat);
-                    if (point->Within(poPoly))
+                    lon = ring->getX(j);
+                    lat = ring->getY(j);
+
+                    LatLong2Grid(lat,lon,gridX, gridY);
+
+                    // Get depth as int in cm
+                    depth = int(round(z*100));
+
+                    data.push_back({gridX, gridY, depth});
+                    x.push_back(gridX);
+                    y.push_back(gridY);
+                }
+                /*
+                // Get the envelope of the polygon
+                gridXmin = *min_element(x.begin(), x.end());
+                gridYmin = *min_element(y.begin(), y.end());
+                gridXmax = *max_element(x.begin(), x.end());
+                gridYmax = *max_element(y.begin(), y.end());
+                cout << "X: " <<gridXmin << ", " << gridXmax<< "\t Y: " << gridYmin << ", " << gridYmax << endl;
+                // Now we need all of the points inside of the polygon
+                for (int y = gridYmin; y<gridYmax; y++)
+                {
+                    for (int x = gridXmin; x<gridXmax; x++)
                     {
-                        data.push_back(Point(gridX, gridY, depth));
+                        OGRPoint *point;
+                        Grid2LatLong(x,y, lat,lon);
+                        point = (OGRPoint *)OGRGeometryFactory::createGeometry(wkbPoint25D);
+                        point->setX(lon);
+                        point->setY(lat);
+                        if (point->Within(poPoly))
+                        {
+                            data.push_back(Point(gridX, gridY, depth));
+                        }
+                        OGRPoint::D
                     }
                 }
+                */
             }
         }
     }
@@ -396,6 +471,7 @@ OGRPolygon* Grid_ENC::BufferPoly_LatLon(OGRPolygon* poly, double buffer_dist)
 //  http://stackoverflow.com/questions/19850354/cgal-retrieve-vertex-index-after-delaunay-triangulation
 void Grid_ENC::makeMap()
 {
+/*
   OGRPolygon *poly;
   OGRLinearRing *ring;
   OGRPoint *point;
@@ -463,6 +539,7 @@ void Grid_ENC::makeMap()
 	    }
 	}
     }
+*/
 }
 
 double Grid_ENC::dist(int x1, int y1, int x2, int y2)
