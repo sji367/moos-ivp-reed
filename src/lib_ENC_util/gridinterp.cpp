@@ -5,6 +5,7 @@ Grid_Interp::Grid_Interp()
   geod = Geodesy();
   grid_size = 5;
   buffer_size = 5;
+  MOOS_Path = "/home/sji367/moos-ivp/moos-ivp-reed";
   ENC_filename = "/home/sji367/moos-ivp/moos-ivp-reed/src/ENCs/US5NH02M/US5NH02M.000";
   minX = 0;
   minY = 0;
@@ -12,11 +13,12 @@ Grid_Interp::Grid_Interp()
   maxY = 0;
 }
 
-Grid_Interp::Grid_Interp(string ENC_Filename, double Grid_size, double buffer_dist, Geodesy Geod)
+Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, Geodesy Geod)
 {
   initGeodesy(Geod);
   grid_size = Grid_size;
   ENC_filename = ENC_Filename;
+  MOOS_Path = MOOS_path;
   buffer_size = buffer_dist;
   minX = 0;
   minY = 0;
@@ -24,16 +26,73 @@ Grid_Interp::Grid_Interp(string ENC_Filename, double Grid_size, double buffer_di
   maxY = 0;
 }
 
-Grid_Interp::Grid_Interp(string ENC_Filename, double Grid_size, double buffer_dist, double lat, double lon)
+Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, double lat, double lon)
 {
   geod = Geodesy(lat, lon);
   grid_size = Grid_size;
   ENC_filename = ENC_Filename;
+  MOOS_Path = MOOS_path;
   buffer_size = buffer_dist;
   minX = 0;
   minY = 0;
   maxX = 0;
   maxY = 0;
+}
+
+void Grid_Interp::buildLayer()
+{
+    GDALAllRegister();
+    // Build the datasets
+    const char *pszDriverName = "ESRI Shapefile";
+    GDALDriver *poDriver;
+    poDriver = GetGDALDriverManager()->GetDriverByName(pszDriverName );
+    string gridPath = MOOS_Path+"src/ENCs/Shape/grid/grid.shp";
+    DS = poDriver->Create(gridPath.c_str(), 0, 0, 0, GDT_Unknown, NULL );
+    if( DS == NULL )
+    {
+        printf( "Creation of output file failed.\n" );
+        exit( 1 );
+    }
+    // Create the layers (point, polygon, and lines)
+    Layer = DS->CreateLayer( "Point", NULL, wkbPoint25D, NULL );
+    if( Layer == NULL )
+    {
+        printf( "Layer creation failed.\n" );
+        exit( 1 );
+    }
+
+    // Create the field
+    OGRFieldDefn oField_depth( "Depth", OFTReal);
+    if(Layer->CreateField( &oField_depth ) != OGRERR_NONE )
+    {
+        printf( "Creating Depth field failed.\n" );
+        exit( 1 );
+    }
+    feat_def = Layer->GetLayerDefn();
+
+}
+
+void Grid_Interp::buildPoint(double x,  double y, double depth)
+{
+    OGRPoint *newPoint;
+    OGRFeature *newFeat;
+
+    newPoint = (OGRPoint *)OGRGeometryFactory::createGeometry(wkbPoint25D);
+    newPoint->setX(x);
+    newPoint->setY(y);
+    newPoint->setZ(depth);
+
+    newFeat =  OGRFeature::CreateFeature(feat_def);
+    newFeat->SetField("Depth", depth);
+    newFeat->SetGeometry(newPoint);
+
+    if( Layer->CreateFeature( newFeat ) != OGRERR_NONE )
+    {
+        printf( "Failed to create feature in shapefile.\n" );
+        exit( 1 );
+    }
+
+    OGRFeature::DestroyFeature( newFeat );
 }
 
 
@@ -43,43 +102,58 @@ void Grid_Interp::Run()
     GDALDataset* ds;
     OGRSpatialReference UTM = geod.getUTM();
 
+    buildLayer();
+
     ds = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
 
     getENC_MinMax(ds);
+    OGRLayer *land = ds->GetLayerByName("LNDARE");
+
     // Add the vertices from the soundings, land areas and depth contours
     //  to the delaunay objects
-    rasterizeLayer(ds->GetLayerByName("SOUNDG"), "SOUNDG");
-    rasterizeLayer(ds->GetLayerByName("UWTROC"), "UWTROC");
+
+    layer2XYZ(ds->GetLayerByName("SOUNDG"), "SOUNDG");
+    layer2XYZ(ds->GetLayerByName("UWTROC"), "UWTROC");
     cout << "Point" << endl;
-    //rasterizeLayer(ds->GetLayerByName("DEPCNT"), "DEPCNT");
+    layer2XYZ(ds->GetLayerByName("DEPCNT"), "DEPCNT");
     cout << "Line" << endl;
-    //rasterizeLayer(ds->GetLayerByName("LNDARE"), "LNDARE");
+    layer2XYZ(land, "LNDARE");
     cout << "Poly" << endl;
 
-
     // Grid the data
-    GDALGridInverseDistanceToAPowerOptions options;
-    GDALGridAlgorithm alg = GGA_InverseDistanceToAPower;
-    GDALDataType dataType = GDT_Int32;
-
-    options.dfPower = 2;
+    GDALGridLinearOptions options;
+    options.dfRadius = 0;
     options.dfNoDataValue = -1500;
-    options.dfAngle = 0;
-    options.dfAnisotropyAngle =0;
-    options.dfAnisotropyRatio =0;
-    options.dfRadius1 = 0;
-    options.dfRadius2 = 0;
-    options.nMaxPoints= 10;
-    options.nMinPoints=3;
 
+    int x_res = int(round((maxX - minX)/300));
+    int y_res = int(round((maxY - minY)/300));
 
-    int x_res = int(round((maxX - minX)/grid_size));
-    int y_res = int(round((maxY - minY)/grid_size));
+    Map.resize(y_res*x_res);
 
-    if (GDALGridCreate(alg, &options, X.size(), X.data(), Y.data(), depth.data(), minX, maxX, minY, maxY, x_res, y_res, dataType, &Map, NULL, NULL) == CE_Failure)
+    // Build vector of layers
+    vector<OGRLayer*> layers;
+    layers.push_back(land);
+
+    // Set spatial Reference
+    char    *spat_ref = NULL;
+    UTM.exportToWkt(&spat_ref);
+
+    // Set the rasterize options
+    char** opt = nullptr;
+    opt = CSLSetNameValue(opt, "ALL_TOUCHED", "TRUE");
+
+    // Build the geotransformation matrix of the target raster
+    vector<double> geoTransform = {minX, 300, 0, maxY, 0, 300};
+
+    printf("%0.2f, %0.2f, %0.2f\n", X[0], Y[0], depth[0]);
+    //if (GDALGridCreate(GGA_Linear, &options, static_cast<int>(X.size()), X.data(), Y.data(), depth.data(), minX, maxX, minY, maxY, x_res, y_res, GDT_Int32, Map.data(), NULL, NULL) == CE_Failure)
+    if (GDALRasterizeLayersBuf(Map.data(), x_res, y_res, GDT_Int32, 4, 0, 1, (OGRLayerH*)&layers[0], spat_ref, geoTransform.data(), NULL, NULL, -500, opt, NULL, NULL ) == CE_Failure)
         cout << "Gridding Failed" << endl;
     else
         cout << "It WORKED!!!" << endl;
+
+    for (int i=0; i<Map.size(); i++)
+        cout << i << " " << Map[i] << endl;
 
 }
 
@@ -94,7 +168,6 @@ void Grid_Interp::getENC_MinMax(GDALDataset* ds)
 
   vector<double> x,y;
   double UTM_x, UTM_y;
-  int gridX, gridY;
 
   layer = ds->GetLayerByName("M_COVR");
   layer->ResetReading();
@@ -124,7 +197,7 @@ void Grid_Interp::getENC_MinMax(GDALDataset* ds)
   maxY = *max_element(y.begin(), y.end());
 }
 
-void Grid_Interp::rasterizeLayer(OGRLayer* layer, string layerName)
+void Grid_Interp::layer2XYZ(OGRLayer* layer, string layerName)
 {
   OGRFeature* feat;
   OGRGeometry* geom;
@@ -157,7 +230,7 @@ void Grid_Interp::multipointFeat(OGRFeature* feat, OGRGeometry* geom)
     OGRMultiPoint *poMultipoint;
     OGRPoint * poPoint;
 
-    double lat,lon, x, y;
+    double lat,lon, x, y, z;
 
     // Cycle through all points in the multipoint and store the xyz location of each point
     geom = feat->GetGeometryRef();
@@ -170,13 +243,17 @@ void Grid_Interp::multipointFeat(OGRFeature* feat, OGRGeometry* geom)
         // Get the location in the grid coordinate system
         lon = poPoint->getX();
         lat = poPoint->getY();
-        geod.LatLong2LocalUTM(lon,lat, x,y);
+        geod.LatLong2LocalUTM(lat,lon, x,y);
 
         X.push_back(x);
         Y.push_back(y);
 
         // Get depth in cm
-        depth.push_back(poPoint->getZ()*100);
+        z= poPoint->getZ()*100;
+        depth.push_back(z);
+
+        // Place point into the layer
+        buildPoint(x,y, z);
       }
 }
 
@@ -185,23 +262,29 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
     OGRLineString *UTM_line;
     OGRGeometry *geom_UTM;
 
-    double z;
+    double x,y,z;
 
     geom_UTM = geod.LatLong2UTM(geom);
     UTM_line = ( OGRLineString * )geom_UTM;
 
-    UTM_line->segmentize(grid_size/2);
+    UTM_line->segmentize(grid_size);
 
     if (layerName=="DEPCNT")
-        z = feat->GetFieldAsDouble("VALDCO");
+        z = feat->GetFieldAsDouble("VALDCO")*100;
 
     // Get the location in the grid coordinate system
     for (int j=0; j<UTM_line->getNumPoints(); j++)
     {
+        x = UTM_line->getX(j)-geod.getXOrigin();// convert to local UTM
+        y = UTM_line->getY(j)-geod.getYOrigin();// convert to local UTM
+
         // Store the XYZ of the vertices
-        X.push_back(UTM_line->getX(j)-geod.getXOrigin()); // convert to local UTM
-        Y.push_back(UTM_line->getY(j)-geod.getYOrigin()); // convert to local UTM
-        depth.push_back(z*100); // in cm
+        X.push_back(x);
+        Y.push_back(y);
+        depth.push_back(z); // in cm
+
+        // Place point into the layer
+        buildPoint(x, y, z);
     }
 
 }
@@ -212,13 +295,13 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
     OGRLinearRing *ring;
     OGRGeometry *geom_UTM;
 
-    double z;
+    double x,y,z;
 
     geom_UTM = geod.LatLong2UTM(geom);
     UTM_poly = ( OGRPolygon * )geom_UTM;
 
     UTM_poly->Buffer(buffer_size);
-    UTM_poly->segmentize(grid_size/2);
+    UTM_poly->segmentize(grid_size);
 
     ring = UTM_poly->getExteriorRing();
 
@@ -227,10 +310,16 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
 
     for (int j=0; j<ring->getNumPoints(); j++)
     {
+        x = ring->getX(j)-geod.getXOrigin();// convert to local UTM
+        y = ring->getY(j)-geod.getYOrigin();// convert to local UTM
+
         // Store the XYZ of the vertices
-        X.push_back(ring->getX(j)-geod.getXOrigin()); // convert to local UTM
-        Y.push_back(ring->getY(j)-geod.getYOrigin()); // convert to local UTM
+        X.push_back(x);
+        Y.push_back(y);
         depth.push_back(z);
+
+        // Place point into the layer
+        buildPoint(x, y, z);
     }
 }
 
@@ -240,7 +329,10 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
     double lat,lon, x,y, z;
 
     if (layerName == "LNDARE")
-        depth.push_back(-500);
+    {
+        z = -500;
+        depth.push_back(z);
+    }
     else if (layerName == "UWTROC")
     {
         z = feat->GetFieldAsDouble("VALSOU");
@@ -253,13 +345,14 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
     // Get the location in the grid coordinate system
     lon = poPoint->getX();
     lat = poPoint->getY();
-    geod.LatLong2LocalUTM(lon,lat, x,y);
+    geod.LatLong2LocalUTM(lat, lon, x,y);
 
     // Store the XYZ of the vertices
     X.push_back(x);
     Y.push_back(y);
-    // Get depth in cm
-    depth.push_back(poPoint->getZ()*100);
+
+    // Place point into the layer
+    buildPoint(x, y, z*100);
 }
 
 void Grid_Interp::xy2grid(double x, double y, int &gridX, int &gridY)

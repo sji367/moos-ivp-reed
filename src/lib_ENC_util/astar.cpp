@@ -22,7 +22,7 @@ int Node::calcMinDepth()
 int Node::depthCost(int depth_threshold)
 {
   int depth_cost = 0;
-  double weight = 1.0/30.0;
+  double weight = 1/90.0;
   if (depth < depth_threshold)
     depth_cost = static_cast<int>((depth_threshold-depth)*weight);
   
@@ -203,27 +203,50 @@ string A_Star::ReconstructPath(vector<vector<int>> direction_map)
 // Check to see if the extended path runs through any obstacles
 bool A_Star::extendedPathValid(int i, int x, int y)
 {
-  bool Flag = true;
-  double temp = 1;
-  int JumpCells, YPOS, XPOS;
+    double temp = 1;
+    int JumpCells, YPOS, XPOS;
+    int prev_x = x;
+    int prev_y = y;
 
-  // Only run this when the path is more than 1 grid cell away
-  if ((abs(dx[i])>1)||(abs(dy[i])>1))
+    // Only run this when the path is more than 1 grid cell away
+    if ((abs(dx[i])>1)||(abs(dy[i])>1))
     {
-      // Need to check that the path does not pass an object
-      JumpCells=2*max(abs(dx[i]),abs(dy[i]))-1;
-      for (int K=1; K<JumpCells; K++)
-	{
-	  // intermediate positions
-	  YPOS=int(round(K*temp*dy[i]/JumpCells));
-	  XPOS=int(round(K*temp*dx[i]/JumpCells));
-	  // This is actual check to see if the intermediate grid cells
-	  //  intersect an obstacle
-	  if (Map[y+YPOS][x+XPOS]<depth_cutoff)
-	    Flag=false;
-	}
+        // Dont allow the ASV to diagonally by an obstacle
+        if (dx[i] == dy[i])
+        {
+          for (int j=1; j<=dx[i]; j++)
+          {
+              if((Map[y+j][x+j]<depth_cutoff)||(Map[y+j-1][x+j]<depth_cutoff)||(Map[y+j][x+j-1]<depth_cutoff))
+                  return false;
+          }
+        }
+        else
+        {
+            // Need to check that the path does not pass through an object
+            JumpCells=2*max(abs(dx[i]),abs(dy[i]))-1;
+            for (int K=1; K<JumpCells; K++)
+            {
+                // intermediate positions
+                YPOS=int(round(K*temp*dy[i]/JumpCells))+y;
+                XPOS=int(round(K*temp*dx[i]/JumpCells))+x;
+                // This is actual check to see if the intermediate grid cells
+                //  intersect an obstacle
+                if (Map[YPOS][XPOS]<depth_cutoff)
+                    return false;
+                /*
+                else if ((prev_y!=YPOS)&&(prev_x!=XPOS))
+                {
+                    if ((Map[YPOS][prev_x]<depth_cutoff)||(Map[prev_y][XPOS]<depth_cutoff))
+                        return false;
+
+                prev_x = XPOS;
+                prev_y = YPOS;
+                }
+                */
+            }
+        }
     }
-  return Flag;
+    return true;
 }
 
 bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin)
@@ -312,6 +335,8 @@ string A_Star::AStar_Search()
   vector<vector<int>> direction_map (n, vector<int>(m,0));
   vector<vector<int>> open_nodes_map (n, vector<int>(m,0));
   vector<vector<int>> closed_nodes_map (n, vector<int>(m,0));
+
+  int depth=0;
   
   int x,y, new_x, new_y;
   Node n0, child;
@@ -360,12 +385,13 @@ string A_Star::AStar_Search()
 		// Check to see if the extended path goes through obstacles 
 		if (extendedPathValid(i, x, y))
 		  {
+                    depth = calcDepthCost(x,y, i);
 		    // Build the new node
-		    child = Node(new_x, new_y, Map[new_y][new_x],
+                    child = Node(new_x, new_y, depth,
 				 n0.getCost(), n0.getPriority());
 		    child.setShipMeta(ShipMeta);
-		    //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
-		    child.calcCost(dx[i], dy[i], depth_cutoff*15);
+                    //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
+                    child.calcCost(dx[i], dy[i], depth_cutoff*15);
 		    child.updatePriority(xFinish, yFinish);
 		    
 		    // If the child node is not in the open list or the
@@ -394,6 +420,56 @@ string A_Star::AStar_Search()
     }
   cout << "No path found." << endl;
   return "";
+
+}
+
+int A_Star::calcDepthCost(int wptX,int wptY, int i)
+{
+    double m,b, x,y;
+    int X,Y;
+
+    double cummulative_cost = 0;
+    int num_points = 5;
+    int total_pnts = 0;
+
+    //double dist = sqrt(dx[i]*dx[i]+dy[i]*dy[i]);
+
+    // Only run the interpolation if the cell is not a Moore Neighbor
+    if (max(dx[i],dx[i])>1)
+    {
+        m = (1.0*(dy[i]))/(1.0*(dx[i]));
+        b = wptY - wptX*m;
+
+        if (dx[i] < dy[i])
+        {
+            total_pnts = num_points*dy[i];
+            for (int j=1; j<=total_pnts; j++)
+            {
+                y = wptY+j/num_points;
+                x = (1.0*(y-b))/m;
+                X= static_cast<int>(x);
+                Y=static_cast<int>(y);
+                cummulative_cost += Map[Y][X];
+            }
+        }
+        else
+        {
+            total_pnts = 5*dx[i];
+            for (int j=1; j<total_pnts; j++)
+            {
+                x = wptX+j/num_points;
+                y= m*x+b;
+                X= static_cast<int>(x);
+                Y=static_cast<int>(y);
+                cummulative_cost += Map[Y][X];
+            }
+        }
+
+        return cummulative_cost/(num_points);
+    }
+    else
+        return Map[wptY+dy[i]][wptX+dx[i]];
+
 
 }
 
@@ -433,7 +509,7 @@ string A_Star::markRoute(vector<int> route)
       // Mark Start
       Map2print[y][x] = 2;
       WPT=to_string(localX)+","+to_string(localY)+",";
-      cout << "["+to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
+      cout << "["+to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"; ";
       for (int i=0; i<route_len-1; i++)
 	{
 	  direction = route[i];
@@ -450,7 +526,8 @@ string A_Star::markRoute(vector<int> route)
 		{
 		  Map2print[y][x] = 4;
 		  WPT+= to_string(localX)+","+to_string(localY)+",";
-		  cout << to_string(x+x_min) <<","+to_string(y+y_min)+"; ";
+                  cout << to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"; ";
+
 		}
 	    }
 	}
@@ -461,7 +538,7 @@ string A_Star::markRoute(vector<int> route)
       grid2xy(localX, localY, x, y);
       Map2print[y][x] = 5;
       WPT += to_string(localX)+","+to_string(localY);
-      cout << to_string(x+x_min) <<","+to_string(y+y_min)+"]" << endl;
+      cout << to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"];" << endl;
     }  
   return WPT;
 }
@@ -622,12 +699,12 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 	}
     }
   Map=MAP;
-  /*
+
   xStart-= xmin;
   yStart-= ymin;
   xFinish-= xmin;
   yFinish-= ymin;
-  */
+
 }
 void A_Star::checkStart()
 {
