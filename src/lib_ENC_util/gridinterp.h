@@ -41,9 +41,11 @@ public:
     // Initialize Geodesy
     void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
 
-    void Run();
+    void Run() {Run(false); }
+    void Run(bool csv);
+    void write2csv(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res);
 
-    void buildLayer();
+    void buildLayers();
 
     // Get the minimum and maximum x/y values (in local UTM) of the ENC
     void getENC_MinMax(GDALDataset* ds);
@@ -60,7 +62,7 @@ public:
     void lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName);
 
     // Fills out the 2D interpolated map from the 1D interpolated data and the Depth areas
-    void updateMap(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res);
+    void updateMap(vector<int> &poly_data, vector<int> &depth_data, vector<int> &outline_data, int x_res, int y_res);
 
     // Returns the interpolated map
     vector<vector<int> > getGriddedMap() {return Map; }
@@ -77,6 +79,12 @@ public:
     void row_major2grid(int index, int &gridX, int &gridY, int numCols);
     void rasterIndex2gridIndex(int rasterIndex, int &gridIndex, int x_res, int y_res);
 
+    // Returns each member of the envelope of the Map
+    double getMinX() {return minX; }
+    double getMaxX() {return maxX; }
+    double getMinY() {return minY; }
+    double getMaxY() {return maxY; }
+
 
 private:
     Geodesy geod;
@@ -87,9 +95,9 @@ private:
     double minX, minY, maxX, maxY;
     double grid_size;
     double buffer_size;
-    OGRLayer  *layer_poly, *layer_depth;
-    GDALDataset *ds_poly, *ds_depth;
-    OGRFeatureDefn *feat_def_poly, *feat_def_depth;
+    GDALDataset *ds_poly, *ds_depth, *ds_outline;
+    OGRLayer  *layer_poly, *layer_depth, *layer_outline;
+    OGRFeatureDefn *feat_def_poly, *feat_def_depth, *feat_def_outline;
 };
 
 #endif // GRIDINTERP_H

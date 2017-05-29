@@ -19,17 +19,18 @@ int Node::calcMinDepth()
 }
 
 // Depth threshold is also in meters and is 15 times the minimum depth
-int Node::depthCost(int depth_threshold)
+int Node::depthCost(double dist)
 {
-  int depth_cost = 0;
-  double weight = 1/90.0;
+  int depth_threshold = 20*dist;
+  double depth_cost = 0;
+  double weight = .3;
   if (depth < depth_threshold)
-    depth_cost = static_cast<int>((depth_threshold-depth)*weight);
-  
+    depth_cost = ((depth_threshold-depth)*weight);
+
   return depth_cost;
 }
 
-int Node::time2shoreCost(int old_depth, double speed, int dist)
+double Node::time2shoreCost(int old_depth, double speed, int dist)
 {
   // Calculate the time to shore
   double time_theshold, seafloor_slope, time2crash;
@@ -81,6 +82,19 @@ A_Star::A_Star(int connecting_dist)
   yTop = -12386; // value for the US5NH02M ENC
   setGridXYBounds(0,0,0,0);
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
+}
+
+A_Star::A_Star(double gridSize, double TopX, double TopY, int connecting_dist)
+{
+    setStart_Grid(0,0);
+    setFinish_Grid(0,0);
+    depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
+    tide = 0;
+    grid_size=gridSize;
+    xTop = TopX; // value for the US5NH02M ENC
+    yTop = TopY; // value for the US5NH02M ENC
+    setGridXYBounds(0,0,0,0);
+    NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, int depthCutoff, int connecting_dist)
@@ -332,10 +346,12 @@ void A_Star::buildMOOSFile(string filename, string WPTs)
 // This function runs A*. It outputs the generated path as a string
 string A_Star::AStar_Search()
 {
+  FILE *myfile;
+  myfile = fopen("Explored.txt", "w");
   vector<vector<int>> direction_map (n, vector<int>(m,0));
   vector<vector<int>> open_nodes_map (n, vector<int>(m,0));
   vector<vector<int>> closed_nodes_map (n, vector<int>(m,0));
-
+  int cntr =0;
   int depth=0;
   
   int x,y, new_x, new_y;
@@ -343,7 +359,7 @@ string A_Star::AStar_Search()
   priority_queue<Node, vector<Node>, less<Node>> frontier;
   
   // Start node
-  n0 = Node(xStart, yStart, Map[xStart][yStart], 0,0); 
+  n0 = Node(xStart, yStart, Map[xStart][yStart], 0,grid_size);
   n0.updatePriority(xFinish,yFinish);
   n0.setShipMeta(ShipMeta);
   frontier.push(n0);
@@ -351,27 +367,32 @@ string A_Star::AStar_Search()
   // Mark start node on map
   open_nodes_map[yStart][xStart] = n0.getPriority();
   cout << "depth cutoff " << depth_cutoff << endl;
+  double c,p;
   // Run A*
   while (!frontier.empty())
     {
       // A* explores from the highest priority node in the frontier
       n0 = frontier.top();
-      n0.updatePriority(xFinish,yFinish);
+      //n0.updatePriority(xFinish,yFinish);
       frontier.pop(); // Remove the node from the frontier
       x = n0.getX();
       y = n0.getY();
 
       // If it is a new node, explore the node's neighbors
-      if (closed_nodes_map[y][x] != 1){
+      if (closed_nodes_map[y][x] != 1)
+      {
+        cntr++;
 	open_nodes_map[y][x] = 0;
 	// mark it on the closed nodes map
 	closed_nodes_map[y][x] = 1;
 	// Quit searching when you reach the goal state
 	if ((x == xFinish) && (y == yFinish))
+        {
 	  // Generate the path from finish to start by following the 
 	  //  directions.
+          fclose(myfile);
 	  return ReconstructPath(direction_map);
-	
+        }
 	for (int i = 0; i<num_directions; i++)
 	  {
 	    new_x = x+dx[i];
@@ -388,12 +409,15 @@ string A_Star::AStar_Search()
                     depth = calcDepthCost(x,y, i);
 		    // Build the new node
                     child = Node(new_x, new_y, depth,
-				 n0.getCost(), n0.getPriority());
+                                 n0.getCost(), grid_size);
 		    child.setShipMeta(ShipMeta);
                     //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
-                    child.calcCost(dx[i], dy[i], depth_cutoff*15);
-		    child.updatePriority(xFinish, yFinish);
-		    
+                    child.calcCost_depth(dx[i], dy[i]);
+                    c = child.getCost();
+                    child.updatePriority(xFinish, yFinish);
+                    p = child.getPriority1();
+
+                    fprintf(myfile, "%d\t%d\t%d\t%d\t%0.3f\t%0.3f\n", cntr,i,new_x, new_y, c, p);
 		    // If the child node is not in the open list or the
 		    //  current priority is better than the stored one, 
 		    //  add it to the frontier
@@ -416,9 +440,10 @@ string A_Star::AStar_Search()
 	      }
 	  }
 	  
-      }
+        }
     }
   cout << "No path found." << endl;
+  fclose(myfile);
   return "";
 
 }
@@ -454,7 +479,7 @@ int A_Star::calcDepthCost(int wptX,int wptY, int i)
         }
         else
         {
-            total_pnts = 5*dx[i];
+            total_pnts = num_points*dx[i];
             for (int j=1; j<total_pnts; j++)
             {
                 x = wptX+j/num_points;
@@ -465,10 +490,10 @@ int A_Star::calcDepthCost(int wptX,int wptY, int i)
             }
         }
 
-        return cummulative_cost/(num_points);
+        return cummulative_cost/(num_points)*grid_size; // integral of depth in meters
     }
     else
-        return Map[wptY+dy[i]][wptX+dx[i]];
+        return Map[wptY+dy[i]][wptX+dx[i]]*grid_size; // integral of depth in meters
 
 
 }
@@ -706,6 +731,7 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
   yFinish-= ymin;
 
 }
+
 void A_Star::checkStart()
 {
   if (Map[yStart][xStart] < depth_cutoff)

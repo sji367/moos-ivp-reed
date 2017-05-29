@@ -6,7 +6,6 @@
  */
 
 #include <vector>
-#include <iostream>
 #include <string>
 #include <ctime>
 #include <cmath> // For sqrt and pow
@@ -18,6 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include "L84.h"
+#include <stdio.h>
 
 using namespace std;
 
@@ -65,8 +65,8 @@ class Node
 public:
 	// Constuctors/Deconstructor
         Node() {xPos=0; yPos=0; current_cost=0; priority=0; depth=0; ShipMeta=Vessel_Dimensions(); }
-        Node(int x, int y, int Depth, int prev_cost, int new_priority) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=new_priority; ShipMeta=Vessel_Dimensions();}
-        Node(int x, int y, int Depth, int prev_cost, int new_priority, Vessel_Dimensions meta) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=new_priority; setShipMeta(meta); }
+        Node(int x, int y, int Depth, int prev_cost, double Grid_size) {xPos=x; yPos=y; depth=Depth/100.0; current_cost=prev_cost; priority=0; grid_size = Grid_size; ShipMeta=Vessel_Dimensions();}
+        Node(int x, int y, int Depth, int prev_cost, double Grid_size, Vessel_Dimensions meta) {xPos=x; yPos=y; depth=Depth/100.0; current_cost=prev_cost; priority=0; grid_size = Grid_size; setShipMeta(meta); }
         ~Node() {}
 
 	// Outputs the X position of the node
@@ -81,20 +81,20 @@ public:
         int getDepth() {return depth; }
 
 	// Outputs the current estimated priority
-        double getPriority() {return priority; }
+        double getPriority1() {return priority; }
         double getPriority() const {return priority; }
 
-	// Set the new cost to go to the node where the distance is stored as an int and decimeters (10*distance)
-        void calcCost(int dx, int dy) {current_cost += calcDistance(dx,dy); } // cumlative distance traveled (times 10 and as an int)
-	// cumlative distance traveled (times 10 and as an int) + cummilative depth (in cm and as an int)
-        void calcCost(int dx, int dy, int depth_thresh) {int dist = calcDistance(dx,dy); current_cost += dist + depthCost(depth_thresh*dist/10); }
-	// cumlative distance traveled (times 10 and as an int) + time2crash
-        void calcCost(int dx, int dy, int old_depth, double speed) {int dist=calcDistance(dx,dy); current_cost += dist + time2shoreCost(old_depth, speed, dist); }
+        // Set the new cost to go to the node where the distance is stored as an int
+        void calcCost(int dx, int dy) {current_cost += calcDistance(dx,dy); } // cumlative distance traveled
+        // cumlative distance traveled + cummilative depth (in cm)
+        void calcCost_depth(int dx, int dy) {double dist = calcDistance(dx,dy); current_cost += depthCost(dist); }
+        // cumlative distance traveled + time2crash
+        void calcCost(int dx, int dy, int old_depth, double speed) {double dist=calcDistance(dx,dy); current_cost += dist + time2shoreCost(old_depth, speed, dist); }
 	
 	// Calculates the depth classified as an obstacle by A* as 300*draft (aka depth in cm)
 	int calcMinDepth();
-        int depthCost(int depth_threshold); // Calculates the cost of traveling through the cells depth
-	int time2shoreCost(int old_depth, double speed, int dist); // Calculates the cost based on the approximate time to crashing into the shore
+        int depthCost(double dist); // Calculates the cost of traveling through the cells depth
+        double time2shoreCost(int old_depth, double speed, int dist); // Calculates the cost based on the approximate time to crashing into the shore
 	
 	// Estimate the remaining cost to go to the destination (heuristic - straight line distance)
         int estimateRemainingCost(int xDest, int yDest) {return calcDistance(xPos-xDest, yPos-yDest); }
@@ -103,14 +103,14 @@ public:
         void updatePriority(int xDest, int yDest) {priority = current_cost + estimateRemainingCost(xDest, yDest); }
 
 	// Distance fomula
-        int calcDistance(int dx, int dy) {return static_cast<int>(sqrt(dx*dx+dy*dy)*10); }
+        double calcDistance(int dx, int dy) {return sqrt(dx*dx+dy*dy)*grid_size; }
 
         void setShipMeta(Vessel_Dimensions meta) {ShipMeta = Vessel_Dimensions(meta.getLength(), meta.getWidth(), meta.getDraft(), meta.getTurnRadius()); }
 
 protected:
 	int xPos, yPos;
-	int current_cost, priority;
-	int depth;
+        double current_cost, priority, grid_size;
+        double depth;
 	Vessel_Dimensions ShipMeta;
 };
 
@@ -142,6 +142,7 @@ public:
 	// Constuctors/Deconstructor
 	A_Star();
 	A_Star(int connecting_dist);
+        A_Star(double gridSize, double TopX, double TopY, int connecting_dist);
 	A_Star(int x1, int y1, int x2, int y2, int depthCutoff, int connecting_dist);
 	A_Star(int x1, int y1, int x2, int y2, int depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist);
         ~A_Star() {}
