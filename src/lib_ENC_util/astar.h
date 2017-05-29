@@ -194,7 +194,7 @@ public:
 	void build_map(string filename, int x_min, int x_max, int y_min, int y_max); // Builds master map and then only uses subset of map for A*
 
 	// Set Occupancy Grid
-        void setMap(vector<vector<int> > MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); }
+        void setMap(vector<vector<int> > MAP) {Map=MAP; FullMap=MAP; cout << "set Map" <<endl; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); }
 
 	// Use a subset of the map for the A* search
 	void subsetMap(int xmin, int xmax, int ymin, int ymax);

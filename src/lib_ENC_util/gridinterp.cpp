@@ -5,7 +5,7 @@ Grid_Interp::Grid_Interp()
   geod = Geodesy();
   grid_size = 5;
   buffer_size = 5;
-  MOOS_Path = "/home/sji367/moos-ivp/moos-ivp-reed";
+  MOOS_Path = "/home/sji367/moos-ivp/moos-ivp-reed/";
   ENC_filename = "/home/sji367/moos-ivp/moos-ivp-reed/src/ENCs/US5NH02M/US5NH02M.000";
   minX = 0;
   minY = 0;
@@ -149,6 +149,7 @@ void Grid_Interp::Run(bool csv)
     layer2XYZ(ds->GetLayerByName("M_COVR"), "M_COVR");
     layer2XYZ(ds->GetLayerByName("LNDARE"), "LNDARE");
     layer2XYZ(ds->GetLayerByName("DEPARE"), "DEPARE");
+    layer2XYZ(ds->GetLayerByName("FLODOC"), "FLODOC");
 
     // Save the rasters
     GDALClose(ds_depth);
@@ -217,11 +218,23 @@ void Grid_Interp::Run(bool csv)
     updateMap(poly_rasterdata, depth_area_rasterdata, ENC_outline_rasterdata, x_res, y_res);
 
     if (csv)
-        write2csv(poly_rasterdata, depth_area_rasterdata, x_res, y_res);
+        write2csv(poly_rasterdata, depth_area_rasterdata, x_res, y_res, true);
 
     clock_t end = clock();
     double total_time = double(end - start) / CLOCKS_PER_SEC;
     cout << "Elapsed Time: " << total_time << " seconds." << endl;
+}
+
+vector<vector<int> > Grid_Interp::transposeMap()
+{
+    vector <vector<int> > t_map (Map[0].size(), vector<int> (Map.size(),0));
+
+    for (int i =0; i<Map.size(); i++)
+        for (int j=0; j<Map[0].size(); j++)
+        {
+            t_map[j][i] = Map[i][j];
+        }
+    return t_map;
 }
 
 // Build the 2D map from the 4 1D vectors
@@ -269,18 +282,24 @@ void Grid_Interp::updateMap(vector<int> &poly_data, vector<int> &depth_data, vec
 
 // Save the 1D vectors (polygon, depth area, pre-processed interpolated grid) and the 2D
 //  post-processed interpolated grid as csv files
-void Grid_Interp::write2csv(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res)
+void Grid_Interp::write2csv(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res, bool mat)
 {
     ofstream combined, grid, poly, DA;
     int x,y;
     int prev_x = 0;
     int rasterIndex = 0;
 
+    string postcsv= MOOS_Path+"post.csv";
+    string precsv= MOOS_Path+"pre.csv";
+    string polycsv= MOOS_Path+"poly.csv";
+    string DAcsv= MOOS_Path+"DA.csv";
+
+
     // File to write data to csv format
-    combined.open ("/home/sji367/moos-ivp/moos-ivp-reed/all.csv");
-    grid.open ("/home/sji367/moos-ivp/moos-ivp-reed/grid.csv");
-    poly.open ("/home/sji367/moos-ivp/moos-ivp-reed/poly.csv");
-    DA.open ("/home/sji367/moos-ivp/moos-ivp-reed/DA.csv");
+    combined.open(postcsv.c_str());
+    grid.open(precsv.c_str());
+    poly.open(polycsv.c_str());
+    DA.open(DAcsv.c_str());
 
     cout << "Writing data to CSV files." << endl;
 
@@ -311,6 +330,16 @@ void Grid_Interp::write2csv(vector<int> &poly_data, vector<int> &depth_data, int
         grid.close();
         poly.close();
         DA.close();
+
+        // Write these files to .mat
+        if (mat)
+        {
+            cout << "Writing data to .mat files." << endl;
+            writeMat("post");
+            writeMat("pre");
+            writeMat("poly");
+            writeMat("DA");
+        }
     }
     else
     {
@@ -320,45 +349,71 @@ void Grid_Interp::write2csv(vector<int> &poly_data, vector<int> &depth_data, int
     }
 }
 
+void Grid_Interp::writeMat(string filename)
+{
+    string toMat = "python " + MOOS_Path+"scripts/csv2mat.py " + MOOS_Path+filename+".csv " + MOOS_Path+filename+".mat";
+    cout << toMat << endl;
+    system(toMat.c_str());
+}
+
 // Get the minimum and maximum x/y values (in local UTM) of the ENC
 void Grid_Interp::getENC_MinMax(GDALDataset* ds)
 {
-  OGRLayer* layer;
-  OGRFeature* feat;
-  OGRLinearRing* ring;
-  OGRGeometry* geom;
-  OGRPolygon* coverage;
+    OGRLayer* layer;
+    OGRFeature* feat;
+    OGRLinearRing* ring;
+    OGRGeometry* geom;
+    OGRPolygon* coverage;
 
-  vector<double> x,y;
-  double UTM_x, UTM_y;
+    vector<double> x,y;
+    double UTM_x, UTM_y;
+    double remainder;
 
-  layer = ds->GetLayerByName("M_COVR");
-  layer->ResetReading();
-  feat = layer->GetNextFeature();
-  // Cycle through the points and store all x and y values of the layer
-  for (int i=0; i<layer->GetFeatureCount(); i++)
+    layer = ds->GetLayerByName("M_COVR");
+    layer->ResetReading();
+    feat = layer->GetNextFeature();
+
+    // Cycle through the points and store all x and y values of the layer
+    for (int i=0; i<layer->GetFeatureCount(); i++)
     {
-      if (feat->GetFieldAsDouble("CATCOV") == 1)
+        if (feat->GetFieldAsDouble("CATCOV") == 1)
         {
-          geom = feat->GetGeometryRef();
-          coverage = ( OGRPolygon * )geom;
-          ring = coverage->getExteriorRing();
-          for (int j =0;  j<ring->getNumPoints(); j++)
+            geom = feat->GetGeometryRef();
+            coverage = ( OGRPolygon * )geom;
+            ring = coverage->getExteriorRing();
+            for (int j =0;  j<ring->getNumPoints(); j++)
             {
-              geod.LatLong2LocalUTM(ring->getY(j), ring->getX(j), UTM_x, UTM_y);
-              x.push_back(UTM_x);
-              y.push_back(UTM_y);
+                geod.LatLong2LocalUTM(ring->getY(j), ring->getX(j), UTM_x, UTM_y);
+                x.push_back(UTM_x);
+                y.push_back(UTM_y);
             }
         }
-      feat = layer->GetNextFeature();
+            feat = layer->GetNextFeature();
     }
-  layer->ResetReading();
 
-  // Find the min and max of the X and Y values
-  minX = *min_element(x.begin(), x.end());
-  maxX = *max_element(x.begin(), x.end());
-  minY = *min_element(y.begin(), y.end());
-  maxY = *max_element(y.begin(), y.end());
+    // Find the min and max of the X and Y values
+    minX = *min_element(x.begin(), x.end());
+    maxX = *max_element(x.begin(), x.end());
+    minY = *min_element(y.begin(), y.end());
+    maxY = *max_element(y.begin(), y.end());
+
+    // Make sure each one of min/max values are divisable by grid_size
+    remainder = fmod(minX, grid_size);
+    if (remainder != 0)
+        minX -= remainder+grid_size;
+
+    remainder = fmod(minY, grid_size);
+    if (remainder != 0)
+        minY -= remainder+grid_size;
+
+    remainder = fmod(maxX, grid_size);
+    if (remainder != 0)
+        maxX += grid_size - remainder;
+
+    remainder = fmod(maxY, grid_size);
+    if (remainder != 0)
+        maxY += grid_size - remainder;
+
 }
 
 // This function takes in an OGRLayer and sorts out which function it should
@@ -388,7 +443,7 @@ void Grid_Interp::layer2XYZ(OGRLayer* layer, string layerName)
         }
     }
   else
-    cout << layer->GetName() << " is not in the ENC!" << endl;
+    cout << layerName << " is not in the ENC!" << endl;
 }
 
 // This function converts the mulitpoints into Local UTM, and
@@ -442,7 +497,7 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
 
     if (layerName=="DEPCNT")
         z = feat->GetFieldAsDouble("VALDCO")*100;
-    else if (layerName =="PONTON")
+    else if ((layerName =="PONTON")||(layerName =="FLODOC"))
         z = -500;
     else
     {
@@ -571,9 +626,6 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
             printf( "Failed to create feature in polygon shapefile.\n" );
             exit( 1 );
         }
-        // To limit the amount of points stored, only store the vertices of the
-        //  buffered polygon.
-        store_vertices(UTM_poly,z);
     }
     else if (layerName == "DEPARE")
     {
@@ -592,7 +644,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
             exit( 1 );
         }
     }
-    else if (layerName == "PONTON")
+    else if ((layerName == "PONTON")||(layerName =="FLODOC"))
     {
         z = -500;
         new_feat =  OGRFeature::CreateFeature(feat_def_poly);

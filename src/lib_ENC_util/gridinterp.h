@@ -10,6 +10,7 @@
 #include <ogr_feature.h> // OGRFeature
 #include "geodesy.h"
 #include "gdal_alg.h"
+#include <math.h>
 
 #include "gdal_alg_priv.h"
 #include "gdal_priv.h"
@@ -41,9 +42,11 @@ public:
     // Initialize Geodesy
     void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
 
-    void Run() {Run(false); }
     void Run(bool csv);
-    void write2csv(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res);
+    void Run() {Run(false); }
+    void write2csv(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res, bool mat);
+    void writeMat(string filename);
+    vector <vector<int> > transposeMap();
 
     void buildLayers();
 
@@ -91,7 +94,7 @@ private:
     string ENC_filename, MOOS_Path;
     vector<double> X,Y,depth;
     vector<int> griddedData;
-    vector <vector<int> > Map;
+    vector <vector<int> > Map, t_map;
     double minX, minY, maxX, maxY;
     double grid_size;
     double buffer_size;

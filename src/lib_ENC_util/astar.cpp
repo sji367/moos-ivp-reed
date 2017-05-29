@@ -296,7 +296,6 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
   }
   else
     cout << "No path found!" << endl;
-   
   return found_path;
 }
 
@@ -608,6 +607,8 @@ void A_Star::printMap(string WPTs, double total_time)
 	    cout << "X "; // Waypoint
 	  else if (xy == 5)
 	    cout << "F "; // finish
+          else
+              cout << xy << " ";
 	}
       cout << endl;
     }
