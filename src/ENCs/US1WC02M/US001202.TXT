@@ -1,0 +1,4 @@
+Most features, including bathymetry, are omitted in this area.
+The minimal depiction of detail in this area does not support 
+safe navigation, mariners should use a more appropriate 
+navigational purpose.

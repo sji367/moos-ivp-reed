@@ -1,0 +1,36 @@
+NATIONAL GEOSPATIAL-INTELLIGENCE AGENCY
+US509890 - GOLFO DE SAN BLAS
+ 
+INDEX:
+GLOSSARY
+POSITIONS
+CHART ACCURACY
+CAUTION
+
+NOTES: 
+GLOSSARY:
+Bahia ... bay
+Bajo ... shoal, reef
+Canal ... channel
+Cayo ... island
+Cerro ... hill
+Ensenada ... bay, cove, inlet
+Golfo ... bay, gulf
+Isla(s) ... island(s)
+Piedra ... rock, island
+Playa ... beach
+Puerto ... harbor, inlet
+Punta ... cape, point
+Quebrada ... stream
+Rio ... stream
+
+POSITIONS:
+This ENC cell has been positioned on WGS-84 datum through the use of rectified Ortho-photo of 2011.
+
+CHART ACCURACY:
+Owing to the age and quality of the source information, some detail on this chart may not be positioned accurately. Particular caution is advised when navigating in the vicinity of dangers, even when using an electronic positioning system such as GPS.
+
+CAUTION:
+Areas of this chart were compiled from old surveys and undetected shoals may exist. Mariners are warned to exercise due caution when navigating in these waters.
+
+END OF FILE

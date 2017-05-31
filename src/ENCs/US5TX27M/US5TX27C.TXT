@@ -1,0 +1,169 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5TX27M - CORPUS CHRISTI BAY, PORT ARANSAS TO PORT INGLESIDE
+
+INDEX:
+AIDS TO NAVIGATION
+SUPPLEMENTAL INFORMATION
+NOTE A
+CAUTION - TEMPORARY CHANGES
+CAUTION - LIMITATIONS
+NOAA WEATHER RADIO BROADCASTS
+POLLUTION REPORTS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+AUTHORITIES
+WARNING - PRUDENT MARINER
+RADAR REFLECTORS
+ADMINISTRATION AREA
+CAUTION - GAS AND OIL WELL STRUCTURES
+CAUTION - DREDGED AREAS
+CAUTION - ARANSAS PASS
+CAUTION - SURVEY PLATFORMS
+MINERAL DEVELOPMENT STRUCTURES
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for
+supplemental information concerning aids to
+navigation.
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 5 for important
+supplemental information.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S.
+Coast Pilot 5.  Additions or revisions to Chapter 2 are pub-
+lished in the Notice to Mariners.  Information concerning the
+regulations may be obtained at the Office of the Commander,
+8th Coast Guard District in New Orleans, LA, or at the Office
+of the District Engineer, Corps of Engineers in Galveston, TX.
+Refer to charted regulation section numbers.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated. See
+Local Notice to Mariners.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals a
+aids to marine navigation can be found in the
+U.S. Coast Guard Light Lists and National
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and
+should be used with caution.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio station listed
+below provides continuous weather broadcasts.
+The reception range is typically 20 to 40
+nautical miles from the antenna site, but can be
+as much as 100 nautical miles for stations at
+high elevations.
+
+Corpus Christi, TX		KHB-41		162.550 MHz
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via
+1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication
+is impossible (33 CFR 153).
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and
+submarine cables may exist within the area of
+this chart.  Not all submarine pipelines and sub-
+marine cables are required to be buried, and
+those that were originally buried may have
+become exposed.  Mariners should use extreme
+caution when operating vessels in depths of
+water comparable to their draft in areas where
+pipelines and cables may exist, and when
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or
+unlighted buoys.
+
+
+AUTHORITIES
+Hydrography and topography by the National
+Ocean Service, Coast Survey, with additional
+data from the Corps of Engineers, Geological
+Survey, and U.S. Coast Guard.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on
+any single aid to navigation, particularly on
+floating aids. See U.S. Coast Guard Light List
+and U.S. Coast Pilot for details.
+
+
+RADAR REFLECTORS
+Radar Reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+
+ADMINISTRATION AREA 
+The entire extent of this ENC cell falls within the limits of an Administration Area.
+This area covers land, internal waters, and territorial sea.  The territorial sea is a
+maritime zone which the United States exercises sovereignty extending to the airspace
+as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot.
+
+
+CAUTION - GAS AND OIL WELL STRUCTURES
+Uncharted Platforms, gas and oil well structures,
+pipes, piles and stakes can exist within the limits.
+
+
+CAUTION - DREDGED AREAS
+Improved channels shown by broken lines are
+subject to shoaling, particularly at the edges.
+
+
+CAUTION - ARANSAS PASS
+Strong currents may be encountered in the
+vicinity of the jetties at the entrance to Aransas
+Pass.
+
+
+CAUTION - SURVEY PLATFORMS
+Survey platforms, signs, pipes, piles, and
+stakes, some submerged, may exist along the
+maintained channels. Piles and platforms are not
+charted where they interfere with a light symbol.
+
+
+MINERAL DEVELOPMENT STRUCTURES
+Obstruction lights and sound (fog) signals 
+are required for fixed mineral development 
+structures, subject to ap-
+proval by the District Commander, U.S. Coast
+Guard (33 CFR 67).
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at http://nauticalcharts.noaa.gov.
+
+
+END OF FILE

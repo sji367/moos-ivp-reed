@@ -1,0 +1,8 @@
+The U.S. Coast Guard operates an Offshore Vessel Movement Reporting System 
+(OVMRS) covering the seaward approaches to San Francisco Bay. All commercial 
+vessels over 300 gross tons and all tugs with tows are requested to contact Vessel
+Traffic Service San Francisco on VHF-FM channel 12 (156.60 MHz) when entering
+this area. All vessels in the area are encouraged to listen on channel 12 at fifteen and
+forty-five minutes past each hour for broadcast reports of known shipping traffic in the
+area. Additional information on the OVMRS is published in Coast Pilot 7 and
+information concerning specific operating procedures in available from the VTS.

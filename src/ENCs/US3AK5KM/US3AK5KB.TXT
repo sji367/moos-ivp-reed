@@ -1,0 +1,178 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US3AK5KM - KODIAK ISLAND
+
+INDEX:
+AUTHORITIES
+AIDS TO NAVIGATION
+NOTE A
+CAUTION - TEMPORARY CHANGES
+CAUTION - LIMITATIONS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+NOAA WEATHER RADIO BROADCASTS
+POLLUTION REPORTS
+SUPPLEMENTAL INFORMATION
+COLREGS, 80.1705 (see note A)
+VESSEL TRANSITING
+CAUTION -TIDAL
+CAUTION - CHANGES IN BUOYAGE
+WARNING - PRUDENT MARINER
+RADAR REFLECTORS
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast
+Survey, with additional data from Corps of Engineers, Geological
+Survey, U.S. Coast Guard, and National Geospatial-Intelligence Agency.
+
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for
+supplemental information concerning aids to
+navigation.
+
+
+NOTE A
+Navigation regulations are published in
+Chapter 2, U.S. Coast Pilot 9.  Additions or
+revisions to Chapter 2 are published in the
+Notices to Mariners.  Information concerning
+the regulations may be obtained at the Office
+of the Commander, 17th Coast Guard District
+in Juneau, Alaska or at the Office of the District
+Engineer, Corps of Engineers in Anchorage,
+Alaska.
+Refer to charted regulation section numbers.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated. See
+Local Notice to Mariners.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as
+aids to marine navigation can be found in the
+U.S. Coast Guard Light Lists and National
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and
+should be used with caution.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and 
+submarine cables may exist within the area of 
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and 
+those that were originally buried may have 
+become exposed. Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas where 
+pipelines and cables may exist, and when 
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio stations listed
+below provide continuous weather broadcasts.
+The reception range is typically 20 to 40
+nautical miles from the antenna site, but can be
+as much as 100 nautical miles for stations
+at high elevations.
+
+Raspberry I, AK		KZZ-90		162.425 MHz
+Bede Mt, AK		WNG-528		162.450 MHz
+Pillar Mt, AK		WNG-531		162.525 MHz
+Kodiak, AK		WXJ-78		162.550 MHz
+Cape Gull, AK		WNG-529		162.500 MHz 
+Marmot Island, AK	WNG-716		162.500 MHz
+Sitkinak Dome, AK	WNG-718 	162.450 MHz
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via
+1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication
+is impossible (33 CFR 153).
+
+
+SUPPLEMENTAL INFORMATION
+consult U.S. Coast Pilot 9 for important
+supplemental information.
+
+
+COLREGS, 80.1705 (see note A)
+International Regulations for Preventing Collisions at Sea, 1972.
+The entire area of this chart falls seaward of the COLREGS Demarcation Line.	
+
+
+VESSEL TRANSITING
+The U.S. Coast Guard and the Pacific States/British Columbia Oil Spill
+Task Force endorse a system of voluntary measures and minimum
+distances from shore for certain commercial vessels transiting along
+the coast anywhere between Cook Inlet, Alaska and San Diego,
+California.  See U.S. Coast Pilot 9, Chapter 3 for details.
+
+
+CAUTION - TIDAL
+Tidal observations made by the National Ocean Service
+since the earthquake of March 27, 1964, indicate bottom
+subsidence at the following location:
+
+      Subsidence (feet)
+Womens Bay		-5.6
+Lazy Bay		-0.6
+Larsen Bay		-2.5
+Uganik Bay		-3.7
+Kodiak			-5.8
+
+Mariners are cautioned to expect shoaling or deepening
+for the areas listed.  Tidal observations at this time are at
+selected sites and the magnitude of the changes except
+at these sites is not known.
+
+
+CAUTION - CHANGES IN BUOYAGE
+Mariners are advised that authorized aids to navigation are being changed to
+conform to maritime standards of the International Association of Lighthouse
+Authorities Maritime Buoyage System, Region B. Significant changes are: black
+port hand buoys to green; black and white vertically striped buoys to red and white
+vertically striped buoys; and lateral lights from white to red or green as appropriate.
+Changes to aids to navigation will be announced in the National Geospatial-Intelligence
+Agency weekly Notice to Mariners and the U.S. Coast Guard Local Notice
+to Mariners.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on
+any single aid to navigation, particularly on
+floating aids. See U.S. Coast Guard Light List
+and U.S. Coast Pilot for details.
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+TIDAL INFORMATION 
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+END OF FILE

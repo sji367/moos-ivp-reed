@@ -1,0 +1,202 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US4AK2AM - PRINCE WILLIAM SOUND, WESTERN PART
+
+INDEX:
+SUPPLEMENTAL INFORMATION
+NOAA WEATHER RADIO BROADCASTS
+POLLUTION REPORTS
+CAUTION - LIMITATIONS
+CAUTION - TEMPORARY CHANGES
+CAUTION - SUBMARINE PIPELINES AND CABLES
+AIDS TO NAVIGATION
+OFFSHORE VESSEL TRAFFIC MANAGEMENT RECOMMENDATIONS
+CAUTION - NOTE B
+RADAR REFLECTORS
+NOTE A
+AUTHORITIES
+WARNING - PRUDENT MARINER
+FISHING AND HUNTING STRUCTURES
+CAUTION - CHANGES IN DEPTHS AND SHORELINE 
+COLREGS, 80.1705(see note A)
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+ADMINISTRATION AREA
+
+
+NOTES:
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 9 for important
+supplemental information.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio stations listed
+below provide continuous weather broadcasts.
+The reception range is typically 20 to 40
+nautical miles from the antenna site, but can be
+as much as 100 nautical miles for stations at
+high elevations.
+	
+
+Rugged I, AK           	WNG-526 	162.425 MHz
+Naked I,  AK       	WNG-530 	162.500 MHz
+Point Pigot, AK       	KZZ-93    	162.450 MHz
+Cape Hinchinbrook	WNG-532 	162.525 MHz
+Potato Point, AK    	WNG-527         162.425 MHz
+Wasilla, AK            	KZZ-98  	162.400 MHz
+Valdez, AK             	WXJ-63    	162.550 MHz
+Whittier, AK           	KXI-29    	162.400 MHz
+East Point, AK         	WNG-530         162.500 MHz
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the National
+Response Center via 1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication is impossible (33 CFR
+153).
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of certain radio signals as 
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National 
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and
+should be used with caution.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated. See
+Local Notice to Mariners.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and
+submarine cables may exist within the area of
+this chart.  Not all submarine pipelines and sub-
+marine cables are required to be buried, and
+those that were originally buried may have
+become exposed.  Mariners should use extreme
+caution when operating vessels in depths of
+water comparable to their draft in areas where
+pipelines and cables may exist, and when
+anchoring, dragging and trawling.
+Covered wells may be marked by lighted or
+unlighted buoys.
+
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for
+supplemental information concerning aids to
+navigation.
+
+
+OFFSHORE VESSEL TRAFFIC MANAGEMENT RECOMMENDATIONS 
+Based on the West Coast Offshore Vessel Traffic 
+Risk Management Project, which was co-sponsored by 
+the Pacific States/British Columbia Oil Spill Task 
+Force and U.S. Coast Guard Pacific Area, it is recom-
+mended that, where no other traffic management areas 
+exist such as Traffic Separation Schemes, Vessel Traffic 
+Services, or recommended routes, vessels 300 gross 
+tons or larger transiting along the coast anywhere be-
+tween Cook Inlet and San Diego should voluntarily stay 
+a minimum distance of 25 nautical miles offshore. It is 
+also recommended that tank ships laden with persis-
+tent petroleum products and transiting along the coast 
+between Cook Inlet and San Diego should voluntarily 
+stay a minimum distance of 50 nautical miles offshore. 
+Vessels transiting short distances between adjacent 
+ports should seek routing guidance as needed from the 
+local Captain of the Port or VTS authority for that area. 
+This recommendation is intended to reduce the 
+event of a vessel casualty.
+
+
+CAUTION - NOTE B
+During the calving season, Columbia Glacier Deposits ice which may drift into
+the northern part of Prince William Sound.  Mariners are advised to exercise
+extreme caution and to report all ice sightings to "Valdez Traffic" on Channel 13
+(156.65 MHz).
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart
+
+
+NOTE A
+Navigation regulations are published in
+Chapter 2, U.S. Coast Pilot 9. Additions or
+revisions to Chapter 2 are published in the
+Notice to Mariners. Information concerning
+the regulations may be obtained at the Office
+of the Commander, 17th Coast Guard District
+in Juneau, Alaska, or at the Office of the District
+Engineer, Corps of Engineers in Anchorage,
+Alaska.
+Refer to charted regulation section numbers.
+
+
+AUTHORITIES
+Hydrography and topography by the National
+Ocean Service, Coast Survey, with additional
+data from the Corps of Engineers, Geological
+Survey, and U.S. Coast Guard.
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid
+to navigation, particularly on floating aids. See U.S. Coast
+Guard Light List and U.S. Coast Pilot for details.
+
+
+FISHING AND HUNTING STRUCTURES
+Uncharted fish and wildlife harvesting devices
+and structures such as fish traps, pound nets,
+crab traps, and duck blinds, some submerged,
+may exist in the area of this chart, particularly in
+the near shore area. Mariners should proceed
+with caution.
+
+
+CAUTION - CHANGES IN DEPTHS AND SHORELINE  
+Significant changes in depths and shoreline
+have occurred in the area of this ENC as a
+result of the earthquake of March 27, 1964.
+Tidal observations since the earthquake indicate
+bottom subsidence of -1.6 meters/-5.3 feet at Whittier.
+Mariners are urged to use extreme caution
+when navigating in the area of this ENC 
+as the magnitude of change except at this site is
+not known.
+
+
+COLREGS, 80.1705(see note A)
+International Regulations for Preventing Collisions at Sea, 1972.
+The entire area of this chart falls seaward of the COLREGS Demarcation Line.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to 
+http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
+
+END OF FILE

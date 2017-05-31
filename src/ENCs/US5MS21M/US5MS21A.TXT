@@ -1,0 +1,295 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5MS21M - DAUPHIN ISLAND TO DOG KEYS PASS
+
+INDEX:
+NOTE A
+AUTHORITIES
+ADMINISTRATION AREA
+POLLUTION REPORTS
+RADAR REFLECTORS
+HURRICANES AND TROPICAL STORMS
+AIDS TO NAVIGATION
+CAUTION - TEMPORARY CHANGES
+CAUTION - DREDGED AREAS
+SUPPLEMENTAL INFORMATION
+CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - LIMITATIONS
+NOAA WEATHER RADIO BROADCASTS
+BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
+MARINE WEATHER FORECASTS
+RULES OF THE ROAD (ABRIDGED)
+CAUTION - WARNINGS CONCERNING LARGE VESSELS
+INTRACOASTAL WATERWAY AIDS
+CAUTION - SMALL CRAFT
+CAUTION - GAS AND OIL WELL STRUCTURES
+WARNING - PRUDENT MARINER
+PUBLIC BOATING INSTRUCTION PROGRAMS
+SEDIMENT TRAPS
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+
+NOTES:
+NOTE A
+Navigation regulations are published in Chapter 2, U.S.
+Coast Pilot 5. Additions or revisions to Chapter 2 are pub-
+lished in the Notice to Mariners.  Information concerning
+the regulations may be obtained at the Office of the Com-
+mander, 8th Coast Guard District in New Orleans, LA, or
+at the Office of the District Engineer, Corps of Engineers
+in Mobile, AL.
+Refer to charted regulation section numbers.
+
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast
+Survey, with additional data from the Corps of Engineers, Geological
+Survey, and U.S. Coast Guard.
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via
+1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication
+is impossible (33 CFR 153).
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+HURRICANES AND TROPICAL STORMS 
+Hurricanes, tropical storms and other major storms may cause
+considerable damage to marine structures, aids to navigation and moored
+vessels, resulting in submerged debris in unknown locations.
+Charted soundings, channel depths and shoreline may not reflect actual
+conditions following these storms. Fixed aids to navigation may have been
+damaged or destroyed. Buoys may have been moved from their charted
+positions, damaged, sunk, extinguished or otherwise made inoperative.
+Mariners should not rely upon the position or operation of an aid to
+navigation. Wrecks and submerged obstructions may have been displaced
+from charted locations. Pipelines may have become uncovered or moved.
+Mariners are urged to exercise extreme caution and are requested to
+report aids to navigation discrepancies and hazards to navigation to the 
+nearest United States Coast Guard unit.
+
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for
+supplemental information concerning aids to
+navigation.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated. See
+Local Notice to Mariners.
+
+
+CAUTION - DREDGED AREAS
+Improved channels are subject to shoaling, particularly at the edges.
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 5 for important supplemental information.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and
+submarine cables may exist within the area of
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and
+those that were originally buried may have
+become exposed. Mariners should use extreme
+caution when operating vessels in depths of
+water comparable to their draft in areas where
+pipelines and cables may exist, and when
+anchoring, dragging or trawling.
+Covered wells may be marked by lighted or
+unlighted buoys.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as
+aids to marine navigation can be found in the
+U.S. Coast Guard Light Lists and National
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and
+should be used with caution.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio stations listed 
+below provide continuous marine weather broadcasts.  
+The reception range is typically 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 100 nautical miles for stations at 
+high elevations.
+
+Mobile, AL		KEC-61		162.550 MHz
+Gulfport, MS		KIH-21		162.400 MHz
+
+
+BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
+
+CITY		STATION        FREQ	           DAILY BROADCASTS - CST	SPECIAL WARNINGS
+
+Mobile, AL       WLO	      2572 KHz		   7:00 AM, NOON, 6:00 PM	On receipt
+		   	      4397.7 KHz	   7:00 AM, NOON, 6:00 PM	On receipt
+                    	      8808.8 KHz	   7:00 AM, NOON, 6:00 PM	On receipt
+                              (Ch 25) 161.85 MHz   7:00 AM, NOON, 6:00 PM	On receipt
+            		      (Ch 26) 161.90 MHz   7:00 AM, NOON, 6:00 PM	On receipt
+            		      (Ch 27) 161.95 MHz   7:00 AM, NOON, 6:00 PM	On receipt
+	    		      (Ch 28) 162.00 MHz   7:00 AM, NOON, 6:00 PM	On receipt
+
+New Orleans, LA  NMG           2670 KHz      	   4:35, 6:35, 10:35,11:50 AM   *On receipt
+					           4:35, 11:50 PM	
+			       157.1 MHz     	   4:50, 10:50 AM, 4:50 PM
+			       
+Grand Isle, LA   NMG-15        157.1 MHZ           4:35 AM, 10:35 AM, 4:35 PM
+
+*Preceded by announcement on 2182 KHz
+
+Distress calls for small craft are made on 2182 kHz or channel 16 (156.80 MHz) VHF
+
+
+MARINE WEATHER FORECASTS
+NATIONAL WEATHER SERVICE
+CITY
+				    TELEPHONE NUMBERS			OFFICE HOURS
+Mobile, AL		              (251) 633-6443          8:00 AM - 5:00 PM (Mon. - Fri.) 
+Orleans, LA                           (504) 522-7330          8:00 AM - 4:00 PM (Mon. - Fri.)				                     
+                                     *(504) 465-9215
+
+* Recording (24 hours daily)
+
+
+RULES OF THE ROAD (ABRIDGED)
+Motorless craft have the right-of-way in almost all cases.
+Sailing vessels and motorboats less than 19.8 meters/ 65 feet
+in length, shall not hamper, in a narrow channel, the safe
+passage of a vessel which can navigate only inside that
+channel.
+
+A motorboat being overtaken has the right-of-way.
+Motorboats approaching head to head or nearly so should
+pass port to port.
+
+When motorboats approach each other at right angles or
+obliquely, the boat on the right has the right-of-way in most
+cases.
+
+Motorboats must keep to the right in narrow channels when
+safe and practicable.
+
+Mariners are urged to become familiar with the complete text
+of the Rules of the Road in the U.S. Coast Guard publication
+"Navigation Rules".
+
+
+CAUTION - WARNINGS CONCERNING LARGE VESSELS
+The "Rules of the Road" state that recreational boats shall
+not impede the passage of a vessel that can navigate only
+within a narrow channel or fairway. Large vessels may 
+appear to move slowly due to their large size but actually
+transit at speeds in excess of 12 knots, requiring a great
+distance in which to maneuver or stop. A large vessel's
+superstructure may block the wind with the result that
+sailboats and sailboards may unexpectedly find themselves
+unable to maneuver. Bow and stern waves can be hazardous to small
+vessels.  Large vessels may not be able to see small craft close to their bows.
+
+
+INTRACOASTAL WATERWAY AIDS
+The U.S. Aids to Navigation System is de-
+signed for use with nautical charts, and the exact
+meaning of an aid to navigation may not be clear
+unless the appropriate chart is consulted. 
+
+Aids to navigation marking the Intracoastal
+Waterway exhibit unique yellow symbols to
+distinguish them from aids marking other water-
+ways.
+
+When following the Intracoastal Waterway
+westward from Carrabelle, FL to Brownsville, TX,
+aids with yellow triangles should be kept on the
+starboard side of the vessel and aids with yellow
+squares should be kept on the port side of the
+vessel.
+
+A horizontal yellow band provides no lateral
+information, but simply identifies aids to navi-
+gation as marking the Intracoastal Waterway.
+
+
+CAUTION - SMALL CRAFT
+Small craft should stay clear of large com-
+mercial and government vessels even if small
+craft have the right-of-way.
+
+All craft should avoid areas where the skin
+divers flag, a red square with a diagonal white
+stripe, is displayed.
+
+
+CAUTION - GAS AND OIL WELL STRUCTURES
+Uncharted platforms, gas and oil well struc-
+tures, pipes, piles and stakes can exist within
+the limits of this chart.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid to navigation, 
+particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast 
+Pilot for details.
+
+
+PUBLIC BOATING INSTRUCTION PROGRAMS
+The United States Power Squadrons (USPS) and U.S. Coast Guard Auxiliary 
+(USCGAUX), national organizations of boatmen, conduct extensive boating in-
+struction programs in communities throughout the United States. For information 
+regarding these educational courses, contact the following sources:
+
+USPS - Local Squadron Commander or USPS Headquarters, 1504 Blue Ridge 
+Road, Raleigh, NC 27607, 888-367-8777
+
+USCGAUX - COMMANDER (OAX), Eighth Coast Guard District, Hale Boggs 
+Federal Building, Suite 1126, 500 Poydras Street, New Orleans, LA 70130, 
+800-524-8835 or USCG Headquarters, Office of the Chief Director (G-OCX), 2100 
+Second Street, SW, Washington, DC 20593
+
+
+SEDIMENT TRAPS
+Sediment traps are designed to delay shoaling of the navigable portion of a 
+channel by trapping advancing littoral material. Sediment traps may shoal at a 
+rapid rate spilling over into the adjacent navigation channel, therefore, mariners 
+should exercise caution when operating near them.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+END OF FILE

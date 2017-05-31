@@ -1,0 +1,140 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US2WC05M - SAN DIEGO TO SAN FRANCISCO BAY
+
+INDEX:
+AUTHORITIES
+AIDS TO NAVIGATION
+NOTE A
+WARNING - PRUDENT MARINER
+POLLUTION REPORTS
+CAUTION - TEMPORARY CHANGES
+CAUTION - LIMITATIONS
+CAUTION - MARINERS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+RADAR REFLECTORS
+MINERAL DEVELOPMENT STRUCTURES
+RACING BUOYS
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast
+Survey, with additional data from the Corps of Engineers, Geological
+Survey, U.S. Coast Guard, and National Geospatial-Intelligence Agency.
+
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for
+supplemental information concerning aids to navigation.
+See National Geospatial-Intelligence Agency
+List of Lights and Fog Signals for information not
+included in the United States Coast Guard Light
+List.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S.
+Coast Pilot 7. Additions or revisions to Chapter 2 are pub-
+lished in the Notice to Mariners. Information concerning the
+regulations may be obtained at the Office of the Commander,
+11th Coast Guard District in Alameda, California or at the
+Office of the District Engineer, Corps of Engineers in
+San Francisco, California.
+Refer to charted regulations section numbers.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on
+any single aid to navigation, particularly on
+floating aids. See U.S. Coast Guard Light List
+and U.S. Coast Pilot for details.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via
+1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication
+is impossible (33 CFR 153).
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated. See
+Local Notice to Mariners.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as
+aids to marine navigation can be found in the
+U.S. Coast Guard Light Lists and National
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and
+should be used with caution.
+
+
+
+CAUTION - MARINERS
+Mariners are cautioned that exploratory surveys and
+exploratory drilling operations may be in progress in,
+or in the vicinity of, the Southern California Traffic
+Separation Scheme. These operations may pose hazards
+to navigation. The most recent Eleventh Coast Guard
+District Local Notice to Mariners should be consulted
+for the schedule of current operations.
+
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and
+submarine cables may exist within the area of
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and
+those that were originally buried may have
+become exposed. Mariners should use extreme
+caution when operating vessels in depths of
+water comparable to their draft in areas where
+pipelines and cables may exist, and when
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or
+unlighted buoys.
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+MINERAL DEVELOPMENT STRUCTURES
+Obstruction lights and sound (fog) signals
+are required for fixed mineral development
+structures, subject to ap-
+proval by the District Commander, U.S. Coast
+Guard (33 CFR 67).
+
+
+RACING BUOYS
+Racing buoys within the limits of this chart
+are not shown hereon. Information may be
+obtained from the U.S. Coast Guard District
+Offices as racing and other private buoys are
+not all listed in the U.S. Coast Guard Light List.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+
+END OF FILE

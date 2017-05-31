@@ -1,0 +1,12 @@
+Bridge span is normally in open position, displaying flashing 
+green signals for water traffic movement. As a train approaches, 
+signals go to flashing red, siren gives four blasts, pauses, and 
+repeats four blasts, etc. After eight (8) minutes delay, the bridge 
+lowers and locks if scanning equipment reveals nothing under 
+the bridge. When the train has cleared, the bridge span raises 
+and signals go to flashing green for water traffic.
+
+
+For bascule bridges, whose spans do not open to a full upright or
+vertical position, unlimited vertical clearance is not available for the
+entire charted horizontal clearance.

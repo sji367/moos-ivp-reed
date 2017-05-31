@@ -1,0 +1,171 @@
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US1WC05E - STRAIT OF JUAN DE FUCA TO KODIAK ISLAND
+
+This nautical chart has been designed to produce safe navigation.  The National 
+Ocean Service encourages users to submit corrections, additions, and comments for 
+improving this chart to the Chief, Marine Chart Division (N/CS2), National Ocean 
+Service, NOAA, Silver Spring, MD 20910-3282. 
+
+
+INDEX:
+ADDITIONAL INFORMATION
+AIDS TO NAVIGATION
+AUTHORITIES
+CAUTION - CHART CONTINUALLY CORRECTED 
+CAUTION - LIMITATIONS
+CAUTION - TEMPORARY
+CAUTION - SUBMARINE OPERATING AREAS
+CAUTION - TIDAL OBSERVATIONS
+HEIGHTS
+MAGNETIC VARIATION
+POLLUTION REPORTS
+RADAR REFLECTORS
+VESSEL TRANSITING
+WARNING - PRUDENT MARINER
+NAUTICAL CHARTS WEB SITE
+TIDAL INFORMATION
+NOTE A
+CAUTION - SUBMARINE CABLES AND PIPELINES
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for 
+supplemental information concerning aids to 
+navigation.
+See Canadian List of Lights, Buoys and Fog 
+Signals for information not included in the U.S. 
+Coast Guard Light List.
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast 
+Survey with additional data from the U.S.Coast Guard, Geological 
+Survey, National Geospatial-Intelligence Agency, and Canadian authorities.
+
+
+CAUTION - CHART CONTINUALLY CORRECTED
+This chart has been corrected from the Notice to Mariners (NM) published 
+weekly by the National Geospatial-Intelligence Agency and the Local Notice to 
+Mariners (LNM) issued periodically by each U.S. Coast Guard district.
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as 
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National 
+Geospatial-Intelligence Agency publication 117.
+Radio direction-finder bearings to commercial 
+broadcasting stations are subject to error and 
+should be used with caution.
+
+
+CAUTION - TEMPORARY
+Temporary changes or defects in aids to 
+navigation are not indicated. See 
+Local Notice to Mariners.
+
+
+CAUTION - SUBMARINE OPERATING AREAS
+Submerged Submarine Operating Areas 
+falling within the areas of the larger scale 
+charts are shown thereon and not repeated 
+on this chart.
+
+
+CAUTION - TIDAL OBSERVATIONS
+Tidal observations made by the National Ocean Service, 
+Coast Survey since the earthquake of March 27, 1964, 
+indicate bottom uplift or subsidence at the following locations:
+
+      Uplift (feet)                Subsidence (feet)
+Cordova          +6.2          Valdez                 -0.6
+Wilby Island     +4.3          Whittier               -5.3
+Port Chamlers    +10.5         Seward                 -3.5
+Sawmill Bay      +7.0          Seldovia               -3.7
+Chenega Island   +4.9          Homer                  -5.4
+King Cove        +0.3          Nikiski Wharf          -1.5
+Gibbon Anchorage +7.2          Anchorage              -3.7
+Macleod Harbor   +31.5         Womens Bay             -5.6
+Patton Bay       +14.9         Lazy Bay               -0.6   
+                               Larsen Bay             -2.5
+                               Uganik Bay             -3.7
+                               Chignik Bay            -0.2
+                               Kodiak                 -5.8
+                                                               
+Mariners are cautioned to expect shoaling or deepening for 
+the areas listed. Tidal observations at this time are at selected 
+sites and the magnitude of the changes except at these sites 
+is not known.
+
+HEIGHTS
+Heights in feet above mean high water.
+
+MAGNETIC VARIATION
+Magnetic variation curves are for 2007 derived from 2005 
+World Magnetic Model and accompanying secular change.  
+If annual change is in same direction as variation it is additive 
+and the variation is increasing. If annual change is opposite 
+in direction to variation it is subtractive and the variation is 
+decreasing.
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the 
+National Response Center via 1-800-424-8802 (toll free), or 
+to the nearest U.S. Coast Guard facility if telephone com-
+munication is impossible (33 CFR 153).
+
+
+RADAR REFLECTORS
+Radar Reflectors have been placed on many 
+floating aids to navigation. Individual radar 
+reflector identification on these aids has been 
+omitted.
+
+
+VESSEL TRANSITING
+The U.S. Coast Guard and the Pacific States/British Columbia Oil Spill 
+Task Force endorse a system of voluntary measures and minimum 
+distances from shore for certain commercial vessels transiting along 
+the coast anywhere between Cook Inlet, Alaska and San Diego, 
+California.  See U.S. Coast Pilot 7,8 or 9, Chapter 3 for details.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid 
+to navigation, particularly on floating aids. See U.S. Coast 
+Guard Light List and U.S. Coast Pilot for details.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to 
+http://co-ops.nos.noaa.gov 
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S. Coast Pilots 7,
+8, and 9. Additions or revisions to Chapter 2 are published in the Notice to 
+Mariners. Information concerning the regulations may be obtained at the 
+Office of the Commander, 13th Coast Guard District in Seattle, WA. and 
+17th Coast Guard District in Juneau, AK or at the Office of the District
+Engineer, Corps of Engineers in Seattle, WA and Anchorage, AK.
+Refer to charted regulation section numbers.
+
+
+CAUTION - SUBMARINE CABLES AND PIPELINES
+Additional uncharted submarine pipelines
+and submarine cables may exist within the area
+of this chart. Not all submarine pipelines and
+submarine cables are required to be buried, and
+those that were originally buried may have be-
+come exposed. Mariners should use extreme
+caution when operating vessels in depths of water
+comparable to their draft in areas where pipelines
+and cables may exist, and when anchoring, drag-
+ging, or trawling.
+Covered wells may be marked by lighted or un-
+lighted buoys.
+
+
+END OF FILE

@@ -1,0 +1,23 @@
+NATIONAL GEOSPATIAL-INTELLIGENCE AGENCY
+US510830 - HAITI - AQUIN
+ 
+INDEX:
+POSITIONS
+GLOSSARY
+
+NOTES:
+POSITIONS:
+This ENC cell has been positioned on the WGS-84 Datum through the use of a rectified orthophoto.
+ 
+GLOSSARY:
+Baie ... bay, cove
+Cap ... cape
+Caye ... island
+Haut-font ... shoal
+Ile ... rock
+Ilet ... island, rock
+Pointe ... point
+Recifs ... reefs
+Riviere ... stream
+
+END OF FILE

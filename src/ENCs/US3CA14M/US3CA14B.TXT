@@ -1,0 +1,5 @@
+The U.S. Coast Guard operates a Vessel Traffic Service Offshore Vessel
+Movement Reporting System covering the seaward approaches to San Francisco
+Bay. Vessels are requested to monitor VTSSF on Channel 12 at 15 and 45
+minutes past each hour for broadcast reports of known shipping traffic 
+in the area.

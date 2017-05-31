@@ -1,0 +1,29 @@
+NATIONAL GEOSPATIAL-INTELLIGENCE AGENCY
+US410840 - HAITI - POINTE L'ABACOU TO BAIE D'AQUIN
+ 
+INDEX:
+GLOSSARY
+CAUTION
+
+NOTES: 
+GLOSSARY:
+Baie ... bay, cove, inlet
+Banc ... shoal
+Canal ... marine channel
+Cap ... cape
+Caye(s) ... island(s), rock(s)
+Haut-font ... shoal
+Ile ... island, rock
+Ilet ... island, rock
+Morne ... hill, mountain
+Pointe ... point
+Ravine ... stream
+Recif(s) ... reef(s)
+Riviere ... stream
+Rocher ... rock
+Trou ... bay
+
+CAUTION:
+Aids to navigation in Haiti have been reported extinguished or unreliable.
+
+END OF FILE

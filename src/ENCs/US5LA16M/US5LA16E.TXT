@@ -1,0 +1,3 @@
+The sounding datum of this chart is Mean Lower Low Water. 
+U.S. Army Corps of Engineers navigation projects are referenced to a Corps of Engineers datum called Mean Low Gulf (MLG). 
+This datum has been calculated to be 0.27 meters/0.90 feet below MLLW at Calcasieu Pass and Calcasieu Ship Channel Reach A and 1.20 feet below MLLW at Calcasieu Ship Channel Reaches B, C and D and at the Port of Lake Charles. The estimated uncertainty is from 0.03 meters/0.10 feet to 0.04 meters/0.15 feet.

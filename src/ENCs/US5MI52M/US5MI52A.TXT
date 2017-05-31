@@ -1,0 +1,160 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5MI52M - SAINT JAMES HARBOR AND PORT INLAND
+
+
+INDEX:
+NOTE A
+SUPPLEMENTAL INFORMATION
+CAUTION - TEMPORARY CHANGES
+CAUTION - LIMITATIONS
+WARNING - PRUDENT MARINER
+CAUTION - LOW WATER DATUM
+CAUTION - DREDGED AREAS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+AIDS TO NAVIGATION
+AUTHORITIES
+POLLUTION REPORTS
+NOAA WEATHER RADIO BROADCASTS
+RADAR REFLECTORS
+SAILING DIRECTIONS
+SAILING COURSES
+NOTE D
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+
+NOTES:
+NOTE A
+Navigation regulations are published in Chapter 2, U.S. 
+Coast Pilot 6. Additions or revisions to Chapter 2 are pub-
+lished in the Notice to Mariners. Information concerning 
+the regulations may be obtained at the Office of the Com-
+mander, 9th Coast Guard District in Cleveland, Ohio, or at 
+the Office of the District Engineer, Corps of Engineers in 
+Detroit, Michigan.
+Refer to charted regulation section numbers.
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 6 for important supplemental information.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to 
+navigation are not indicated. See 
+Local Notice to Mariners.
+During some winter months or when endan-
+gered by ice, certain aids to navigation are 
+replaced by other types or removed. For details 
+see  U.S. Coast Guard Light List.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as 
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National 
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial 
+broadcasting stations are subject to error and 
+should be used with caution.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid 
+to navigation, particularly on floating aids. See U.S. Coast 
+Guard Light List and U.S. Coast Pilot for details.
+
+
+CAUTION - LOW WATER DATUM
+Due to periodic high water conditions in the Great Lakes, some 
+features charted as visible at Low Water Datum may be submerged, 
+particularly in the near shore areas.  Mariners should proceed 
+with caution.
+
+
+CAUTION - DREDGED AREAS
+Improved channels are 
+subject to shoaling, particularly at the edges.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and 
+submarine cables may exist within the area of 
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and 
+those that were originally buried may have 
+become exposed. Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas where 
+pipelines and cables may exist, and when 
+anchoring, dragging or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
+
+
+AIDS TO NAVIGATION
+Consult U.S Coast Guard Light List for supplemental infor-
+mation concerning aids to navigation.
+
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service,
+Coast Survey, with additional data from the Corps of Engineers, Geological
+survey, and U.S. Coast Guard.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the National 
+Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. 
+Coast Guard facility if telephone communication is impossible (33 CFR 
+153).
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio stations listed 
+below provide continuous weather broadcasts. 
+The reception range is typically 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 100 nautical miles for stations at 
+high elevations.
+
+Newberry, MI		WNG-576		162.450 MHz
+Sault Ste Marie, MI	KIG-74		162.550 MHz
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+SAILING DIRECTIONS
+Bearing of sailing courses are true and distances given
+thereon are in statute miles between points of departure
+
+
+SAILING COURSES
+Sailing courses and limits are recommended by 
+the Lake Carriers Association and the Canadian Shipowners Association.
+
+NOTE D
+Mariners are warned that numerous uncharted stakes and fishing
+structures, some submerged, may exist in the area of this chart. Such
+structures are not charted unless known to be permanent.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to 
+http://co-ops.nos.noaa.gov
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+END OF FILE
