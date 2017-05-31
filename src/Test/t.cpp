@@ -20,19 +20,34 @@ int main()
     int buffer_size = 5;
     double LatOrigin  = 43.071959194444446;
     double LongOrigin = -70.711610833333339;
+    bool flag;
+    //A_Star astar = A_Star(3);
+
     Grid_Interp grid = Grid_Interp("/home/sji367/moos-ivp/moos-ivp-reed/", "/home/sji367/moos-ivp/moos-ivp-reed/src/ENCs/US5NH02M/US5NH02M.000", grid_size, buffer_size, LatOrigin, LongOrigin);
-    grid.Run(true);
+    grid.Run(false);
 
     printf("minX: %0.3f, minY: %0.3f, maxX: %0.3f, maxY: %0.3f\n", grid.getMinX(), grid.getMinY(), grid.getMaxX(), grid.getMaxY());
-    /*
-    A_Star astar = A_Star(grid_size, grid.getMaxX(), grid.getMaxY(), 1);
+
+    A_Star astar = A_Star(grid_size, grid.getMinX(), grid.getMinY(), 10);
 
     astar.setMap(grid.transposeMap());
+
+
     astar.setStartFinish_Grid(896,2507,920,2432);
     astar.subsetMap(870,970, 2400, 2600);
     astar.getNM();
     astar.runA_Star(true);
-*/
+
+    astar.build_map("valsisland.csv");
+    astar.setStartFinish_Grid(1,1,33,33);
+    flag = astar.runA_Star(true);
+    astar.setStartFinish_Grid(1,1,65,65);
+    flag = astar.runA_Star(true);
+    astar.setStartFinish_Grid(1,1,99,99);
+    flag = astar.runA_Star(true);
+
+
+
 
     return 0;
 

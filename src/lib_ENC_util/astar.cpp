@@ -18,16 +18,16 @@ int Node::calcMinDepth()
   return depth_thresh;
 }
 
-// Depth threshold is also in meters and is 15 times the minimum depth
+// Depth threshold is also in meters and is 20 times the minimum depth
 int Node::depthCost(double dist)
 {
-  int depth_threshold = 20*dist;
-  double depth_cost = 0;
-  double weight = .3;
-  if (depth < depth_threshold)
-    depth_cost = ((depth_threshold-depth)*weight);
+    int depth_threshold = 20;
+    double depth_cost = 0;
+    double weight = .15;
+    if (depth < depth_threshold)
+        depth_cost = weight*dist*(depth_threshold-depth);
 
-  return depth_cost;
+    return depth_cost;
 }
 
 double Node::time2shoreCost(int old_depth, double speed, int dist)
@@ -35,7 +35,7 @@ double Node::time2shoreCost(int old_depth, double speed, int dist)
   // Calculate the time to shore
   double time_theshold, seafloor_slope, time2crash;
   int min_depth;
-  double weight = 100;
+  double weight = 1;
   
   min_depth = calcMinDepth();
   time_theshold = 2*ShipMeta.getTurnRadius()*speed;
@@ -350,7 +350,7 @@ string A_Star::AStar_Search()
   vector<vector<int>> open_nodes_map (n, vector<int>(m,0));
   vector<vector<int>> closed_nodes_map (n, vector<int>(m,0));
   int cntr =0;
-  int depth=0;
+  int depth_cost=0;
   
   int x,y, new_x, new_y;
   Node n0, child;
@@ -404,9 +404,9 @@ string A_Star::AStar_Search()
 		// Check to see if the extended path goes through obstacles 
 		if (extendedPathValid(i, x, y))
 		  {
-                    depth = calcDepthCost(x,y, i);
+                    depth_cost = calcDepthCost(x,y, i);
 		    // Build the new node
-                    child = Node(new_x, new_y, depth,
+                    child = Node(new_x, new_y, depth_cost,
                                  n0.getCost(), grid_size);
 		    child.setShipMeta(ShipMeta);
                     //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
@@ -488,10 +488,10 @@ int A_Star::calcDepthCost(int wptX,int wptY, int i)
             }
         }
 
-        return cummulative_cost/(num_points)*grid_size; // integral of depth in meters
+        return cummulative_cost/(total_pnts); // average depth in meters
     }
     else
-        return Map[wptY+dy[i]][wptX+dx[i]]*grid_size; // integral of depth in meters
+        return Map[wptY+dy[i]][wptX+dx[i]]; // depth in meters
 
 
 }
