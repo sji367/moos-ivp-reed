@@ -43,7 +43,6 @@ public:
     void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
 
     void Run(bool csv);
-    void Run() {Run(false); }
     void write2csv(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res, bool mat);
     void writeMat(string filename);
     vector <vector<int> > transposeMap();
@@ -87,6 +86,8 @@ public:
     double getMaxX() {return maxX; }
     double getMinY() {return minY; }
     double getMaxY() {return maxY; }
+
+    double getGridSize() {return grid_size; }
 
 
 private:

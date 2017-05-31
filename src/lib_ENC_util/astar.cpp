@@ -188,7 +188,6 @@ Input:
 Output:
   path - indices of dx/dy that relate to the planned path from the 
          start to the finish
-    
 */
 string A_Star::ReconstructPath(vector<vector<int>> direction_map)
 {
@@ -345,8 +344,8 @@ void A_Star::buildMOOSFile(string filename, string WPTs)
 // This function runs A*. It outputs the generated path as a string
 string A_Star::AStar_Search()
 {
-  FILE *myfile;
-  myfile = fopen("Explored.txt", "w");
+  //FILE *myfile;
+  //myfile = fopen("Explored.txt", "w");
   vector<vector<int>> direction_map (n, vector<int>(m,0));
   vector<vector<int>> open_nodes_map (n, vector<int>(m,0));
   vector<vector<int>> closed_nodes_map (n, vector<int>(m,0));
@@ -389,7 +388,7 @@ string A_Star::AStar_Search()
         {
 	  // Generate the path from finish to start by following the 
 	  //  directions.
-          fclose(myfile);
+          //fclose(myfile);
 	  return ReconstructPath(direction_map);
         }
 	for (int i = 0; i<num_directions; i++)
@@ -416,7 +415,7 @@ string A_Star::AStar_Search()
                     child.updatePriority(xFinish, yFinish);
                     p = child.getPriority1();
 
-                    fprintf(myfile, "%d\t%d\t%d\t%d\t%0.3f\t%0.3f\n", cntr,i,new_x, new_y, c, p);
+                    //fprintf(myfile, "%d\t%d\t%d\t%d\t%0.3f\t%0.3f\n", cntr,i,new_x, new_y, c, p);
 		    // If the child node is not in the open list or the
 		    //  current priority is better than the stored one, 
 		    //  add it to the frontier
@@ -442,7 +441,7 @@ string A_Star::AStar_Search()
         }
     }
   cout << "No path found." << endl;
-  fclose(myfile);
+  //fclose(myfile);
   return "";
 
 }
@@ -528,7 +527,7 @@ string A_Star::markRoute(vector<int> route)
       x = xStart;
       y = yStart;
       
-      grid2xy(localX, localY, x, y);
+      grid2xy(x, y, localX, localY);
       
       // Mark Start
       Map2print[y][x] = 2;
@@ -539,7 +538,7 @@ string A_Star::markRoute(vector<int> route)
 	  direction = route[i];
 	  x += dx[direction];
 	  y += dy[direction];
-	  grid2xy(localX, localY, x, y);
+          grid2xy(x, y, localX, localY);
 	  if (i<route_len-1)
 	    {
 	      // If you are continueing with on the same path,
@@ -559,7 +558,7 @@ string A_Star::markRoute(vector<int> route)
       direction = route[route_len-1];
       x += dx[direction];
       y += dy[direction];
-      grid2xy(localX, localY, x, y);
+      grid2xy(x, y, localX, localY);
       Map2print[y][x] = 5;
       WPT += to_string(localX)+","+to_string(localY);
       cout << to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"];" << endl;
@@ -647,7 +646,7 @@ void A_Star::build_default_map(int N, int M, int config)
   // Set the derived map
   setMap(MAP);
   // Sets the grid and local coordinate system as the same system
-  setConversionMeta(1, 0, 0); 
+  setConversionMeta(1, 0, 0);
 }
 
 // Use your own map from a csv file that contains the grid and define the

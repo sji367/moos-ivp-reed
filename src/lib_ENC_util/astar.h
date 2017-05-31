@@ -263,7 +263,7 @@ public:
 
 	// Functions to convert to/from the grid world
         void xy2grid(double x, double y, int &gridX, int &gridY) {gridX = (x-xTop-grid_size/2.0)/grid_size- x_min; gridY = (y-yTop-grid_size/2.0)/grid_size- y_min; }
-        void grid2xy(double &x, double &y, int gridX, int gridY) {x = (gridX+x_min)*grid_size+ xTop+grid_size/2.0; y = (gridY+y_min)*grid_size+ yTop+grid_size/2.0; }
+        void grid2xy(int gridX, int gridY, double &x, double &y) {x = (gridX+x_min)*grid_size+ xTop+grid_size/2.0; y = (gridY+y_min)*grid_size+ yTop+grid_size/2.0; }
 
 	void getNM() {cout << Map.size() << ", " << Map[0].size() << endl; }
         

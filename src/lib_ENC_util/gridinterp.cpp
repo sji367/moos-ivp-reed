@@ -50,7 +50,7 @@ void Grid_Interp::buildLayers()
     OGRFieldDefn oField_inside( "Inside_ENC", OFTReal);
 
     // Build the datasource and layer that will hold the wrecks and land area polygons
-    string polyPath = MOOS_Path+"src/ENCs/Shape/grid/polygon.shp";
+    string polyPath = MOOS_Path+"src/ENCs/Grid/polygon.shp";
     ds_poly = poDriver->Create(polyPath.c_str(), 0, 0, 0, GDT_Unknown, NULL );
     if( ds_poly == NULL )
     {
@@ -75,7 +75,7 @@ void Grid_Interp::buildLayers()
 
 
     // Build the datasource layer that will hold the depth area polygons
-    string depthPath = MOOS_Path+"src/ENCs/Shape/grid/depth.shp";
+    string depthPath = MOOS_Path+"src/ENCs/Grid/depth.shp";
     ds_depth = poDriver->Create(depthPath.c_str(), 0, 0, 0, GDT_Unknown, NULL );
     if( ds_depth == NULL )
     {
@@ -99,7 +99,7 @@ void Grid_Interp::buildLayers()
 
 
     // Build the datasource and layer that will hold the outline of the ENC
-    string outlinePath = MOOS_Path+"src/ENCs/Shape/grid/outline.shp";
+    string outlinePath = MOOS_Path+"src/ENCs/Grid/outline.shp";
     ds_outline = poDriver->Create(outlinePath.c_str(), 0, 0, 0, GDT_Unknown, NULL );
     if( ds_poly == NULL )
     {
@@ -688,7 +688,7 @@ void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vecto
 {
     GDALDataset  *poDataset;
     GDALRasterBand *poRasterBand;
-    string full_Filename = MOOS_Path+"src/ENCs/Shape/grid/" +filename;
+    string full_Filename = MOOS_Path+"src/ENCs/Grid/" +filename;
 
     GDALAllRegister();
     poDataset = (GDALDataset *) GDALOpen( full_Filename.c_str(), GA_ReadOnly );
@@ -732,8 +732,8 @@ void Grid_Interp::raster2XYZ(vector<int>& RasterData, int nXSize)
 void Grid_Interp::rasterizeSHP(string outfilename, string infilename, string attribute)
 {
     // Strings to hold the data for the input/output filenames for gdal_rasterize
-    string full_inFilename = MOOS_Path+"src/ENCs/Shape/grid/" +infilename;
-    string full_outFilename = MOOS_Path+"src/ENCs/Shape/grid/" +outfilename;
+    string full_inFilename = MOOS_Path+"src/ENCs/Grid/" +infilename;
+    string full_outFilename = MOOS_Path+"src/ENCs/Grid/" +outfilename;
     string filenames = full_inFilename + " " + full_outFilename;
 
     // String to hold the data for the georeferenced extents for gdal_rasterize
