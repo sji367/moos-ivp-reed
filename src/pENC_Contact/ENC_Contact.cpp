@@ -369,7 +369,7 @@ string ENC_Contact::category_silo(int index)
 double ENC_Contact::calc_WL_depth(double WL)
 {
   double WL_depth = 0;
-  double feet2meters = 0;
+  double feet2meters = 0.3048;
   if (WL == 2)
       // At least 2 feet above MHW. Being shoal biased, we will take the 
       // object's "charted" depth as 2 feet above MHW
