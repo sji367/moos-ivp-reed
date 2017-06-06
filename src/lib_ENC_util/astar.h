@@ -87,7 +87,7 @@ public:
         // Set the new cost to go to the node where the distance is stored as an int
         void calcCost(int dx, int dy) {current_cost += calcDistance(dx,dy); } // cumlative distance traveled
         // cumlative distance traveled + cummilative depth (in cm)
-        void calcCost_depth(int dx, int dy) {double dist = calcDistance(dx,dy); current_cost += depthCost(dist); }
+        void calcCost_depth(int dx, int dy) {double dist = calcDistance(dx,dy); current_cost += dist + depthCost(dist); }
         // cumlative distance traveled + time2crash
         void calcCost(int dx, int dy, int old_depth, double speed) {double dist=calcDistance(dx,dy); current_cost += dist + time2shoreCost(old_depth, speed, dist); }
 	
@@ -162,7 +162,7 @@ public:
         string ReconstructPath(vector<vector<int> > direction_map);
 
 	// Check to see if the extened path is valid
-	bool extendedPathValid(int i, int x, int y);
+        bool extendedPathValid(int i, int wptX, int wptY, int &depth_cost);
 
 	// This function runs A* search. It outputs the generated WPTs as a comma seperated string
 	string AStar_Search();

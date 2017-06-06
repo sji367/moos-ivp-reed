@@ -23,7 +23,7 @@ int Node::depthCost(double dist)
 {
     int depth_threshold = 20;
     double depth_cost = 0;
-    double weight = .15;
+    double weight = .1;
     if (depth < depth_threshold)
         depth_cost = weight*dist*(depth_threshold-depth);
 
@@ -53,7 +53,6 @@ double Node::time2shoreCost(int old_depth, double speed, int dist)
       else
 	return 0;
     }
-
 }
 
 A_Star::A_Star()
@@ -213,89 +212,118 @@ string A_Star::ReconstructPath(vector<vector<int>> direction_map)
   return markRoute(path);
 }
 
-// Check to see if the extended path runs through any obstacles
-bool A_Star::extendedPathValid(int i, int x, int y)
-{
-    double temp = 1;
-    int JumpCells, YPOS, XPOS;
-    int prev_x = x;
-    int prev_y = y;
 
+// Check to see if the extended path runs through any obstacles
+bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &depth_cost)
+{
+    double x,y, m, b;
+    int X,Y;
+    int floor_x, ceil_x, floor_y, ceil_y;
+
+    int dX = abs(dx[i]);
+    int dY = abs(dy[i]);
+
+    double cummulative_cost = 0;
+
+    int num_points = 5;
+    int total_points = 0;
     // Only run this when the path is more than 1 grid cell away
-    if ((abs(dx[i])>1)||(abs(dy[i])>1))
+    if (max(dX,dY)>1)
     {
-        // Dont allow the ASV to diagonally by an obstacle
-        if (dx[i] == dy[i])
+        m = (1.0*(dy[i]))/(1.0*(dx[i]));
+        b = wptY - wptX*m;
+
+        if (dX < dY)
         {
-          for (int j=1; j<=dx[i]; j++)
-          {
-              if((Map[y+j][x+j]<depth_cutoff)||(Map[y+j-1][x+j]<depth_cutoff)||(Map[y+j][x+j-1]<depth_cutoff))
-                  return false;
-          }
+            total_points = num_points*dY;
+            for (int j=1; j<=total_points; j++)
+            {
+                if (signbit(dy[i]))// Returns true if negative
+                    y = wptY-j/num_points;
+                else
+                    y = wptY+j/num_points;
+
+                x = (1.0*(y-b))/m;
+                X= static_cast<int>(x);
+                Y=static_cast<int>(y);
+                cummulative_cost += Map[Y][X];
+
+                floor_x = int(floor(x));
+                ceil_x = int(ceil(x));
+
+                // If either cell is an obstacle, the path is not valid
+                if ((Map[Y][floor_x] < depth_cutoff) || (Map[Y][ceil_x] < depth_cutoff))
+                    return false; // Path is invalid
+            }
         }
         else
         {
-            // Need to check that the path does not pass through an object
-            JumpCells=2*max(abs(dx[i]),abs(dy[i]))-1;
-            for (int K=1; K<JumpCells; K++)
+            total_points = num_points*dX;
+            for (int j=1; j<total_points; j++)
             {
-                // intermediate positions
-                YPOS=int(round(K*temp*dy[i]/JumpCells))+y;
-                XPOS=int(round(K*temp*dx[i]/JumpCells))+x;
-                // This is actual check to see if the intermediate grid cells
-                //  intersect an obstacle
-                if (Map[YPOS][XPOS]<depth_cutoff)
-                    return false;
-                /*
-                else if ((prev_y!=YPOS)&&(prev_x!=XPOS))
-                {
-                    if ((Map[YPOS][prev_x]<depth_cutoff)||(Map[prev_y][XPOS]<depth_cutoff))
-                        return false;
+                if (signbit(dx[i]))// Returns true if negative
+                    x = wptX-j/num_points;
+                else
+                    x = wptX+j/num_points;
+                y= m*x+b;
+                X= static_cast<int>(x);
+                Y=static_cast<int>(y);
 
-                prev_x = XPOS;
-                prev_y = YPOS;
-                }
-                */
+                cummulative_cost += Map[Y][X];
+
+                floor_y = int(floor(y));
+                ceil_y = int(ceil(y));
+
+                // If either cell is an obstacle, the path is not valid
+                if ((Map[floor_y][X] < depth_cutoff) || (Map[ceil_y][X] < depth_cutoff))
+                    return false; // Path is invalid
             }
         }
+        depth_cost = int(round(cummulative_cost/(1.0*total_points))); // average depth in grid cells
     }
-    return true;
+    else
+        depth_cost = Map[wptY+dy[i]][wptX+dx[i]]; // depth in grid cells
+
+    return true; // Path is valid so return true
 }
 
 bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin)
 {
-  string route;
-  bool found_path;
+    string route;
+    bool found_path;
 
-  clock_t start;
-  double total_time;
-  cout << "Running A*\n";
-  checkStartFinish();
-  if ((getStartValid()) && (getFinishValid()))
+    clock_t start;
+    double total_time;
+    cout << "Running A*\n";
+    checkStartFinish();
+    if ((getStartValid()) && (getFinishValid()))
     {
-      cout << "Valid Start/Finish" << endl;
-      start = clock();
-      route = AStar_Search();
-      total_time = (clock() - start)*0.001;
+        cout << "Valid Start/Finish" << endl;
+        start = clock();
+        route = AStar_Search();
+        total_time = (clock() - start)*0.001;
     }
-  else
-    cout << "Invalid Start/Finish" << endl;
-  found_path = !(route.empty());
-  // Only print the map if a route was found
-  if (found_path){
-    if (yes_print)
-      printMap(route, total_time);
-    if (MOOS_WPT)
-      buildMOOSFile(filename, route);
-    if (L84_WPT)
-      {
-	L84 newfile = L84(filename, route, LatOrigin, LongOrigin);
-        newfile.writeL84();
-      }
-  }
-  else
-    cout << "No path found!" << endl;
-  return found_path;
+    else
+        cout << "Invalid Start/Finish" << endl;
+
+    found_path = !(route.empty());
+    // Only print the map if a route was found
+    if (found_path)
+    {
+        cout << route << endl;
+        if (yes_print)
+            printMap(route, total_time);
+        if (MOOS_WPT)
+            buildMOOSFile(filename, route);
+        if (L84_WPT)
+        {
+            L84 newfile = L84(filename, route, LatOrigin, LongOrigin);
+            newfile.writeL84();
+        }
+    }
+    else
+        cout << "No path found!" << endl;
+    return found_path;
 }
 
 void A_Star::buildMOOSFile(string filename, string WPTs)
@@ -380,7 +408,7 @@ string A_Star::AStar_Search()
       if (closed_nodes_map[y][x] != 1)
       {
         cntr++;
-	open_nodes_map[y][x] = 0;
+        open_nodes_map[y][x] = 0;
 	// mark it on the closed nodes map
 	closed_nodes_map[y][x] = 1;
 	// Quit searching when you reach the goal state
@@ -402,9 +430,9 @@ string A_Star::AStar_Search()
 		(closed_nodes_map[new_y][new_x]!=1))
 	      {
 		// Check to see if the extended path goes through obstacles 
-		if (extendedPathValid(i, x, y))
+                if (extendedPathValid(i, x, y, depth_cost))
 		  {
-                    depth_cost = calcDepthCost(x,y, i);
+                    //depth_cost = calcDepthCost(x,y, i);
 		    // Build the new node
                     child = Node(new_x, new_y, depth_cost,
                                  n0.getCost(), grid_size);
@@ -419,8 +447,8 @@ string A_Star::AStar_Search()
 		    // If the child node is not in the open list or the
 		    //  current priority is better than the stored one, 
 		    //  add it to the frontier
-		    if ((open_nodes_map[new_y][new_x] == 0) ||
-			(open_nodes_map[new_y][new_x] > child.getPriority()))
+                    if ((open_nodes_map[new_y][new_x] == 0) ||
+                        (open_nodes_map[new_y][new_x] > child.getPriority()))
 		      {
 			open_nodes_map[new_y][new_x] = child.getPriority();
 			// If the node has been explored, the old value will
@@ -455,20 +483,25 @@ int A_Star::calcDepthCost(int wptX,int wptY, int i)
     int num_points = 5;
     int total_pnts = 0;
 
-    //double dist = sqrt(dx[i]*dx[i]+dy[i]*dy[i]);
+    int dX = abs(dx[i]);
+    int dY = abs(dy[i]);
 
     // Only run the interpolation if the cell is not a Moore Neighbor
-    if (max(dx[i],dx[i])>1)
+    if (max(dX, dY)>1)
     {
         m = (1.0*(dy[i]))/(1.0*(dx[i]));
         b = wptY - wptX*m;
 
-        if (dx[i] < dy[i])
+        if (dX < dY)
         {
-            total_pnts = num_points*dy[i];
+            total_pnts = num_points*dY;
             for (int j=1; j<=total_pnts; j++)
             {
-                y = wptY+j/num_points;
+                if (signbit(dy[i]))// Returns true if negative
+                    y = wptY-j/num_points;
+                else
+                    y = wptY+j/num_points;
+
                 x = (1.0*(y-b))/m;
                 X= static_cast<int>(x);
                 Y=static_cast<int>(y);
@@ -477,10 +510,13 @@ int A_Star::calcDepthCost(int wptX,int wptY, int i)
         }
         else
         {
-            total_pnts = num_points*dx[i];
+            total_pnts = num_points*dX;
             for (int j=1; j<total_pnts; j++)
             {
-                x = wptX+j/num_points;
+                if (signbit(dx[i]))// Returns true if negative
+                    x = wptX-j/num_points;
+                else
+                    x = wptX+j/num_points;
                 y= m*x+b;
                 X= static_cast<int>(x);
                 Y=static_cast<int>(y);
@@ -488,10 +524,10 @@ int A_Star::calcDepthCost(int wptX,int wptY, int i)
             }
         }
 
-        return cummulative_cost/(total_pnts); // average depth in meters
+        return cummulative_cost/(total_pnts); // average depth in grid cells
     }
     else
-        return Map[wptY+dy[i]][wptX+dx[i]]; // depth in meters
+        return Map[wptY+dy[i]][wptX+dx[i]]; // depth in grid cells
 
 
 }

@@ -35,15 +35,15 @@ class Grid_Interp
 {
 public:
     Grid_Interp();
-    Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, Geodesy Geod);
-    Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, double lat, double lon);
+    Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, double MHW_offset, Geodesy Geod);
+    Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, double MHW_offset, double lat, double lon);
     ~Grid_Interp() {}
 
     // Initialize Geodesy
     void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
 
     void Run(bool csv);
-    void write2csv(vector<int> &poly_data, vector<int> &depth_data, int x_res, int y_res, bool mat);
+    void write2csv(vector<int> &poly_data, vector<int> &depth_data, vector<int> &point_data, int x_res, int y_res, bool mat);
     void writeMat(string filename);
     vector <vector<int> > transposeMap();
 
@@ -64,7 +64,7 @@ public:
     void lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName);
 
     // Fills out the 2D interpolated map from the 1D interpolated data and the Depth areas
-    void updateMap(vector<int> &poly_data, vector<int> &depth_data, vector<int> &outline_data, int x_res, int y_res);
+    void updateMap(vector<int> &poly_data, vector<int> &depth_data, vector<int> &outline_data, vector<int> &point_data, int x_res, int y_res);
 
     // Returns the interpolated map
     vector<vector<int> > getGriddedMap() {return Map; }
@@ -89,6 +89,9 @@ public:
 
     double getGridSize() {return grid_size; }
 
+    // Convert the WL to a depth
+    double calcDepth(int WL);
+
 
 private:
     Geodesy geod;
@@ -98,10 +101,11 @@ private:
     vector <vector<int> > Map, t_map;
     double minX, minY, maxX, maxY;
     double grid_size;
+    double MHW_Offset;
     double buffer_size;
-    GDALDataset *ds_poly, *ds_depth, *ds_outline;
-    OGRLayer  *layer_poly, *layer_depth, *layer_outline;
-    OGRFeatureDefn *feat_def_poly, *feat_def_depth, *feat_def_outline;
+    GDALDataset *ds_poly, *ds_pnt, *ds_depth, *ds_outline;
+    OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;
+    OGRFeatureDefn *feat_def_poly, *feat_def_pnt, *feat_def_depth, *feat_def_outline;
 };
 
 #endif // GRIDINTERP_H
