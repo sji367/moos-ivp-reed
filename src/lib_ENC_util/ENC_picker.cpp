@@ -4,16 +4,18 @@ ENC_Picker::ENC_Picker()
 {
   RNC.clear();
   setOrigin(0,0);
-  root_directory = "src/ENCs/";//"/home/sji367/moos-ivp/moos-ivp-reed/src/ENCs";
+  root_directory = "src/ENCs/";
   csvfile = root_directory+"ENCList.csv";
+  cntr = 0;
 }
 
 ENC_Picker::ENC_Picker(double latOrigin,double lonOrigin)
 {
   RNC.clear();
   setOrigin(latOrigin, lonOrigin);
-  root_directory = "src/ENCs/";//"~/moos-ivp/moos-ivp-reed/src/ENCs";
+  root_directory = "src/ENCs/";
   csvfile = root_directory+"ENCList.csv";
+  cntr = 0;
 }
 
 ENC_Picker::ENC_Picker(double latOrigin,double lonOrigin, string root_dir)
@@ -22,6 +24,7 @@ ENC_Picker::ENC_Picker(double latOrigin,double lonOrigin, string root_dir)
   setOrigin(latOrigin, lonOrigin);
   root_directory = root_dir;
   csvfile = root_directory+"ENCList.csv";
+  cntr = 0;
 }
 
 ENC_Picker::ENC_Picker(double latOrigin,double lonOrigin, string root_dir, string csvfilename)
@@ -30,6 +33,7 @@ ENC_Picker::ENC_Picker(double latOrigin,double lonOrigin, string root_dir, strin
   setOrigin(latOrigin, lonOrigin);
   root_directory = root_dir;
   csvfile = root_directory+"/"+csvfilename;
+  cntr = 0;
 }
 
 void ENC_Picker::parse_csv()
@@ -57,42 +61,64 @@ void ENC_Picker::parse_csv()
 
 void ENC_Picker::build_ENC_outlines()
 {
-  GDALAllRegister();
-  
-  GDALDataset* ds;
-  OGRLayer* layer;
-  OGRFeature* feat;
-  OGRGeometry* geom;
-  OGRPolygon* newPoly;
+    GDALAllRegister();
 
-  string source_indication;
-  
-  vector<string> path, temp_split, temp_split2;
-  fs::path root = root_directory;
-  Dir_Walk walk = Dir_Walk(root, ".000");
-  walk.find_all_ext(path, ENC_Names);
-  for (int i =0; i<path.size(); i++)
+    GDALDataset* ds;
+    OGRLayer* layer;
+    OGRFeature* feat;
+    OGRGeometry* geom;
+    OGRPolygon* newPoly;
+
+    string source_indication;
+    vector<string> path, allENC_names, temp_split, temp_split2;
+    fs::path root = root_directory;
+
+    Dir_Walk walk = Dir_Walk(root, ".000");
+    walk.find_all_ext(path, allENC_names);
+
+    for (int i =0; i<path.size(); i++)
     {
-      ds = (GDALDataset*) GDALOpenEx( path[i].c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
-      // Check if it worked
-      if( ds == NULL )
-	{
-	  printf( "Open failed.\n" );
-	  exit( 1 );
-	}
-      layer = ds->GetLayerByName("M_NPUB");
-      layer->ResetReading();
-      feat = layer->GetNextFeature();
-      geom = feat->GetGeometryRef();
-      newPoly = (OGRPolygon *) geom;
-      ENC_Outline.push_back(newPoly);
-      source_indication = feat->GetFieldAsString("SORIND");
-      // Parse the information to get the RNC chart number
-      //  In the format:
-      //    Country, Authority, Source, ID-Code
-      split(temp_split, source_indication, ',');
-      split(temp_split2, temp_split.back(), ' ');
-      chart.push_back(temp_split2.back());
+        // Clear the vectors
+        temp_split.clear(); temp_split2.clear();
+
+        ds = (GDALDataset*) GDALOpenEx( path[i].c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+        // Check if it worked
+        if(!ds)
+            cout <<"Opening " << allENC_names[i] <<" failed." << endl;
+        else
+        {
+            layer = ds->GetLayerByName("M_NPUB");
+            if (layer)
+            {
+                layer->ResetReading();
+                feat = layer->GetNextFeature();
+                source_indication = feat->GetFieldAsString("SORIND");
+                // Parse the information to get the RNC chart number
+                //  In the format:
+                //    Country, Authority, Source, ID-Code
+                if (!source_indication.empty())
+                {
+                    split(temp_split, source_indication, ',');
+                    if (temp_split.size() == 4)
+                    {
+                        split(temp_split2, temp_split.back(), ' ');
+                        if (temp_split2.size() == 2)
+                        {
+                            if ((temp_split2[0] == "chart")||(temp_split2[0] == "Chart")||(temp_split2[0] == "CharT") )
+                            {
+                                geom = feat->GetGeometryRef();
+                                newPoly = (OGRPolygon *) geom;
+                                chart.push_back(temp_split2.back());
+                                ENC_Outline.push_back(newPoly);
+                                ENC_Names.push_back(allENC_names[i]);
+                                cntr++;
+                            }
+                        }
+                    }
+                }
+            }
+            GDALClose(ds);
+        }
     }
 }
 
@@ -123,8 +149,7 @@ void ENC_Picker::pick_ENC(string &chart_name, int &chart_scale)
 	      if ((temp_scale < chart_scale)||(chart_scale==-1))
 		{
 		  chart_name = ENC_Names[i];
-		  chart_scale = temp_scale;
-		  //cout << "Inside: " << ENC_Names[i] << " " << temp_scale << endl;
+                  chart_scale = temp_scale;
 		}
 	    }
 	  else 

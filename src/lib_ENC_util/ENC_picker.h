@@ -5,7 +5,9 @@
 #include <geodesy.h> // Lat/Long to UTM
 #include "strtk.hpp" // for csv parsing
 #include "ogrsf_frmts.h" // for gdal
-#include "dir_walk.h" // for walking through directories 
+#include "dir_walk.h" // for walking through directories
+#include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -15,34 +17,41 @@ using namespace std;
 class ENC_Picker
 {
 public:
-	// Constructor and deconstructor
-	ENC_Picker();
-	ENC_Picker(double latOrigin,double lonOrigin);
-	ENC_Picker(double latOrigin, double lonOrigin, string root_dir, string csvfilename);
-	ENC_Picker(double latOrigin, double lonOrigin, string root_dir);
-        ~ENC_Picker() {}
+    // Constructor and deconstructor
+    ENC_Picker();
+    ENC_Picker(double latOrigin,double lonOrigin);
+    ENC_Picker(double latOrigin, double lonOrigin, string root_dir, string csvfilename);
+    ENC_Picker(double latOrigin, double lonOrigin, string root_dir);
+    ~ENC_Picker() {
+        // Clearing vector of pointers
+        for (OGRPolygon* obj : ENC_Outline)
+            delete obj;
+        ENC_Outline.clear();
+        cout << cntr << endl;
+    }
 
-	// Sets the lat/longoOrigin
-        void setOrigin(double latOrigin,double lonOrigin) {LatOrigin=latOrigin; LonOrigin=lonOrigin; point= new OGRPoint(lonOrigin,latOrigin); }
+    // Sets the lat/longoOrigin
+    void setOrigin(double latOrigin,double lonOrigin) {LatOrigin=latOrigin; LonOrigin=lonOrigin; point= new OGRPoint(lonOrigin,latOrigin); }
 
-	// Walk the directory and store the ENC datasource. 
-	void build_ENC_outlines();
+    // Walk the directory and store the ENC datasource.
+    void build_ENC_outlines();
 
-	// Create the map container of RNC chart names and data
-	void parse_csv();
-	
-	// This function choses the ENC that should be run and returns the 
-        //    chart scale and the path to the chart.
-	void pick_ENC(string &chart_name, int &chart_scale);
+    // Create the map container of RNC chart names and data
+    void parse_csv();
+
+    // This function choses the ENC that should be run and returns the
+    //    chart scale and the path to the chart.
+    void pick_ENC(string &chart_name, int &chart_scale);
         
 
 private:
-	double LatOrigin, LonOrigin;
-	OGRPoint* point;
-	vector<OGRPolygon*> ENC_Outline;
-	vector<string> chart, ENC_Names;
-	map<string, int> RNC;
-	string root_directory, csvfile;
+    double LatOrigin, LonOrigin;
+    OGRPoint* point;
+    vector<OGRPolygon*> ENC_Outline;
+    vector<string> chart, ENC_Names;
+    map<string, int> RNC;
+    string root_directory, csvfile;
+    int cntr;
 };
 void split(vector<string>& parsed, const string& s, char c);
 

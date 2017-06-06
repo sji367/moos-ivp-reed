@@ -149,7 +149,7 @@ void Grid_Interp::buildLayers()
 
 // This function creates a grid from the soundings, land areas, rocks, wrecks, depth areas
 //  and depth contours and store it as a 2D vector of ints where the depth is stored in cm.
-void Grid_Interp::Run(bool csv)
+void Grid_Interp::Run(bool csv, bool mat)
 {
     clock_t start = clock();
     GDALAllRegister();
@@ -175,6 +175,8 @@ void Grid_Interp::Run(bool csv)
     layer2XYZ(ds->GetLayerByName("LNDARE"), "LNDARE");
     layer2XYZ(ds->GetLayerByName("DEPARE"), "DEPARE");
     layer2XYZ(ds->GetLayerByName("FLODOC"), "FLODOC");
+    layer2XYZ(ds->GetLayerByName("OBSTRN"), "OBSTRN");
+    layer2XYZ(ds->GetLayerByName("DYKCON"), "DYKCON");
 
     // Save the rasters
     GDALClose(ds_depth);
@@ -244,7 +246,7 @@ void Grid_Interp::Run(bool csv)
     updateMap(poly_rasterdata, depth_area_rasterdata, ENC_outline_rasterdata, point_rasterdata, x_res, y_res);
 
     if (csv)
-        write2csv(poly_rasterdata, depth_area_rasterdata, point_rasterdata, x_res, y_res, true);
+        write2csv(poly_rasterdata, depth_area_rasterdata, point_rasterdata, x_res, y_res, mat);
 
     clock_t end = clock();
     double total_time = double(end - start) / CLOCKS_PER_SEC;
@@ -256,10 +258,12 @@ vector<vector<int> > Grid_Interp::transposeMap()
     vector <vector<int> > t_map (Map[0].size(), vector<int> (Map.size(),0));
 
     for (int i =0; i<Map.size(); i++)
+    {
         for (int j=0; j<Map[0].size(); j++)
         {
             t_map[j][i] = Map[i][j];
         }
+    }
     return t_map;
 }
 
@@ -536,15 +540,17 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
     OGRFeature *new_feat;
 
     double x,y,z;
+    bool WL_flag;
+    int WL;
+
+    string Z;
 
     geom_UTM = geod.LatLong2UTM(geom);
     UTM_line = ( OGRLineString * )geom_UTM;
 
-
-
     if (layerName=="DEPCNT")
         z = feat->GetFieldAsDouble("VALDCO")*100;
-    else if ((layerName =="PONTON")||(layerName =="FLODOC"))
+    else if ((layerName =="PONTON")||(layerName =="FLODOC")||(layerName =="DYKCON"))
     {
         z = -500;
         UTM_line->segmentize(grid_size/5);
@@ -566,6 +572,41 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
             OGRFeature::DestroyFeature(new_feat);
         }
         return;
+    }
+    else if ((layerName == "OBSTRN"))
+    {
+        Z = feat->GetFieldAsString("VALSOU");
+        WL_flag = Z.empty();
+        if (WL_flag)
+        {
+            WL = feat->GetFieldAsDouble("WATLEV");
+            z = calcDepth(WL)*100;
+            if (z==-10000)
+                return;
+        }
+        else
+            z = feat->GetFieldAsDouble("VALSOU")*100;
+
+        UTM_line->segmentize(grid_size/5);
+        // Place all lines into the point shapefile
+        for (int j=0; j<UTM_line->getNumPoints(); j++)
+        {
+            x = UTM_line->getX(j);// convert to local UTM
+            y = UTM_line->getY(j);// convert to local UTM
+            pt = OGRPoint(x,y);
+            new_feat =  OGRFeature::CreateFeature(feat_def_pnt);
+            new_feat->SetField("Depth", z);
+            new_feat->SetGeometry(&pt);
+            // Build the new feature
+            if( layer_pnt->CreateFeature( new_feat ) != OGRERR_NONE )
+            {
+                printf( "Failed to create feature in polygon shapefile.\n" );
+                exit( 1 );
+            }
+            OGRFeature::DestroyFeature(new_feat);
+        }
+        if (WL_flag)
+            return;
     }
     else
     {
@@ -599,15 +640,16 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
     lat = poPoint->getY();
 
     bool WL_flag = false;
+    string Z;
 
 
     if (layerName == "LNDARE")
         z = -500;
 
-    else if ((layerName == "UWTROC")||(layerName == "WRECKS"))
+    else if ((layerName == "UWTROC")||(layerName == "WRECKS")||(layerName == "OBSTRN"))
     {
-        z = feat->GetFieldAsDouble("VALSOU");
-        WL_flag = !z;
+        Z = feat->GetFieldAsString("VALSOU");
+        WL_flag = Z.empty();
         if (WL_flag)
         {
             WL = feat->GetFieldAsDouble("WATLEV");
@@ -615,6 +657,8 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
             if (z==-10000)
                 return;
         }
+        else
+            z = feat->GetFieldAsDouble("VALSOU")*100;
 
         // Put into point layer
         geod.LatLong2UTM(lat, lon, x,y);
@@ -706,7 +750,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
         store_vertices(UTM_poly,z);
         OGRFeature::DestroyFeature(new_feat);
     }
-    else if (layerName == "WRECKS")
+    else if ((layerName == "WRECKS")||(layerName == "OBSTRN"))
     {
         z = feat->GetFieldAsDouble("VALSOU");
         if (!z)
@@ -746,7 +790,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
         }
         OGRFeature::DestroyFeature(new_feat);
     }
-    else if ((layerName == "PONTON")||(layerName =="FLODOC"))
+    else if ((layerName == "PONTON")||(layerName =="FLODOC")||(layerName == "DYKCON"))
     {
         z = -500;
         new_feat =  OGRFeature::CreateFeature(feat_def_poly);

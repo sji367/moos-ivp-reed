@@ -282,7 +282,13 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &depth_cost)
         depth_cost = int(round(cummulative_cost/(1.0*total_points))); // average depth in grid cells
     }
     else
+    {
+        // If either cell diagonal to the path is an obstacle, the path is not valid
+        if ((Map[wptY+dy[i]][wptX] < depth_cutoff) || (Map[wptY][wptX+dx[i]] < depth_cutoff))
+            return false; // Path is invalid)
+
         depth_cost = Map[wptY+dy[i]][wptX+dx[i]]; // depth in grid cells
+    }
 
     return true; // Path is valid so return true
 }
