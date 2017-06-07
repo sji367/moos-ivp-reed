@@ -7,7 +7,7 @@ void Geodesy::Initialise(double Lat_Origin, double Lon_Origin)
   UTM_Zone=getUTMZone(Lon_Origin);
   
   UTM.SetWellKnownGeogCS("WGS84");
-  UTM.SetUTM(UTM_Zone, signbit(Lat_Origin));
+  UTM.SetUTM(UTM_Zone, signbit(-Lat_Origin));
   
   LatLong.SetWellKnownGeogCS("WGS84");
   LatLong2UTM(LatOrigin, LonOrigin, x_origin, y_origin);
