@@ -14,9 +14,9 @@ INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 #============================================================================
 # List the subdirectories to build...
 #============================================================================
-ADD_SUBDIRECTORY(lib_behaviors-test)
-ADD_SUBDIRECTORY(lib_ENC)
 ADD_SUBDIRECTORY(lib_ENC_util)
+ADD_SUBDIRECTORY(lib_ENC)
+ADD_SUBDIRECTORY(lib_behaviors-test)
 ADD_SUBDIRECTORY(lib_anrp_util)
 ADD_SUBDIRECTORY(pAStar)
 ADD_SUBDIRECTORY(iZBoat)
@@ -26,7 +26,7 @@ ADD_SUBDIRECTORY(pENC_Contact)
 ADD_SUBDIRECTORY(Build_ENC_Grid)
 ADD_SUBDIRECTORY(Test)
 ADD_SUBDIRECTORY(pPub_Points)
-ADD_SUBDIRECTORY(lib_SimpleSerial)
+ADD_SUBDIRECTORY(GridENC)
 
 ##############################################################################
 #                           END of CMakeLists.txt
