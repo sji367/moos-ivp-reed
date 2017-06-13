@@ -295,7 +295,6 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &depth_cost)
 
 bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin)
 {
-    string route;
     bool found_path;
 
     clock_t start;
@@ -306,24 +305,24 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
     {
         cout << "Valid Start/Finish" << endl;
         start = clock();
-        route = AStar_Search();
+        Route = AStar_Search();
         total_time = (clock() - start)*0.001;
     }
     else
         cout << "Invalid Start/Finish" << endl;
 
-    found_path = !(route.empty());
+    found_path = !(Route.empty());
     // Only print the map if a route was found
     if (found_path)
     {
-        cout << route << endl;
+        cout << Route << endl;
         if (yes_print)
-            printMap(route, total_time);
+            printMap(Route, total_time);
         if (MOOS_WPT)
-            buildMOOSFile(filename, route);
+            buildMOOSFile(filename, Route);
         if (L84_WPT)
         {
-            L84 newfile = L84(filename, route, LatOrigin, LongOrigin);
+            L84 newfile = L84(filename, Route, LatOrigin, LongOrigin);
             newfile.writeL84();
         }
     }

@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <astar.h>
 #include "gridinterp.h"
+#include "geodesy.h"
+#include <ctime>
 
 
 using namespace std;
@@ -21,33 +23,138 @@ int main()
     double LatOrigin  = 43.071959194444446;
     double LongOrigin = -70.711610833333339;
     bool flag;
-    //A_Star astar = A_Star(3);
+    clock_t start;
+    double lat, lon;
+    double t=0;
+    A_Star astar = A_Star(8);
 
-    Grid_Interp grid = Grid_Interp("/home/sji367/moos-ivp/moos-ivp-reed/", "/home/sji367/moos-ivp/moos-ivp-reed/src/ENCs/US5NH02M/US5NH02M.000", grid_size, buffer_size, LatOrigin, LongOrigin);
-    grid.Run(false);
+    bool build_layer = true;
 
-    printf("minX: %0.3f, minY: %0.3f, maxX: %0.3f, maxY: %0.3f\n", grid.getMinX(), grid.getMinY(), grid.getMaxX(), grid.getMaxY());
+    double lat1, lat2, lat3, lat4;
+    double lon1, lon2, lon3, lon4;
 
-    A_Star astar = A_Star(grid_size, grid.getMinX(), grid.getMinY(), 10);
+    Grid_Interp grid = Grid_Interp("/home/sji367/moos-ivp/moos-ivp-reed/", "/home/sji367/moos-ivp/moos-ivp-reed/src/ENCs/US5NH02M/US5NH02M.000", grid_size, buffer_size,3.564-0.829, LatOrigin, LongOrigin);
+    grid.Run(false);//(true, true);//
+
+    Geodesy geod = Geodesy(LatOrigin, LongOrigin);
+    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMinY(), lat, lon);
+    printf("lat: %0.8f, long: %0.8f\n",lat, lon);
+    //printf("minX: %0.3f, minY: %0.3f, maxX: %0.3f, maxY: %0.3f\n", grid.getMinX()+geod.getXOrigin(), grid.getMinY()+geod.getYOrigin(), grid.getMaxX()+geod.getXOrigin(), grid.getMaxY()+geod.getYOrigin());
+
+
+    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMinY(), lat1, lon1);
+    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMaxY(), lat2, lon2);
+    geod.LocalUTM2LatLong(grid.getMaxX(), grid.getMinY(), lat3, lon3);
+    geod.LocalUTM2LatLong(grid.getMaxX(), grid.getMaxY(), lat4, lon4);
+
+    printf("lat_north = %0.7f\nlat_south = %0.7f\nlon_east  = %0.7f\nlon_west  = %0.7f\n", (lat1+lat3)/2, (lat2+lat4)/2, (lon1+lon3)/2, (lon2+lon4)/2);
+    printf("\nbot lat: %0.6f, bot lon: %0.6f, top lat: %0.6f, bot lon: %0.6f\n", lat1, lon1, lat2, lon2);
+    printf("bot lat: %0.6f, top lon: %0.6f, top lat: %0.6f, top lon: %0.6f\n", lat3, lon3, lat4, lon4);
+
+
+    astar = A_Star(grid_size, grid.getMinX(), grid.getMinY(), 8);
 
     astar.setMap(grid.transposeMap());
+    start = clock();
 
+    //astar.set
+    //astar.setStartFinish_Grid(895,2479,896,2502);  // Up the channel
 
-    astar.setStartFinish_Grid(896,2507,920,2432);
-    astar.subsetMap(870,970, 2400, 2600);
+    astar.setStartFinish_Grid(895,2478,2700, 855); //Out to the isle of shoals
+    //astar.setStartFinish_Grid(896,2507,920,2432);
+    //astar.setStartFinish_Grid(894,2478,920,2432);
+    //astar.subsetMap(870,970, 2350, 2550);
+    //astar.setStartFinish_Grid(24,128, 50,0);
+
+    //astar.setStartFinish_Grid(894,2478,264,2661);
+    //astar.subsetMap(250,1000, 2450, 2675);
     astar.getNM();
+    astar.runA_Star(false);
+    t = (clock()-start)*0.001;
+
+    cout << "Time: " << t << " (ms)" << endl;
+
+
+    if (build_layer)
+    {
+        // Build the datasource and layer that will hold independant points
+        string Path = "line.shp";
+        OGRLayer *layer;
+        GDALAllRegister();
+        const char *pszDriverName = "ESRI Shapefile";
+        GDALDriver *poDriver;
+        poDriver = GetGDALDriverManager()->GetDriverByName(pszDriverName );
+        GDALDataset *ds = poDriver->Create(Path.c_str(), 0, 0, 0, GDT_Unknown, NULL );
+
+        OGRSpatialReference oSRS;
+        char *pszSRS_WKT = NULL;
+        oSRS = geod.getUTM();
+        oSRS.exportToWkt( &pszSRS_WKT );
+        ds->SetProjection( pszSRS_WKT );
+        CPLFree( pszSRS_WKT );
+
+        if( ds == NULL )
+        {
+            printf( "Creation of output file failed.\n" );
+            exit( 1 );
+        }
+        // Create the layers
+        layer = ds->CreateLayer( "line", NULL, wkbLineString25D, NULL );
+        if( layer == NULL )
+        {
+            printf( "Layer creation failed.\n" );
+            exit( 1 );
+        }
+        OGRFeature *new_feat;
+        OGRGeometry *geom;
+        OGRLineString *line = (OGRLineString *)OGRGeometryFactory::createGeometry(wkbLineString25D);
+        OGRFeatureDefn *poFDefn = layer->GetLayerDefn();
+        new_feat =  OGRFeature::CreateFeature(poFDefn);
+
+        vector<string> vect_WPTs;
+        char delimiter = ',';
+        vect_WPTs = split(astar.getRoute(), delimiter);
+
+        for (int i = 0; i<vect_WPTs.size(); i+=2)
+        {
+            line->addPoint(atof(vect_WPTs[i].c_str())+geod.getXOrigin(), atof(vect_WPTs[i+1].c_str())+geod.getYOrigin());
+        }
+
+        new_feat->SetGeometry(line);
+
+        // Build the new feature
+        if( layer->CreateFeature( new_feat ) != OGRERR_NONE )
+        {
+            printf( "Failed to create feature in shapefile.\n" );
+            exit( 1 );
+        }
+
+        GDALClose(ds);
+    }
+
+/*
+    astar.setStartFinish_Grid(50,0, 24,128);
     astar.runA_Star(true);
+
 
     astar.build_map("valsisland.csv");
     astar.setStartFinish_Grid(1,1,33,33);
     flag = astar.runA_Star(true);
+    astar.setStartFinish_Grid(33,33, 1,1);
+    flag = astar.runA_Star(true);
+
+    astar.setStartFinish_Grid(65,65, 1,1);
+    flag = astar.runA_Star(true);
     astar.setStartFinish_Grid(1,1,65,65);
+    flag = astar.runA_Star(true);
+
+    astar.setStartFinish_Grid(99,99, 1,1);
     flag = astar.runA_Star(true);
     astar.setStartFinish_Grid(1,1,99,99);
     flag = astar.runA_Star(true);
 
 
-
+*/
 
     return 0;
 

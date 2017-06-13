@@ -168,7 +168,7 @@ public:
 	string AStar_Search();
 
 	// This function runs A* and prints out the result
-	bool runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin);
+        bool runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin);
         bool runA_Star(bool yes_print, bool L84_WPT, string filename, double LatOrigin, double LongOrigin) {return runA_Star(yes_print,false,L84_WPT, filename, LatOrigin,LongOrigin); }// Boolean for std out and L84
         bool runA_Star(bool yes_print, bool MOOS_WPT, string filename) {return runA_Star(yes_print,MOOS_WPT,false,filename, 0,0); } // Boolean for std out and MOOS
         bool runA_Star(bool yes_print) {return runA_Star(yes_print,false,false, "", 0,0); } // Boolean for std out
@@ -266,9 +266,11 @@ public:
         void grid2xy(int gridX, int gridY, double &x, double &y) {x = (gridX+x_min)*grid_size+ xTop+grid_size/2.0; y = (gridY+y_min)*grid_size+ yTop+grid_size/2.0; }
 
 	void getNM() {cout << Map.size() << ", " << Map[0].size() << endl; }
+        string getRoute() {return Route; }
         
 protected:
 	bool valid_start, valid_finish;
+        string Route;
 	int xStart, yStart, xFinish, yFinish;
 	int n, m, num_directions;
 	double grid_size, xTop, yTop;

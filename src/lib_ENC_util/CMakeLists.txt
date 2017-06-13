@@ -5,20 +5,6 @@
 
 cmake_minimum_required(VERSION 2.8.11)
 
-# CGAL and its components
-find_package( CGAL QUIET COMPONENTS  )
-
-if ( NOT CGAL_FOUND )
-
-  message(STATUS "This project requires the CGAL library, and will not be compiled.")
-  return()  
-
-endif()
-
-# include helper file
-#include( ${CGAL_USE_FILE} )
-
-
 # Boost and its components
 find_package( Boost COMPONENTS system filesystem REQUIRED )
 
@@ -42,7 +28,5 @@ TARGET_LINK_LIBRARIES(ENC_util
    ${MOOS_LIBRARIES}
    ${Boost_SYSTEM_LIBRARY}
    ${Boost_FILESYSTEM_LIBRARY}
-   ${CGAL_LIBRARIES}
-   ${CGAL_3RD_PARTY_LIBRARIES}
 )
 

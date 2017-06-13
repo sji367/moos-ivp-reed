@@ -57,6 +57,7 @@ public:
     void store_vertices(OGRPolygon *UTM_Poly, double z);
     void raster2XYZ(vector<int>&RasterData, int nXSize);
     void getRasterData(string filename, int &nXSize, int &nYSize, vector<int>&RasterData);
+    void writeRasterData(string filename, int nXSize, int nYSize, vector<float> &RasterData);
 
     void layer2XYZ(OGRLayer* layer, string layerName);
     void multipointFeat(OGRFeature* feat, OGRGeometry* geom);
@@ -65,7 +66,7 @@ public:
     void lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName);
 
     // Fills out the 2D interpolated map from the 1D interpolated data and the Depth areas
-    void updateMap(vector<int> &poly_data, vector<int> &depth_data, vector<int> &outline_data, vector<int> &point_data, int x_res, int y_res);
+    void updateMap(vector<int> &poly_data, vector<int> &depth_data, vector<int> &outline_data, vector<int> &point_data, vector<float> &new_rast_data, int x_res, int y_res);
 
     // Returns the interpolated map
     vector<vector<int> > getGriddedMap() {return Map; }
