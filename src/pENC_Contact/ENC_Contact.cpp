@@ -32,6 +32,8 @@ ENC_Contact::ENC_Contact()
   m_search_dist = 50;
   m_max_avoid_dist = 250;
   m_ENC = "US5NH02M";
+  m_speed = 0;
+  geod = Geodesy();
 }
 
 //---------------------------------------------------------
@@ -45,15 +47,17 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
     CMOOSMsg &msg = *p;
     name   = msg.GetName();
     if (name == "NAV_X")
-      vect_x.push_back(msg.GetDouble());
+        vect_x.push_back(msg.GetDouble());
     else if (name == "NAV_Y")
-      vect_y.push_back(msg.GetDouble());
+        vect_y.push_back(msg.GetDouble());
     else if(name == "NAV_HEADING")
-      vect_head.push_back(msg.GetDouble());
+        vect_head.push_back(msg.GetDouble());
     else if (name == "Current_Tide")
-      vect_tide.push_back(atof(msg.GetString().c_str()));
+        vect_tide.push_back(atof(msg.GetString().c_str()));
     else if (name == "MHW_Offset")
-      m_MHW_Offset = atof(msg.GetString().c_str());
+        m_MHW_Offset = atof(msg.GetString().c_str());
+    /*else if (name == "NAV_SPEED")
+        m_speed = msg.GetDouble();*/
    }
 	
    return(true);
@@ -79,35 +83,35 @@ bool ENC_Contact::OnConnectToServer()
 
 bool ENC_Contact::Iterate()
 {
-  if (vect_head.size() > 0)
+    if (vect_head.size() > 0)
     {
-      m_ASV_head = vect_head.back();
-      vect_head.clear();
+        m_ASV_head = vect_head.back();
+        vect_head.clear();
     }
-    
-  if ((vect_x.size() > 0) && (vect_y.size() > 0))
-    {
-      // Get new values for the new X, Y and heading of the ASV
-      m_ASV_x = vect_x.back();
-      m_ASV_y = vect_y.back();
-      
-      vect_x.clear();
-      vect_y.clear();
 
-      // need to add a global point, polygon and line geometry
-      build_search_poly();
-      filter_feats();
-      publish_points();
-      publish_poly();
-    }
-  if (vect_tide.size() > 0 )
+    if ((vect_x.size() > 0) && (vect_y.size() > 0))
     {
-      m_tide = vect_tide.back();
-      vect_tide.clear();
+        // Get new values for the new X, Y and heading of the ASV
+        m_ASV_x = vect_x.back();
+        m_ASV_y = vect_y.back();
+
+        vect_x.clear();
+        vect_y.clear();
+
+        // need to add a global point, polygon and line geometry
+        build_search_poly();
+        filter_feats();
+        publish_points();
+        publish_poly();
     }
-  
-  m_iterations++;
-  return(true);
+    if (vect_tide.size() > 0 )
+    {
+        m_tide = vect_tide.back();
+        vect_tide.clear();
+    }
+
+    m_iterations++;
+    return(true);
 }
 
 //---------------------------------------------------------
@@ -176,6 +180,8 @@ bool ENC_Contact::OnStartUp()
 
     return false;
   }
+
+  geod.Initialise(dfLatOrigin, dfLongOrigin);
   
   m_timewarp = GetMOOSTimeWarp();
   RegisterVariables();
@@ -195,6 +201,7 @@ void ENC_Contact::RegisterVariables()
   Register("NAV_X", 0);
   Register("NAV_Y", 0);
   Register("NAV_HEADING", 0);
+  //Register("NAV_SPEED", 0);
   Register("Current_Tide",0);
   Register("MHW_Offset",0);
   //Register("ENCs",0);
@@ -680,40 +687,41 @@ void ENC_Contact::BuildLayers()
         printf( "Creating visual field failed.\n" );
         exit( 1 );
     }
-    //for (int i=0; i<all_ENCs.size(); i++)
-    //{
-    int i = 0;
-	// Get the ENC
-	ENC_filename= "../../src/ENCs/"+all_ENCs[i]+"/"+all_ENCs[i]+".000";
-	ds_ENC = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
-	if( ds_ENC == NULL )
-	  {
-	    printf( "Open failed.\n" );
-	    exit( 1 );
-	  }
-	else
-	  cout << "Opened "<< m_ENC << endl; 
-	// Points only
-	LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG");
 
-	ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, LineLayer, "UWTROC");
-	ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, LineLayer, "LIGHTS");
-	ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, LineLayer, "BOYSPP");
-	ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, LineLayer, "BOYISD");
-	ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PointLayer, PolyLayer, LineLayer, "BOYSAW");
-	ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, LineLayer, "BOYLAT");
-	ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, LineLayer, "BCNSPP");
-	ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, LineLayer, "BCNLAT");
-    
-	// Other Types
-	ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, LineLayer, "LNDARE");
-	ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, LineLayer, "PONTON");
-	ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, LineLayer, "DEPCNT");
-	ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, LineLayer, "DYKCON");
-	ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, LineLayer, "LNDMRK");
-	ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, LineLayer, "SILTNK");
-	ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, LineLayer, "WRECKS");
-	//}
+    int i = 0;
+    // Get the ENC
+    ENC_filename= "../../src/ENCs/"+all_ENCs[i]+"/"+all_ENCs[i]+".000";
+    ds_ENC = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+    if( ds_ENC == NULL )
+      {
+        printf( "Open failed.\n" );
+        exit( 1 );
+      }
+    else
+      cout << "Opened "<< m_ENC << endl;
+
+    // Points only
+    //LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG");
+    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, LineLayer, "UWTROC");
+    ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, LineLayer, "LIGHTS");
+    ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, LineLayer, "BOYSPP");
+    ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, LineLayer, "BOYISD");
+    ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PointLayer, PolyLayer, LineLayer, "BOYSAW");
+    ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, LineLayer, "BOYLAT");
+    ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, LineLayer, "BCNSPP");
+    ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, LineLayer, "BCNLAT");
+
+    // Other Types
+    ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, LineLayer, "LNDARE");
+    ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, LineLayer, "PONTON");
+    ENC_Converter(ds_ENC->GetLayerByName("FLODOC"), PointLayer, PolyLayer, LineLayer, "FLODOC");
+    //ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, LineLayer, "DEPCNT");
+    ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, LineLayer, "DYKCON");
+    ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, LineLayer, "LNDMRK");
+    ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, LineLayer, "SILTNK");
+    ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, LineLayer, "WRECKS");
+    ENC_Converter(ds_ENC->GetLayerByName("OBSTRN"), PointLayer, PolyLayer, LineLayer, "OBSTRN");
+
     // close the data sources - need this to save the new files
     GDALClose( ds_ENC );
     GDALClose( ds_pnt );
@@ -727,20 +735,20 @@ void ENC_Contact::BuildLayers()
       
     // Check if it worked
     if( DS_pnt == NULL )
-      {
+    {
 	printf( "Open failed.\n" );
 	exit( 1 );
-      }
+    }
     if( DS_poly == NULL )
-      {
+    {
 	printf( "Open failed.\n" );
 	exit( 1 );
-      }
+    }
     if( DS_line == NULL )
-      {
+    {
 	printf( "Open failed.\n" );
 	exit( 1 );
-      }
+    }
 
     // Open the layers
     Point_Layer = DS_pnt -> GetLayerByName( "Point" );
@@ -748,17 +756,20 @@ void ENC_Contact::BuildLayers()
     Line_Layer = DS_line -> GetLayerByName( "Line" );
 
     if (Point_Layer == NULL)
-      {
-	cout << "Opening point layer failed." << endl;
-      }
+    {
+        cout << "Opening point layer failed." << endl;
+        exit( 1 );
+    }
     if (Poly_Layer == NULL)
-      {
-	cout << "Opening poly layer failed." << endl;
-      }
+    {
+        cout << "Opening poly layer failed." << endl;
+        exit( 1 );
+    }
     if (Line_Layer == NULL)
-      {
-	cout << "Opening line layer failed." << endl;
-      }
+    {
+        cout << "Opening line layer failed." << endl;
+        exit( 1 );
+    }
 }
 
 //---------------------------------------------------------
@@ -842,9 +853,9 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
   OGRFeature *poFeature, *new_feat;
   OGRFeatureDefn *poFDefn, *poFDefn_ENC;
   OGRFieldDefn *poFieldDefn;
-  OGRGeometry *geom;
+  OGRGeometry *geom, *UTM_geom, *buff_geom;
   OGRPoint *poPoint,*vertex, pt;
-  OGRPolygon *poPoly, *UTM_poly;
+  OGRPolygon *poPoly, *UTM_poly, *buff_poly;
   OGRLineString *poLine, *UTM_line;
   OGRLinearRing *ring, *UTM_ring;
 
@@ -944,26 +955,31 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	      new_feat->SetField("Type", LayerName.c_str());
 	      new_feat->SetField("Cat", cat.c_str());
 	      new_feat->SetField("Visual", vis);
-	      
-	      poPoly = ( OGRPolygon * )geom;
+
+              geom = geom->Buffer(0.00005);
+
+              poPoly = ( OGRPolygon * )geom;
 	      ring = poPoly->getExteriorRing();
 	      // Build the new UTM ring and polygon
 	      UTM_ring = (OGRLinearRing *) OGRGeometryFactory::createGeometry(wkbLinearRing);
 	      UTM_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
 	      for (int j=0; j<ring->getNumPoints(); j++)
 		{
-		  lon = ring->getX(j);
-		  lat = ring->getY(j);
-	      
-		  m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
+                  //x = ring->getX(j)-geod.getXOrigin();
+                  //y = ring->getY(j)-geod.getYOrigin();
+                  lon = ring->getX(j);
+                  lat = ring->getY(j);
+
+                  m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
 		  UTM_ring->addPoint(x,y,0);
 		}
 	      // Build the UTM polygon from the ring
 	      UTM_ring->closeRings();
 	      UTM_poly->addRing(UTM_ring);
-	      UTM_poly->closeRings();
-	      
-	      new_feat->SetGeometry(UTM_poly);
+              UTM_poly->closeRings();
+              UTM_poly->segmentize(5);
+
+              new_feat->SetGeometry(UTM_poly);
 	      
 	      // Build the new feature
 	      if( PolyLayer->CreateFeature( new_feat ) != OGRERR_NONE )
@@ -996,6 +1012,8 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 		  
 		  UTM_line->addPoint(x,y,0);
 		}
+
+              UTM_line->segmentize(5);
 	      new_feat->SetGeometry(UTM_line);
 	      
 	      // Build the new feature
@@ -1011,10 +1029,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	}
     }
   else
-    {
       cout << "Layer " << LayerName << " is not in the ENC." << endl;
-      //exit(1);
-    }
 }
 
 void ENC_Contact::build_search_poly()
@@ -1099,7 +1114,6 @@ void ENC_Contact::publish_points()
   OGRFeature *poFeature;
   OGRGeometry *geom;
   OGRPoint *poPoint;
-  //OGRGeometry filter = search_area_poly->GetGeometryRef();
   
   int num_obs=0;
   string obs_pos = "";
@@ -1123,12 +1137,7 @@ void ENC_Contact::publish_points()
     {
       geom = poFeature->GetGeometryRef();
       poPoint = ( OGRPoint * )geom;
-      /*	
-      // Get the lat and long position of the point and convert it to UTM 
-      lon = poPoint->getX();
-      lat = poPoint->getY();
-      m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
-      */
+
       x = poPoint->getX();
       y = poPoint->getY();
       pos = "x="+to_string(x)+",y="+to_string(y);
@@ -1152,8 +1161,7 @@ void ENC_Contact::publish_points()
 	  num_obs ++;
 
 	  obs_pos += pos+","+to_string(t_lvl)+","+obs_type;
-	}
-      //}
+        }
     }
   // Output to the MOOSDB a list of obstacles
   //  ASV_X,ASV_Y,ASV_Head # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
@@ -1175,75 +1183,76 @@ void ENC_Contact::publish_points()
 
 void ENC_Contact::publish_poly()
 {
-  /*
+    /*
     This function determines which obstacles with polygon geometry from
     the ENC are within the search area. 
-  */
-  OGRFeature *poFeature;
-  OGRGeometry *geom;
-  OGRPoint *poPoint;
-  OGRPolygon *poPoly;
-  
-  int num_obs=0;
-  string obs_pos = "";
-  string obs_type = "";
-  string vertices = "";
-  string poly_info = "";
-  string Poly_Obs = "";
-  string pt_1,pt_2, pt_3;
-  
-  double lat = 0;
-  double lon = 0;
-  double x = 0;
-  double y = 0;
+    */
+    OGRFeature *poFeature;
+    OGRGeometry *geom;
+    OGRPoint *poPoint;
+    OGRPolygon *poPoly;
 
-  double WL = 0;
-  double depth = 0;
-  double t_lvl = 0;
+    int num_obs=0;
+    string obs_pos = "";
+    string obs_type = "";
+    string vertices = "";
+    string poly_info = "";
+    string Poly_Obs = "";
+    string pt_1,pt_2, pt_3;
 
-  Poly_Layer->ResetReading();
-  while( (poFeature = Poly_Layer->GetNextFeature()) != NULL )
+    double lat = 0;
+    double lon = 0;
+    double x = 0;
+    double y = 0;
+
+    double WL = 0;
+    double depth = 0;
+    double t_lvl = 0;
+
+    Poly_Layer->ResetReading();
+    while( (poFeature = Poly_Layer->GetNextFeature()) != NULL )
     {
-      geom = poFeature->GetGeometryRef();
-      // Find the intersection of the polygon and the search area
-      poPoly = (OGRPolygon*) geom;
-      vertices = find_crit_pts(poPoly, num_obs);
-      
-      // Calculate the current threat level
-      WL = poFeature->GetFieldAsDouble(1);
-      depth = poFeature->GetFieldAsDouble(2);
-      obs_type =poFeature->GetFieldAsString(3);
-      t_lvl = calc_t_lvl(depth,WL,obs_type);
-      
-      vertices = to_string(t_lvl)+","+obs_type+"@"+vertices;
-	  
-      if (num_obs >0)
-	poly_info += "!";
-      poly_info += vertices;
-      
-      // Incriment the counter
-      num_obs++;
+        geom = poFeature->GetGeometryRef();
+        // Find the intersection of the polygon and the search area
+        poPoly = (OGRPolygon*) geom;
+        vertices = find_crit_pts(poPoly, num_obs);
+
+        // Calculate the current threat level
+        WL = poFeature->GetFieldAsDouble(1);
+        depth = poFeature->GetFieldAsDouble(2);
+        obs_type =poFeature->GetFieldAsString(3);
+        t_lvl = calc_t_lvl(depth,WL,obs_type);
+
+        vertices = to_string(t_lvl)+","+obs_type+"@"+vertices;
+
+        if (num_obs >0)
+            poly_info += "!";
+
+        poly_info += vertices;
+
+        // Incriment the counter
+        num_obs++;
     }
   
-  Poly_Obs = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs);
-  if (num_obs>0)
+    Poly_Obs = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs);
+    if (num_obs>0)
     {
-      Poly_Obs = Poly_Obs+":"+poly_info;
+        Poly_Obs = Poly_Obs+":"+poly_info;
     }
   
-  Notify("Poly_Obs", Poly_Obs);
+    Notify("Poly_Obs", Poly_Obs);
+
+    if (m_max_poly < num_obs)
+        m_max_poly = num_obs;
   
-  if (m_max_poly < num_obs)
-    m_max_poly = num_obs;
-  
-  for (int ii = num_obs; ii<m_max_poly; ii++)
+    for (int ii = num_obs; ii<m_max_poly; ii++)
     {
-      pt_1 = "x=10000,y=10000,vertex_color=white,active=false,label=pt1_"+to_string(ii);
-      pt_2 = "x=10000,y=10000,vertex_color=white,active=false,label=pt2_"+to_string(ii);
-      pt_3 = "x=10000,y=10000,vertex_color=mediumblue,active=false,label=pt3_"+to_string(ii);
-      Notify("VIEW_POINT", pt_1);
-      Notify("VIEW_POINT", pt_2);
-      Notify("VIEW_POINT", pt_3);
+        pt_1 = "x=10000,y=10000,vertex_color=white,active=false,label=pt1_"+to_string(ii);
+        pt_2 = "x=10000,y=10000,vertex_color=white,active=false,label=pt2_"+to_string(ii);
+        pt_3 = "x=10000,y=10000,vertex_color=mediumblue,active=false,label=pt3_"+to_string(ii);
+        Notify("VIEW_POINT", pt_1);
+        Notify("VIEW_POINT", pt_2);
+        Notify("VIEW_POINT", pt_3);
     }
 }
 
@@ -1264,20 +1273,13 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
   string ref_frame = "";
   
   vector<double> vert_x, vert_y;
-  
   if (poRing != NULL)
     {
       vector<vector<double>> angle2poly;
       vector<double>  dist2poly;
       Envelope poly_envs = Envelope();
       for (i=0; i<pnt_cnt; i++)
-	{
-	  /*
-	  // GetX = Longitude, GetY = Latitude 
-	  lon = poRing->getX(i);
-	  lat = poRing->getY(i);
-	  m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
-	  */
+        {
 	  x = poRing->getX(i);
 	  y = poRing->getY(i);
 	  
@@ -1293,7 +1295,7 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
 	    first_ang = ang;
 
 	  prev_ang = ang;
-	}
+        }
       // The angle of the first vertex should be compared to the angle
       //  of the last vertex.
       poly_envs.store_angle(first_ang,prev_ang,(double)i,angle2poly);
@@ -1312,8 +1314,8 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
 	ref_frame = "1";
       
       // Get their index
-      min_ang_index = poly_envs.GetMinAngIndex();
-      max_ang_index = poly_envs.GetMaxAngIndex();
+      min_ang_index = poly_envs.GetMinAngIndex()-1;
+      max_ang_index = poly_envs.GetMaxAngIndex()-1;
       
       // Determine the minimum distance
       min_dist = *min_element(dist2poly.begin(), dist2poly.end());
@@ -1323,20 +1325,19 @@ string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
 	{
 	  if (min_dist ==dist2poly.at(i))
 	    min_dist_index = i;
-	}
+        }
       
       // Make string representations for each x,y points for ease of use
       string x_ang_min, y_ang_min, x_dist_min, y_dist_min, x_ang_max, y_ang_max;
       
       x_ang_min = to_string(vert_x.at(min_ang_index));
       y_ang_min = to_string(vert_y.at(min_ang_index));
-      
+
       x_dist_min = to_string(vert_x.at(min_dist_index));
       y_dist_min = to_string(vert_y.at(min_dist_index));
-      
+
       x_ang_max = to_string(vert_x.at(max_ang_index));
       y_ang_max = to_string(vert_y.at(max_ang_index));
-
      
       // Post hints to pMarineViewer about the critical points
       pt_1 = "x="+x_ang_min+",y="+y_ang_min+",vertex_color=white,vertex_size=7,label=pt1_"+to_string(num_obs);

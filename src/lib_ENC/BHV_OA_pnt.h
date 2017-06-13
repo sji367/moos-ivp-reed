@@ -19,16 +19,16 @@ using namespace std;
 class BHV_OA_pnt : public IvPBehavior {
 public:
   BHV_OA_pnt(IvPDomain);
-  ~BHV_OA_pnt() {};
+  ~BHV_OA_pnt() {}
 
   bool         setParam(std::string, std::string);
-  void         onSetParamComplete() {};
-  void         onCompleteState() {};
-  void         onIdleState() {};
-  void         onHelmStart() {};
-  void         postConfigStatus() {};
-  void         onRunToIdleState() {};
-  void         onIdleToRunState() {};
+  void         onSetParamComplete() {}
+  void         onCompleteState() {}
+  void         onIdleState() {}
+  void         onHelmStart() {}
+  void         postConfigStatus() {}
+  void         onRunToIdleState() {}
+  void         onIdleToRunState() {}
   IvPFunction* onRunState();
 
 
@@ -36,10 +36,10 @@ protected: // Local Utility functions
 	IvPFunction* buildZAIC_Vector();
 	void getPoint(string, Point&, vector<double>&);
 	void calcBuffer(double& buffer_width, double cost);
-	void calcGaussWindow(double (&OA_util)[360], Point&);
+        void calcGaussWindow(vector<double> &OA_util, Point&);
 	double calc_Gaussian(double x, double mu, double sigma, double amplitude);
-	IvPFunction* setIVP_domain_range(double OA_util[360]);
-	void Update_Lead_Param(vector<double> vect_max_cost);
+        IvPFunction* setIVP_domain_range(vector<double> &OA_util, double max_cost);
+        void Update_Lead_Param(vector<double> &vect_max_cost);
 
 protected: // State variables
   string m_obstacles, m_obs_info, m_WPT;

@@ -19,16 +19,16 @@ using namespace std;
 class BHV_OA_poly : public IvPBehavior {
 public:
   BHV_OA_poly(IvPDomain);
-  ~BHV_OA_poly() {};
+  ~BHV_OA_poly() {}
 
   bool         setParam(std::string, std::string);
-  void         onSetParamComplete() {};
-  void         onCompleteState() {};
-  void         onIdleState() {};
-  void         onHelmStart() {};
-  void         postConfigStatus() {};
-  void         onRunToIdleState() {};
-  void         onIdleToRunState() {};
+  void         onSetParamComplete() {}
+  void         onCompleteState() {}
+  void         onIdleState() {}
+  void         onHelmStart() {}
+  void         postConfigStatus() {}
+  void         onRunToIdleState() {}
+  void         onIdleToRunState() {}
   IvPFunction* onRunState();
 
 
@@ -36,9 +36,15 @@ protected: // Local Utility functions
 	IvPFunction* buildZAIC_Vector();
 	void getVertices(int, string, Poly&, Poly&, Poly&, vector<double>&);
 	double calcBuffer(double cost);
-	void calcVShape(double buffer_width, double (&OA_util)[360], Poly, Poly, Poly);
-	IvPFunction* setIVP_domain_range(double OA_util[360]);
+        void calcVShape(double buffer_width, vector<double> &OA_util, Poly, Poly, Poly);
+        IvPFunction* setIVP_domain_range(vector<double> &OA_util);
 	void Update_Lead_Param(vector<double> vect_max_cost);
+
+        void interpolate(vector<double> &angles, vector<double> &cost, vector<double> &dist, vector<double> &OA_util);
+        void setOA_util(int ang, double util, vector<double> &OA_util);
+        void calc_m_b(int x1, double y1, int x2, double y2, double &m, double &b);
+        double calcCost(double t_lvl, double dist);
+        double calcDist2ASV(double x, double y) {return sqrt(pow(m_ASV_x-x, 2)+pow(m_ASV_y-y, 2)); }
 
 protected: // State variables
   string m_obstacles, m_obs_info, m_WPT;

@@ -56,6 +56,5 @@ void Point::calcCost(double v_length, double speed, double maxutil)
     cost=0;
   else
     cost = pow((t_lvl/dist*v_length/speed*4.5),2)*maxutil;
-  cout << cost << endl;
 }
 

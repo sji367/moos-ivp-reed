@@ -154,8 +154,7 @@ IvPFunction *BHV_OA_pnt::buildZAIC_Vector()
   vector<string> info;
 
   // To start with, fill an array with maxiumum utility
-  double OA_util[360];
-  fill(OA_util,OA_util+360, m_maxutil);
+  vector<double> OA_util(360,m_maxutil);
 
   // Clear all vectors
   obstacle.clear();
@@ -168,20 +167,16 @@ IvPFunction *BHV_OA_pnt::buildZAIC_Vector()
   for (int i=0; i<info.size(); i++)
     {
       Point object = Point();
-      cout << "!abc construct "<<info.size() << endl;
       obstacle.push_back(object);
       
       getPoint(info[i], obstacle[i], max_cost);
-      cout << "!abc getPoint " << obstacle[i].getCost()<< endl;
       if (obstacle[i].getCost()>0){
-	calcGaussWindow(OA_util, obstacle[i]);
-	cout << "!abc calc window" << endl;
+        calcGaussWindow(OA_util, obstacle[i]);
       }
     }
 
-  Update_Lead_Param(max_cost);
-  cout << "!abc return" << endl;
-  return setIVP_domain_range(OA_util);
+  //Update_Lead_Param(max_cost);
+  return setIVP_domain_range(OA_util, *max_element(max_cost.begin(), max_cost.end()));
 }
 
 void BHV_OA_pnt::getPoint(string info, Point& Obstacle, vector<double>& max_cost)
@@ -211,7 +206,7 @@ void BHV_OA_pnt::getPoint(string info, Point& Obstacle, vector<double>& max_cost
   max_cost.push_back(Obstacle.getCost());
 }
 
-void BHV_OA_pnt::calcGaussWindow(double (&OA_util)[360], Point & Obstacle)
+void BHV_OA_pnt::calcGaussWindow(vector<double> & OA_util, Point & Obstacle)
 {
   double amplitude, width, sigma;
   int cur_ang= 0;
@@ -220,13 +215,11 @@ void BHV_OA_pnt::calcGaussWindow(double (&OA_util)[360], Point & Obstacle)
   if (Obstacle.getCost() > m_maxutil)
     {
       amplitude = m_maxutil;
-      //width = (int)floor(20*Obstacle.getCost()/m_maxutil);
       sigma = 8+Obstacle.getCost()/m_maxutil;
     }
   else
     {
       amplitude = Obstacle.getCost();
-      //width = 20;
       sigma = 8;
     }
   width = 3*sigma;
@@ -252,7 +245,7 @@ void BHV_OA_pnt::calcGaussWindow(double (&OA_util)[360], Point & Obstacle)
     }
 }
 
-IvPFunction* BHV_OA_pnt::setIVP_domain_range(double OA_util[360])
+IvPFunction* BHV_OA_pnt::setIVP_domain_range(vector<double> &OA_util, double max_cost)
 {
   IvPFunction *ivp_function;
 
@@ -262,14 +255,19 @@ IvPFunction* BHV_OA_pnt::setIVP_domain_range(double OA_util[360])
   // Used for the ZAIC_Vector function
   vector<double> domain_vals, range_vals;
 
+  int range_min;
+
   // Set the values for the angle (domain) and utility (range)
-  for (int iii = 0; iii<360; iii++)
+  for (int iii = 0; iii<OA_util.size(); iii++)
     {
       domain_vals.push_back(iii);
       range_vals.push_back((int)floor(OA_util[iii]));
     }
   // Make sure to include the last point
   //domain_vals.push_back(iii+1); range_vals.push_back((int)floor(OA_util[iii+1]));
+
+  // Set the priority weight as the IvP function scales the range values to [0,priority_weight]
+  range_min = *min_element(range_vals.begin(), range_vals.end());
 
   // Set the ZAIC domain and range
   head_zaic_v.setDomainVals(domain_vals);
@@ -291,10 +289,10 @@ IvPFunction* BHV_OA_pnt::setIVP_domain_range(double OA_util[360])
 // The lead parameter sets the distance from the perpendicular intersection
 //  of the ASV's current location and the trackline that the waypoint
 //  behavior steers toward.
-void BHV_OA_pnt::Update_Lead_Param(vector<double> vect_max_cost)
+void BHV_OA_pnt::Update_Lead_Param(vector<double> &vect_max_cost)
 {
   double lead;
-  double max_cost = *max_element(vect_max_cost.begin(), vect_max_cost.end());;
+  double max_cost = *max_element(vect_max_cost.begin(), vect_max_cost.end());
   // Set the lead waypoint parameter to a high number (150) if cost > 75
   if (max_cost > 75)
     lead=150;

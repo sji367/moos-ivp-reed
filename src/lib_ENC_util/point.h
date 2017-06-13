@@ -27,16 +27,16 @@ public:
 	Point(double X, double Y);
 
 	// Destructor
-	~Point() {};
+        ~Point() {}
 
 	// Sets the X, Y position of the vertex
-	void setXY(double X, double Y){x=X;y=Y;};
+        void setXY(double X, double Y){x=X;y=Y;}
 
 	// Sets the t_lvl and type for the vertex
 	void setStatics(int t_lvl, string Obs_Type);
 
 	// Sets the angle of the vertex
-	void setAngle(double Angle){ang=Angle;};
+        void setAngle(double Angle){ang=Angle;}
 
 	// Sets the distance of the vertex
 	void calcDist(double ASV_x, double ASV_y);
@@ -49,25 +49,25 @@ public:
 		double speed, double maxutil) {calcDist(ASV_x, ASV_y); calcCost(v_length, speed, maxutil);}
 
 	// Outputs the distance from the vertex of the obstacle to the ASV
-	double getDist() {return dist;};
+        double getDist() {return dist;}
 
 	// Outputs the cost of the vertex of the obstacle
-	double getCost() {return cost;};
+        double getCost() {return cost;}
 
 	// Outputs the angle of the vertex of the obstacle
-	double getAngle() {return ang;};
+        double getAngle() {return ang;}
 
 	// Outputs the X position of the vertex of the obstacle
-	double getX() {return x;};
+        double getX() {return x;}
 
 	// Outputs the Y position of the vertex of the obstacle
-	double getY() {return y;};
+        double getY() {return y;}
 
 	// Outputs the threat level of the obstacle
-	double getTLvL() {return t_lvl;};
+        double getTLvL() {return t_lvl;}
 
 	// Outputs the obstacle type of the obstacle
-	string getObsType() {return obs_type;};
+        string getObsType() {return obs_type;}
 
 
 protected:
