@@ -3,14 +3,13 @@ sudo apt-get update
 ## MOOS-IvP
 cd ~
 svn co https://oceanai.mit.edu/svn/moos-ivp-aro/trunk/ moos-ivp
-cd moos-ivp
+cd ~/moos-ivp
 svn update
 
 sudo apt-get install  g++  cmake  xterm
 sudo apt-get install  libfltk1.3-dev  freeglut3-dev  libpng12-dev  libjpeg-dev
 sudo apt-get install  libxft-dev  libxinerama-dev   libtiff5-dev
 
-cd ~/moos-ivp
 ./build-moos.sh
 ./build-ivp.sh
 
@@ -31,12 +30,22 @@ mkdir build
 cd build
 cmake ../src
 make
+mv lib/pymoos.so ../../moos-ivp/moos-ivp-reed/src/Python/
+
+# GEOS
+wget http://download.osgeo.org/geos/geos-3.6.1.tar.bz2
+tar xjf geos*bz2
+cd geos*
+./configure --enable-python
+make -j 10
+sudo make install
 
 ## GDAL
 cd ~
+sudo apt-get install libproj-dev libgeos-dev
 svn checkout https://svn.osgeo.org/gdal/trunk/gdal gdal
 cd gdal
-./configure --with-python --prefix=/usr/local/gdal
+./configure --with-python -with-geos=yes --prefix=/usr/local/gdal
 make
 sudo make install
 
@@ -58,3 +67,12 @@ echo 'export PATH=$PATH:~/moos-ivp/moos-ivp-reed/bin' >> ~/.bashrc
 echo 'export IVP_BEHAVIOR_DIRS=~/moos-ivp/moos-ivp-reed/lib' >> ~/.bashrc
 
 source ~/.bashrc
+
+# Adding python libraries
+sudo apt install python-pip
+pip install --upgrade pip
+sudo pip install pyproj
+sudo pip install pytides
+
+
+
