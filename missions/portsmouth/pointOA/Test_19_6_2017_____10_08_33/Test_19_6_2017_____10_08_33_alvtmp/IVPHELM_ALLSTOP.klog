@@ -1,0 +1,4 @@
+1.815           IVPHELM_ALLSTOP      pHelmIvP        ManualOverride 
+7.331           IVPHELM_ALLSTOP      pHelmIvP        clear 
+274.537         IVPHELM_ALLSTOP      pHelmIvP        MissingDecVars:speed 
+275.036         IVPHELM_ALLSTOP      pHelmIvP        clear 

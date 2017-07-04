@@ -1,0 +1,115 @@
+//--------    FILE: alpha.bhv   -------------
+
+initialize   DEPLOY = false
+initialize   RETURN = false
+
+//----------------------------------------------
+Behavior = BHV_Waypoint
+{ 
+  name      = waypt_survey
+  pwt       = 100
+  condition = RETURN = false
+  condition = DEPLOY = true
+  endflag   = RETURN = true
+
+  idleflag  = WPTING = idle
+  runflag   = WPTING = running
+  endflag   = WPTING = end
+  inactiveflag = WPTING = inactive
+
+
+	// Need this to have information on the next waypoint. It posts everytime the ASV hits a waypoint.
+	//		Therefore it does not have any information on the first waypoint (index 0). 
+	//activeflag = Next_WPT = first_point
+	//wptflag = Next_WPT = $[NX],$[NY]
+
+	//lead = 0
+	//lead_to_start = true
+  UPDATES   = WPT_UPDATE
+  perpetual = true
+
+               lead = 8
+        lead_damper = 1
+              speed = 6   // meters per second
+       //capture_line = true
+     capture_radius = 5.0
+        slip_radius = 15.0
+ 
+             repeat = forever
+
+	// Transit from UNH Pier
+	//points = 125,-265//100,-1000
+
+
+	// Many Point Obstacles
+	//points = format=lawnmower, x=100, y=-1160, height=60, width=200, lane_width=20, edge_size=10
+	
+	//points = format=lawnmower, x=300, y=-570, height=80, width=240, lane_width=20, edge_size=10
+	
+	// Through an island
+	//points = format=lawnmower, x=1006, y=-981, height=60, width=200, lane_width=20, edge_size=10
+	//points = 1050,-974:1200,-974
+
+	// Landmarks
+	//points = 6634,-10344:6850,-10550 //7615,-8450:7647,-8853:7088,-8904
+
+	// Many Polygon Obstacle
+	//points = format=lawnmower, x=-100, y=-1191, height=60, width=200, lane_width=20, edge_size=10
+	//order = reverse
+	
+	// White Island
+	//points = format=lawnmower, x=1938, y=-1372, height=60, width=200, lane_width=20, edge_size=10
+	//currix =2
+
+	// WPT Skip
+	//points = format=lawnmower, x=1540, y=-1419, height=100, width=392, lane_width=20, edge_size=10 
+	
+	//points = 1225,-575:1325,-575//1350,-1100:1450,-1100
+
+	//points = 1565,-838:1565,-885
+	//points = 17.5,-42.5:32.5,-27.5:37.5,-17.5:47.5,-7.5:52.5,2.5:57.5,7.5:62.5,17.5:62.5,37.5:57.5,42.5:52.5,52.5:32.5,72.5:17.5,77.5:-7.5,82.5:-17.5,82.5
+	points = -100,200:100,200
+    visual_hints = nextpt_color=white
+    visual_hints = nextpt_vertex_size=1
+    visual_hints = nextpt_lcolor=gray70
+    visual_hints = vertex_color=white, edge_color=white
+    visual_hints = vertex_size=1, edge_size=2
+	
+}
+
+//----------------------------------------------
+Behavior=BHV_Waypoint
+{
+  name       = waypt_return
+  pwt        = 100
+  condition  = RETURN = true
+  condition  = DEPLOY = true
+  perpetual  = true
+  endflag    = RETURN = false
+  endflag    = DEPLOY = false
+  endflag    = MISSION = complete
+	updates = RETURN_UPDATES
+
+           speed = 6.0
+  capture_radius = 2.0
+     slip_radius = 8.0
+          points = -100,200//1305, -517//59,-1165//150,-800
+repeat = 10
+}
+
+//----------------------------------------------
+Behavior=BHV_OA_pnt
+{
+  name       = pnt_OA
+  updates = POINT_UPDATE
+  pwt        = 100
+}
+
+//----------------------------------------------
+Behavior=BHV_OA_poly
+{
+  name       = poly_OA
+  updates = POLY_UPDATE
+  pwt        = 100
+}
+

@@ -1,0 +1,5 @@
+158.729         MVIEWER_RCLICK       pMarineViewer   x=0.0,y=200.0,lat=43.07375938,lon=-70.71166095,vname=$(VNAME),counter=0 
+368.189         MVIEWER_RCLICK       pMarineViewer   x=23.0,y=148.0,lat=43.07329556,lon=-70.71136553,vname=$(VNAME),counter=1 
+588.467         MVIEWER_RCLICK       pMarineViewer   x=38.0,y=180.0,lat=43.07358634,lon=-70.71118938,vname=$(VNAME),counter=2 
+839.631         MVIEWER_RCLICK       pMarineViewer   x=-201.0,y=190.0,lat=43.07363243,lon=-70.71412629,vname=$(VNAME),counter=3 
+1042.129        MVIEWER_RCLICK       pMarineViewer   x=16.0,y=295.0,lat=43.07461741,lon=-70.71148830,vname=$(VNAME),counter=4 

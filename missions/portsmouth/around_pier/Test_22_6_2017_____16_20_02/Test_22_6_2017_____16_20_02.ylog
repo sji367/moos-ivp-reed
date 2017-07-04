@@ -1,0 +1,26 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./Test_22_6_2017_____16_20_02/Test_22_6_2017_____16_20_02.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1498162802.01
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.315452   MOOS_DEBUG           pMarinePID           ** NEW CONTROLLER GAINS ARE ** 
+1.31884    MOOS_DEBUG           pMarinePID           YAW_PID_KP             = 1.200 
+1.318859   MOOS_DEBUG           pMarinePID           YAW_PID_KD             = 0.000 
+1.318871   MOOS_DEBUG           pMarinePID           YAW_PID_KI             = 0.300 
+1.318883   MOOS_DEBUG           pMarinePID           YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.318895   MOOS_DEBUG           pMarinePID           MAXRUDDER              = 100.000 
+1.323074   MOOS_DEBUG           pMarinePID           SPEED_PID_KP           = 1.000 
+1.323108   MOOS_DEBUG           pMarinePID           SPEED_PID_KD           = 0.000 
+1.32312    MOOS_DEBUG           pMarinePID           SPEED_PID_KI           = 0.000 
+1.323132   MOOS_DEBUG           pMarinePID           SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.323144   MOOS_DEBUG           pMarinePID           MAXTHRUST              = 100.000 
+1.978546   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+5.79487    MOOS_DEBUG           pMarinePID           pMarinePID Control Is On 
+5.794895   MOOS_DEBUG           pMarinePID           Paused Due To Tardy HELM Input: THRUST=0 
+5.98313    MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
+43.34292   MOOS_DEBUG           pMarinePID           pMarinePID Control Is On 
+46.56362   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: NothingToDo 
+47.06484   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
+100.6731   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: NothingToDo 
+101.174    MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: NothingToDo 
+103.2078   MOOS_DEBUG           pMarinePID           Paused Due To Tardy HELM Input: THRUST=0 

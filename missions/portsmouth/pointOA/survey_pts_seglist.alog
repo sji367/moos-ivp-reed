@@ -1,0 +1,3 @@
+7.331           VIEW_SEGLIST         pHelmIvP:1:waypt_survey pts={180,-530:420,-530:420,-550:180,-550:180,-570:420,-570:420,-590:180,-590:180,-610:420,-610},label=ASV_waypt_survey,edge_color=white,vertex_color=white,vertex_size=1,edge_size=2 
+275.036         VIEW_SEGLIST         pHelmIvP:535:waypt_survey pts={180,-530:420,-530:420,-550:180,-550:180,-570:420,-570:420,-590:180,-590:180,-610:420,-610},active=false,label=ASV_waypt_survey,edge_size=10 
+275.036         VIEW_SEGLIST         pHelmIvP:535:waypt_return pts={1305,-517},label=ASV_waypt_return,edge_color=white,vertex_color=dodger_blue,vertex_size=3,edge_size=1 
