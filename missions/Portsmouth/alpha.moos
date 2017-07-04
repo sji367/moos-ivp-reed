@@ -25,7 +25,7 @@ ProcessConfig = ANTLER
 
   Run = uProcessWatch	  @ NewConsole = false
   Run = MOOSDB          @ NewConsole = false
-  //Run = pLogger         @ NewConsole = false
+  Run = pLogger         @ NewConsole = false
   Run = uSimMarine	    @ NewConsole = false
   Run = pMarinePID      @ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
@@ -134,8 +134,8 @@ ProcessConfig = uSimMarine
   CommsTick	= 4
 
   // Transit from UNH Pier
-  start_x	= 0
-  start_y	= -20
+  start_x	= 15//0
+  start_y	= -57//-20
 
   start_heading = 90
   start_speed   = 0

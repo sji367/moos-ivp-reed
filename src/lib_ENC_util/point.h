@@ -64,7 +64,7 @@ public:
         double getY() {return y;}
 
 	// Outputs the threat level of the obstacle
-        double getTLvL() {return t_lvl;}
+        int getTLvL() {return t_lvl;}
 
 	// Outputs the obstacle type of the obstacle
         string getObsType() {return obs_type;}

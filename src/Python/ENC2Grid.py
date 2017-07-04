@@ -370,7 +370,7 @@ def main(argv):
         return df
     elif output == 'BOTH':
         savemat('../../src/ENCs/Shape/grid/grid.mat', {'interp':interp})
-        df = DataFrame(interp)
+        df = DataFrame(interp, dtype=int)
         df.to_csv("../../src/ENCs/Shape/grid/grid.csv")
     elif output== 'NONE':
         pass

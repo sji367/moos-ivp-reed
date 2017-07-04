@@ -10,9 +10,6 @@ Community  = ASV
 MOOSTimeWarp = 1
 TERM_REPORTING = true
 
-//#include plug_sensor.moos
-//#include plug_ASV_info.moos
-
 // CCOM Pier
 LatOrigin  = 43.071959194444446
 LongOrigin = -70.711610833333339 
@@ -21,44 +18,46 @@ LongOrigin = -70.711610833333339
 // Antler configuration  block
 ProcessConfig = ANTLER
 {
-  MSBetweenLaunches = 200
+  MSBetweenLaunches = 500
 
   Run = uProcessWatch	  @ NewConsole = false
   Run = MOOSDB          @ NewConsole = false
-  //Run = pLogger         @ NewConsole = false
+  Run = pLogger         @ NewConsole = false
   Run = uSimMarine	    @ NewConsole = false
+  Run = pENC_Contact		@ NewConsole = true
   Run = pMarinePID      @ NewConsole = false
   Run = pHelmIvP        @ NewConsole = false
   Run = pMarineViewer	  @ NewConsole = false
   Run = pNodeReporter	  @ NewConsole = false
-	Run = pENC_Contact		@ NewConsole = true
+  Run = pENC_Print	@ NewConsole = false
+  Run = pENC_WPT_Check	@ NewConsole = false
+
 	//Run = uXMS			@ NewConsole = true
-	Run = uFunctionVis		@ NewConsole = false
+	//Run = uFunctionVis		@ NewConsole = false
 }
 
 //------------------------------------------------
-// pENC_Contact config block
+#include plug_pENC_Contact.moos
 
-ProcessConfig = pENC_Contact
-{
-   AppTick   = 4
-   CommsTick = 4
+//------------------------------------------------
+#include plug_pENC_Print.moos
 
-	ENCs = US5NH02M
-	ASV_Length = 1.8
-	ASV_Width = 1
+//------------------------------------------
+// pENC_WPT_Check config block
+ProcessConfig = pENC_WPT_Check                                    
+{                                                               
+  AppTick   = 2                                                 
+  CommsTick = 2   
 
-	search_dist = 62.5 // In either direction
-	avoid_dist = 200
-	
+  Buffer_Dist = 20                                         
 }
 
 //------------------------------------------
 // uFunctionVis config block
 ProcessConfig = uFunctionVis                                    
 {                                                               
-  AppTick   = 4                                                 
-  CommsTick = 4                                                 
+  AppTick   = 2                                                 
+  CommsTick = 2                                                 
 }    
 
 //------------------------------------------
@@ -106,6 +105,9 @@ ProcessConfig = pLogger
 
   //Log = IVPHELM_LIFE_EVENT @ 0 NOSYNC
 
+  // Store the tiff
+  //log_the_image = true
+
   LogAuxSrc = true
   WildCardLogging = true
   WildCardOmitPattern = *_STATUS
@@ -118,7 +120,8 @@ ProcessConfig = pLogger
 	//Log = Landmarks
 	//Log = Nav_Aids
 	//log = Underwater_Objects
-	//Log = NAV_X @ 0
+	Log = NAV_X @ 0
+	Log = NAV_Y @ 0
 	//Log = Obstacles @ 0//NAV_Y @ 0
 	//Log = VIEW_SEGLIST @ 0
 	//Log = VIEW_POINT @ 0
@@ -130,8 +133,8 @@ ProcessConfig = pLogger
 
 ProcessConfig = uSimMarine
 {
-  AppTick	= 4
-  CommsTick	= 4
+  AppTick	= 10
+  CommsTick	= 10
 
   //start_x       = 6600//7615
   //start_x       = 1889//-25//877//0//50//1473//1000//
@@ -140,16 +143,27 @@ ProcessConfig = uSimMarine
 
 
   // Transit from UNH Pier
-  //start_x	= 0
-  //start_y	= -20
+  start_x	= 20//-100//
+  start_y	= -40//210//
+
+  //start_x	= -100//
+  //start_y	= 210//
+
+  // WPT skip
+  //start_x	= 1400//1275//1170//1455//
+  //start_y	= -1350//-381//-560//-1100//
 
   // Through an island
   //start_x	= 1000
   //start_y	= -981 
 
-  // Many Points/Polygons
-  start_x	= -25
-  start_y	= -1150
+  // Many Points&Polygons
+  //start_x	= -25
+  //start_y	= -1110
+
+  // Many Points
+  //start_x	= 180
+  //start_y	= -500
 
   // Landmarks
   //start_x       = 6600
@@ -158,6 +172,10 @@ ProcessConfig = uSimMarine
   // White Island
   //start_x       = 1889
   //start_y       = -1270
+
+  // Polygons
+  //start_x	= 8890
+  //start_y	= -10860
 
   start_heading = 90
   start_speed   = 0
@@ -173,8 +191,8 @@ ProcessConfig = uSimMarine
 
 ProcessConfig = pHelmIvP
 {
-  AppTick    = 2
-  CommsTick  = 2
+  AppTick    = 4
+  CommsTick  = 4
 
   term_report_interval=0
 
@@ -184,7 +202,7 @@ ProcessConfig = pHelmIvP
 
   behaviors  = alpha.bhv
   domain     = course:0:359:360
-  domain     = speed:0:5:42
+  domain     = speed:0:6:41
 }
 
 //------------------------------------------
@@ -218,7 +236,7 @@ ProcessConfig = pMarinePID
 
   // A non-zero SPEED_FACTOR overrides use of SPEED_PID
   // Will set DESIRED_THRUST = DESIRED_SPEED * SPEED_FACTOR
-  speed_factor = 20
+  //speed_factor = 20
 }
 
 //------------------------------------------
@@ -226,31 +244,40 @@ ProcessConfig = pMarinePID
 
 ProcessConfig = pMarineViewer
 {
-  AppTick    = 4
-  CommsTick  = 4
+  AppTick    = 6
+  CommsTick  = 6
 
-  tiff_file            = data/portsmouth2.tif
+  //tiff_file_b           = data/RNC.tif
+  tiff_file	       = data/portsmouth2.tif
 
   // Transit from UNH Pier
-  //set_pan_x            = 275
-  //set_pan_y            = -475
+  set_pan_x            = 375
+  set_pan_y            = -475//-575//
   zoom                 = 4.5
 
   // points obstacles
-  set_pan_x            = 375
-  set_pan_y            = 350
+  //set_pan_x            = 500//375
+  //set_pan_y            = -50//350
 
   // Through an Island
   //set_pan_x            = -385
   //set_pan_y            = 250
 
   // Landmarks
-  //set_pan_x            = -5000//-1000//
-  //set_pan_y            = 5950//-56.26//450//
+  //set_pan_x            = -6175//-5000//-1000//
+  //set_pan_y            = 7160//5950//-56.26//450//
 
   // White Island
   //set_pan_x            = -1000//
   //set_pan_y            = 450//
+
+  // WPT
+  //set_pan_x            = -900//
+  //set_pan_y            = 450//
+
+  // NEW
+  //set_pan_x            = -475//
+  //set_pan_y            = -50//
 
   //zoom                 = 5//0.65//
   vehicle_shape_scale  = 1.5//3
@@ -267,18 +294,59 @@ ProcessConfig = pMarineViewer
   procs_font_size      = medium
   appcast_font_size    = small
 
-  left_context[update_return] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=$(XPOS),$(YPOS)
- 
-  right_context[return] = DEPLOY=true
-  right_context[return] = MOOS_MANUAL_OVERIDE=false
-  right_context[return] = RETURN=false
+  right_context[deploy] = DEPLOY=true
+  right_context[deploy] = MOOS_MANUAL_OVERIDE=false
+  right_context[deploy] = RETURN=false
+
+  right_context[clear_all] = NEW_POLYS = CLEARALL
+  right_context[clear_all] = NEW_POINTS = CLEARALL
+
+  right_context[increase_TLvl] = UPDATE_POLYS = INCREASE
+  right_context[increase_TLvl] = UPDATE_PTS = INCREASE
+
+  right_context[decrease_TLvl] = UPDATE_POLYS = DECREASE
+  right_context[decrease_TLvl] = UPDATE_PTS = DECREASE
+
+// New Points (not in ENC)
+  left_context[Point1] = VIEW_POINT = x=0,y=200,label=1!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=greenyellow
+  left_context[Point1] = NEW_POINTS = x=0,y=200,1,1!$(XPOS)!$(YPOS)
+
+  left_context[Point2] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=2!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=gold
+  left_context[Point2] = NEW_POINTS = x=$(XPOS),y=$(YPOS),2,2!$(XPOS)!$(YPOS)
+
+  left_context[Point3] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=3!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=darkorange
+  left_context[Point3] = NEW_POINTS = x=$(XPOS),y=$(YPOS),3,3!$(XPOS)!$(YPOS)
+
+  left_context[Point4] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=4!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=red
+  left_context[Point4] = NEW_POINTS = x=$(XPOS),y=$(YPOS),4,4!$(XPOS)!$(YPOS)
+
+  left_context[Point5] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=5!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=black
+  left_context[Point5] = NEW_POINTS = x=$(XPOS),y=$(YPOS),5,5!$(XPOS)!$(YPOS)
+
+
+// New Polygons (not in ENC)
+  left_context[Poly1] = VIEW_POLYGON = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1, major=20, minor=10, vertex_color=greenyellow,edge_color=greenyellow
+  left_context[Poly1] = NEW_POLYS = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+
+  left_context[Poly2] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=gold,edge_color=gold
+  left_context[Poly2] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+
+  left_context[Poly3] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=darkorange,edge_color=darkorange
+  left_context[Poly3] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+
+  left_context[Poly4] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
+  left_context[Poly4] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+
+  left_context[Poly5] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=black, edge_color=black
+  left_context[Poly5] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+  
 
   button_one = DEPLOY # DEPLOY=true
   button_one = MOOS_MANUAL_OVERIDE=false # RETURN=false
   button_two = RETURN # RETURN=true
   button_three = CONTINUE # CONTINUE=true
 	
-	SCOPE= Angles,Min,Current_Tide,ENCs, WPT_UPDATE, Poly_Obs, Obstacles, num_obs
+	SCOPE= Obstacles,Current_Tide,WPT_UPDATE, Poly_Obs
 
   action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false
   action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERIDE=false
@@ -301,8 +369,9 @@ ProcessConfig = pNodeReporter
   AppTick    	= 2
   CommsTick	= 2
 
-  platform_type   = KAYAK
+  platform_type   = ship
   platform_length = 4
+  //platform_length_src = SYSTEM_LENGTH
 }
 
 //------------------------------------------
@@ -315,6 +384,12 @@ ProcessConfig = uXMS
 
   var = ASV_length, ASV_width, ASV_height, ASV_draft, Current_Tide
   
+}
+
+ProcessConfig = pPub_Points
+{
+  AppTick    	= 5
+  CommsTick	= 5  
 }
 
 //------------------------------------------

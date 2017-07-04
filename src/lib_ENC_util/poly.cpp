@@ -40,9 +40,9 @@ Poly::Poly(double X, double Y)
 }
 
 // Makes sure that the maximum angle is actually bigger than the minimum angle
-void Poly::setAngle(double Angle, double boundary)
+void Poly::setAngle(double Angle, double boundary, bool inside)
 {
-  if ((ref_frame == 0)||(boundary==0))
+  if ((Angle<=boundary)||inside)
     ang = Angle;
   else
     ang = Angle-360;

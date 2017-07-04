@@ -1,0 +1,7 @@
+0.926           DB_EVENT             MOOSDB_shoreside connected=uProcessWatch 
+1.430           DB_EVENT             MOOSDB_shoreside connected=pShare 
+1.593           DB_EVENT             MOOSDB_shoreside connected=pMarineViewer 
+1.777           DB_EVENT             MOOSDB_shoreside connected=pHostInfo 
+2.112           DB_EVENT             MOOSDB_shoreside connected=uFldShoreBroker 
+3.135           DB_EVENT             MOOSDB_shoreside connected=pPub_Points 
+380.576         DB_EVENT             MOOSDB_shoreside disconnected=uMAC_8770 

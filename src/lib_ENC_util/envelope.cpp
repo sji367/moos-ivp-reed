@@ -141,7 +141,7 @@ void Envelope::calcEnvelope(vector<vector<double>> angle2poly)
   // Determine the adjacent difference for the sorted vertex angles
   adj_diff2D(angle2poly, result);
   index = morethan5(result);
-  cout << "index_env" << endl;
+  //cout << "index_env " << index << " " << angle2poly.size() << endl;
 
   // This may cause the code to crash if you are inside a polygon
   if (index == angle2poly.size()-1){

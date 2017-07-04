@@ -1,0 +1,67 @@
+total_vars=62
+logstart=1491579246.33
+logtmin=0.523
+logtmax=381.164
+vname=shoreside
+var=APPCAST, type=string, srcs=pHostInfo:pMarineViewer:uFldShoreBroker:uProcessWatch:uSimMarine
+var=APPCAST_REQ, type=string, srcs=pMarineViewer:uMAC_8770
+var=APPCAST_REQ_ALL, type=string, srcs=pMarineViewer:uMAC_8770
+var=APPCAST_REQ_SHORESIDE, type=string, srcs=pMarineViewer:uMAC_8770
+var=APPCAST_REQ_ZBOAT, type=string, srcs=uMAC_8770
+var=DB_CLIENTS, type=string, srcs=MOOSDB_shoreside
+var=DB_EVENT, type=string, srcs=MOOSDB_shoreside
+var=DB_QOS, type=string, srcs=MOOSDB_shoreside
+var=DB_TIME, type=double, srcs=MOOSDB_shoreside
+var=DB_UPTIME, type=double, srcs=MOOSDB_shoreside
+var=DEPLOY, type=string, srcs=pMarineViewer
+var=HELM_MAP_CLEAR, type=double, srcs=pMarineViewer
+var=LOGGER_DIRECTORY, type=string, srcs=pLogger
+var=MOOS_MANUAL_OVERIDE, type=string, srcs=pMarineViewer
+var=MVIEWER_RCLICK, type=string, srcs=pMarineViewer
+var=NAV_DEPTH, type=double, srcs=uSimMarine
+var=NAV_HEADING, type=double, srcs=pEchoVar:uSimMarine
+var=NAV_HEADING_OVER_GROUND, type=double, srcs=uSimMarine
+var=NAV_LAT, type=double, srcs=uSimMarine
+var=NAV_LONG, type=double, srcs=uSimMarine
+var=NAV_PITCH, type=double, srcs=uSimMarine
+var=NAV_SPEED, type=double, srcs=pEchoVar:uSimMarine
+var=NAV_SPEED_OVER_GROUND, type=double, srcs=uSimMarine
+var=NAV_X, type=double, srcs=pEchoVar:uSimMarine
+var=NAV_Y, type=double, srcs=pEchoVar:uSimMarine
+var=NAV_YAW, type=double, srcs=uSimMarine
+var=NAV_Z, type=double, srcs=uSimMarine
+var=NODE_BROKER_ACK_ZBOAT, type=string, srcs=uFldShoreBroker
+var=NODE_BROKER_PING, type=string, srcs=uFldNodeBroker
+var=NODE_BROKER_VACK, type=string, srcs=uFldShoreBroker
+var=NODE_REPORT, type=string, srcs=pNodeReporter
+var=PHI_HOST_INFO, type=string, srcs=pHostInfo
+var=PHI_HOST_IP, type=string, srcs=pHostInfo
+var=PHI_HOST_IP_ALL, type=string, srcs=pHostInfo
+var=PHI_HOST_IP_VERBOSE, type=string, srcs=pHostInfo
+var=PHI_HOST_PORT_DB, type=double, srcs=pHostInfo
+var=PHOSTINFO_ITER_GAP, type=double, srcs=pHostInfo
+var=PHOSTINFO_ITER_LEN, type=double, srcs=pHostInfo
+var=PMARINEVIEWER_ITER_GAP, type=double, srcs=pMarineViewer
+var=PMARINEVIEWER_ITER_LEN, type=double, srcs=pMarineViewer
+var=PMV_CONNECT, type=double, srcs=pMarineViewer
+var=PROC_WATCH_EVENT, type=string, srcs=uProcessWatch
+var=PROC_WATCH_FULL_SUMMARY, type=string, srcs=uProcessWatch
+var=PROC_WATCH_SUMMARY, type=string, srcs=uProcessWatch
+var=PROC_WATCH_TIME_WARP, type=double, srcs=uProcessWatch
+var=PSHARE_CMD, type=string, srcs=uFldShoreBroker
+var=PSHARE_INPUT_SUMMARY, type=string, srcs=pShare
+var=PSHARE_OUTPUT_SUMMARY, type=string, srcs=pShare
+var=RETURN, type=string, srcs=pMarineViewer
+var=SIMULATION_MODE, type=string, srcs=uSimMarine
+var=STATIONING, type=string, srcs=pMarineViewer
+var=TRUE_X, type=double, srcs=uSimMarine
+var=TRUE_Y, type=double, srcs=uSimMarine
+var=UFLDSHOREBROKER_ITER_GAP, type=double, srcs=uFldShoreBroker
+var=UFLDSHOREBROKER_ITER_LEN, type=double, srcs=uFldShoreBroker
+var=UPROCESSWATCH_ITER_GAP, type=double, srcs=uProcessWatch
+var=UPROCESSWATCH_ITER_LEN, type=double, srcs=uProcessWatch
+var=USIMMARINE_ITER_GAP, type=double, srcs=uSimMarine
+var=USIMMARINE_ITER_LEN, type=double, srcs=uSimMarine
+var=USM_DRIFT_SUMMARY, type=string, srcs=uSimMarine
+var=USM_FSUMMARY, type=string, srcs=uSimMarine
+var=VISUALS, type=string, srcs=pHelmIvP

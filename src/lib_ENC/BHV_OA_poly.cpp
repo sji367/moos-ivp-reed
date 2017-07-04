@@ -40,10 +40,11 @@ BHV_OA_poly::BHV_OA_poly(IvPDomain gdomain) :
   // Add any variables this behavior needs to subscribe for
   //   Next_WPT --> Published by the Waypoint BHV
   //   Poly_Obs --> Published by ENC_Search
-  addInfoVars("Next_WPT, Poly_Obs, NAV_SPEED, NAV_X, NAV_Y, NAV_HEADING, ASV_length");
+  addInfoVars("Next_WPT, Poly_Obs, NAV_SPEED, NAV_X, NAV_Y, NAV_HEADING, ASV_length, DESIRED_HEADING");
 
   m_maxutil = 100;
   m_v_length = 4;
+  m_Desired_head = 0;
 }
 
 //---------------------------------------------------------------
@@ -58,7 +59,7 @@ bool BHV_OA_poly::setParam(string param, string val)
   double double_val = atof(val.c_str());
 
   // ASV Length
-  if((param == "vehicle_length")||(param == "vehicle_size")) {
+  if((param == "vehicle_size") || (param == "vehicle_length" ) || (param == "asv_length" ) && (isNumber(val))) {
     m_v_length = double_val;
     return(true);
   }
@@ -83,7 +84,7 @@ IvPFunction* BHV_OA_poly::onRunState()
   m_ASV_x = getBufferDoubleVal("NAV_X", ok4);
   m_ASV_y = getBufferDoubleVal("NAV_Y", ok5);
   m_ASV_head = getBufferDoubleVal("NAV_HEADING", ok6);
-  m_v_length = strtod(getBufferStringVal("ASV_length", ok7).c_str(), NULL);
+  m_Desired_head = getBufferDoubleVal("DESIRED_HEADING", ok7);
 
   vector<string> temp_WPT, result, ASV_info;
 
@@ -108,11 +109,13 @@ IvPFunction* BHV_OA_poly::onRunState()
       postWMessage("Heading is not being defined.");
       return(0);
     }
+  else if (!ok7)
+  {
+      postWMessage("Desired Heading not yet defined.");
+      return(0);
+  }
   else
     {
-      if (!ok7)
-	postWMessage("ASV length is not defined. Will use default of 4 meters.");
-
       // Part 2b: Parse the obstacle information collected in the previous step
       // Parse the Waypoint Information
       if (ok2 and m_WPT!="first_point")
@@ -146,211 +149,6 @@ IvPFunction* BHV_OA_poly::onRunState()
   return(ipf);
 }
 
-/*
-IvPFunction *BHV_OA_poly::buildZAIC_Vector()
-{
-    IvPFunction *ivp_function = 0;
-    vector<double> max_cost, costs, angles, dist;
-    vector<string> info;
-    double buffer_width = 0;
-
-    double x, y, vertexCost;
-
-    // To start with, fill an array with maxiumum utility
-    vector<double> OA_util(360,m_maxutil);
-    //fill(OA_util,OA_util+360, m_maxutil);
-
-
-    // Clear all vectors
-    info.clear();
-    max_cost.clear();
-
-    //  Then separate the obstacles from one another
-    info = parseString(m_obs_info, '!');
-
-    // Vectors holding the parsed information on the obstacles
-    vector<string> poly_info, poly_gen_info, poly_vertex_info;
-
-    int min_dist_index;
-
-    for (int i=0; i<info.size(); i++)
-    {
-        // Clear the vector strings
-        poly_info.clear(); poly_gen_info.clear(); poly_vertex_info.clear();
-        // Clear the double strings
-        costs.clear(); angles.clear(); dist.clear();
-
-        // Parse the individual obstacles
-        poly_info = parseString(info[i], '@');
-
-        // General information on obstacle
-        //    Type of obstacle and threat level
-        poly_gen_info = parseString(poly_info[0], ',');
-
-        for (int j=1; j<poly_info.size(); j++)
-        {
-            // Angle and range for the vertices
-            poly_vertex_info = parseString(poly_info[j], ',');
-            if (poly_vertex_info.size() == 2)
-            {
-                x = atof(poly_vertex_info[0].c_str());
-                y = atof(poly_vertex_info[1].c_str());
-
-                // Calculate the vertex's cost
-                //  Params - obstacles threat level (1) and distance from ASV (2)
-                dist.push_back(calcDist2ASV(x,y));
-                vertexCost = calcCost(atof(poly_gen_info[0].c_str()), dist.back());
-                costs.push_back(vertexCost);
-                max_cost.push_back(vertexCost);
-
-                angles.push_back(relAng(m_ASV_x, m_ASV_y,x,y));
-            }
-        }
-        if (angles.size()>0)
-            interpolate(angles, costs, dist, OA_util);
-    }
-    if (max_cost.size() >0)
-        Update_Lead_Param(max_cost);
-    return setIVP_domain_range(OA_util);
-}
-
-double BHV_OA_poly::calcCost(double t_lvl, double dist)
-{
-    double cost = 0;
-    // make sure you cannot divide by zero
-    if (m_speed==0)
-        cost=0;
-    else
-    {
-        cost = pow((t_lvl/dist*m_v_length/m_speed*4.5),2)*m_maxutil;
-
-        // Bound the cost
-        if (cost>m_maxutil)
-            cost = m_maxutil;
-        else if (cost <0)
-            cost = 0;
-    }
-
-    return cost;
-
-}
-
-void BHV_OA_poly::interpolate(vector<double> &angles, vector<double> &cost, vector<double> &dist, vector<double> &OA_util)
-{
-    double m,b;
-    int ang1,ang2;
-    int pos_ang;
-
-    double util_interp, util1, util2;
-
-    // If the ASV is close to the obstacle set a 180 degree buffer around the closest vertex
-    int buff_low, buff_high;
-    int safety = 120;
-    int min_dist_index = min_element(dist.begin(), dist.end()) - dist.begin();
-    if (dist[min_dist_index] <10)
-    {
-        for (int i = 0; i<safety; i++)
-        {
-            // Update the current buffer angles (Domain = [-360,360])
-            buff_low = (int)floor(fmod(angles[min_dist_index]-i,360));
-            buff_high = (int)floor(fmod(angles[min_dist_index]+i,360));
-
-            // Make sure the angles are not negative (Domain = [0,360])
-            if (buff_low < 0)
-              buff_low += 360;
-            if (buff_high < 0)
-              buff_high += 360;
-
-            // Set the OA Utility function
-            OA_util[buff_low] = 0;
-            OA_util[buff_high] = 0;
-        }
-    }
-    else
-    //{
-        for (int i=0; i<angles.size()-1; i++)
-        {
-            ang1 = static_cast<int>(round(angles[i]));
-            ang2 = static_cast<int>(round(angles[i+1]));
-
-            util1 = m_maxutil - cost[i];
-            util2 = m_maxutil - cost[i+1];
-
-            // if the angles are the same store the lower of the two costs
-            if (ang1 == ang2)
-                setOA_util(ang1, min(util1, util2), OA_util);
-            else if(abs(ang1-ang2)==1)
-            {
-                setOA_util(ang1, util1, OA_util);
-                setOA_util(ang2, util2, OA_util);
-            }
-
-            else
-            {
-                // make sure that the angle doesnt cross 360/0 boundary
-                if (abs(ang1-ang2)>200)
-                {
-                    if (ang1<ang2)
-                        ang2 -= 360;
-                    else if (ang1<ang2)
-                        ang1 -= 360;
-                }
-                // Interpolate between the angles of the two vertices
-                calc_m_b(ang1, util1, ang2, util2, m, b);
-                if (ang1<ang2)
-                {
-                    for(int cur_ang=ang1; cur_ang<ang2; cur_ang++)
-                    {
-                        // Make sure that the angle used as the index is a positive number between the range [0,360)
-                        pos_ang = cur_ang%360;
-                        if (pos_ang<0)
-                            pos_ang+=360;
-                        util_interp = m*(1.0*cur_ang)+b;
-                        setOA_util(pos_ang, util_interp, OA_util);
-                    }
-                }
-                else
-                {
-                    for(int cur_ang=ang2; cur_ang<ang1; cur_ang++)
-                    {
-                        // Make sure that the angle used as the index is a positive number between the range [0,360)
-                        pos_ang = cur_ang%360;
-                        if (pos_ang<0)
-                            pos_ang+=360;
-                        util_interp = m*(1.0*cur_ang)+b;
-                        setOA_util(pos_ang, util_interp, OA_util);
-                    }
-                }
-            }
-
-        }
-    //}
-}
-
-void BHV_OA_poly::setOA_util(int ang, double util, vector<double> &OA_util)
-{
-    if (OA_util[ang] > util)
-    {
-        postMessage("interp", to_string(ang) +"( " + to_string(static_cast<int>(util))+ ")");
-        OA_util[ang] = util;
-    }
-}
-
-void BHV_OA_poly::calc_m_b(int x1, double y1, int x2, double y2, double &m, double &b)
-{
-    if (x1 != x2)
-    {
-        m = (y2 - y1)/(1.0*(x2 - x1));
-        b = (y1) - (m*(1.0*x1));
-    }
-    else
-    {
-        // If the slope is infinite, make m and b 999
-        m = 999;
-        b = 999;
-    }
-}
-*/
 /***************************************************************************/
 /* This function parses the information on the polygon obstacles and then  */
 /*   uses that information to create an IvPFunction using the ZAIC Vector  */
@@ -366,10 +164,10 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
   vector<double> max_cost;
   vector<string> info;
   double buffer_width = 0;
+  bool inside;
 
   // To start with, fill an array with maxiumum utility
   vector<double> OA_util (360, m_maxutil);
-  //fill(OA_util,OA_util+360, m_maxutil);
 
   // Clear all vectors
   min_ang.clear();
@@ -380,7 +178,6 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
 
   //  Then separate the obstacles from one another
   info = parseString(m_obs_info, '!');
-
   for (int i=0; i<info.size(); i++)
     {
       // Make new polygon vertices
@@ -393,18 +190,16 @@ IvPFunction *BHV_OA_poly::buildZAIC_Vector()
       min_dist.push_back(polygon_min_dist);
       max_ang.push_back(polygon_max_ang);
 
-      getVertices(i, info[i], min_ang[i], min_dist[i], max_ang[i], max_cost);
-      
+      getVertices(i, info[i], min_ang[i], min_dist[i], max_ang[i], max_cost, inside);
       buffer_width = calcBuffer(min_dist[i].getCost());
-      
-      calcVShape(buffer_width, OA_util, min_ang[i], min_dist[i], max_ang[i]);
+      calcVShape(buffer_width, OA_util, min_ang[i], min_dist[i], max_ang[i], inside);
     }
-  Update_Lead_Param(max_cost);
-  return setIVP_domain_range(OA_util);
+  ivp_function  = setIVP_domain_range(OA_util);
+  return ivp_function;
 }
 
 
-void BHV_OA_poly::getVertices(int i,string info, Poly& min_angle, Poly& min_dist, Poly& max_angle, vector<double>& max_cost)
+void BHV_OA_poly::getVertices(int i,string info, Poly& min_angle, Poly& min_dist, Poly& max_angle, vector<double>& max_cost, bool &inside)
 {
   // Vectors holding the parsed information on the obstacles
   vector<string> poly_info, poly_gen_info, poly_ang_info;
@@ -425,27 +220,27 @@ void BHV_OA_poly::getVertices(int i,string info, Poly& min_angle, Poly& min_dist
   //    minimum angle, angle of minimum distance, maximum angle
   poly_ang_info = parseString(poly_info[1], ',');
 
+  // Store if the ASV is inside a polygon
+  postMessage("INSIDE", poly_ang_info[0] == "1");
+  inside = (poly_ang_info[0] == "1");
+
   // Build new objects holding the information for "V" shaped function
-  min_angle.setXY(strtod(poly_ang_info[1].c_str(), NULL),strtod(poly_ang_info[2].c_str(), NULL));
-  min_dist.setXY(strtod(poly_ang_info[3].c_str(), NULL),strtod(poly_ang_info[4].c_str(), NULL));
-  max_angle.setXY(strtod(poly_ang_info[5].c_str(), NULL),strtod(poly_ang_info[6].c_str(), NULL));
+  min_angle.setXY(strtod(poly_ang_info[2].c_str(), NULL),strtod(poly_ang_info[3].c_str(), NULL));
+  min_dist.setXY(strtod(poly_ang_info[4].c_str(), NULL),strtod(poly_ang_info[5].c_str(), NULL));
+  max_angle.setXY(strtod(poly_ang_info[6].c_str(), NULL),strtod(poly_ang_info[7].c_str(), NULL));
 
   // Set the reference frame, threat level and the obstacle type
-  min_angle.setStatics(stoi(poly_ang_info[0]), stoi(poly_gen_info[0]), poly_gen_info[1]);
-  min_dist.setStatics(stoi(poly_ang_info[0]), stoi(poly_gen_info[0]), poly_gen_info[1]);
-  max_angle.setStatics(stoi(poly_ang_info[0]), stoi(poly_gen_info[0]), poly_gen_info[1]);
+  min_angle.setStatics(0, stoi(poly_gen_info[0]), poly_gen_info[1]);
+  min_dist.setStatics(0, stoi(poly_gen_info[0]), poly_gen_info[1]);
+  max_angle.setStatics(0, stoi(poly_gen_info[0]), poly_gen_info[1]);
 
-  // Determine the 0/360 buffer
+  // Determine the maximum extent angle, which will be used as a buffer
   buffer_0_360 = relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY());
-
-  postMessage("Min", buffer_0_360);
   
   // Calculate and set the angle for the critical points
-  min_angle.setAngle(relAng(m_ASV_x, m_ASV_y, min_angle.getX(), min_angle.getY()),buffer_0_360);
-  min_dist.setAngle(relAng(m_ASV_x, m_ASV_y, min_dist.getX(), min_dist.getY()),buffer_0_360);
-  max_angle.setAngle(relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY()),0);//buffer_0_360);
-
-  postMessage("Angles", to_string(i)+": "+to_string(min_angle.getAngle())+", "+to_string(min_dist.getAngle())+", "+to_string(max_angle.getAngle()));
+  min_angle.setAngle(relAng(m_ASV_x, m_ASV_y, min_angle.getX(), min_angle.getY()), buffer_0_360, inside);
+  min_dist.setAngle(relAng(m_ASV_x, m_ASV_y, min_dist.getX(), min_dist.getY()), buffer_0_360, inside);
+  max_angle.setAngle(relAng(m_ASV_x, m_ASV_y, max_angle.getX(), max_angle.getY()), buffer_0_360, inside);
 
   // Calculate and set the cost and distance of the the critical points "V"
   min_angle.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
@@ -478,109 +273,168 @@ double BHV_OA_poly::calcBuffer(double cost)
       if (temp_buff >100)
 	temp_buff =100;
       buffer_width += temp_buff;
-      postMessage("buffer_w", buffer_width);
     }
 
   return buffer_width;
 }
 
-void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly min_angle, Poly min_dist, Poly max_angle)
+void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly min_angle, Poly min_dist, Poly max_angle, bool &inside)
 {
-  int buff_high, buff_low;
-  double calculated_cost, actual_cost, utility;
-  int safety = 90;
-  int cur_ang = 0;
-  // If you are close to the obstacle place a safety buffer of atleast +/- 90 degrees around the closest point
-  if (min_dist.getDist() < 10)
+    int buff_high, buff_low;
+    double calculated_cost, actual_cost;
+
+    int safety = 90;
+    int cur_ang = 0;
+    int t_lvl = min_dist.getTLvL();
+
+    double utility = 0;
+
+    postMessage("Angles1",to_string(min_angle.getAngle())+", "+to_string(min_dist.getAngle())+", "+to_string(max_angle.getAngle()));
+
+    // If the ASV is inside of the obstacle, then try to leave it A.S.A.P.
+    if (inside)
     {
-      postMessage("DIST", min_dist.getDist());
-      for (int i = 0; i<safety; i++)
-	{
-	  // Update the current buffer angles (Domain = [-360,360])
-	  buff_low = (int)floor(fmod(min_dist.getAngle()-i,360));
-	  buff_high = (int)floor(fmod(min_dist.getAngle()+i,360));
+        double start_ang, end_ang;
+        string Case;
+        // 2 cases:
+        //  1) min_ang > max_ang
+        //  2) min_ang < max_ang
 
-	  // Make sure the angles are not negative (Domain = [0,360])
-	  if (buff_low < 0)
-	    buff_low += 360;
-	  if (buff_high < 0)
-	    buff_high += 360;
+        // Case 1: (min_ang > max_ang)
+        if (min_angle.getAngle()>max_angle.getAngle())
+        {
+            start_ang = min_angle.getAngle();
+            end_ang = max_angle.getAngle()+360;
+            Case = ", 1";
+        }
+        // Case 2: (min_ang < max_ang)
+        else
+        {
+            start_ang = min_angle.getAngle();
+            end_ang = max_angle.getAngle();
+            Case = ", 2";
+        }
 
-	  // Set the OA Utility function
-	  OA_util[buff_low] = 0;
-	  OA_util[buff_high] = 0;
-	}
+        postMessage("RANGES", to_string(start_ang)+", "+to_string(end_ang)+Case);
+        for (double i=start_ang; i<end_ang; i++)
+        {
+            // Make sure the angle is in the domain[0,360]
+            cur_ang = int(round(fmod(i,360)));
+            if (cur_ang<0)
+                cur_ang+360;
+            if (utility<OA_util[cur_ang])
+                OA_util[cur_ang]=utility;
+        }
     }
-
-  // This calculates the utility and stores that value if it is less than the current utility for all obstacles --> min angle to max cost
-  // Makes the first half of the "V Shaped" penalty function
-  for (double x1 = min_angle.getAngle()-buffer_width; x1<=min_dist.getAngle(); x1++)
+    else
     {
-      // Update the current angle (Domain = [-360,360])
-      cur_ang = (int)floor(fmod(x1,360));
+        // If you are close to the obstacle place a safety buffer of atleast +/- 90 degrees around the closest point
+        //    only if the ASV is not inside another polygon
+        double safety_distance = 7.5+.5*t_lvl;
+        postMessage("DIST", min_dist.getDist());
+        if (min_dist.getDist() <= (safety_distance))
+        {
+            // This function initializes the utility to a gaussian centered at the previous desired heading.
+            //  and only is called when the ASV is close to an obstacle. This makes it more difficult for
+            //  the ASV to make large changes in heading which can allow the ASV to crash into the obstacle
+            //  that is being avoided
+            gaussianAroundDesHead(OA_util, m_maxutil);
 
-      // Make sure it is not negative (Domain = [0,360])
-      if (cur_ang<0)
-	cur_ang+=360;
+            // Increase the NoGo region as the ASV gets closer to the obstacle
+            if (min_dist.getDist()<safety_distance/2)
+            {
+                safety += (safety_distance/2-min_dist.getDist())*10;
+                postMessage("SAFETY", (safety_distance/2-min_dist.getDist())*10);
+            }
+            for (int i = 0; i<safety; i++)
+            {
+                // Update the current buffer angles (Domain = [-360,360])
+                buff_low = (int)floor(fmod(min_dist.getAngle()-i,360));
+                buff_high = (int)floor(fmod(min_dist.getAngle()+i,360));
 
-      // Deal with slope being inf
-      //  (if max angle = min dist angle) --> set the cost to the cost
-      //       of the mininum distance point.
-      if (min_angle.getM() == 999)
-	calculated_cost = min_dist.getCost();
-      else
-	calculated_cost = (min_angle.getM()*x1+min_angle.getB());
+                // Make sure the angles are not negative (Domain = [0,360])
+                if (buff_low < 0)
+                    buff_low += 360;
+                if (buff_high < 0)
+                    buff_high += 360;
 
-      // Set a maximum threshold on the cost.
-      if (calculated_cost > m_maxutil)
-	actual_cost = m_maxutil;
-      else if (calculated_cost < 0)
-	actual_cost = 0;
-      else
-	actual_cost = calculated_cost;
+                // Set the OA Utility function
+                if (utility<OA_util[buff_low])
+                    OA_util[buff_low] = utility;
+                if (utility<OA_util[buff_high])
+                    OA_util[buff_high] = utility;
+            }
+        }
+        // This calculates the utility and stores that value if it is less than the current utility for all obstacles --> min angle to max cost
+        // Makes the first half of the "V Shaped" penalty function
+        for (double x1 = min_angle.getAngle()-buffer_width; x1<=min_dist.getAngle(); x1++)
+        {
+            // Update the current angle (Domain = [-360,360])
+            cur_ang = (int)floor(fmod(x1,360));
 
-      utility = m_maxutil-actual_cost;
+            // Make sure it is not negative (Domain = [0,360])
+            if (cur_ang<0)
+            cur_ang+=360;
 
-      // If the current utility value (the one that was just calculated)
-      //  is less than the previously stored value, store the new one
-      if (utility<OA_util[cur_ang])
-	OA_util[cur_ang]=floor(utility);
-    }
+            // Deal with slope being inf
+            //  (if max angle = min dist angle) --> set the cost to the cost
+            //       of the mininum distance point.
+            if (min_angle.getM() == 999)
+                calculated_cost = min_dist.getCost();
+            else
+                calculated_cost = (min_angle.getM()*x1+min_angle.getB());
 
-  // This calculates the utility and stores that value if it is less than
-  //  the current utility for all obstacles --> max cost to max angle
-  // Makes the first half of the "V Shaped" penalty function
-  for (double x2 = min_dist.getAngle(); x2<=max_angle.getAngle()+buffer_width; x2++)
-    {
-      // Update the current angle  (Domain = [-360,360])
-      cur_ang = (int)floor(fmod(x2,360));
+            // Set a maximum threshold on the cost.
+            if (calculated_cost > m_maxutil)
+                actual_cost = m_maxutil;
+            else if (calculated_cost < 0)
+                actual_cost = 0;
+            else
+                actual_cost = calculated_cost;
 
-      // Make sure it is not negative (Domain = [0,360])
-      if (cur_ang < 0)
-	cur_ang += 360;
+            utility = m_maxutil-actual_cost;
 
-      // Deal with slope being inf
-      //  (if max angle = min dist angle) --> set the cost to the cost
-      //       of the mininum distance point.
-      if (max_angle.getM() == 999)
-	calculated_cost = min_dist.getCost();
-      else
-	calculated_cost = (max_angle.getM()*x2+max_angle.getB());
+            // If the current utility value (the one that was just calculated)
+            //  is less than the previously stored value, store the new one
+            if (utility<OA_util[cur_ang])
+                OA_util[cur_ang]=floor(utility);
+        }
 
-      // Set a maximum threshold on the cost.
-      if (calculated_cost < 0)
-	actual_cost = 0;
-      else if (calculated_cost > m_maxutil)
-	actual_cost = m_maxutil;
-      else
-	actual_cost = calculated_cost;
+        // This calculates the utility and stores that value if it is less than
+        //  the current utility for all obstacles --> max cost to max angle
+        // Makes the first half of the "V Shaped" penalty function
+        for (double x2 = min_dist.getAngle(); x2<=max_angle.getAngle()+buffer_width; x2++)
+        {
+            // Update the current angle  (Domain = [-360,360])
+            cur_ang = (int)floor(fmod(x2,360));
 
-      utility = m_maxutil-actual_cost;
+            // Make sure it is not negative (Domain = [0,360])
+            if (cur_ang < 0)
+            cur_ang += 360;
 
-      // If the current utility value (the one that was just calculated)
-      //  is less than the previously stored value, store the new one
-      if (utility<OA_util[cur_ang])
-	OA_util[cur_ang]=floor(utility);
+            // Deal with slope being inf
+            //  (if max angle = min dist angle) --> set the cost to the cost
+            //       of the mininum distance point.
+            if (max_angle.getM() == 999)
+            calculated_cost = min_dist.getCost();
+            else
+            calculated_cost = (max_angle.getM()*x2+max_angle.getB());
+
+            // Set a maximum threshold on the cost.
+            if (calculated_cost < 0)
+                actual_cost = 0;
+            else if (calculated_cost > m_maxutil)
+                actual_cost = m_maxutil;
+            else
+                actual_cost = calculated_cost;
+
+            utility = m_maxutil-actual_cost;
+
+            // If the current utility value (the one that was just calculated)
+            //  is less than the previously stored value, store the new one
+            if (utility<OA_util[cur_ang])
+                OA_util[cur_ang]=floor(utility);
+        }
     }
 }
 
@@ -594,20 +448,22 @@ IvPFunction* BHV_OA_poly::setIVP_domain_range(vector<double> &OA_util)
 
   // Used for the ZAIC_Vector function
   vector<double> domain_vals, range_vals;
-
   int range_min;
 
+  domain_vals.push_back(0);
+  range_vals.push_back((int)floor((OA_util[359]+OA_util[1])/2));
   // Set the values for the angle (domain) and utility (range)
-  for (int iii = 0; iii<360; iii++)
+  for (int iii = 1; iii<360; iii++)
     {
       domain_vals.push_back(iii);
-      range_vals.push_back((int)floor(OA_util[iii]));
+      range_vals.push_back(int(OA_util[iii]));
     }
+  // Set 360 degrees
+  domain_vals.push_back(360);
+  range_vals.push_back((int)floor((OA_util[359]+OA_util[1])/2));
 
   range_min = *min_element(range_vals.begin(), range_vals.end());
-
-  // Make sure to include the last point
-  //domain_vals.push_back(iii+1); range_vals.push_back((int)floor(OA_util[iii+1]));
+  postMessage("Min_Util", range_min);
 
   // Set the ZAIC domain and range
   head_zaic_v.setDomainVals(domain_vals);
@@ -647,6 +503,37 @@ void BHV_OA_poly::Update_Lead_Param(vector<double> vect_max_cost)
 
   postMessage("WPT_UPDATE", "lead="+to_string(lead));
 }
+
+// This function initializes the utility to a gaussian centered at the previous desired heading.
+//  and only is called when the ASV is close to an obstacle. This makes it more difficult for
+//  the ASV to make large changes in heading which can allow the ASV to crash into the obstacle
+//  that is being avoided
+void BHV_OA_poly::gaussianAroundDesHead(vector<double> &OA_util, double amplitude)
+{
+    double sigma = 153; // Puts the point 180 degrees from the previous heading at approximately 50 degrees
+    double gauss_util;
+    int cur_ang;
+    for (int i=0; i<OA_util.size(); i++)
+    {
+        // Account for the 0/360 cross over
+        if ((m_Desired_head<180)&&(i>m_Desired_head+180))
+            cur_ang = i-360;
+        else if ((m_Desired_head>180)&&(i<m_Desired_head-180))
+            cur_ang = i+360;
+        else
+            cur_ang =i;
+
+        gauss_util = calc_Gaussian(m_Desired_head,cur_ang,sigma,amplitude);
+        if (gauss_util<OA_util[i])
+            OA_util[i] =gauss_util;
+    }
+}
+
+double BHV_OA_poly::calc_Gaussian(double x, double mu, double sigma, double amplitude)
+{
+    return pow(M_E, -(pow((x - mu),2)/(2*(sigma * sigma))))*amplitude;
+}
+
 
 
 

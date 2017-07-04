@@ -5,16 +5,7 @@
 /*    DATE: 11/22/16                                        */
 /************************************************************/
 
-#include <iterator>
-#include <vector>
-#include <cmath>
-#include <string>
-#include "MBUtils.h"
 #include "ENC_Contact.h"
-#include "ogrsf_frmts.h" // for gdal/ogr
-#include <cmath> // for pow and sqrt
-#include <algorithm> // for min_element and max_element
-#include "envelope.h"
 
 using namespace std;
 //---------------------------------------------------------
@@ -30,10 +21,29 @@ ENC_Contact::ENC_Contact()
   m_ASV_width = 1;
   m_ASV_draft = 1;
   m_search_dist = 50;
-  m_max_avoid_dist = 250;
+  m_min_depth = 1.0;
   m_ENC = "US5NH02M";
   m_speed = 0;
   geod = Geodesy();
+  m_max_pnts = 0;
+  m_max_poly = 0;
+  m_segmentation_dist = 3;
+}
+
+ENC_Contact::~ENC_Contact()
+{
+    GDALClose( DS_pnt );
+    GDALClose( DS_poly );
+    GDALClose( DS_line );
+
+    // Delete the vector of pointers
+    for (OGRPoint* obj: newPoint)
+        delete obj;
+    newPoint.clear();
+
+    for (OGRPolygon* obj2: newPoly)
+        delete obj2;
+    newPoly.clear();
 }
 
 //---------------------------------------------------------
@@ -42,7 +52,9 @@ ENC_Contact::ENC_Contact()
 bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
 {
   MOOSMSG_LIST::iterator p;
-  string name = "";
+  string name, color;
+  double distance;
+
   for(p=NewMail.begin(); p!=NewMail.end(); p++) {
     CMOOSMsg &msg = *p;
     name   = msg.GetName();
@@ -52,12 +64,85 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
         vect_y.push_back(msg.GetDouble());
     else if(name == "NAV_HEADING")
         vect_head.push_back(msg.GetDouble());
+    else if (name=="NAV_SPEED")
+        m_speed = msg.GetDouble();
     else if (name == "Current_Tide")
         vect_tide.push_back(atof(msg.GetString().c_str()));
     else if (name == "MHW_Offset")
         m_MHW_Offset = atof(msg.GetString().c_str());
-    /*else if (name == "NAV_SPEED")
-        m_speed = msg.GetDouble();*/
+    else if (name == "NEW_POINTS")
+        parseNewPoint(msg.GetString());
+    else if (name == "NEW_POLYS")
+        parseNewPoly(msg.GetString());
+    else if (name == "CYCLE_INDEX")
+    {
+        cout << "Index: " << msg.GetDouble() << endl;
+        if (dist2obstacle.size()>0)
+        {
+            // Calculate the minimum distance to the obstacle
+            distance = *min_element(dist2obstacle.begin(), dist2obstacle.end());
+            cout << distance << endl;
+            Notify("MIN_DIST", distance);
+        }
+        if (msg.GetDouble()>1)
+        {
+            // Increase the threat level for the obstacle after each iteration
+            Notify("UPDATE_POLYS", "INCREASE");
+            Notify("UPDATE_PTS", "INCREASE");
+        }
+        dist2obstacle.clear();
+    }
+    else if (name == "UPDATE_PTS")
+    {
+        if (pointTLvl.size() > 0)
+        {
+            for (int i=0; i<pointTLvl.size(); i++)
+            {
+                // Update the threat level
+                if(msg.GetString()=="INCREASE")
+                    pointTLvl[i]++;
+                else if(msg.GetString()=="DECREASE")
+                    pointTLvl[i]--;
+
+                // Make sure it is in the domain [-2 to 5]
+                if (pointTLvl[i] < -2)
+                    pointTLvl[i] = -2;
+                else if (pointTLvl[i] > 5)
+                    pointTLvl[i] = 5;
+
+                // Update the color on pMarineViewer
+                setColor(pointTLvl[i], color);
+                Notify("VIEW_POINT", "x="+to_string(newPoint[i]->getX()) +",y="+ to_string(newPoint[i]->getY())+",vertex_size=8,vertex_color="+color+",label="+pointLabels[i]);
+
+            }
+        }
+    }
+    else if (name == "UPDATE_POLYS")
+    {
+        if (polyTLvl.size() > 0)
+        {
+            for (int i=0; i<polyTLvl.size(); i++)
+            {
+                // Update the threat level
+                if(msg.GetString()=="INCREASE")
+                    polyTLvl[i]++;
+                else if(msg.GetString()=="DECREASE")
+                    polyTLvl[i]--;
+
+                // Make sure it is in the domain [-2 to 5]
+                if (polyTLvl[i] < -2)
+                    polyTLvl[i] = -2;
+                else if (polyTLvl[i] > 5)
+                    polyTLvl[i] = 5;
+
+                // Update the color on pMarineViewer
+                setColor(polyTLvl[i], color);
+                MOOS_polygons[i].set_param("vertex_color",color);
+                MOOS_polygons[i].set_param("edge_color",color);
+                Notify("VIEW_POLYGON",MOOS_polygons[i].get_spec("label"));
+            }
+        }
+    }
    }
 	
    return(true);
@@ -68,11 +153,6 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
 
 bool ENC_Contact::OnConnectToServer()
 {
-   // register for variables here
-   // possibly look at the mission file?
-  // m_MissionReader.GetConfigurationParam("LongOrigin", <string>);
-   // m_Comms.Register("VARNAME", 0);
-  
   RegisterVariables();
   return(true);
 }
@@ -83,6 +163,9 @@ bool ENC_Contact::OnConnectToServer()
 
 bool ENC_Contact::Iterate()
 {
+    if (m_iterations == 0)
+        Notify("ENC_INIT", "true");
+
     if (vect_head.size() > 0)
     {
         m_ASV_head = vect_head.back();
@@ -98,18 +181,26 @@ bool ENC_Contact::Iterate()
         vect_x.clear();
         vect_y.clear();
 
+        // Clear old tlvl vectors
+        vect_TLvl.clear();
+
         // need to add a global point, polygon and line geometry
         build_search_poly();
         filter_feats();
         publish_points();
         publish_poly();
+
+        if (vect_TLvl.size()>0)
+            Update_Lead_Param();
+        else
+            Notify("WPT_UPDATE", "lead=8");
+
     }
     if (vect_tide.size() > 0 )
     {
         m_tide = vect_tide.back();
         vect_tide.clear();
     }
-
     m_iterations++;
     return(true);
 }
@@ -123,36 +214,35 @@ bool ENC_Contact::OnStartUp()
   double dfLatOrigin,dfLongOrigin;
   list<string> sParams;
   m_MissionReader.EnableVerbatimQuoting(false);
-  if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {
+  if(m_MissionReader.GetConfiguration(GetAppName(), sParams))
+  {
     list<string>::iterator p;
-    for(p=sParams.begin(); p!=sParams.end(); p++) {
+    for(p=sParams.begin(); p!=sParams.end(); p++)
+    {
       string original_line = *p;
       string param = stripBlankEnds(toupper(biteString(*p, '=')));
       string value = stripBlankEnds(*p);
-      
-      if (value != "default")
-	{
-	  if(param == "ENCS") {
-	    m_ENC = value;
-	    cout << value << endl;
-	  }
-	  else if(param == "MHW_OffSET")
-	    m_MHW_Offset = atof(value.c_str());
-	  else if(param == "SEARCH_DIST")
-	    m_search_dist = atof(value.c_str());
-	  else if(param == "AVOID_DIST")
-	    m_max_avoid_dist = atof(value.c_str());
-	  
-	  // ASV Configuration
-	  else if (param == "ASV_LENGTH")
-	    m_ASV_length = atof(value.c_str());
-	  
-	  else if (param == "ASV_WIDTH")
-	    m_ASV_width = atof(value.c_str());
-	  
-	  else if (param == "ASV_DRAFT")
-	    m_ASV_draft = atof(value.c_str());
-	}
+
+      if(param == "ENCS")
+        m_ENC = value;
+      else if(param == "MHW_OffSET")
+        m_MHW_Offset = atof(value.c_str());
+      else if(param == "SEARCH_DIST")
+        m_search_dist = atof(value.c_str());
+      else if(param == "SEGMENTATION_DIST")
+        m_segmentation_dist = atof(value.c_str());
+      else if(param == "MIN_DEPTH")
+        m_min_depth = atof(value.c_str());
+
+      // ASV Configuration
+      else if (param == "ASV_LENGTH")
+        m_ASV_length = atof(value.c_str());
+
+      else if (param == "ASV_WIDTH")
+        m_ASV_width = atof(value.c_str());
+
+      else if (param == "ASV_DRAFT")
+        m_ASV_draft = atof(value.c_str());
     }
   }
 
@@ -198,13 +288,140 @@ bool ENC_Contact::OnStartUp()
 
 void ENC_Contact::RegisterVariables()
 {
-  Register("NAV_X", 0);
-  Register("NAV_Y", 0);
-  Register("NAV_HEADING", 0);
-  //Register("NAV_SPEED", 0);
-  Register("Current_Tide",0);
-  Register("MHW_Offset",0);
-  //Register("ENCs",0);
+    Register("NAV_X", 0);
+    Register("NAV_Y", 0);
+    Register("NAV_HEADING", 0);
+    Register("NAV_SPEED", 0);
+    Register("Current_Tide",0);
+    Register("MHW_Offset",0);
+    Register("NEW_POINTS",0);
+    Register("NEW_POLYS",0);
+    Register("UPDATE_PTS", 0);
+    Register("UPDATE_POLYS", 0);
+    Register("CYCLE_INDEX", 0);
+}
+
+void ENC_Contact::setColor(int t_lvl, string &color)
+{
+    // Change the Color of the point based on the Threat Level
+    if (t_lvl == 5) //Coast Line
+        color = "black";
+    else if (t_lvl == 4)
+        color = "red";
+    else if (t_lvl == 3)
+        color = "darkorange";
+    else if (t_lvl == 2)
+        color = "gold";
+    else if (t_lvl == 1)
+        color = "greenyellow";
+    else if (t_lvl == 0)
+        color = "green";
+    else if (t_lvl == -1) // Landmark
+        color = "violet";
+    else if (t_lvl == -2) // LIGHTS
+        color = "cornflowerblue";
+    else
+        cout << "ERROR --> Threat Level " << t_lvl << " does not exist!" << endl;
+}
+
+// Function for adding a new point to avoid. These messages will be passed by pMarineViewer
+//  and will contain a string in the format: x=$(XPOS),y=$(YPOS),$(t_lvl),$(label)
+//  This string is parsed and an OGRPoint object is created. The points can be removed if
+//  pointSting contains the value "CLEARALL"
+void ENC_Contact::parseNewPoint(string pointString)
+{
+    // The string is in the format:
+    //  x=$(XPOS),y=$(YPOS),$(t_lvl),$(label)
+    vector<string> parsed, x, y;
+
+    // Remove all points from the
+    if (toupper(pointString) == "CLEARALL")
+    {
+        // Remove the point from pMarineViewer
+        for(auto i:pointLabels)
+            Notify("VIEW_POINT", "x=1,y=1, active=false, label="+i);
+        // Delete the pointer and clear the vector holding the points
+        for (OGRPoint* obj: newPoint)
+            delete obj;
+        newPoint.clear();
+        pointTLvl.clear();
+        pointLabels.clear();
+
+        // Remove the points on pMarineViewer
+    }
+    else
+    {
+        // Parse the string
+        parsed = parseString(pointString,",");
+        if (parsed.size() == 4)
+        {
+            x = parseString(parsed[0],"=");
+            y = parseString(parsed[1],"=");
+
+            cout << parsed[0] << ", " << parsed[1] << endl;
+
+            // Add the point to the vector
+            newPoint.push_back(new OGRPoint(atof(x[1].c_str()), atof(y[1].c_str())));
+            pointTLvl.push_back(atof(parsed[2].c_str()));
+            pointLabels.push_back(parsed[3]);
+        }
+        else
+            cout << "ERROR --> New Point: " << pointString << endl;
+    }
+}
+
+// Function for adding a new polygon to avoid. These messages will be passed by pMarineViewer
+//  and will contain a string in the format of an XYPolygon.This string is parsed and an OGRPoint
+//  object is created. The points can be removed if polySting contains the value "CLEARALL"
+void ENC_Contact::parseNewPoly(string polyString)
+{
+    // The string is in the format of VIEW_POLY, where the label gives
+    //  the threat level (label=!$(t_lvl)!$(XPOS)!$(YPOS))
+    vector<string> parseT_lvl;
+
+    if (toupper(polyString) == "CLEARALL")
+    {
+        // Delete the pointer and clear the vector holding the polygons
+        for (OGRPolygon* obj: newPoly)
+            delete obj;
+        newPoly.clear();
+        polyTLvl.clear();
+
+        // Remove the polygon from pMarineViewer
+        for(auto i:MOOS_polygons)
+            Notify("VIEW_POLYGON",i.get_spec("active=false"));
+        MOOS_polygons.clear();
+    }
+    else
+    {
+        // Parse the string to build an XYPolygon
+        XYPolygon MOOS_poly = string2Poly(polyString);
+        MOOS_polygons.push_back(MOOS_poly);
+
+        // parse the specs to get the threat level of the polygon
+        parseT_lvl = parseString(MOOS_poly.get_spec("label"),"!");
+        int t_lvl = atoi(parseT_lvl[1].c_str());
+        polyTLvl.push_back(t_lvl);
+
+        // Build the new OGRPolygon object
+        OGRPolygon *poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
+        OGRLinearRing *ring = (OGRLinearRing*) OGRGeometryFactory::createGeometry(wkbLinearRing);
+
+        // Add all of the vertices to the ring that decribes the polygon
+        for (unsigned int i = 0; i<MOOS_poly.size(); i++)
+        {
+            ring->addPoint(MOOS_poly.get_vx(i), MOOS_poly.get_vy(i));
+            cout << MOOS_poly.get_vx(i) << ", " << MOOS_poly.get_vy(i) <<"; ";
+        }
+        cout << endl;
+        ring->closeRings();
+        poly->addRing(ring);
+        poly->closeRings();
+
+        // Segmentize the polygon to m_segmentation_dist meters between the vertices and store it
+        poly->segmentize(m_segmentation_dist);
+        newPoly.push_back(poly);
+    }
 }
 
 //---------------------------------------------------------
@@ -378,9 +595,9 @@ double ENC_Contact::calc_WL_depth(double WL)
   double WL_depth = 0;
   double feet2meters = 0.3048;
   if (WL == 2)
-      // At least 2 feet above MHW. Being shoal biased, we will take the 
-      // object's "charted" depth as 2 feet above MHW
-      WL_depth = m_tide-(2*feet2meters+m_MHW_Offset);
+      // At least 1 foot above MHW. Being shoal biased, we will take the
+      // object's "charted" depth as 2 foot above MHW
+      WL_depth = m_tide-(1*feet2meters+m_MHW_Offset);
   else if (WL == 3)
       // At least 1 foot below MLLW. Being shoal biased, we will take the 
       //  object's "charted" depth as 1 foot below MLLW
@@ -495,25 +712,19 @@ int ENC_Contact::calc_t_lvl(double &depth, double WL, string LayerName)
 int ENC_Contact::threat_level(double depth)
 {
   int t_lvl = 0;
-  // Above the water surface
-  if (depth<=0)
+  // Above the water surface (plus buffer)
+  if (depth<=m_ASV_draft*3)
     t_lvl = 4;
-  // Near the water surface
-  else if (depth< 1)
+  // Near the water surface (plus buffer)
+  else if (depth< m_ASV_draft*4)
     t_lvl = 3;
-  // Obstacle below surface
-  else if (depth >= 1)
-    {
-      // 1<=depth<2 
-      if (depth < 2)
-	t_lvl = 2;
-      // 2<=depth<4
-      else if ((depth >=2) && (depth <= 4))
-	t_lvl = 1;
-      // Obstacle is deep (depth > 4m)
-      else
-	t_lvl = 0;
-    }
+  else if (depth < m_ASV_draft*5)
+    t_lvl = 2;
+  else if ((depth >=m_ASV_draft*5) && (depth <= m_ASV_draft*7))
+    t_lvl = 1;
+  // Obstacle is deep
+  else
+    t_lvl = 0;
   
   return t_lvl;
 }
@@ -702,7 +913,8 @@ void ENC_Contact::BuildLayers()
 
     // Points only
     //LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG");
-    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, LineLayer, "UWTROC");
+    ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, LineLayer, "LNDMRK");
+    ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, LineLayer, "SILTNK");
     ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, LineLayer, "LIGHTS");
     ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, LineLayer, "BOYSPP");
     ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, LineLayer, "BOYISD");
@@ -710,17 +922,20 @@ void ENC_Contact::BuildLayers()
     ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, LineLayer, "BOYLAT");
     ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, LineLayer, "BCNSPP");
     ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, LineLayer, "BCNLAT");
+    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, LineLayer, "UWTROC");
 
     // Other Types
     ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, LineLayer, "LNDARE");
     ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, LineLayer, "PONTON");
     ENC_Converter(ds_ENC->GetLayerByName("FLODOC"), PointLayer, PolyLayer, LineLayer, "FLODOC");
-    //ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, LineLayer, "DEPCNT");
     ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, LineLayer, "DYKCON");
-    ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, LineLayer, "LNDMRK");
-    ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, LineLayer, "SILTNK");
     ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, LineLayer, "WRECKS");
     ENC_Converter(ds_ENC->GetLayerByName("OBSTRN"), PointLayer, PolyLayer, LineLayer, "OBSTRN");
+
+    // Depth area and depth contours give the same infomation except the areas are polygons and
+    //  contours are line segments
+    ENC_Converter(ds_ENC->GetLayerByName("DEPARE"), PointLayer, PolyLayer, LineLayer,  "DEPARE");
+    //ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, LineLayer, "DEPCNT");
 
     // close the data sources - need this to save the new files
     GDALClose( ds_ENC );
@@ -868,9 +1083,15 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
   int iField = 0;
   string name = "";
   string cat;
+  string a_filter = "DRVAL2<"+to_string(m_min_depth);
   
   if (Layer_ENC != NULL)
     {
+      if (LayerName=="DEPARE")
+      {
+          // Only store depth areas of with a maximum depth of less than 1
+          Layer_ENC->SetAttributeFilter(a_filter.c_str());
+      }
       poFDefn_ENC = Layer_ENC->GetLayerDefn();
       Layer_ENC->ResetReading();
       
@@ -906,10 +1127,14 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	    }
 	  
 	  if (LayerName=="DEPCNT"){
-	    depth = poFeature->GetFieldAsDouble("VALDCO");
+            depth = poFeature->GetFieldAsDouble("VALDCO"); // Contour's depth
 	  }
+          if (LayerName=="DEPARE")
+          {
+              depth = poFeature->GetFieldAsDouble("DRVAL1"); // Minimum depth of the depth area
+          }
 	  
-	  t_lvl = calc_t_lvl(depth, WL, LayerName);
+          t_lvl = calc_t_lvl(depth, WL, LayerName);
 
 	  if (geom ->getGeometryType()  == wkbPoint)
 	    {
@@ -962,7 +1187,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	      ring = poPoly->getExteriorRing();
 	      // Build the new UTM ring and polygon
 	      UTM_ring = (OGRLinearRing *) OGRGeometryFactory::createGeometry(wkbLinearRing);
-	      UTM_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
+              UTM_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
 	      for (int j=0; j<ring->getNumPoints(); j++)
 		{
                   //x = ring->getX(j)-geod.getXOrigin();
@@ -977,7 +1202,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	      UTM_ring->closeRings();
 	      UTM_poly->addRing(UTM_ring);
               UTM_poly->closeRings();
-              UTM_poly->segmentize(5);
+              UTM_poly->segmentize(m_segmentation_dist);
 
               new_feat->SetGeometry(UTM_poly);
 	      
@@ -1013,7 +1238,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 		  UTM_line->addPoint(x,y,0);
 		}
 
-              UTM_line->segmentize(5);
+              UTM_line->segmentize(m_segmentation_dist);
 	      new_feat->SetGeometry(UTM_line);
 	      
 	      // Build the new feature
@@ -1098,6 +1323,8 @@ void ENC_Contact::filter_feats()
   // Filter Data
   Point_Layer->SetSpatialFilter(search_area_poly);
   Poly_Layer->SetSpatialFilter(search_area_poly);
+  Point_Layer->SetAttributeFilter("t_lvl>0");
+  Poly_Layer->SetAttributeFilter("t_lvl>0");
 }
 
 void ENC_Contact::publish_points()
@@ -1111,74 +1338,93 @@ void ENC_Contact::publish_points()
      there are any wrongly highlighted obstacles, it removes them.
   */
 
-  OGRFeature *poFeature;
-  OGRGeometry *geom;
-  OGRPoint *poPoint;
-  
-  int num_obs=0;
-  string obs_pos = "";
-  string highlight = "";
-  string remove_highlight = "";
-  string pos = "";
-  string obs_type = "";
-  string obstacles = "";
-  
-  double lat = 0;
-  double lon = 0;
-  double x = 0;
-  double y = 0;
+    OGRFeature *poFeature;
+    OGRGeometry *geom;
+    OGRPoint *poPoint;
 
-  double WL = 0;
-  double depth = 0;
-  double t_lvl = 0;
-  
-  Point_Layer->ResetReading();
-  while( (poFeature = Point_Layer->GetNextFeature()) != NULL )
+    int num_obs=0;
+    string obs_info, remove_highlight, obs_type, obstacles;
+
+    double WL = 0;
+    double depth = 0;
+    double t_lvl = 0;
+
+    Point_Layer->ResetReading();
+    while( (poFeature = Point_Layer->GetNextFeature()) != NULL )
     {
-      geom = poFeature->GetGeometryRef();
-      poPoint = ( OGRPoint * )geom;
+        geom = poFeature->GetGeometryRef();
+        poPoint = ( OGRPoint * )geom;
 
-      x = poPoint->getX();
-      y = poPoint->getY();
-      pos = "x="+to_string(x)+",y="+to_string(y);
+        WL = poFeature->GetFieldAsDouble(1);
+        depth = poFeature->GetFieldAsDouble(2);
+        obs_type =poFeature->GetFieldAsString(3);
 
-      highlight = "format=radial,"+pos+",radius=25,pts=8,edge_size=5,vertex_size=2,edge_color=aquamarine,vertex_color=aquamarine,label=hpnt_"+to_string(num_obs);
-      
-      WL = poFeature->GetFieldAsDouble(1);
-      depth = poFeature->GetFieldAsDouble(2);
-      obs_type =poFeature->GetFieldAsString(3);
-      
-      t_lvl = calc_t_lvl(depth, WL, obs_type);
-      
-      if (t_lvl > 0)
-	{
-	  // Highlight the point on pMarnineViewer
-	  Notify("VIEW_POLYGON", highlight);
+        t_lvl = calc_t_lvl(depth, WL, obs_type);
 
-	  // Store the values of the position, threat level and obstacle typeX
-	  if (num_obs != 0)
-	    obs_pos += "!";
-	  num_obs ++;
+        if (t_lvl > 0)
+            buildPointHighlight(poPoint, num_obs,obs_info,t_lvl,obs_type);
+    }
 
-	  obs_pos += pos+","+to_string(t_lvl)+","+obs_type;
+    getNewPointVertex(num_obs, obs_info);
+
+    // Output to the MOOSDB a list of obstacles
+    //  ASV_X,ASV_Y,ASV_Head # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
+    obstacles = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs)+":"+obs_info;
+    Notify("Obstacles", obstacles);
+
+    // Determine if a new polygon was used
+    if (m_max_pnts < num_obs)
+        m_max_pnts = num_obs;
+
+    // Remove highlighted point obstacles (shown as polygons) from
+    //  pMarineViewer if they are outside of the search area
+    for (int i=num_obs; i<m_max_pnts; i++)
+    {
+        remove_highlight = "format=radial,x= 0,y=0,radius=25,pts=8,edge_size=5,vertex_size=2,active=false,label=hpnt_"+to_string(i);
+        Notify("VIEW_POLYGON", remove_highlight);
+    }
+}
+
+void ENC_Contact::getNewPointVertex(int &num_obs, string &point_info)
+{
+    string obs_type = "newPoint";
+    // Cycle through all of the new polygons to determine if any of them are in the search area
+    for(int i=0; i<newPoint.size(); i++)
+    {
+        // If they are in the search area, find the closest vertex and the maximum angular extent
+        if ((newPoint[i]->Within(search_area_poly))&&(pointTLvl[i]>0))
+        {
+            buildPointHighlight(newPoint[i], num_obs, point_info, pointTLvl[i], obs_type);
         }
     }
-  // Output to the MOOSDB a list of obstacles
-  //  ASV_X,ASV_Y,ASV_Head # of Obstacles : x=x_obs,y=y_obs,t_lvl,type ! x=x_obs,y=y_obs,t_lvl,type ! ...
-  obstacles = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs)+":"+obs_pos;
-  Notify("Obstacles", obstacles);
-  
-  // Determine if a new polygon was used
-  if (m_max_pnts < num_obs)
-    m_max_pnts = num_obs;
-  
-  // Remove highlighted point obstacles (shown as polygons) from 
-  //  pMarineViewer if they are outside of the search area
-  for (int i=num_obs; i<m_max_pnts; i++)
-    {
-      remove_highlight = "format=radial,x= 0,y=0,radius=25,pts=8,edge_size=5,vertex_size=2,active=false,label=hpnt_"+to_string(i);
-      Notify("VIEW_POLYGON", remove_highlight);
-    }
+}
+
+void ENC_Contact::buildPointHighlight(OGRPoint *poPoint, int &num_obs, string &point_info, int t_lvl, string obs_type)
+{
+    double x = 0;
+    double y = 0;
+    string pos, highlight;
+
+    x = poPoint->getX();
+    y = poPoint->getY();
+    pos = "x="+to_string(x)+",y="+to_string(y);
+    dist2obstacle.push_back(sqrt(pow(x-m_ASV_x,2)+pow(y-m_ASV_y,2)));
+
+    // Calculate the distance and store the cost for updating the lead parameter
+    //double dist = sqrt(pow(x-m_ASV_x, 2) + pow(y-m_ASV_y, 2));
+    //calcCost(t_lvl, dist);
+    vect_TLvl.push_back(t_lvl);
+
+    highlight = "format=radial,"+pos+",radius=25,pts=8,edge_size=5,vertex_size=2,edge_color=aquamarine,vertex_color=aquamarine,label=hpnt_"+to_string(num_obs);
+    // Highlight the point on pMarnineViewer
+    Notify("VIEW_POLYGON", highlight);
+
+    // Store the values of the position, threat level and obstacle typeX
+    if (num_obs != 0)
+      point_info += "!";
+    num_obs ++;
+
+    point_info += pos+","+to_string(t_lvl)+","+obs_type;
 }
 
 void ENC_Contact::publish_poly()
@@ -1212,158 +1458,247 @@ void ENC_Contact::publish_poly()
     Poly_Layer->ResetReading();
     while( (poFeature = Poly_Layer->GetNextFeature()) != NULL )
     {
-        geom = poFeature->GetGeometryRef();
-        // Find the intersection of the polygon and the search area
-        poPoly = (OGRPolygon*) geom;
-        vertices = find_crit_pts(poPoly, num_obs);
-
         // Calculate the current threat level
         WL = poFeature->GetFieldAsDouble(1);
         depth = poFeature->GetFieldAsDouble(2);
         obs_type =poFeature->GetFieldAsString(3);
         t_lvl = calc_t_lvl(depth,WL,obs_type);
 
-        vertices = to_string(t_lvl)+","+obs_type+"@"+vertices;
+        if (t_lvl>0)
+        {
+            geom = poFeature->GetGeometryRef();
+            // Find the intersection of the polygon and the search area
+            poPoly = (OGRPolygon*) geom;
 
-        if (num_obs >0)
-            poly_info += "!";
+            vertices = find_crit_pts(poPoly, num_obs, t_lvl);
+            vertices = to_string(t_lvl)+","+obs_type+"@"+vertices;
 
-        poly_info += vertices;
+            if (num_obs >0)
+                poly_info += "!";
 
-        // Incriment the counter
-        num_obs++;
+            poly_info += vertices;
+
+            // Incriment the counter
+            num_obs++;
+        }
     }
-  
+
+    // Check the polygons added from pMarineViewer to see if they are inside of the search area
+    getNewPolyVertex(num_obs, poly_info);
+
     Poly_Obs = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+":"+to_string(num_obs);
+
     if (num_obs>0)
     {
         Poly_Obs = Poly_Obs+":"+poly_info;
     }
-  
+
     Notify("Poly_Obs", Poly_Obs);
 
     if (m_max_poly < num_obs)
         m_max_poly = num_obs;
-  
+
     for (int ii = num_obs; ii<m_max_poly; ii++)
     {
-        pt_1 = "x=10000,y=10000,vertex_color=white,active=false,label=pt1_"+to_string(ii);
-        pt_2 = "x=10000,y=10000,vertex_color=white,active=false,label=pt2_"+to_string(ii);
-        pt_3 = "x=10000,y=10000,vertex_color=mediumblue,active=false,label=pt3_"+to_string(ii);
+        pt_1 = "x=10000,y=10000,vertex_color=white,active=false,label=minAng_"+to_string(ii);
+        pt_2 = "x=10000,y=10000,vertex_color=mediumblue,active=false,label=minDist_"+to_string(ii);
+        pt_3 = "x=10000,y=10000,vertex_color=white,active=false,label=maxAng_"+to_string(ii);
         Notify("VIEW_POINT", pt_1);
         Notify("VIEW_POINT", pt_2);
         Notify("VIEW_POINT", pt_3);
     }
 }
 
-string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs)
+void ENC_Contact::getNewPolyVertex(int &num_obs, string &poly_info)
 {
-  OGRLinearRing *poRing = ( OGRLinearRing * ) OGRGeometryFactory::createGeometry(wkbLinearRing);
-  poRing = poPolygon->getExteriorRing();
-  
-  int pnt_cnt =poRing->getNumPoints();
-  int min_ang_index, max_ang_index, min_dist_index;
-  int i;
-  
-  double min_ang, max_ang, min_dist;
-  double x, y, lat, lon, ang, prev_ang, first_ang;
-  
-  string crit_pts = "";
-  string pt_1,pt_2, pt_3;
-  string ref_frame = "";
-  
-  vector<double> vert_x, vert_y;
-  if (poRing != NULL)
+    string obs_type = "newPoly";
+    string vertices;
+    // Cycle through all of the new polygons to determine if any of them are in the search area
+    for(int i=0; i<newPoly.size(); i++)
     {
-      vector<vector<double>> angle2poly;
-      vector<double>  dist2poly;
-      Envelope poly_envs = Envelope();
-      for (i=0; i<pnt_cnt; i++)
+        // If they are in the search area, find the closest vertex and the maximum angular extent
+        if ((newPoly[i]->Intersects(search_area_poly))&&(polyTLvl[i]>0))
         {
-	  x = poRing->getX(i);
-	  y = poRing->getY(i);
-	  
-	  vert_x.push_back(x);
-	  vert_y.push_back(y);
-	  
-	  dist2poly.push_back(sqrt(pow((m_ASV_x-x),2)+pow((m_ASV_y-y),2)));
-	  ang = relAng(m_ASV_x, m_ASV_y,x,y);
-
-	  if (i>0)
-	    poly_envs.store_angle(ang,prev_ang,(double)i,angle2poly);
-	  else
-	    first_ang = ang;
-
-	  prev_ang = ang;
+            vertices = find_crit_pts(newPoly[i], num_obs, polyTLvl[i]);
+            vertices = to_string(polyTLvl[i])+","+obs_type+"@"+vertices;
+            if (num_obs >0)
+                poly_info += "!";
+            poly_info += vertices;
+            num_obs++;
         }
-      // The angle of the first vertex should be compared to the angle
-      //  of the last vertex.
-      poly_envs.store_angle(first_ang,prev_ang,(double)i,angle2poly);
-      
-      // Determine the minimum and maximum angles
-      poly_envs.calcEnvelope(angle2poly);
-      
-      min_ang = poly_envs.GetMinAng();
-      
-      max_ang = poly_envs.GetMaxAng();
-
-      // Deal with the cross over point (0/360 boundary)
-      if (min_ang < max_ang)
-	ref_frame = "0";
-      else
-	ref_frame = "1";
-      
-      // Get their index
-      min_ang_index = poly_envs.GetMinAngIndex()-1;
-      max_ang_index = poly_envs.GetMaxAngIndex()-1;
-      
-      // Determine the minimum distance
-      min_dist = *min_element(dist2poly.begin(), dist2poly.end());
-
-      // Deterimine which vertex is the min distance
-      for (int i=0; i<pnt_cnt; i++)
-	{
-	  if (min_dist ==dist2poly.at(i))
-	    min_dist_index = i;
-        }
-      
-      // Make string representations for each x,y points for ease of use
-      string x_ang_min, y_ang_min, x_dist_min, y_dist_min, x_ang_max, y_ang_max;
-      
-      x_ang_min = to_string(vert_x.at(min_ang_index));
-      y_ang_min = to_string(vert_y.at(min_ang_index));
-
-      x_dist_min = to_string(vert_x.at(min_dist_index));
-      y_dist_min = to_string(vert_y.at(min_dist_index));
-
-      x_ang_max = to_string(vert_x.at(max_ang_index));
-      y_ang_max = to_string(vert_y.at(max_ang_index));
-     
-      // Post hints to pMarineViewer about the critical points
-      pt_1 = "x="+x_ang_min+",y="+y_ang_min+",vertex_color=white,vertex_size=7,label=pt1_"+to_string(num_obs);
-      pt_2 = "x="+x_dist_min+",y="+y_dist_min+",vertex_color=mediumblue,vertex_size=7,label=pt2_"+to_string(num_obs);
-      pt_3 = "x="+x_ang_max+",y="+y_ang_max+",vertex_color=white,vertex_size=7,label=pt3_"+to_string(num_obs);
-      
-      Notify("VIEW_POINT", pt_1);
-      Notify("VIEW_POINT", pt_2);
-      Notify("VIEW_POINT", pt_3);
-
-      crit_pts = ref_frame +","+ x_ang_min +","+ y_ang_min +","+ x_dist_min +","+ y_dist_min +","+ x_ang_max +","+ y_ang_max;
     }
-  else
-    {
-      // Post an error if the ring is empty
-      cout << "Ring is EMPTY!!!!" << endl;
-    }
-  return crit_pts;
 }
 
-/*
-void ang4ivp(vector<double> angles, vector<double> dist)
+string ENC_Contact::find_crit_pts(OGRPolygon *poPolygon, int num_obs, int t_lvl)
 {
+    OGRPoint *ASV_pos;
+    OGRLinearRing *poRing = ( OGRLinearRing * ) OGRGeometryFactory::createGeometry(wkbLinearRing);
+    poRing = poPolygon->getExteriorRing();
 
+    int pnt_cnt =poRing->getNumPoints();
+    int min_ang_index, max_ang_index, min_dist_index;
+    int i;
+
+    double min_ang, max_ang, min_dist;
+    double x, y, lat, lon, ang, prev_ang, first_ang;
+
+    string inside = "0";
+
+    string crit_pts = "";
+    string pt_1,pt_2, pt_3;
+    string ref_frame = "";
+
+    vector<double> vert_x, vert_y;
+    if (poRing != NULL)
+    {
+        vector<vector<double>> angle2poly;
+        vector<double>  dist2poly;
+        Envelope poly_envs = Envelope();
+        for (i=0; i<pnt_cnt; i++)
+        {
+            x = poRing->getX(i);
+            y = poRing->getY(i);
+
+            vert_x.push_back(x);
+            vert_y.push_back(y);
+
+            dist2poly.push_back(sqrt(pow((m_ASV_x-x),2)+pow((m_ASV_y-y),2)));
+            ang = relAng(m_ASV_x, m_ASV_y,x,y);
+
+            if (i>0)
+                poly_envs.store_angle(ang,prev_ang,(double)i,angle2poly);
+            else
+                first_ang = ang;
+
+            prev_ang = ang;
+        }
+        // The angle of the first vertex should be compared to the angle
+        //  of the last vertex.
+        poly_envs.store_angle(first_ang,prev_ang,(double)i,angle2poly);
+
+        // Determine the minimum distance
+        min_dist = *min_element(dist2poly.begin(), dist2poly.end());
+        dist2obstacle.push_back(min_dist);
+
+        // Store the maximum cost (which is the minimum distance) for updating the lead parameter
+        //calcCost(t_lvl, min_dist);
+        vect_TLvl.push_back(t_lvl);
+
+        // Deterimine which vertex is the min distance
+        for (int i=0; i<pnt_cnt; i++)
+        {
+            if (min_dist ==dist2poly.at(i))
+                min_dist_index = i;
+        }
+
+        // Set the position of the ASV
+        ASV_pos = ( OGRPoint * ) OGRGeometryFactory::createGeometry(wkbPoint25D);
+        ASV_pos->setX(m_ASV_x);
+        ASV_pos->setY(m_ASV_y);
+
+        // Check to see if you are inside of a polygon.
+        //    If you are go towards the closest vertex
+        if (ASV_pos->Within(poPolygon))
+        {
+            // If the closest vertex is the first vertex, then the max angle is
+            // the last vertex in the ring
+            if (min_dist_index ==0)
+                min_ang_index = pnt_cnt-1;
+            else
+                min_ang_index = min_dist_index-1;
+
+            // If the closest vertex is the last vertex, then the max angle is
+            // the first vertex in the ring
+            if (min_dist_index==pnt_cnt-1)
+                max_ang_index = 0;
+            else
+                max_ang_index = min_dist_index+1;
+
+            // set min/max angles
+            min_ang = angle2poly[min_ang_index][0];
+            max_ang = angle2poly[max_ang_index][0];
+            inside = "1";
+
+        }
+        else
+        {
+            // Determine the minimum and maximum angles
+            poly_envs.calcEnvelope(angle2poly);
+
+            min_ang = poly_envs.GetMinAng();
+            max_ang = poly_envs.GetMaxAng();
+
+            // Get their index
+            min_ang_index = poly_envs.GetMinAngIndex()-1;
+            max_ang_index = poly_envs.GetMaxAngIndex()-1;
+            inside = "0";
+        }
+
+        // Deal with the cross over point (0/360 boundary)
+        if (min_ang < max_ang)
+            ref_frame = "0";
+        else
+            ref_frame = "1";
+
+        // Make string representations for each x,y points for ease of use
+        string x_ang_min, y_ang_min, x_dist_min, y_dist_min, x_ang_max, y_ang_max;
+
+        x_ang_min = to_string(vert_x.at(min_ang_index));
+        y_ang_min = to_string(vert_y.at(min_ang_index));
+
+        x_dist_min = to_string(vert_x.at(min_dist_index));
+        y_dist_min = to_string(vert_y.at(min_dist_index));
+
+        x_ang_max = to_string(vert_x.at(max_ang_index));
+        y_ang_max = to_string(vert_y.at(max_ang_index));
+
+        // Post hints to pMarineViewer about the critical points
+        pt_1 = "x="+x_ang_min+",y="+y_ang_min+",vertex_color=white,vertex_size=7,label=minAng_"+to_string(num_obs);
+        pt_2 = "x="+x_dist_min+",y="+y_dist_min+",vertex_color=mediumblue,vertex_size=7,label=minDist_"+to_string(num_obs);
+        pt_3 = "x="+x_ang_max+",y="+y_ang_max+",vertex_color=white,vertex_size=7,label=maxAng_"+to_string(num_obs);
+
+        Notify("VIEW_POINT", pt_1);
+        Notify("VIEW_POINT", pt_2);
+        Notify("VIEW_POINT", pt_3);
+
+        crit_pts = inside+"," +ref_frame +","+ x_ang_min +","+ y_ang_min +","+ x_dist_min +","+ y_dist_min +","+ x_ang_max +","+ y_ang_max;
+    }
+    else
+    {
+        // Post an error if the ring is empty
+        cout << "Ring is EMPTY!!!!" << endl;
+    }
+    return crit_pts;
 }
-*/
+
+void ENC_Contact::calcCost(double t_lvl, double dist)
+{
+    // make sure you cannot divide by zero
+    if (dist==0)
+        max_cost.push_back(0);
+    else
+        max_cost.push_back(pow(t_lvl*m_ASV_length*m_speed/(dist),2)*50);
+}
+
+// The lead parameter sets the distance from the perpendicular intersection
+//  of the ASV's current location and the trackline that the waypoint
+//  behavior steers toward.
+// The lead parameter sets the distance from the perpendicular intersection
+//  of the ASV's current location and the trackline that the waypoint
+//  behavior steers toward.
+void ENC_Contact::Update_Lead_Param()
+{
+    double lead;
+    int t_lvl = *max_element(vect_TLvl.begin(), vect_TLvl.end());
+
+    if (t_lvl <= 0)
+        lead= 8;
+    else
+        lead = t_lvl*25;
+
+    Notify("WPT_UPDATE", "lead="+to_string(lead));
+}
+
 //-------------------------------------------------------------
 // Procedure: relAng
 //   Purpose: Returns relative angle of pt B to pt A. Treats A

@@ -41,7 +41,7 @@ public:
 
     // This function choses the ENC that should be run and returns the
     //    chart scale and the path to the chart.
-    void pick_ENC(string &chart_name, int &chart_scale);
+    void pick_ENC(string &chart_name, string &RNC_name, int &chart_scale);
         
 
 private:
@@ -52,6 +52,8 @@ private:
     map<string, int> RNC;
     string root_directory, csvfile;
     int cntr;
+    GDALDataset *outline_ds;
+    OGRLayer *outline_layer;
 };
 void split(vector<string>& parsed, const string& s, char c);
 

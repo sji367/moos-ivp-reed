@@ -29,5 +29,7 @@ TARGET_LINK_LIBRARIES(pENC_Contact
    geometry
    m
    pthread
-   ENC_util)
+   ENC_util
+   mbutil 
+   geometry)
 

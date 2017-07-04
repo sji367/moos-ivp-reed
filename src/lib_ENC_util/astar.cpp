@@ -21,7 +21,7 @@ int Node::calcMinDepth()
 // Depth threshold is also in meters and is 20 times the minimum depth
 int Node::depthCost(double dist)
 {
-    int depth_threshold = 20;
+    int depth_threshold = 15;
     double depth_cost = 0;
     double weight = .1;
     if (depth < depth_threshold)
@@ -444,6 +444,7 @@ string A_Star::AStar_Search()
 		    child.setShipMeta(ShipMeta);
                     //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
                     child.calcCost_depth(dx[i], dy[i]);
+                    //child.calcCost(dx[i], dy[i]);
                     c = child.getCost();
                     child.updatePriority(xFinish, yFinish);
                     p = child.getPriority1();

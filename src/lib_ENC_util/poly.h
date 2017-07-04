@@ -27,7 +27,7 @@ public:
 	Poly(double X, double Y);
 
 	// Destructor
-	~Poly() {};
+        ~Poly() {}
 
 	// Calculates the slope and y-intercept of the "V" vertex
 	//	***Use Right for max angle and Left for min angle***
@@ -35,19 +35,19 @@ public:
 	void setMB_Left_pnt(double cost, double angle);
 	
 	// Sets the angle of the vertex
-	void setAngle(double Angle, double boundary);
+        void setAngle(double Angle, double boundary, bool inside);
 
 	// Sets the t_lvl and type for the vertex
 	void setStatics(int Ref_Frame, int T_Lvl, string Obs_Type);
 
 	// Outputs the slope of the "V" vertex of the obstacle
-	double getM() {return m;};
+        double getM() {return m;}
 
 	// Outputs the y-intercept of the "V" vertex of the obstacle
-	double getB() {return b;};
+        double getB() {return b;}
 	
 	// Outputs the reference frame of the obstacle
-	double getRefFrame() {return ref_frame;};
+        double getRefFrame() {return ref_frame;}
 
 protected:
 	// Member Variables

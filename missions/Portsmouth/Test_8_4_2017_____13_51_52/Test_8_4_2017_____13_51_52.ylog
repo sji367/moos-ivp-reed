@@ -1,0 +1,17 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./Test_8_4_2017_____13_51_52/Test_8_4_2017_____13_51_52.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1491673912.13
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.008262   MOOS_DEBUG           pMarinePID           ** NEW CONTROLLER GAINS ARE ** 
+1.008274   MOOS_DEBUG           pMarinePID           YAW_PID_KP             = 1.200 
+1.008275   MOOS_DEBUG           pMarinePID           YAW_PID_KD             = 0.000 
+1.008277   MOOS_DEBUG           pMarinePID           YAW_PID_KI             = 0.300 
+1.008278   MOOS_DEBUG           pMarinePID           YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.00828    MOOS_DEBUG           pMarinePID           MAXRUDDER              = 100.000 
+1.009198   MOOS_DEBUG           pMarinePID           SPEED_PID_KP           = 1.000 
+1.009217   MOOS_DEBUG           pMarinePID           SPEED_PID_KD           = 0.000 
+1.009229   MOOS_DEBUG           pMarinePID           SPEED_PID_KI           = 0.000 
+1.00924    MOOS_DEBUG           pMarinePID           SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.00925    MOOS_DEBUG           pMarinePID           MAXTHRUST              = 100.000 
+1.815023   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 

@@ -22,10 +22,10 @@ class Envelope
 {
 public:
 	// Default Constructor
-	Envelope() {min_ang=0; max_ang =0;};
+        Envelope() {min_ang=0; max_ang =0;}
 
 	// Default Constructor
-	~Envelope() {};
+        ~Envelope() {}
 
 	// Prints a 2D vector
 	void print2D_vect(vector<vector<double>> vect);
@@ -50,16 +50,16 @@ public:
 	void calcEnvelope(vector<vector<double>>);
 
 	// Outputs the critical point: Minimum Angle
-	double GetMinAng() {return min_ang;};
+        double GetMinAng() {return min_ang;}
 
 	// Outputs the critical point: Maximum Angle
-	double GetMaxAng() {return max_ang;};
+        double GetMaxAng() {return max_ang;}
 
 	// Outputs the critical point: Minimum Angle
-	double GetMinAngIndex() {return ind_min_ang;};
+        double GetMinAngIndex() {return ind_min_ang;}
 
 	// Outputs the critical point: Maximum Angle
-	double GetMaxAngIndex() {return ind_max_ang;};
+        double GetMaxAngIndex() {return ind_max_ang;}
 private:
 	// Member Variables
 	double min_ang, max_ang, ind_min_ang, ind_max_ang;

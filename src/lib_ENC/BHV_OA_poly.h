@@ -34,9 +34,9 @@ public:
 
 protected: // Local Utility functions
 	IvPFunction* buildZAIC_Vector();
-	void getVertices(int, string, Poly&, Poly&, Poly&, vector<double>&);
+        void getVertices(int, string, Poly&, Poly&, Poly&, vector<double>&, bool &inside);
 	double calcBuffer(double cost);
-        void calcVShape(double buffer_width, vector<double> &OA_util, Poly, Poly, Poly);
+        void calcVShape(double buffer_width, vector<double> &OA_util, Poly, Poly, Poly, bool &inside);
         IvPFunction* setIVP_domain_range(vector<double> &OA_util);
 	void Update_Lead_Param(vector<double> vect_max_cost);
 
@@ -45,10 +45,12 @@ protected: // Local Utility functions
         void calc_m_b(int x1, double y1, int x2, double y2, double &m, double &b);
         double calcCost(double t_lvl, double dist);
         double calcDist2ASV(double x, double y) {return sqrt(pow(m_ASV_x-x, 2)+pow(m_ASV_y-y, 2)); }
+        double calc_Gaussian(double x, double mu, double sigma, double amplitude);
+        void gaussianAroundDesHead(vector<double> &OA_util, double amplitude);
 
 protected: // State variables
   string m_obstacles, m_obs_info, m_WPT;
-  double m_ASV_x, m_ASV_y, m_ASV_head, m_speed, m_v_length, m_maxutil;
+  double m_ASV_x, m_ASV_y, m_ASV_head, m_speed, m_v_length, m_maxutil, m_Desired_head;
   int m_num_obs, m_WPT_x, m_WPT_y;
 
 };

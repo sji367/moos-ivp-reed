@@ -5,6 +5,7 @@ Created on Wed Nov  2 09:40:06 2016
 @author: Sam
 """
 
+from sys import argv
 from datetime import datetime as dt
 from pytides.tide import Tide
 import pytides.constituent as cons
@@ -95,6 +96,12 @@ class tide_prediction(object):
             self.tide_station = 'Wells'
         elif (ts == 'boston' or ts == 'boston, ma' or ts == '8443970'):
             self.tide_station = 'Boston'
+        elif (ts == 'plum_island' or ts ==  'plum island' or ts == 'plum island, ma' or ts == '8440452'):
+            self.tide_station = 'Plum_Island'
+        elif (ts == 'dover' or ts == 'dover, nh' or ts == '8420411'):
+            self.tide_station = 'Dover'
+        elif (ts == 'seavey_island' or ts ==  'seavey island' or ts == 'seavey island, me' or ts == '8419870'):
+            self.tide_station = 'Plum_Island'
         else:
             print 'ERROR: Invalid Tide Station. Create a new file for {}.'.format(MOOS.tide_station_ID)
             print 'Will use Default Tide Station (Fort Point)'
@@ -181,8 +188,10 @@ class tide_prediction(object):
             time.sleep(1/self.publish_rate)
 
 if __name__ == '__main__':
-#    print os.getcwd()
-    tide = tide_prediction()
+    if len(argv)>1:
+        tide = tide_prediction(argv[1])
+    else:
+        tide = tide_prediction()
     tide.run()
     
     

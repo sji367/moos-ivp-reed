@@ -51,7 +51,7 @@ bool BHV_OA_pnt::setParam(string param, string val)
   // Get the numerical value of the param argument for convenience once
   double double_val = atof(val.c_str());
 
-  if((param == "vehicle_size"|| param == "vehicle_length") && isNumber(val))
+  if((param == "vehicle_size") || (param == "vehicle_length" ) || (param == "asv_length" ) && (isNumber(val)))
     {
       m_v_length = double_val;
       return(true);
@@ -80,7 +80,6 @@ IvPFunction* BHV_OA_pnt::onRunState()
   m_ASV_x = getBufferDoubleVal("NAV_X", ok4);
   m_ASV_y = getBufferDoubleVal("NAV_Y", ok5);
   m_ASV_head = getBufferDoubleVal("NAV_HEADING", ok6);
-  m_v_length = getBufferDoubleVal("ASV_length", ok7);
   cout << "!abc check "<< endl;
   // Check if there are new obstacles and speed and if there are, make a new IvPfunction
   if(!ok1)
@@ -105,9 +104,6 @@ IvPFunction* BHV_OA_pnt::onRunState()
     }
   else
     {
-      if (!ok7)
-	postWMessage("ASV length is not defined. Will use default of 4 meters.");
-
       // Part 1b: Parse the obstacle information collected in the previous step
       // Parse the Waypoint Information
       if (ok2)
@@ -193,7 +189,6 @@ void BHV_OA_pnt::getPoint(string info, Point& Obstacle, vector<double>& max_cost
   Obstacle.setXY(strtod(x[1].c_str(), NULL),strtod(y[1].c_str(), NULL));
   
   // Set the threat level and the obstacle type
-  cout << (int)floor(strtod(ind_obs_info[2].c_str(), NULL)) <<" " <<ind_obs_info[3];
   Obstacle.setStatics((int)floor(strtod(ind_obs_info[2].c_str(), NULL)), ind_obs_info[3]);
   
   // Calculate and set the angle for the obstacle
@@ -215,12 +210,12 @@ void BHV_OA_pnt::calcGaussWindow(vector<double> & OA_util, Point & Obstacle)
   if (Obstacle.getCost() > m_maxutil)
     {
       amplitude = m_maxutil;
-      sigma = 8+Obstacle.getCost()/m_maxutil;
+      sigma = 8.0+1.5*Obstacle.getCost()/m_maxutil;
     }
   else
     {
       amplitude = Obstacle.getCost();
-      sigma = 8;
+      sigma = 8.0;
     }
   width = 3*sigma;
 
@@ -230,12 +225,15 @@ void BHV_OA_pnt::calcGaussWindow(vector<double> & OA_util, Point & Obstacle)
   for (int k = 0; k< (2*width+1); k++)
     {
       // Calculate the angle that will be used in the Gaussian window
-      cur_ang = (int)floor((int)(Obstacle.getAngle()-(width)+k)%360);
-      if (cur_ang < 0)
-	cur_ang += 360;
+      cur_ang = int(round(Obstacle.getAngle()-(width)))+k;
 
       // Calculate the Gaussian Depression Penalty Fuction
       utility = m_maxutil - calc_Gaussian(cur_ang, Obstacle.getAngle(), sigma, amplitude);
+
+      // Make sure that the point is in the domain [0,360]
+      cur_ang = cur_ang%360;
+      if (cur_ang < 0)
+        cur_ang += 360;
 
       // If the current utility value is less than the one for
       // the gaussian window then store the one for the
@@ -247,40 +245,36 @@ void BHV_OA_pnt::calcGaussWindow(vector<double> & OA_util, Point & Obstacle)
 
 IvPFunction* BHV_OA_pnt::setIVP_domain_range(vector<double> &OA_util, double max_cost)
 {
-  IvPFunction *ivp_function;
+    IvPFunction *ivp_function;
 
-  // Declare which variable the domain is
-  ZAIC_Vector head_zaic_v(m_domain, "course");
+    // Declare which variable the domain is
+    ZAIC_Vector head_zaic_v(m_domain, "course");
 
-  // Used for the ZAIC_Vector function
-  vector<double> domain_vals, range_vals;
+    // Used for the ZAIC_Vector function
+    vector<double> domain_vals, range_vals;
 
-  int range_min;
-
-  // Set the values for the angle (domain) and utility (range)
-  for (int iii = 0; iii<OA_util.size(); iii++)
+    // Set the values for the angle (domain) and utility (range)
+    for (int iii = 0; iii<OA_util.size(); iii++)
     {
-      domain_vals.push_back(iii);
-      range_vals.push_back((int)floor(OA_util[iii]));
+        domain_vals.push_back(iii);
+        range_vals.push_back((int)floor(OA_util[iii]));
     }
-  // Make sure to include the last point
-  //domain_vals.push_back(iii+1); range_vals.push_back((int)floor(OA_util[iii+1]));
+    // Set 360 degrees
+    domain_vals.push_back(360);
+    range_vals.push_back((int)floor(OA_util[0]));
 
-  // Set the priority weight as the IvP function scales the range values to [0,priority_weight]
-  range_min = *min_element(range_vals.begin(), range_vals.end());
+    // Set the ZAIC domain and range
+    head_zaic_v.setDomainVals(domain_vals);
+    head_zaic_v.setRangeVals(range_vals);
 
-  // Set the ZAIC domain and range
-  head_zaic_v.setDomainVals(domain_vals);
-  head_zaic_v.setRangeVals(range_vals);
+    // Clear the domain and range values
+    domain_vals.clear();
+    range_vals.clear();
 
-  // Clear the domain and range values
-  domain_vals.clear();
-  range_vals.clear();
+    // Extract the IvP function
+    ivp_function = head_zaic_v.extractIvPFunction();
 
-  // Extract the IvP function
-  ivp_function = head_zaic_v.extractIvPFunction();
-
-  return(ivp_function);
+    return(ivp_function);
 }
 
 // The lead parameter sets the distance from the perpendicular intersection
