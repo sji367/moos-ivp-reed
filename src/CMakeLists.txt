@@ -23,6 +23,7 @@ ADD_SUBDIRECTORY(iOS5000)
 ADD_SUBDIRECTORY(pENC_Contact)
 ADD_SUBDIRECTORY(pENC_Print)
 ADD_SUBDIRECTORY(pENC_WPT_Check)
+ADD_SUBDIRECTORY(pPub_Points)
 ADD_SUBDIRECTORY(Test)
 
 ##############################################################################

@@ -1,0 +1,9 @@
+//------------------------------------------------
+// pPub_Points config block
+
+ProcessConfig = pPub_Points
+{
+   AppTick   = 4
+   CommsTick = 4
+}
+
