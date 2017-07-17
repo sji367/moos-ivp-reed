@@ -5,7 +5,7 @@ ProcessConfig = pMarineViewer
   AppTick    = 4
   CommsTick  = 4
 
-  tiff_file            = data/Rindge.tif
+  tiff_file            = data/mendums_full.tif
 
   // Transit from UNH Pier
   set_pan_x            = 275
