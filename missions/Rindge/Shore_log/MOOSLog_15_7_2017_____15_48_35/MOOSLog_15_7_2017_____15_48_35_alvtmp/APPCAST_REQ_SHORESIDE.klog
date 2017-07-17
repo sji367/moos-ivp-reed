@@ -1,0 +1,6 @@
+1.747           APPCAST_REQ_SHORESIDE uMAC_4205       node=shoreside,app=all,duration=0.1,key=uMAC_4205startup,thresh=any 
+3.647           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pMarineViewer,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+4.648           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pMarineViewer,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+5.686           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pMarineViewer,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+6.760           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pMarineViewer,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+7.990           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pMarineViewer,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 

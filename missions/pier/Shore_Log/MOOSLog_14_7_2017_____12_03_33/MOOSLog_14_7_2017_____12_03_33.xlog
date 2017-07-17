@@ -1,0 +1,632 @@
+0.639           UMAC_8201_STATUS     uMAC_8201       AppErrorFlag=false,Uptime=0.876145,cpuload=1.598,memory_kb=3916,memory_max_kb=3980,MOOSName=uMAC_8201,Publishing="APPCAST_REQ,APPCAST_REQ_ALL,",Subscribing="APPCAST," 
+0.794           PLOGGER_STATUS       pLogger         AppErrorFlag=false,Uptime=0.793626,cpuload=0.7995,memory_kb=6104,memory_max_kb=6264,MOOSName=pLogger,Publishing="LOGGER_DIRECTORY,",Subscribing="IVPHELM_LIFE_EVENT,LOGGER_RESTART,MOOS_DEBUG,MOOS_SYSTEM,PLOGGER_CMD,",LogAuxSrc=true 
+1.659           DB_VARSUMMARY        MOOSDB_shoreside AIS_REPORT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   AIS_REPORT_LOCAL     18:59:59.000         (write pending)      0.0 Hz ~  
+                   APPCAST              12:03:34.794         pHelmIvP             0.0 Hz S  proc=pHelmIvP!@#iter=1...
+APPCAST_REQ          12:03:34.915         uMAC_8201            1.2 Hz S  node=shoreside,app=all...
+APPCAST_REQ_ALL      12:03:34.502         uMAC_8201            1.2 Hz S  node=all,app=all,durat...
+APPCAST_REQ_SHORESIDE 12:03:34.915         uMAC_8201            0.0 Hz S  node=shoreside,app=all...
+ASTAR                12:03:34.575         pHelmIvP             0.0 Hz S  true                
+DB_CLIENTS           12:03:34.915         MOOSDB_shoreside     0.0 Hz S  uProcessWatch,pMarineV...
+DB_EVENT             12:03:34.754         MOOSDB_shoreside     1.3 Hz S  connected=uProcessWatch
+DB_QOS               12:03:32.877         MOOSDB#1             0.0 Hz S                      
+DB_RWSUMMARY         12:03:32.877         MOOSDB#1             0.0 Hz S                      
+DB_TIME              12:03:34.915         MOOSDB_shoreside     0.0 Hz D  1500048214.9         
+DB_UPTIME            12:03:34.915         MOOSDB_shoreside     0.0 Hz D  2.0                  
+DB_VARSUMMARY        12:03:32.877         MOOSDB#1             0.0 Hz S                      
+DEPLOY               12:03:34.531         pHelmIvP             0.0 Hz S  false               
+DESIRED_HEADING      12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+DESIRED_SPEED        12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+EXITED_NORMALLY      18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_CONFIG          18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_DELTA           18:59:59.000         (write pending)      0.0 Hz ~  
+                   HELM_MAP_CLEAR       18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_ALLSTOP      12:03:34.794         pHelmIvP             0.0 Hz S  ManualOverride      
+IVPHELM_ALLSTOP_DEBUG 12:03:34.794         pHelmIvP             0.0 Hz S  ManualOverride      
+IVPHELM_CPU          12:03:34.794         pHelmIvP             0.0 Hz D  6.4                  
+IVPHELM_DOMAIN       12:03:34.576         pHelmIvP             0.0 Hz S  speed,0,4,21:course,0,...
+IVPHELM_LIFE_EVENT   18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_MODESET      12:03:34.576         pHelmIvP             0.0 Hz S                      
+IVPHELM_REGISTER     12:03:34.576         pHelmIvP             8.7 Hz S  STATIONING          
+IVPHELM_REJOURNAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_STATE        12:03:34.794         pHelmIvP             0.0 Hz S  PARK                
+LOGGER_DIRECTORY     12:03:33.951         pLogger              0.0 Hz S  ./MOOSLog_14_7_2017___...
+LOGGER_RESTART       18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_DEBUG           12:03:34.794         pHelmIvP             0.0 Hz S  pHelmIvP AllStop: Manu...
+MOOS_MANUAL_OVERIDE  18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_MANUAL_OVERRIDE 18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_SYSTEM          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_DEPTH            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_HEADING          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_SPEED            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_X                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_Y                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT_LOCAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   PHELMIVP_ITER_LEN    12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+PHELMIVP_STATUS      12:03:34.794         pHelmIvP             0.0 Hz S  AppErrorFlag=false,Upt...
+PHI_HOST_IP          18:59:59.000         (write pending)      0.0 Hz ~  
+                   PLOGGER_CMD          12:03:34.576         pHelmIvP             0.0 Hz S  COPY_FILE_REQUEST = mi...
+PLOGGER_STATUS       12:03:34.050         pLogger              0.0 Hz S  AppErrorFlag=false,Upt...
+PMV_CLEAR            18:59:59.000         (write pending)      0.0 Hz ~  
+                   PMV_MENU_CONTEXT     18:59:59.000         (write pending)      0.0 Hz ~  
+                   RESTART_HELM         18:59:59.000         (write pending)      0.0 Hz ~  
+                   RETURN               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+STATIONING           12:03:34.575         pHelmIvP             0.0 Hz S  false               
+TRAIL_RESET          18:59:59.000         (write pending)      0.0 Hz ~  
+                   UMAC_8201_STATUS     12:03:33.896         uMAC_8201            0.0 Hz S  AppErrorFlag=false,Upt...
+VIEW_CIRCLE          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_COMMS_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_GRID            18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_MARKER          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POINT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POLYGON         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_RANGE_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLIST         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLR           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_VECTOR          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_WEDGE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   WPT_UPDATE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   simple               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+ 
+1.659           DB_RWSUMMARY         MOOSDB_shoreside uProcessWatch=APPCAST_REQ:DB_CLIENTS:EXITED_NORMALLY&,pMarineViewer=APPCAST:APPCAST_REQ:GRID_CONFIG:GRID_DELTA:NODE_REPORT:NODE_REPORT_LOCAL:PHI_HOST_IP:PMV_CLEAR:PMV_MENU_CONTEXT:TRAIL_RESET:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE&,pHelmIvP=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST_REQ:ASTAR:DB_CLIENTS:DEPLOY:HELM_MAP_CLEAR:IVPHELM_REJOURNAL:IVPHELM_STATE:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_REPORT:NODE_REPORT_LOCAL:RESTART_HELM:RETURN:STATIONING:WPT_UPDATE:simple&APPCAST:ASTAR:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_STATE:MOOS_DEBUG:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PLOGGER_CMD:RETURN:STATIONING:simple,pLogger=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:DB_CLIENTS:DB_EVENT:DB_QOS:DB_RWSUMMARY:DB_TIME:DB_UPTIME:DB_VARSUMMARY:HELM_MAP_CLEAR:IVPHELM_LIFE_EVENT:IVPHELM_REGISTER:IVPHELM_REJOURNAL:LOGGER_DIRECTORY:LOGGER_RESTART:MOOS_DEBUG:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:MOOS_SYSTEM:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NODE_REPORT:NODE_REPORT_LOCAL:PLOGGER_CMD:PLOGGER_STATUS:RESTART_HELM:UMAC_8201_STATUS&LOGGER_DIRECTORY:PLOGGER_STATUS,uMAC_8201=APPCAST&APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:UMAC_8201_STATUS 
+1.538           PHELMIVP_STATUS      pHelmIvP        AppErrorFlag=false,Uptime=1.06875,cpuload=6.397,memory_kb=5512,memory_max_kb=5512,MOOSName=pHelmIvP,Publishing="ASTAR,DEPLOY,IVPHELM_DOMAIN,IVPHELM_MODESET,IVPHELM_REGISTER,PLOGGER_CMD,RETURN,STATIONING,simple,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST_REQ,ASTAR,DB_CLIENTS,DEPLOY,HELM_MAP_CLEAR,IVPHELM_REJOURNAL,IVPHELM_STATE,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_REPORT,NODE_REPORT_LOCAL,RESTART_HELM,RETURN,STATIONING,WPT_UPDATE,simple," 
+2.674           UMAC_8201_STATUS     uMAC_8201       AppErrorFlag=false,Uptime=2.91094,cpuload=0.7998,memory_kb=3916,memory_max_kb=3980,MOOSName=uMAC_8201,Publishing="APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,UMAC_8201_STATUS,",Subscribing="APPCAST," 
+2.876           PLOGGER_STATUS       pLogger         AppErrorFlag=false,Uptime=2.87566,cpuload=0,memory_kb=6104,memory_max_kb=6264,MOOSName=pLogger,Publishing="LOGGER_DIRECTORY,PLOGGER_STATUS,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,ASTAR,DB_CLIENTS,DB_EVENT,DB_QOS,DB_RWSUMMARY,DB_TIME,DB_UPTIME,DB_VARSUMMARY,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,EXITED_NORMALLY,GRID_CONFIG,GRID_DELTA,HELM_MAP_CLEAR,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_LIFE_EVENT,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_REJOURNAL,IVPHELM_STATE,LOGGER_DIRECTORY,LOGGER_RESTART,MOOS_DEBUG,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,MOOS_SYSTEM,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_REPORT,NODE_REPORT_LOCAL,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PHI_HOST_IP,PLOGGER_CMD,PLOGGER_STATUS,PMV_CLEAR,PMV_MENU_CONTEXT,RESTART_HELM,RETURN,STATIONING,TRAIL_RESET,UMAC_8201_STATUS,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE,WPT_UPDATE,simple,",LogAuxSrc=true 
+2.202           PMARINEVIEWER_STATUS pMarineViewer   AppErrorFlag=false,Uptime=0.918546,cpuload=27.97,memory_kb=3.613e+04,memory_max_kb=3.613e+04,MOOSName=pMarineViewer,Publishing="",Subscribing="APPCAST,APPCAST_REQ,GRID_CONFIG,GRID_DELTA,NODE_REPORT,NODE_REPORT_LOCAL,PHI_HOST_IP,PMV_CLEAR,PMV_MENU_CONTEXT,TRAIL_RESET,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE," 
+2.282           UPROCESSWATCH_STATUS uProcessWatch   AppErrorFlag=false,Uptime=0.961728,cpuload=1.599,memory_kb=4108,memory_max_kb=4244,MOOSName=uProcessWatch,Publishing="PROC_WATCH_EVENT,PROC_WATCH_TIME_WARP,",Subscribing="APPCAST_REQ,DB_CLIENTS,EXITED_NORMALLY,PENC_PRINT_STATUS,PHELMIVP_STATUS,PHOSTINFO_STATUS,PLOGGER_STATUS,PMARINEVIEWER_STATUS,PSHARE_STATUS,UFLDSHOREBROKER_STATUS," 
+2.392           PSHARE_STATUS        pShare          AppErrorFlag=false,Uptime=0.714218,cpuload=0,memory_kb=4064,memory_max_kb=4128,MOOSName=pShare,Publishing="",Subscribing="PSHARE_CMD," 
+2.866           PHOSTINFO_STATUS     pHostInfo       AppErrorFlag=false,Uptime=0.82179,cpuload=0,memory_kb=4320,memory_max_kb=4432,MOOSName=pHostInfo,Publishing="",Subscribing="APPCAST_REQ,HOST_INFO_REQUEST,PSHARE_INPUT_SUMMARY," 
+3.372           UFLDSHOREBROKER_STATUS uFldShoreBroker AppErrorFlag=false,Uptime=0.799038,cpuload=0.7944,memory_kb=6144,memory_max_kb=6280,MOOSName=uFldShoreBroker,Publishing="",Subscribing="APPCAST_REQ,NODE_BROKER_PING,PHI_HOST_INFO," 
+3.548           PHELMIVP_STATUS      pHelmIvP        AppErrorFlag=false,Uptime=3.07918,cpuload=0,memory_kb=5512,memory_max_kb=5512,MOOSName=pHelmIvP,Publishing="APPCAST,ASTAR,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_STATE,MOOS_DEBUG,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PLOGGER_CMD,RETURN,STATIONING,simple,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST_REQ,ASTAR,DB_CLIENTS,DEPLOY,HELM_MAP_CLEAR,IVPHELM_REJOURNAL,IVPHELM_STATE,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_REPORT,NODE_REPORT_LOCAL,RESTART_HELM,RETURN,STATIONING,WPT_UPDATE,simple," 
+3.680           DB_VARSUMMARY        MOOSDB_shoreside AIS_REPORT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   AIS_REPORT_LOCAL     18:59:59.000         (write pending)      0.0 Hz ~  
+                   APPCAST              12:03:36.805         pHelmIvP             5.8 Hz S  proc=pHelmIvP!@#iter=9...
+APPCAST_REQ          12:03:36.936         uMAC_8201            6.8 Hz S  node=all,app=all,durat...
+APPCAST_REQ_ALL      12:03:36.936         uMAC_8201            6.7 Hz S  node=all,app=all,durat...
+APPCAST_REQ_SHORESIDE 12:03:34.915         uMAC_8201            0.0 Hz S  node=shoreside,app=all...
+ASTAR                12:03:34.575         pHelmIvP             0.0 Hz S  true                
+Current_Tide         18:59:59.000         (write pending)      0.0 Hz ~  
+                   DB_CLIENTS           12:03:36.936         MOOSDB_shoreside     0.2 Hz S  uFldShoreBroker,pHostI...
+DB_EVENT             12:03:35.945         MOOSDB_shoreside     2.3 Hz S  connected=uFldShoreBroker
+DB_QOS               12:03:34.916         MOOSDB_shoreside     0.0 Hz S  pHelmIvP=0:0.0629425:0...
+DB_RWSUMMARY         12:03:34.916         MOOSDB_shoreside     0.0 Hz S  uProcessWatch=APPCAST_...
+DB_TIME              12:03:36.936         MOOSDB_shoreside     0.2 Hz D  1500048216.9         
+DB_UPTIME            12:03:36.936         MOOSDB_shoreside     0.2 Hz D  4.1                  
+DB_VARSUMMARY        12:03:34.916         MOOSDB_shoreside     0.0 Hz S  AIS_REPORT           1...
+DEPLOY               12:03:34.531         pHelmIvP             0.0 Hz S  false               
+DESIRED_HEADING      12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+DESIRED_SPEED        12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+ENC_INIT             18:59:59.000         (write pending)      0.0 Hz ~  
+                   EXITED_NORMALLY      18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_CONFIG          18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_DELTA           18:59:59.000         (write pending)      0.0 Hz ~  
+                   HELM_MAP_CLEAR       12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+HOST_INFO_REQUEST    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_ALLSTOP      12:03:34.794         pHelmIvP             0.0 Hz S  ManualOverride      
+IVPHELM_ALLSTOP_DEBUG 12:03:36.805         pHelmIvP             3.7 Hz S  ManualOverride      
+IVPHELM_CPU          12:03:36.805         pHelmIvP             3.7 Hz D  0.0                  
+IVPHELM_DOMAIN       12:03:34.576         pHelmIvP             0.0 Hz S  speed,0,4,21:course,0,...
+IVPHELM_LIFE_EVENT   18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_MODESET      12:03:34.576         pHelmIvP             0.0 Hz S                      
+IVPHELM_REGISTER     12:03:34.576         pHelmIvP             8.7 Hz S  STATIONING          
+IVPHELM_REJOURNAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_STATE        12:03:36.805         pHelmIvP             3.7 Hz S  PARK                
+LOGGER_DIRECTORY     12:03:33.951         pLogger              0.0 Hz S  ./MOOSLog_14_7_2017___...
+LOGGER_RESTART       18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_DEBUG           12:03:34.794         pHelmIvP             0.0 Hz S  pHelmIvP AllStop: Manu...
+MOOS_MANUAL_OVERIDE  18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_MANUAL_OVERRIDE 18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_SYSTEM          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_DEPTH            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_HEADING          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_SPEED            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_X                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_Y                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_BROKER_PING     18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT_LOCAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   PENC_PRINT_STATUS    18:59:59.000         (write pending)      0.0 Hz ~  
+                   PHELMIVP_ITER_GAP    12:03:36.805         pHelmIvP             3.5 Hz D  1.0                  
+PHELMIVP_ITER_LEN    12:03:36.805         pHelmIvP             3.7 Hz D  0.0                  
+PHELMIVP_STATUS      12:03:36.805         pHelmIvP             0.2 Hz S  AppErrorFlag=false,Upt...
+PHI_HOST_INFO        12:03:36.534         pHostInfo            0.0 Hz S  community=shoreside,ho...
+PHI_HOST_IP          12:03:36.534         pHostInfo            0.0 Hz S  192.168.1.206       
+PHI_HOST_IP_ALL      12:03:36.534         pHostInfo            0.0 Hz S  192.168.1.206       
+PHI_HOST_IP_VERBOSE  12:03:36.534         pHostInfo            0.0 Hz S  LINUX_ANY=192.168.1.206
+PHI_HOST_PORT_DB     12:03:36.534         pHostInfo            0.0 Hz S  9000                
+PHOSTINFO_ITER_GAP   12:03:36.909         pHostInfo            0.0 Hz D  1.0                  
+PHOSTINFO_ITER_LEN   12:03:36.909         pHostInfo            0.0 Hz D  0.0                  
+PHOSTINFO_STATUS     12:03:36.124         pHostInfo            0.0 Hz S  AppErrorFlag=false,Upt...
+PLOGGER_CMD          12:03:34.576         pHelmIvP             0.0 Hz S  COPY_FILE_REQUEST = mi...
+PLOGGER_STATUS       12:03:36.132         pLogger              0.2 Hz S  AppErrorFlag=false,Upt...
+PMARINEVIEWER_ITER_GAP 12:03:36.732         pMarineViewer        3.0 Hz D  1.0                  
+PMARINEVIEWER_ITER_LEN 12:03:36.732         pMarineViewer        2.9 Hz D  0.0                  
+PMARINEVIEWER_STATUS 12:03:35.458         pMarineViewer        0.0 Hz S  AppErrorFlag=false,Upt...
+PMV_CLEAR            18:59:59.000         (write pending)      0.0 Hz ~  
+                   PMV_CONNECT          12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+PMV_MENU_CONTEXT     18:59:59.000         (write pending)      0.0 Hz ~  
+                   PROC_WATCH_EVENT     12:03:35.287         uProcessWatch        0.0 Hz S  Noted to be present: [...
+PROC_WATCH_FULL_SUMMARY 12:03:35.539         uProcessWatch        0.0 Hz S  pENC_Print(1/0),uFldSh...
+PROC_WATCH_SUMMARY   12:03:35.539         uProcessWatch        0.0 Hz S  All Present         
+PROC_WATCH_TIME_WARP 12:03:35.287         uProcessWatch        0.0 Hz D  1.0                  
+PSHARE_CMD           18:59:59.000         (write pending)      0.0 Hz ~  
+                   PSHARE_INPUT_SUMMARY 12:03:36.653         pShare               0.0 Hz S  localhost:9300      
+PSHARE_OUTPUT_SUMMARY 12:03:36.653         pShare               0.0 Hz S                      
+PSHARE_STATUS        12:03:35.662         pShare               0.0 Hz S  AppErrorFlag=false,Upt...
+RESTART_HELM         18:59:59.000         (write pending)      0.0 Hz ~  
+                   RETURN               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+STATIONING           12:03:34.575         pHelmIvP             0.0 Hz S  false               
+TRAIL_RESET          18:59:59.000         (write pending)      0.0 Hz ~  
+                   UFLDSHOREBROKER_ITER_GAP 12:03:36.880         uFldShoreBroker      0.0 Hz D  1.0                  
+UFLDSHOREBROKER_ITER_LEN 12:03:36.880         uFldShoreBroker      0.0 Hz D  0.0                  
+UFLDSHOREBROKER_STATUS 12:03:36.629         uFldShoreBroker      0.0 Hz S  AppErrorFlag=false,Upt...
+UMAC_8201_STATUS     12:03:35.931         uMAC_8201            0.2 Hz S  AppErrorFlag=false,Upt...
+UPROCESSWATCH_ITER_GAP 12:03:36.793         uProcessWatch        3.0 Hz D  1.0                  
+UPROCESSWATCH_ITER_LEN 12:03:36.793         uProcessWatch        3.0 Hz D  0.0                  
+UPROCESSWATCH_STATUS 12:03:35.539         uProcessWatch        0.0 Hz S  AppErrorFlag=false,Upt...
+VIEW_CIRCLE          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_COMMS_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_GRID            18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_MARKER          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POINT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POLYGON         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_RANGE_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLIST         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLR           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_VECTOR          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_WEDGE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   WPT_UPDATE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   simple               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+ 
+3.681           DB_RWSUMMARY         MOOSDB_shoreside uFldShoreBroker=APPCAST_REQ:NODE_BROKER_PING:PHI_HOST_INFO&APPCAST:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS,pHostInfo=APPCAST_REQ:HOST_INFO_REQUEST:PSHARE_INPUT_SUMMARY&APPCAST:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS,pShare=PSHARE_CMD&PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS,uProcessWatch=APPCAST_REQ:DB_CLIENTS:EXITED_NORMALLY:PENC_PRINT_STATUS:PHELMIVP_STATUS:PHOSTINFO_STATUS:PLOGGER_STATUS:PMARINEVIEWER_STATUS:PSHARE_STATUS:UFLDSHOREBROKER_STATUS&APPCAST:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS,pMarineViewer=APPCAST:APPCAST_REQ:Current_Tide:ENC_INIT:GRID_CONFIG:GRID_DELTA:NODE_REPORT:NODE_REPORT_LOCAL:PHI_HOST_IP:PMV_CLEAR:PMV_MENU_CONTEXT:TRAIL_RESET:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE&APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:HELM_MAP_CLEAR:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CONNECT,pHelmIvP=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST_REQ:ASTAR:DB_CLIENTS:DEPLOY:HELM_MAP_CLEAR:IVPHELM_REJOURNAL:IVPHELM_STATE:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_REPORT:NODE_REPORT_LOCAL:RESTART_HELM:RETURN:STATIONING:WPT_UPDATE:simple&APPCAST:ASTAR:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_STATE:MOOS_DEBUG:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PLOGGER_CMD:RETURN:STATIONING:simple,pLogger=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:ASTAR:Current_Tide:DB_CLIENTS:DB_EVENT:DB_QOS:DB_RWSUMMARY:DB_TIME:DB_UPTIME:DB_VARSUMMARY:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:ENC_INIT:EXITED_NORMALLY:GRID_CONFIG:GRID_DELTA:HELM_MAP_CLEAR:HOST_INFO_REQUEST:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_LIFE_EVENT:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_REJOURNAL:IVPHELM_STATE:LOGGER_DIRECTORY:LOGGER_RESTART:MOOS_DEBUG:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:MOOS_SYSTEM:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_BROKER_PING:NODE_REPORT:NODE_REPORT_LOCAL:PENC_PRINT_STATUS:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PHI_HOST_INFO:PHI_HOST_IP:PHOSTINFO_STATUS:PLOGGER_CMD:PLOGGER_STATUS:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CLEAR:PMV_CONNECT:PMV_MENU_CONTEXT:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:PSHARE_CMD:PSHARE_INPUT_SUMMARY:PSHARE_STATUS:RESTART_HELM:RETURN:STATIONING:TRAIL_RESET:UFLDSHOREBROKER_STATUS:UMAC_8201_STATUS:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE:WPT_UPDATE:simple&LOGGER_DIRECTORY:PLOGGER_STATUS,uMAC_8201=APPCAST&APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:UMAC_8201_STATUS 
+4.227           PMARINEVIEWER_STATUS pMarineViewer   AppErrorFlag=false,Uptime=2.94379,cpuload=0.7988,memory_kb=5.022e+04,memory_max_kb=5.487e+04,MOOSName=pMarineViewer,Publishing="APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,HELM_MAP_CLEAR,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CONNECT,",Subscribing="APPCAST,APPCAST_REQ,Current_Tide,ENC_INIT,GRID_CONFIG,GRID_DELTA,NODE_REPORT,NODE_REPORT_LOCAL,PHI_HOST_IP,PMV_CLEAR,PMV_MENU_CONTEXT,TRAIL_RESET,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE," 
+4.287           UPROCESSWATCH_STATUS uProcessWatch   AppErrorFlag=false,Uptime=2.96726,cpuload=0,memory_kb=4108,memory_max_kb=4244,MOOSName=uProcessWatch,Publishing="APPCAST,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,",Subscribing="APPCAST_REQ,DB_CLIENTS,EXITED_NORMALLY,PENC_PRINT_STATUS,PHELMIVP_STATUS,PHOSTINFO_STATUS,PLOGGER_STATUS,PMARINEVIEWER_STATUS,PSHARE_STATUS,UFLDSHOREBROKER_STATUS," 
+4.395           PSHARE_STATUS        pShare          AppErrorFlag=false,Uptime=2.71732,cpuload=0,memory_kb=4064,memory_max_kb=4128,MOOSName=pShare,Publishing="PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,",Subscribing="PSHARE_CMD," 
+4.586           PENC_PRINT_STATUS    pENC_Print      AppErrorFlag=false,Uptime=1.04048,cpuload=0,memory_kb=2.332e+04,memory_max_kb=2.348e+04,MOOSName=pENC_Print,Publishing="",Subscribing="Current_Tide,ENC_INIT,MHW_Offset," 
+4.683           UMAC_8201_STATUS     uMAC_8201       AppErrorFlag=false,Uptime=4.92004,cpuload=0.7997,memory_kb=3916,memory_max_kb=3980,MOOSName=uMAC_8201,Publishing="APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,UMAC_8201_STATUS,",Subscribing="APPCAST," 
+4.890           PLOGGER_STATUS       pLogger         AppErrorFlag=false,Uptime=4.88973,cpuload=0.7994,memory_kb=6104,memory_max_kb=6264,MOOSName=pLogger,Publishing="LOGGER_DIRECTORY,PLOGGER_STATUS,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,ASTAR,Current_Tide,DB_CLIENTS,DB_EVENT,DB_QOS,DB_RWSUMMARY,DB_TIME,DB_UPTIME,DB_VARSUMMARY,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,ENC_INIT,EXITED_NORMALLY,GRID_CONFIG,GRID_DELTA,HELM_MAP_CLEAR,HOST_INFO_REQUEST,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_LIFE_EVENT,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_REJOURNAL,IVPHELM_STATE,LOGGER_DIRECTORY,LOGGER_RESTART,MHW_Offset,MOOS_DEBUG,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,MOOS_SYSTEM,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_BROKER_PING,NODE_REPORT,NODE_REPORT_LOCAL,PENC_PRINT_STATUS,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,PLOGGER_CMD,PLOGGER_STATUS,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CLEAR,PMV_CONNECT,PMV_MENU_CONTEXT,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,PSHARE_CMD,PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,RESTART_HELM,RETURN,STATIONING,TRAIL_RESET,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,UMAC_8201_STATUS,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE,WPT_UPDATE,simple,",LogAuxSrc=true 
+4.909           PHOSTINFO_STATUS     pHostInfo       AppErrorFlag=false,Uptime=2.864,cpuload=0,memory_kb=4548,memory_max_kb=4548,MOOSName=pHostInfo,Publishing="APPCAST,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,",Subscribing="APPCAST_REQ,HOST_INFO_REQUEST,PSHARE_INPUT_SUMMARY," 
+5.381           UFLDSHOREBROKER_STATUS uFldShoreBroker AppErrorFlag=false,Uptime=2.8079,cpuload=0,memory_kb=6144,memory_max_kb=6280,MOOSName=uFldShoreBroker,Publishing="APPCAST,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,",Subscribing="APPCAST_REQ,NODE_BROKER_PING,PHI_HOST_INFO," 
+5.552           PHELMIVP_STATUS      pHelmIvP        AppErrorFlag=false,Uptime=5.08326,cpuload=0,memory_kb=5512,memory_max_kb=5512,MOOSName=pHelmIvP,Publishing="APPCAST,ASTAR,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_STATE,MOOS_DEBUG,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PLOGGER_CMD,RETURN,STATIONING,simple,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST_REQ,ASTAR,DB_CLIENTS,DEPLOY,HELM_MAP_CLEAR,IVPHELM_REJOURNAL,IVPHELM_STATE,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_REPORT,NODE_REPORT_LOCAL,RESTART_HELM,RETURN,STATIONING,WPT_UPDATE,simple," 
+5.728           DB_VARSUMMARY        MOOSDB_shoreside AIS_REPORT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   AIS_REPORT_LOCAL     18:59:59.000         (write pending)      0.0 Hz ~  
+                   APPCAST              12:03:38.809         pHelmIvP             11.7Hz S  proc=pHelmIvP!@#iter=1...
+APPCAST_REQ          12:03:38.748         uMAC_8201            5.1 Hz S  node=all,app=all,durat...
+APPCAST_REQ_ALL      12:03:38.748         uMAC_8201            3.9 Hz S  node=all,app=all,durat...
+APPCAST_REQ_SHORESIDE 12:03:38.492         pMarineViewer        0.6 Hz S  node=shoreside,app=pHe...
+ASTAR                12:03:34.575         pHelmIvP             0.0 Hz S  true                
+Current_Tide         18:59:59.000         (write pending)      0.0 Hz ~  
+                   DB_CLIENTS           12:03:38.984         MOOSDB_shoreside     0.4 Hz S  pENC_Print,uFldShoreBr...
+DB_EVENT             12:03:37.037         MOOSDB_shoreside     1.6 Hz S  connected=pENC_Print
+DB_QOS               12:03:36.937         MOOSDB_shoreside     0.2 Hz S  pHelmIvP=0:0.164986:0....
+DB_RWSUMMARY         12:03:36.937         MOOSDB_shoreside     0.2 Hz S  uFldShoreBroker=APPCAS...
+DB_TIME              12:03:38.984         MOOSDB_shoreside     0.4 Hz D  1500048219.0         
+DB_UPTIME            12:03:38.984         MOOSDB_shoreside     0.4 Hz D  6.1                  
+DB_VARSUMMARY        12:03:36.937         MOOSDB_shoreside     0.2 Hz S  AIS_REPORT           1...
+DEPLOY               12:03:34.531         pHelmIvP             0.0 Hz S  false               
+DESIRED_HEADING      12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+DESIRED_SPEED        12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+ENC_INIT             18:59:59.000         (write pending)      0.0 Hz ~  
+                   EXITED_NORMALLY      18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_CONFIG          18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_DELTA           18:59:59.000         (write pending)      0.0 Hz ~  
+                   HELM_MAP_CLEAR       12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+HOST_INFO_REQUEST    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_ALLSTOP      12:03:34.794         pHelmIvP             0.0 Hz S  ManualOverride      
+IVPHELM_ALLSTOP_DEBUG 12:03:38.809         pHelmIvP             4.0 Hz S  ManualOverride      
+IVPHELM_CPU          12:03:38.809         pHelmIvP             4.0 Hz D  0.0                  
+IVPHELM_DOMAIN       12:03:34.576         pHelmIvP             0.0 Hz S  speed,0,4,21:course,0,...
+IVPHELM_LIFE_EVENT   18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_MODESET      12:03:34.576         pHelmIvP             0.0 Hz S                      
+IVPHELM_REGISTER     12:03:34.576         pHelmIvP             8.7 Hz S  STATIONING          
+IVPHELM_REJOURNAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_STATE        12:03:38.809         pHelmIvP             4.0 Hz S  PARK                
+LOGGER_DIRECTORY     12:03:33.951         pLogger              0.0 Hz S  ./MOOSLog_14_7_2017___...
+LOGGER_RESTART       18:59:59.000         (write pending)      0.0 Hz ~  
+                   MHW_Offset           18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_DEBUG           12:03:34.794         pHelmIvP             0.0 Hz S  pHelmIvP AllStop: Manu...
+MOOS_MANUAL_OVERIDE  18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_MANUAL_OVERRIDE 18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_SYSTEM          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_DEPTH            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_HEADING          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_SPEED            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_X                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_Y                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_BROKER_PING     18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT_LOCAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   PENC_PRINT_STATUS    12:03:37.842         pENC_Print           0.0 Hz S  AppErrorFlag=false,Upt...
+PHELMIVP_ITER_GAP    12:03:38.809         pHelmIvP             4.0 Hz D  1.0                  
+PHELMIVP_ITER_LEN    12:03:38.809         pHelmIvP             4.0 Hz D  0.0                  
+PHELMIVP_STATUS      12:03:38.809         pHelmIvP             0.4 Hz S  AppErrorFlag=false,Upt...
+PHI_HOST_INFO        12:03:38.792         pHostInfo            0.6 Hz S  community=shoreside,ho...
+PHI_HOST_IP          12:03:38.792         pHostInfo            0.6 Hz S  192.168.1.206       
+PHI_HOST_IP_ALL      12:03:38.792         pHostInfo            0.6 Hz S  192.168.1.206       
+PHI_HOST_IP_VERBOSE  12:03:38.792         pHostInfo            0.6 Hz S  LINUX_ANY=192.168.1.206
+PHI_HOST_PORT_DB     12:03:38.792         pHostInfo            0.6 Hz S  9000                
+PHOSTINFO_ITER_GAP   12:03:38.917         pHostInfo            7.5 Hz D  1.0                  
+PHOSTINFO_ITER_LEN   12:03:38.917         pHostInfo            7.6 Hz D  0.0                  
+PHOSTINFO_STATUS     12:03:38.165         pHostInfo            0.2 Hz S  AppErrorFlag=false,Upt...
+PLOGGER_CMD          12:03:34.576         pHelmIvP             0.0 Hz S  COPY_FILE_REQUEST = mi...
+PLOGGER_STATUS       12:03:38.146         pLogger              0.4 Hz S  AppErrorFlag=false,Upt...
+PMARINEVIEWER_ITER_GAP 12:03:38.740         pMarineViewer        3.9 Hz D  1.0                  
+PMARINEVIEWER_ITER_LEN 12:03:38.740         pMarineViewer        3.8 Hz D  0.0                  
+PMARINEVIEWER_STATUS 12:03:37.483         pMarineViewer        0.2 Hz S  AppErrorFlag=false,Upt...
+PMV_CLEAR            18:59:59.000         (write pending)      0.0 Hz ~  
+                   PMV_CONNECT          12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+PMV_MENU_CONTEXT     18:59:59.000         (write pending)      0.0 Hz ~  
+                   PROC_WATCH_EVENT     12:03:35.287         uProcessWatch        0.0 Hz S  Noted to be present: [...
+PROC_WATCH_FULL_SUMMARY 12:03:35.539         uProcessWatch        0.0 Hz S  pENC_Print(1/0),uFldSh...
+PROC_WATCH_SUMMARY   12:03:35.539         uProcessWatch        0.0 Hz S  All Present         
+PROC_WATCH_TIME_WARP 12:03:35.287         uProcessWatch        0.0 Hz D  1.0                  
+PSHARE_CMD           18:59:59.000         (write pending)      0.0 Hz ~  
+                   PSHARE_INPUT_SUMMARY 12:03:38.676         pShare               0.7 Hz S  localhost:9300      
+PSHARE_OUTPUT_SUMMARY 12:03:38.676         pShare               0.7 Hz S                      
+PSHARE_STATUS        12:03:37.651         pShare               0.3 Hz S  AppErrorFlag=false,Upt...
+RESTART_HELM         18:59:59.000         (write pending)      0.0 Hz ~  
+                   RETURN               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+STATIONING           12:03:34.575         pHelmIvP             0.0 Hz S  false               
+TRAIL_RESET          18:59:59.000         (write pending)      0.0 Hz ~  
+                   UFLDSHOREBROKER_ITER_GAP 12:03:38.888         uFldShoreBroker      7.5 Hz D  1.0                  
+UFLDSHOREBROKER_ITER_LEN 12:03:38.888         uFldShoreBroker      7.5 Hz D  0.0                  
+UFLDSHOREBROKER_STATUS 12:03:38.638         uFldShoreBroker      0.2 Hz S  AppErrorFlag=false,Upt...
+UMAC_8201_STATUS     12:03:37.940         uMAC_8201            0.4 Hz S  AppErrorFlag=false,Upt...
+UPROCESSWATCH_ITER_GAP 12:03:38.796         uProcessWatch        3.9 Hz D  1.0                  
+UPROCESSWATCH_ITER_LEN 12:03:38.796         uProcessWatch        3.9 Hz D  0.0                  
+UPROCESSWATCH_STATUS 12:03:37.544         uProcessWatch        0.2 Hz S  AppErrorFlag=false,Upt...
+VIEW_CIRCLE          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_COMMS_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_GRID            18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_MARKER          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POINT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POLYGON         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_RANGE_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLIST         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLR           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_VECTOR          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_WEDGE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   WPT_UPDATE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   simple               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+ 
+5.729           DB_RWSUMMARY         MOOSDB_shoreside pENC_Print=Current_Tide:ENC_INIT:MHW_Offset&PENC_PRINT_STATUS,uFldShoreBroker=APPCAST_REQ:NODE_BROKER_PING:PHI_HOST_INFO&APPCAST:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS,pHostInfo=APPCAST_REQ:HOST_INFO_REQUEST:PSHARE_INPUT_SUMMARY&APPCAST:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS,pShare=PSHARE_CMD&PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS,uProcessWatch=APPCAST_REQ:DB_CLIENTS:EXITED_NORMALLY:PENC_PRINT_STATUS:PHELMIVP_STATUS:PHOSTINFO_STATUS:PLOGGER_STATUS:PMARINEVIEWER_STATUS:PSHARE_STATUS:UFLDSHOREBROKER_STATUS&APPCAST:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS,pMarineViewer=APPCAST:APPCAST_REQ:Current_Tide:ENC_INIT:GRID_CONFIG:GRID_DELTA:NODE_REPORT:NODE_REPORT_LOCAL:PHI_HOST_IP:PMV_CLEAR:PMV_MENU_CONTEXT:TRAIL_RESET:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE&APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:HELM_MAP_CLEAR:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CONNECT,pHelmIvP=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST_REQ:ASTAR:DB_CLIENTS:DEPLOY:HELM_MAP_CLEAR:IVPHELM_REJOURNAL:IVPHELM_STATE:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_REPORT:NODE_REPORT_LOCAL:RESTART_HELM:RETURN:STATIONING:WPT_UPDATE:simple&APPCAST:ASTAR:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_STATE:MOOS_DEBUG:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PLOGGER_CMD:RETURN:STATIONING:simple,pLogger=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:ASTAR:Current_Tide:DB_CLIENTS:DB_EVENT:DB_QOS:DB_RWSUMMARY:DB_TIME:DB_UPTIME:DB_VARSUMMARY:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:ENC_INIT:EXITED_NORMALLY:GRID_CONFIG:GRID_DELTA:HELM_MAP_CLEAR:HOST_INFO_REQUEST:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_LIFE_EVENT:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_REJOURNAL:IVPHELM_STATE:LOGGER_DIRECTORY:LOGGER_RESTART:MHW_Offset:MOOS_DEBUG:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:MOOS_SYSTEM:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_BROKER_PING:NODE_REPORT:NODE_REPORT_LOCAL:PENC_PRINT_STATUS:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS:PLOGGER_CMD:PLOGGER_STATUS:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CLEAR:PMV_CONNECT:PMV_MENU_CONTEXT:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:PSHARE_CMD:PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS:RESTART_HELM:RETURN:STATIONING:TRAIL_RESET:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS:UMAC_8201_STATUS:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE:WPT_UPDATE:simple&LOGGER_DIRECTORY:PLOGGER_STATUS,uMAC_8201=APPCAST&APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:UMAC_8201_STATUS 
+6.235           PMARINEVIEWER_STATUS pMarineViewer   AppErrorFlag=false,Uptime=4.9517,cpuload=0,memory_kb=5.022e+04,memory_max_kb=5.487e+04,MOOSName=pMarineViewer,Publishing="APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,HELM_MAP_CLEAR,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CONNECT,",Subscribing="APPCAST,APPCAST_REQ,Current_Tide,ENC_INIT,GRID_CONFIG,GRID_DELTA,NODE_REPORT,NODE_REPORT_LOCAL,PHI_HOST_IP,PMV_CLEAR,PMV_MENU_CONTEXT,TRAIL_RESET,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE," 
+6.291           UPROCESSWATCH_STATUS uProcessWatch   AppErrorFlag=false,Uptime=4.97088,cpuload=0.7997,memory_kb=4108,memory_max_kb=4244,MOOSName=uProcessWatch,Publishing="APPCAST,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,",Subscribing="APPCAST_REQ,DB_CLIENTS,EXITED_NORMALLY,PENC_PRINT_STATUS,PHELMIVP_STATUS,PHOSTINFO_STATUS,PLOGGER_STATUS,PMARINEVIEWER_STATUS,PSHARE_STATUS,UFLDSHOREBROKER_STATUS," 
+6.419           PSHARE_STATUS        pShare          AppErrorFlag=false,Uptime=4.74139,cpuload=0.7994,memory_kb=4064,memory_max_kb=4128,MOOSName=pShare,Publishing="PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,",Subscribing="PSHARE_CMD," 
+6.631           PENC_PRINT_STATUS    pENC_Print      AppErrorFlag=false,Uptime=3.0859,cpuload=0,memory_kb=2.332e+04,memory_max_kb=2.348e+04,MOOSName=pENC_Print,Publishing="PENC_PRINT_STATUS,",Subscribing="Current_Tide,ENC_INIT,MHW_Offset," 
+6.708           UMAC_8201_STATUS     uMAC_8201       AppErrorFlag=false,Uptime=6.94526,cpuload=0,memory_kb=3916,memory_max_kb=3980,MOOSName=uMAC_8201,Publishing="APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,UMAC_8201_STATUS,",Subscribing="APPCAST," 
+6.912           PLOGGER_STATUS       pLogger         AppErrorFlag=false,Uptime=6.91207,cpuload=0.7996,memory_kb=6104,memory_max_kb=6264,MOOSName=pLogger,Publishing="LOGGER_DIRECTORY,PLOGGER_STATUS,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,ASTAR,Current_Tide,DB_CLIENTS,DB_EVENT,DB_QOS,DB_RWSUMMARY,DB_TIME,DB_UPTIME,DB_VARSUMMARY,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,ENC_INIT,EXITED_NORMALLY,GRID_CONFIG,GRID_DELTA,HELM_MAP_CLEAR,HOST_INFO_REQUEST,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_LIFE_EVENT,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_REJOURNAL,IVPHELM_STATE,LOGGER_DIRECTORY,LOGGER_RESTART,MHW_Offset,MOOS_DEBUG,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,MOOS_SYSTEM,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_BROKER_PING,NODE_REPORT,NODE_REPORT_LOCAL,PENC_PRINT_STATUS,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,PLOGGER_CMD,PLOGGER_STATUS,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CLEAR,PMV_CONNECT,PMV_MENU_CONTEXT,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,PSHARE_CMD,PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,RESTART_HELM,RETURN,STATIONING,TRAIL_RESET,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,UMAC_8201_STATUS,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE,WPT_UPDATE,simple,",LogAuxSrc=true 
+6.917           PHOSTINFO_STATUS     pHostInfo       AppErrorFlag=false,Uptime=4.87226,cpuload=0,memory_kb=4548,memory_max_kb=4548,MOOSName=pHostInfo,Publishing="APPCAST,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,",Subscribing="APPCAST_REQ,HOST_INFO_REQUEST,PSHARE_INPUT_SUMMARY," 
+7.410           UFLDSHOREBROKER_STATUS uFldShoreBroker AppErrorFlag=false,Uptime=4.83738,cpuload=0,memory_kb=6144,memory_max_kb=6280,MOOSName=uFldShoreBroker,Publishing="APPCAST,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,",Subscribing="APPCAST_REQ,NODE_BROKER_PING,PHI_HOST_INFO," 
+7.605           PHELMIVP_STATUS      pHelmIvP        AppErrorFlag=false,Uptime=7.13613,cpuload=0,memory_kb=5512,memory_max_kb=5512,MOOSName=pHelmIvP,Publishing="APPCAST,ASTAR,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_STATE,MOOS_DEBUG,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PLOGGER_CMD,RETURN,STATIONING,simple,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST_REQ,ASTAR,DB_CLIENTS,DEPLOY,HELM_MAP_CLEAR,IVPHELM_REJOURNAL,IVPHELM_STATE,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_REPORT,NODE_REPORT_LOCAL,RESTART_HELM,RETURN,STATIONING,WPT_UPDATE,simple," 
+7.738           DB_VARSUMMARY        MOOSDB_shoreside AIS_REPORT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   AIS_REPORT_LOCAL     18:59:59.000         (write pending)      0.0 Hz ~  
+                   APPCAST              12:03:40.862         pHelmIvP             10.4Hz S  proc=pHelmIvP!@#iter=2...
+APPCAST_REQ          12:03:40.567         uMAC_8201            3.0 Hz S  node=all,app=all,durat...
+APPCAST_REQ_ALL      12:03:40.567         uMAC_8201            2.4 Hz S  node=all,app=all,durat...
+APPCAST_REQ_SHORESIDE 12:03:40.495         pMarineViewer        0.9 Hz S  node=shoreside,app=pHe...
+ASTAR                12:03:34.575         pHelmIvP             0.0 Hz S  true                
+Current_Tide         18:59:59.000         (write pending)      0.0 Hz ~  
+                   DB_CLIENTS           12:03:40.995         MOOSDB_shoreside     0.4 Hz S  pENC_Print,uFldShoreBr...
+DB_EVENT             12:03:37.037         MOOSDB_shoreside     1.6 Hz S  connected=pENC_Print
+DB_QOS               12:03:38.985         MOOSDB_shoreside     0.4 Hz S  pENC_Print=0:11.204:0....
+DB_RWSUMMARY         12:03:38.986         MOOSDB_shoreside     0.4 Hz S  pENC_Print=Current_Tid...
+DB_TIME              12:03:40.995         MOOSDB_shoreside     0.4 Hz D  1500048221.0         
+DB_UPTIME            12:03:40.995         MOOSDB_shoreside     0.4 Hz D  8.1                  
+DB_VARSUMMARY        12:03:38.985         MOOSDB_shoreside     0.4 Hz S  AIS_REPORT           1...
+DEPLOY               12:03:34.531         pHelmIvP             0.0 Hz S  false               
+DESIRED_HEADING      12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+DESIRED_SPEED        12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+ENC_INIT             18:59:59.000         (write pending)      0.0 Hz ~  
+                   EXITED_NORMALLY      18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_CONFIG          18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_DELTA           18:59:59.000         (write pending)      0.0 Hz ~  
+                   HELM_MAP_CLEAR       12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+HOST_INFO_REQUEST    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_ALLSTOP      12:03:34.794         pHelmIvP             0.0 Hz S  ManualOverride      
+IVPHELM_ALLSTOP_DEBUG 12:03:40.862         pHelmIvP             3.9 Hz S  ManualOverride      
+IVPHELM_CPU          12:03:40.862         pHelmIvP             3.9 Hz D  0.0                  
+IVPHELM_DOMAIN       12:03:34.576         pHelmIvP             0.0 Hz S  speed,0,4,21:course,0,...
+IVPHELM_LIFE_EVENT   18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_MODESET      12:03:34.576         pHelmIvP             0.0 Hz S                      
+IVPHELM_REGISTER     12:03:34.576         pHelmIvP             8.7 Hz S  STATIONING          
+IVPHELM_REJOURNAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_STATE        12:03:40.862         pHelmIvP             3.9 Hz S  PARK                
+LOGGER_DIRECTORY     12:03:33.951         pLogger              0.0 Hz S  ./MOOSLog_14_7_2017___...
+LOGGER_RESTART       18:59:59.000         (write pending)      0.0 Hz ~  
+                   MHW_Offset           18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_DEBUG           12:03:34.794         pHelmIvP             0.0 Hz S  pHelmIvP AllStop: Manu...
+MOOS_MANUAL_OVERIDE  18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_MANUAL_OVERRIDE 18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_SYSTEM          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_DEPTH            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_HEADING          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_SPEED            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_X                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_Y                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_BROKER_PING     18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT_LOCAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   PENC_PRINT_STATUS    12:03:39.888         pENC_Print           0.2 Hz S  AppErrorFlag=false,Upt...
+PHELMIVP_ITER_GAP    12:03:40.862         pHelmIvP             3.9 Hz D  1.0                  
+PHELMIVP_ITER_LEN    12:03:40.862         pHelmIvP             3.9 Hz D  0.0                  
+PHELMIVP_STATUS      12:03:40.862         pHelmIvP             0.4 Hz S  AppErrorFlag=false,Upt...
+PHI_HOST_INFO        12:03:40.047         pHostInfo            0.7 Hz S  community=shoreside,ho...
+PHI_HOST_IP          12:03:40.047         pHostInfo            0.7 Hz S  192.168.1.206       
+PHI_HOST_IP_ALL      12:03:40.047         pHostInfo            0.7 Hz S  192.168.1.206       
+PHI_HOST_IP_VERBOSE  12:03:40.047         pHostInfo            0.7 Hz S  LINUX_ANY=192.168.1.206
+PHI_HOST_PORT_DB     12:03:40.047         pHostInfo            0.7 Hz S  9000                
+PHOSTINFO_ITER_GAP   12:03:40.928         pHostInfo            7.9 Hz D  1.0                  
+PHOSTINFO_ITER_LEN   12:03:40.928         pHostInfo            7.9 Hz D  0.0                  
+PHOSTINFO_STATUS     12:03:40.173         pHostInfo            0.4 Hz S  AppErrorFlag=false,Upt...
+PLOGGER_CMD          12:03:34.576         pHelmIvP             0.0 Hz S  COPY_FILE_REQUEST = mi...
+PLOGGER_STATUS       12:03:40.169         pLogger              0.4 Hz S  AppErrorFlag=false,Upt...
+PMARINEVIEWER_ITER_GAP 12:03:40.995         pMarineViewer        4.0 Hz D  1.0                  
+PMARINEVIEWER_ITER_LEN 12:03:40.995         pMarineViewer        4.0 Hz D  0.0                  
+PMARINEVIEWER_STATUS 12:03:39.491         pMarineViewer        0.4 Hz S  AppErrorFlag=false,Upt...
+PMV_CLEAR            18:59:59.000         (write pending)      0.0 Hz ~  
+                   PMV_CONNECT          12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+PMV_MENU_CONTEXT     18:59:59.000         (write pending)      0.0 Hz ~  
+                   PROC_WATCH_EVENT     12:03:35.287         uProcessWatch        0.0 Hz S  Noted to be present: [...
+PROC_WATCH_FULL_SUMMARY 12:03:35.539         uProcessWatch        0.0 Hz S  pENC_Print(1/0),uFldSh...
+PROC_WATCH_SUMMARY   12:03:40.549         uProcessWatch        0.1 Hz S  All Present         
+PROC_WATCH_TIME_WARP 12:03:35.287         uProcessWatch        0.0 Hz D  1.0                  
+PSHARE_CMD           18:59:59.000         (write pending)      0.0 Hz ~  
+                   PSHARE_INPUT_SUMMARY 12:03:40.725         pShare               0.9 Hz S  localhost:9300      
+PSHARE_OUTPUT_SUMMARY 12:03:40.725         pShare               0.9 Hz S                      
+PSHARE_STATUS        12:03:39.675         pShare               0.4 Hz S  AppErrorFlag=false,Upt...
+RESTART_HELM         18:59:59.000         (write pending)      0.0 Hz ~  
+                   RETURN               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+STATIONING           12:03:34.575         pHelmIvP             0.0 Hz S  false               
+TRAIL_RESET          18:59:59.000         (write pending)      0.0 Hz ~  
+                   UFLDSHOREBROKER_ITER_GAP 12:03:40.919         uFldShoreBroker      7.9 Hz D  1.0                  
+UFLDSHOREBROKER_ITER_LEN 12:03:40.919         uFldShoreBroker      7.9 Hz D  0.0                  
+UFLDSHOREBROKER_STATUS 12:03:40.667         uFldShoreBroker      0.4 Hz S  AppErrorFlag=false,Upt...
+UMAC_8201_STATUS     12:03:39.965         uMAC_8201            0.4 Hz S  AppErrorFlag=false,Upt...
+UPROCESSWATCH_ITER_GAP 12:03:40.799         uProcessWatch        4.0 Hz D  1.0                  
+UPROCESSWATCH_ITER_LEN 12:03:40.799         uProcessWatch        4.0 Hz D  0.0                  
+UPROCESSWATCH_STATUS 12:03:39.547         uProcessWatch        0.4 Hz S  AppErrorFlag=false,Upt...
+VIEW_CIRCLE          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_COMMS_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_GRID            18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_MARKER          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POINT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POLYGON         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_RANGE_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLIST         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLR           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_VECTOR          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_WEDGE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   WPT_UPDATE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   simple               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+ 
+7.739           DB_RWSUMMARY         MOOSDB_shoreside pENC_Print=Current_Tide:ENC_INIT:MHW_Offset&PENC_PRINT_STATUS,uFldShoreBroker=APPCAST_REQ:NODE_BROKER_PING:PHI_HOST_INFO&APPCAST:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS,pHostInfo=APPCAST_REQ:HOST_INFO_REQUEST:PSHARE_INPUT_SUMMARY&APPCAST:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS,pShare=PSHARE_CMD&PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS,uProcessWatch=APPCAST_REQ:DB_CLIENTS:EXITED_NORMALLY:PENC_PRINT_STATUS:PHELMIVP_STATUS:PHOSTINFO_STATUS:PLOGGER_STATUS:PMARINEVIEWER_STATUS:PSHARE_STATUS:UFLDSHOREBROKER_STATUS&APPCAST:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS,pMarineViewer=APPCAST:APPCAST_REQ:Current_Tide:ENC_INIT:GRID_CONFIG:GRID_DELTA:NODE_REPORT:NODE_REPORT_LOCAL:PHI_HOST_IP:PMV_CLEAR:PMV_MENU_CONTEXT:TRAIL_RESET:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE&APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:HELM_MAP_CLEAR:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CONNECT,pHelmIvP=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST_REQ:ASTAR:DB_CLIENTS:DEPLOY:HELM_MAP_CLEAR:IVPHELM_REJOURNAL:IVPHELM_STATE:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_REPORT:NODE_REPORT_LOCAL:RESTART_HELM:RETURN:STATIONING:WPT_UPDATE:simple&APPCAST:ASTAR:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_STATE:MOOS_DEBUG:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PLOGGER_CMD:RETURN:STATIONING:simple,pLogger=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:ASTAR:Current_Tide:DB_CLIENTS:DB_EVENT:DB_QOS:DB_RWSUMMARY:DB_TIME:DB_UPTIME:DB_VARSUMMARY:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:ENC_INIT:EXITED_NORMALLY:GRID_CONFIG:GRID_DELTA:HELM_MAP_CLEAR:HOST_INFO_REQUEST:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_LIFE_EVENT:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_REJOURNAL:IVPHELM_STATE:LOGGER_DIRECTORY:LOGGER_RESTART:MHW_Offset:MOOS_DEBUG:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:MOOS_SYSTEM:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_BROKER_PING:NODE_REPORT:NODE_REPORT_LOCAL:PENC_PRINT_STATUS:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS:PLOGGER_CMD:PLOGGER_STATUS:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CLEAR:PMV_CONNECT:PMV_MENU_CONTEXT:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:PSHARE_CMD:PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS:RESTART_HELM:RETURN:STATIONING:TRAIL_RESET:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS:UMAC_8201_STATUS:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE:WPT_UPDATE:simple&LOGGER_DIRECTORY:PLOGGER_STATUS,uMAC_8201=APPCAST&APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:UMAC_8201_STATUS 
+8.239           PMARINEVIEWER_STATUS pMarineViewer   AppErrorFlag=false,Uptime=6.95646,cpuload=0.7995,memory_kb=5.022e+04,memory_max_kb=5.487e+04,MOOSName=pMarineViewer,Publishing="APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,HELM_MAP_CLEAR,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CONNECT,",Subscribing="APPCAST,APPCAST_REQ,Current_Tide,ENC_INIT,GRID_CONFIG,GRID_DELTA,NODE_REPORT,NODE_REPORT_LOCAL,PHI_HOST_IP,PMV_CLEAR,PMV_MENU_CONTEXT,TRAIL_RESET,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE," 
+8.294           UPROCESSWATCH_STATUS uProcessWatch   AppErrorFlag=false,Uptime=6.97443,cpuload=0.7994,memory_kb=4108,memory_max_kb=4244,MOOSName=uProcessWatch,Publishing="APPCAST,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,",Subscribing="APPCAST_REQ,DB_CLIENTS,EXITED_NORMALLY,PENC_PRINT_STATUS,PHELMIVP_STATUS,PHOSTINFO_STATUS,PLOGGER_STATUS,PMARINEVIEWER_STATUS,PSHARE_STATUS,UFLDSHOREBROKER_STATUS," 
+8.422           PSHARE_STATUS        pShare          AppErrorFlag=false,Uptime=6.74461,cpuload=0.7995,memory_kb=4064,memory_max_kb=4128,MOOSName=pShare,Publishing="PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,",Subscribing="PSHARE_CMD," 
+8.635           PENC_PRINT_STATUS    pENC_Print      AppErrorFlag=false,Uptime=5.08933,cpuload=0,memory_kb=2.332e+04,memory_max_kb=2.348e+04,MOOSName=pENC_Print,Publishing="PENC_PRINT_STATUS,",Subscribing="Current_Tide,ENC_INIT,MHW_Offset," 
+8.715           UMAC_8201_STATUS     uMAC_8201       AppErrorFlag=false,Uptime=8.9516,cpuload=0,memory_kb=3916,memory_max_kb=3980,MOOSName=uMAC_8201,Publishing="APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,UMAC_8201_STATUS,",Subscribing="APPCAST," 
+8.968           PLOGGER_STATUS       pLogger         AppErrorFlag=false,Uptime=8.96791,cpuload=0.7991,memory_kb=6104,memory_max_kb=6264,MOOSName=pLogger,Publishing="LOGGER_DIRECTORY,PLOGGER_STATUS,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,ASTAR,Current_Tide,DB_CLIENTS,DB_EVENT,DB_QOS,DB_RWSUMMARY,DB_TIME,DB_UPTIME,DB_VARSUMMARY,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,ENC_INIT,EXITED_NORMALLY,GRID_CONFIG,GRID_DELTA,HELM_MAP_CLEAR,HOST_INFO_REQUEST,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_LIFE_EVENT,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_REJOURNAL,IVPHELM_STATE,LOGGER_DIRECTORY,LOGGER_RESTART,MHW_Offset,MOOS_DEBUG,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,MOOS_SYSTEM,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_BROKER_PING,NODE_REPORT,NODE_REPORT_LOCAL,PENC_PRINT_STATUS,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,PLOGGER_CMD,PLOGGER_STATUS,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CLEAR,PMV_CONNECT,PMV_MENU_CONTEXT,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,PSHARE_CMD,PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,RESTART_HELM,RETURN,STATIONING,TRAIL_RESET,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,UMAC_8201_STATUS,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE,WPT_UPDATE,simple,",LogAuxSrc=true 
+8.968           PHOSTINFO_STATUS     pHostInfo       AppErrorFlag=false,Uptime=6.92342,cpuload=0,memory_kb=4548,memory_max_kb=4548,MOOSName=pHostInfo,Publishing="APPCAST,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,",Subscribing="APPCAST_REQ,HOST_INFO_REQUEST,PSHARE_INPUT_SUMMARY," 
+9.472           UFLDSHOREBROKER_STATUS uFldShoreBroker AppErrorFlag=false,Uptime=6.89897,cpuload=0,memory_kb=6144,memory_max_kb=6280,MOOSName=uFldShoreBroker,Publishing="APPCAST,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,",Subscribing="APPCAST_REQ,NODE_BROKER_PING,PHI_HOST_INFO," 
+9.636           PHELMIVP_STATUS      pHelmIvP        AppErrorFlag=false,Uptime=9.1668,cpuload=0.7982,memory_kb=5512,memory_max_kb=5512,MOOSName=pHelmIvP,Publishing="APPCAST,ASTAR,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_STATE,MOOS_DEBUG,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PLOGGER_CMD,RETURN,STATIONING,simple,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST_REQ,ASTAR,DB_CLIENTS,DEPLOY,HELM_MAP_CLEAR,IVPHELM_REJOURNAL,IVPHELM_STATE,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_REPORT,NODE_REPORT_LOCAL,RESTART_HELM,RETURN,STATIONING,WPT_UPDATE,simple," 
+9.773           DB_VARSUMMARY        MOOSDB_shoreside AIS_REPORT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   AIS_REPORT_LOCAL     18:59:59.000         (write pending)      0.0 Hz ~  
+                   APPCAST              12:03:42.892         pHelmIvP             4.4 Hz S  proc=pHelmIvP!@#iter=3...
+APPCAST_REQ          12:03:42.571         pMarineViewer        2.9 Hz S  node=all,app=all,durat...
+APPCAST_REQ_ALL      12:03:42.571         pMarineViewer        2.3 Hz S  node=all,app=all,durat...
+APPCAST_REQ_SHORESIDE 12:03:42.531         pMarineViewer        1.0 Hz S  node=shoreside,app=pHe...
+ASTAR                12:03:34.575         pHelmIvP             0.0 Hz S  true                
+Current_Tide         18:59:59.000         (write pending)      0.0 Hz ~  
+                   DB_CLIENTS           12:03:43.029         MOOSDB_shoreside     0.5 Hz S  pENC_Print,uFldShoreBr...
+DB_EVENT             12:03:37.037         MOOSDB_shoreside     1.6 Hz S  connected=pENC_Print
+DB_QOS               12:03:40.995         MOOSDB_shoreside     0.4 Hz S  pENC_Print=0:11.204:0....
+DB_RWSUMMARY         12:03:40.995         MOOSDB_shoreside     0.4 Hz S  pENC_Print=Current_Tid...
+DB_TIME              12:03:43.029         MOOSDB_shoreside     0.5 Hz D  1500048223.0         
+DB_UPTIME            12:03:43.029         MOOSDB_shoreside     0.5 Hz D  10.1                 
+DB_VARSUMMARY        12:03:40.995         MOOSDB_shoreside     0.4 Hz S  AIS_REPORT           1...
+DEPLOY               12:03:34.531         pHelmIvP             0.0 Hz S  false               
+DESIRED_HEADING      12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+DESIRED_SPEED        12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+ENC_INIT             18:59:59.000         (write pending)      0.0 Hz ~  
+                   EXITED_NORMALLY      18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_CONFIG          18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_DELTA           18:59:59.000         (write pending)      0.0 Hz ~  
+                   HELM_MAP_CLEAR       12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+HOST_INFO_REQUEST    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_ALLSTOP      12:03:34.794         pHelmIvP             0.0 Hz S  ManualOverride      
+IVPHELM_ALLSTOP_DEBUG 12:03:42.892         pHelmIvP             4.0 Hz S  ManualOverride      
+IVPHELM_CPU          12:03:42.892         pHelmIvP             4.0 Hz D  0.8                  
+IVPHELM_DOMAIN       12:03:34.576         pHelmIvP             0.0 Hz S  speed,0,4,21:course,0,...
+IVPHELM_LIFE_EVENT   18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_MODESET      12:03:34.576         pHelmIvP             0.0 Hz S                      
+IVPHELM_REGISTER     12:03:34.576         pHelmIvP             8.7 Hz S  STATIONING          
+IVPHELM_REJOURNAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_STATE        12:03:42.892         pHelmIvP             4.0 Hz S  PARK                
+LOGGER_DIRECTORY     12:03:33.951         pLogger              0.0 Hz S  ./MOOSLog_14_7_2017___...
+LOGGER_RESTART       18:59:59.000         (write pending)      0.0 Hz ~  
+                   MHW_Offset           18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_DEBUG           12:03:34.794         pHelmIvP             0.0 Hz S  pHelmIvP AllStop: Manu...
+MOOS_MANUAL_OVERIDE  18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_MANUAL_OVERRIDE 18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_SYSTEM          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_DEPTH            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_HEADING          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_SPEED            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_X                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_Y                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_BROKER_PING     18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT_LOCAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   PENC_PRINT_STATUS    12:03:41.891         pENC_Print           0.4 Hz S  AppErrorFlag=false,Upt...
+PHELMIVP_ITER_GAP    12:03:42.892         pHelmIvP             4.0 Hz D  1.0                  
+PHELMIVP_ITER_LEN    12:03:42.892         pHelmIvP             4.0 Hz D  0.0                  
+PHELMIVP_STATUS      12:03:42.892         pHelmIvP             0.5 Hz S  AppErrorFlag=false,Upt...
+PHI_HOST_INFO        12:03:42.604         pHostInfo            0.8 Hz S  community=shoreside,ho...
+PHI_HOST_IP          12:03:42.604         pHostInfo            0.8 Hz S  192.168.1.206       
+PHI_HOST_IP_ALL      12:03:42.604         pHostInfo            0.8 Hz S  192.168.1.206       
+PHI_HOST_IP_VERBOSE  12:03:42.604         pHostInfo            0.8 Hz S  LINUX_ANY=192.168.1.206
+PHI_HOST_PORT_DB     12:03:42.604         pHostInfo            0.8 Hz S  9000                
+PHOSTINFO_ITER_GAP   12:03:42.980         pHostInfo            7.6 Hz D  1.0                  
+PHOSTINFO_ITER_LEN   12:03:42.980         pHostInfo            7.6 Hz D  0.0                  
+PHOSTINFO_STATUS     12:03:42.225         pHostInfo            0.4 Hz S  AppErrorFlag=false,Upt...
+PLOGGER_CMD          12:03:34.576         pHelmIvP             0.0 Hz S  COPY_FILE_REQUEST = mi...
+PLOGGER_STATUS       12:03:42.225         pLogger              0.5 Hz S  AppErrorFlag=false,Upt...
+PMARINEVIEWER_ITER_GAP 12:03:43.029         pMarineViewer        4.0 Hz D  1.0                  
+PMARINEVIEWER_ITER_LEN 12:03:43.029         pMarineViewer        4.0 Hz D  0.0                  
+PMARINEVIEWER_STATUS 12:03:41.496         pMarineViewer        0.4 Hz S  AppErrorFlag=false,Upt...
+PMV_CLEAR            18:59:59.000         (write pending)      0.0 Hz ~  
+                   PMV_CONNECT          12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+PMV_MENU_CONTEXT     18:59:59.000         (write pending)      0.0 Hz ~  
+                   PROC_WATCH_EVENT     12:03:35.287         uProcessWatch        0.0 Hz S  Noted to be present: [...
+PROC_WATCH_FULL_SUMMARY 12:03:35.539         uProcessWatch        0.0 Hz S  pENC_Print(1/0),uFldSh...
+PROC_WATCH_SUMMARY   12:03:40.549         uProcessWatch        0.1 Hz S  All Present         
+PROC_WATCH_TIME_WARP 12:03:35.287         uProcessWatch        0.0 Hz D  1.0                  
+PSHARE_CMD           18:59:59.000         (write pending)      0.0 Hz ~  
+                   PSHARE_INPUT_SUMMARY 12:03:42.737         pShare               1.0 Hz S  localhost:9300      
+PSHARE_OUTPUT_SUMMARY 12:03:42.737         pShare               1.0 Hz S                      
+PSHARE_STATUS        12:03:41.678         pShare               0.4 Hz S  AppErrorFlag=false,Upt...
+RESTART_HELM         18:59:59.000         (write pending)      0.0 Hz ~  
+                   RETURN               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+STATIONING           12:03:34.575         pHelmIvP             0.0 Hz S  false               
+TRAIL_RESET          18:59:59.000         (write pending)      0.0 Hz ~  
+                   UFLDSHOREBROKER_ITER_GAP 12:03:42.980         uFldShoreBroker      7.8 Hz D  1.0                  
+UFLDSHOREBROKER_ITER_LEN 12:03:42.980         uFldShoreBroker      7.8 Hz D  0.0                  
+UFLDSHOREBROKER_STATUS 12:03:42.729         uFldShoreBroker      0.4 Hz S  AppErrorFlag=false,Upt...
+UMAC_8201_STATUS     12:03:41.973         uMAC_8201            0.5 Hz S  AppErrorFlag=false,Upt...
+UPROCESSWATCH_ITER_GAP 12:03:42.804         uProcessWatch        4.0 Hz D  1.0                  
+UPROCESSWATCH_ITER_LEN 12:03:42.804         uProcessWatch        4.0 Hz D  0.0                  
+UPROCESSWATCH_STATUS 12:03:41.551         uProcessWatch        0.4 Hz S  AppErrorFlag=false,Upt...
+VIEW_CIRCLE          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_COMMS_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_GRID            18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_MARKER          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POINT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POLYGON         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_RANGE_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLIST         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLR           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_VECTOR          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_WEDGE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   WPT_UPDATE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   simple               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+ 
+9.773           DB_RWSUMMARY         MOOSDB_shoreside pENC_Print=Current_Tide:ENC_INIT:MHW_Offset&PENC_PRINT_STATUS,uFldShoreBroker=APPCAST_REQ:NODE_BROKER_PING:PHI_HOST_INFO&APPCAST:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS,pHostInfo=APPCAST_REQ:HOST_INFO_REQUEST:PSHARE_INPUT_SUMMARY&APPCAST:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS,pShare=PSHARE_CMD&PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS,uProcessWatch=APPCAST_REQ:DB_CLIENTS:EXITED_NORMALLY:PENC_PRINT_STATUS:PHELMIVP_STATUS:PHOSTINFO_STATUS:PLOGGER_STATUS:PMARINEVIEWER_STATUS:PSHARE_STATUS:UFLDSHOREBROKER_STATUS&APPCAST:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS,pMarineViewer=APPCAST:APPCAST_REQ:Current_Tide:ENC_INIT:GRID_CONFIG:GRID_DELTA:NODE_REPORT:NODE_REPORT_LOCAL:PHI_HOST_IP:PMV_CLEAR:PMV_MENU_CONTEXT:TRAIL_RESET:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE&APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:HELM_MAP_CLEAR:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CONNECT,pHelmIvP=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST_REQ:ASTAR:DB_CLIENTS:DEPLOY:HELM_MAP_CLEAR:IVPHELM_REJOURNAL:IVPHELM_STATE:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_REPORT:NODE_REPORT_LOCAL:RESTART_HELM:RETURN:STATIONING:WPT_UPDATE:simple&APPCAST:ASTAR:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_STATE:MOOS_DEBUG:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PLOGGER_CMD:RETURN:STATIONING:simple,pLogger=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:ASTAR:Current_Tide:DB_CLIENTS:DB_EVENT:DB_QOS:DB_RWSUMMARY:DB_TIME:DB_UPTIME:DB_VARSUMMARY:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:ENC_INIT:EXITED_NORMALLY:GRID_CONFIG:GRID_DELTA:HELM_MAP_CLEAR:HOST_INFO_REQUEST:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_LIFE_EVENT:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_REJOURNAL:IVPHELM_STATE:LOGGER_DIRECTORY:LOGGER_RESTART:MHW_Offset:MOOS_DEBUG:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:MOOS_SYSTEM:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_BROKER_PING:NODE_REPORT:NODE_REPORT_LOCAL:PENC_PRINT_STATUS:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS:PLOGGER_CMD:PLOGGER_STATUS:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CLEAR:PMV_CONNECT:PMV_MENU_CONTEXT:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:PSHARE_CMD:PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS:RESTART_HELM:RETURN:STATIONING:TRAIL_RESET:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS:UMAC_8201_STATUS:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE:WPT_UPDATE:simple&LOGGER_DIRECTORY:PLOGGER_STATUS,uMAC_8201=APPCAST&APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:UMAC_8201_STATUS 
+10.273          PMARINEVIEWER_STATUS pMarineViewer   AppErrorFlag=false,Uptime=8.98974,cpuload=0,memory_kb=5.022e+04,memory_max_kb=5.487e+04,MOOSName=pMarineViewer,Publishing="APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,HELM_MAP_CLEAR,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CONNECT,",Subscribing="APPCAST,APPCAST_REQ,Current_Tide,ENC_INIT,GRID_CONFIG,GRID_DELTA,NODE_REPORT,NODE_REPORT_LOCAL,PHI_HOST_IP,PMV_CLEAR,PMV_MENU_CONTEXT,TRAIL_RESET,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE," 
+10.300          UPROCESSWATCH_STATUS uProcessWatch   AppErrorFlag=false,Uptime=8.97971,cpuload=0,memory_kb=4108,memory_max_kb=4244,MOOSName=uProcessWatch,Publishing="APPCAST,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,",Subscribing="APPCAST_REQ,DB_CLIENTS,EXITED_NORMALLY,PENC_PRINT_STATUS,PHELMIVP_STATUS,PHOSTINFO_STATUS,PLOGGER_STATUS,PMARINEVIEWER_STATUS,PSHARE_STATUS,UFLDSHOREBROKER_STATUS," 
+10.429          PSHARE_STATUS        pShare          AppErrorFlag=false,Uptime=8.75181,cpuload=0,memory_kb=4064,memory_max_kb=4128,MOOSName=pShare,Publishing="PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,",Subscribing="PSHARE_CMD," 
+10.639          PENC_PRINT_STATUS    pENC_Print      AppErrorFlag=false,Uptime=7.09328,cpuload=0.7995,memory_kb=2.332e+04,memory_max_kb=2.348e+04,MOOSName=pENC_Print,Publishing="PENC_PRINT_STATUS,",Subscribing="Current_Tide,ENC_INIT,MHW_Offset," 
+10.775          UMAC_8201_STATUS     uMAC_8201       AppErrorFlag=false,Uptime=11.0115,cpuload=0,memory_kb=3916,memory_max_kb=3980,MOOSName=uMAC_8201,Publishing="APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,UMAC_8201_STATUS,",Subscribing="APPCAST," 
+11.024          PHOSTINFO_STATUS     pHostInfo       AppErrorFlag=false,Uptime=8.97978,cpuload=0,memory_kb=4548,memory_max_kb=4548,MOOSName=pHostInfo,Publishing="APPCAST,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,",Subscribing="APPCAST_REQ,HOST_INFO_REQUEST,PSHARE_INPUT_SUMMARY," 
+11.025          PLOGGER_STATUS       pLogger         AppErrorFlag=false,Uptime=11.025,cpuload=0.7993,memory_kb=6104,memory_max_kb=6264,MOOSName=pLogger,Publishing="LOGGER_DIRECTORY,PLOGGER_STATUS,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,ASTAR,Current_Tide,DB_CLIENTS,DB_EVENT,DB_QOS,DB_RWSUMMARY,DB_TIME,DB_UPTIME,DB_VARSUMMARY,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,ENC_INIT,EXITED_NORMALLY,GRID_CONFIG,GRID_DELTA,HELM_MAP_CLEAR,HOST_INFO_REQUEST,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_LIFE_EVENT,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_REJOURNAL,IVPHELM_STATE,LOGGER_DIRECTORY,LOGGER_RESTART,MHW_Offset,MOOS_DEBUG,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,MOOS_SYSTEM,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_BROKER_PING,NODE_REPORT,NODE_REPORT_LOCAL,PENC_PRINT_STATUS,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,PLOGGER_CMD,PLOGGER_STATUS,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CLEAR,PMV_CONNECT,PMV_MENU_CONTEXT,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,PSHARE_CMD,PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,RESTART_HELM,RETURN,STATIONING,TRAIL_RESET,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,UMAC_8201_STATUS,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE,WPT_UPDATE,simple,",LogAuxSrc=true 
+11.530          UFLDSHOREBROKER_STATUS uFldShoreBroker AppErrorFlag=false,Uptime=8.9569,cpuload=0,memory_kb=6144,memory_max_kb=6280,MOOSName=uFldShoreBroker,Publishing="APPCAST,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,",Subscribing="APPCAST_REQ,NODE_BROKER_PING,PHI_HOST_INFO," 
+11.649          PHELMIVP_STATUS      pHelmIvP        AppErrorFlag=false,Uptime=11.1802,cpuload=0.7996,memory_kb=5512,memory_max_kb=5512,MOOSName=pHelmIvP,Publishing="APPCAST,ASTAR,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_STATE,MOOS_DEBUG,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PLOGGER_CMD,RETURN,STATIONING,simple,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST_REQ,ASTAR,DB_CLIENTS,DEPLOY,HELM_MAP_CLEAR,IVPHELM_REJOURNAL,IVPHELM_STATE,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_REPORT,NODE_REPORT_LOCAL,RESTART_HELM,RETURN,STATIONING,WPT_UPDATE,simple," 
+11.776          DB_VARSUMMARY        MOOSDB_shoreside AIS_REPORT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   AIS_REPORT_LOCAL     18:59:59.000         (write pending)      0.0 Hz ~  
+                   APPCAST              12:03:44.906         pHelmIvP             4.0 Hz S  proc=pHelmIvP!@#iter=4...
+APPCAST_REQ          12:03:44.578         pMarineViewer        3.6 Hz S  node=all,app=all,durat...
+APPCAST_REQ_ALL      12:03:44.578         pMarineViewer        2.7 Hz S  node=all,app=all,durat...
+APPCAST_REQ_SHORESIDE 12:03:44.539         pMarineViewer        1.0 Hz S  node=shoreside,app=pHe...
+ASTAR                12:03:34.575         pHelmIvP             0.0 Hz S  true                
+Current_Tide         18:59:59.000         (write pending)      0.0 Hz ~  
+                   DB_CLIENTS           12:03:45.032         MOOSDB_shoreside     0.5 Hz S  pENC_Print,uFldShoreBr...
+DB_EVENT             12:03:44.656         MOOSDB_shoreside     0.9 Hz S  disconnected=uMAC_8201
+DB_QOS               12:03:43.029         MOOSDB_shoreside     0.5 Hz S  pENC_Print=0.560999:11...
+DB_RWSUMMARY         12:03:43.029         MOOSDB_shoreside     0.5 Hz S  pENC_Print=Current_Tid...
+DB_TIME              12:03:45.032         MOOSDB_shoreside     0.5 Hz D  1500048225.0         
+DB_UPTIME            12:03:45.032         MOOSDB_shoreside     0.5 Hz D  12.2                 
+DB_VARSUMMARY        12:03:43.029         MOOSDB_shoreside     0.5 Hz S  AIS_REPORT           1...
+DEPLOY               12:03:34.531         pHelmIvP             0.0 Hz S  false               
+DESIRED_HEADING      12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+DESIRED_SPEED        12:03:34.794         pHelmIvP             0.0 Hz D  0.0                  
+ENC_INIT             18:59:59.000         (write pending)      0.0 Hz ~  
+                   EXITED_NORMALLY      18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_CONFIG          18:59:59.000         (write pending)      0.0 Hz ~  
+                   GRID_DELTA           18:59:59.000         (write pending)      0.0 Hz ~  
+                   HELM_MAP_CLEAR       12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+HOST_INFO_REQUEST    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_ALLSTOP      12:03:34.794         pHelmIvP             0.0 Hz S  ManualOverride      
+IVPHELM_ALLSTOP_DEBUG 12:03:44.906         pHelmIvP             4.0 Hz S  ManualOverride      
+IVPHELM_CPU          12:03:44.906         pHelmIvP             4.0 Hz D  0.8                  
+IVPHELM_DOMAIN       12:03:34.576         pHelmIvP             0.0 Hz S  speed,0,4,21:course,0,...
+IVPHELM_LIFE_EVENT   18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_MODESET      12:03:34.576         pHelmIvP             0.0 Hz S                      
+IVPHELM_REGISTER     12:03:34.576         pHelmIvP             8.7 Hz S  STATIONING          
+IVPHELM_REJOURNAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   IVPHELM_STATE        12:03:44.906         pHelmIvP             4.0 Hz S  PARK                
+LOGGER_DIRECTORY     12:03:43.277         pLogger              0.1 Hz S  ./MOOSLog_14_7_2017___...
+LOGGER_RESTART       18:59:59.000         (write pending)      0.0 Hz ~  
+                   MHW_Offset           18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_DEBUG           12:03:34.794         pHelmIvP             0.0 Hz S  pHelmIvP AllStop: Manu...
+MOOS_MANUAL_OVERIDE  18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_MANUAL_OVERRIDE 18:59:59.000         (write pending)      0.0 Hz ~  
+                   MOOS_SYSTEM          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_DEPTH            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_HEADING          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_SPEED            18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_X                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NAV_Y                18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_BROKER_PING     18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT          18:59:59.000         (write pending)      0.0 Hz ~  
+                   NODE_REPORT_LOCAL    18:59:59.000         (write pending)      0.0 Hz ~  
+                   PENC_PRINT_STATUS    12:03:43.895         pENC_Print           0.4 Hz S  AppErrorFlag=false,Upt...
+PHELMIVP_ITER_GAP    12:03:44.906         pHelmIvP             4.0 Hz D  1.0                  
+PHELMIVP_ITER_LEN    12:03:44.906         pHelmIvP             4.0 Hz D  0.0                  
+PHELMIVP_STATUS      12:03:44.906         pHelmIvP             0.5 Hz S  AppErrorFlag=false,Upt...
+PHI_HOST_INFO        12:03:43.905         pHostInfo            0.8 Hz S  community=shoreside,ho...
+PHI_HOST_IP          12:03:43.905         pHostInfo            0.8 Hz S  192.168.1.206       
+PHI_HOST_IP_ALL      12:03:43.905         pHostInfo            0.8 Hz S  192.168.1.206       
+PHI_HOST_IP_VERBOSE  12:03:43.905         pHostInfo            0.8 Hz S  LINUX_ANY=192.168.1.206
+PHI_HOST_PORT_DB     12:03:43.905         pHostInfo            0.8 Hz S  9000                
+PHOSTINFO_ITER_GAP   12:03:44.912         pHostInfo            7.9 Hz D  1.0                  
+PHOSTINFO_ITER_LEN   12:03:44.912         pHostInfo            7.9 Hz D  0.0                  
+PHOSTINFO_STATUS     12:03:44.286         pHostInfo            0.5 Hz S  AppErrorFlag=false,Upt...
+PLOGGER_CMD          12:03:34.576         pHelmIvP             0.0 Hz S  COPY_FILE_REQUEST = mi...
+PLOGGER_STATUS       12:03:44.286         pLogger              0.5 Hz S  AppErrorFlag=false,Upt...
+PMARINEVIEWER_ITER_GAP 12:03:45.032         pMarineViewer        4.0 Hz D  1.0                  
+PMARINEVIEWER_ITER_LEN 12:03:45.032         pMarineViewer        4.0 Hz D  0.0                  
+PMARINEVIEWER_STATUS 12:03:43.529         pMarineViewer        0.5 Hz S  AppErrorFlag=false,Upt...
+PMV_CLEAR            18:59:59.000         (write pending)      0.0 Hz ~  
+                   PMV_CONNECT          12:03:35.458         pMarineViewer        0.0 Hz D  0.0                  
+PMV_MENU_CONTEXT     18:59:59.000         (write pending)      0.0 Hz ~  
+                   PROC_WATCH_EVENT     12:03:35.287         uProcessWatch        0.0 Hz S  Noted to be present: [...
+PROC_WATCH_FULL_SUMMARY 12:03:35.539         uProcessWatch        0.0 Hz S  pENC_Print(1/0),uFldSh...
+PROC_WATCH_SUMMARY   12:03:40.549         uProcessWatch        0.1 Hz S  All Present         
+PROC_WATCH_TIME_WARP 12:03:35.287         uProcessWatch        0.0 Hz D  1.0                  
+PSHARE_CMD           18:59:59.000         (write pending)      0.0 Hz ~  
+                   PSHARE_INPUT_SUMMARY 12:03:44.749         pShare               1.0 Hz S  localhost:9300      
+PSHARE_OUTPUT_SUMMARY 12:03:44.749         pShare               1.0 Hz S                      
+PSHARE_STATUS        12:03:43.686         pShare               0.5 Hz S  AppErrorFlag=false,Upt...
+RESTART_HELM         18:59:59.000         (write pending)      0.0 Hz ~  
+                   RETURN               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+STATIONING           12:03:34.575         pHelmIvP             0.0 Hz S  false               
+TRAIL_RESET          18:59:59.000         (write pending)      0.0 Hz ~  
+                   UFLDSHOREBROKER_ITER_GAP 12:03:44.912         uFldShoreBroker      7.9 Hz D  1.0                  
+UFLDSHOREBROKER_ITER_LEN 12:03:44.912         uFldShoreBroker      7.9 Hz D  0.0                  
+UFLDSHOREBROKER_STATUS 12:03:44.787         uFldShoreBroker      0.5 Hz S  AppErrorFlag=false,Upt...
+UMAC_8201_STATUS     12:03:44.031         uMAC_8201            0.5 Hz S  AppErrorFlag=false,Upt...
+UPROCESSWATCH_ITER_GAP 12:03:44.862         uProcessWatch        3.9 Hz D  1.0                  
+UPROCESSWATCH_ITER_LEN 12:03:44.862         uProcessWatch        3.9 Hz D  0.0                  
+UPROCESSWATCH_STATUS 12:03:43.556         uProcessWatch        0.5 Hz S  AppErrorFlag=false,Upt...
+VIEW_CIRCLE          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_COMMS_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_GRID            18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_MARKER          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POINT           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_POLYGON         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_RANGE_PULSE     18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLIST         18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_SEGLR           18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_VECTOR          18:59:59.000         (write pending)      0.0 Hz ~  
+                   VIEW_WEDGE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   WPT_UPDATE           18:59:59.000         (write pending)      0.0 Hz ~  
+                   simple               12:03:34.575         pHelmIvP             0.0 Hz S  false               
+ 
+11.776          DB_RWSUMMARY         MOOSDB_shoreside pENC_Print=Current_Tide:ENC_INIT:MHW_Offset&PENC_PRINT_STATUS,uFldShoreBroker=APPCAST_REQ:NODE_BROKER_PING:PHI_HOST_INFO&APPCAST:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS,pHostInfo=APPCAST_REQ:HOST_INFO_REQUEST:PSHARE_INPUT_SUMMARY&APPCAST:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS,pShare=PSHARE_CMD&PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS,uProcessWatch=APPCAST_REQ:DB_CLIENTS:EXITED_NORMALLY:PENC_PRINT_STATUS:PHELMIVP_STATUS:PHOSTINFO_STATUS:PLOGGER_STATUS:PMARINEVIEWER_STATUS:PSHARE_STATUS:UFLDSHOREBROKER_STATUS&APPCAST:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS,pMarineViewer=APPCAST:APPCAST_REQ:Current_Tide:ENC_INIT:GRID_CONFIG:GRID_DELTA:NODE_REPORT:NODE_REPORT_LOCAL:PHI_HOST_IP:PMV_CLEAR:PMV_MENU_CONTEXT:TRAIL_RESET:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE&APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:HELM_MAP_CLEAR:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CONNECT,pHelmIvP=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST_REQ:ASTAR:DB_CLIENTS:DEPLOY:HELM_MAP_CLEAR:IVPHELM_REJOURNAL:IVPHELM_STATE:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_REPORT:NODE_REPORT_LOCAL:RESTART_HELM:RETURN:STATIONING:WPT_UPDATE:simple&APPCAST:ASTAR:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_STATE:MOOS_DEBUG:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PLOGGER_CMD:RETURN:STATIONING:simple,pLogger=AIS_REPORT:AIS_REPORT_LOCAL:APPCAST:APPCAST_REQ:APPCAST_REQ_ALL:APPCAST_REQ_SHORESIDE:ASTAR:Current_Tide:DB_CLIENTS:DB_EVENT:DB_QOS:DB_RWSUMMARY:DB_TIME:DB_UPTIME:DB_VARSUMMARY:DEPLOY:DESIRED_HEADING:DESIRED_SPEED:ENC_INIT:EXITED_NORMALLY:GRID_CONFIG:GRID_DELTA:HELM_MAP_CLEAR:HOST_INFO_REQUEST:IVPHELM_ALLSTOP:IVPHELM_ALLSTOP_DEBUG:IVPHELM_CPU:IVPHELM_DOMAIN:IVPHELM_LIFE_EVENT:IVPHELM_MODESET:IVPHELM_REGISTER:IVPHELM_REJOURNAL:IVPHELM_STATE:LOGGER_DIRECTORY:LOGGER_RESTART:MHW_Offset:MOOS_DEBUG:MOOS_MANUAL_OVERIDE:MOOS_MANUAL_OVERRIDE:MOOS_SYSTEM:NAV_DEPTH:NAV_HEADING:NAV_SPEED:NAV_X:NAV_Y:NODE_BROKER_PING:NODE_REPORT:NODE_REPORT_LOCAL:PENC_PRINT_STATUS:PHELMIVP_ITER_GAP:PHELMIVP_ITER_LEN:PHELMIVP_STATUS:PHI_HOST_INFO:PHI_HOST_IP:PHI_HOST_IP_ALL:PHI_HOST_IP_VERBOSE:PHI_HOST_PORT_DB:PHOSTINFO_ITER_GAP:PHOSTINFO_ITER_LEN:PHOSTINFO_STATUS:PLOGGER_CMD:PLOGGER_STATUS:PMARINEVIEWER_ITER_GAP:PMARINEVIEWER_ITER_LEN:PMARINEVIEWER_STATUS:PMV_CLEAR:PMV_CONNECT:PMV_MENU_CONTEXT:PROC_WATCH_EVENT:PROC_WATCH_FULL_SUMMARY:PROC_WATCH_SUMMARY:PROC_WATCH_TIME_WARP:PSHARE_CMD:PSHARE_INPUT_SUMMARY:PSHARE_OUTPUT_SUMMARY:PSHARE_STATUS:RESTART_HELM:RETURN:STATIONING:TRAIL_RESET:UFLDSHOREBROKER_ITER_GAP:UFLDSHOREBROKER_ITER_LEN:UFLDSHOREBROKER_STATUS:UMAC_8201_STATUS:UPROCESSWATCH_ITER_GAP:UPROCESSWATCH_ITER_LEN:UPROCESSWATCH_STATUS:VIEW_CIRCLE:VIEW_COMMS_PULSE:VIEW_GRID:VIEW_MARKER:VIEW_POINT:VIEW_POLYGON:VIEW_RANGE_PULSE:VIEW_SEGLIST:VIEW_SEGLR:VIEW_VECTOR:VIEW_WEDGE:WPT_UPDATE:simple&LOGGER_DIRECTORY:PLOGGER_STATUS 
+12.277          PMARINEVIEWER_STATUS pMarineViewer   AppErrorFlag=false,Uptime=10.9939,cpuload=0.7995,memory_kb=5.022e+04,memory_max_kb=5.487e+04,MOOSName=pMarineViewer,Publishing="APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,HELM_MAP_CLEAR,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CONNECT,",Subscribing="APPCAST,APPCAST_REQ,Current_Tide,ENC_INIT,GRID_CONFIG,GRID_DELTA,NODE_REPORT,NODE_REPORT_LOCAL,PHI_HOST_IP,PMV_CLEAR,PMV_MENU_CONTEXT,TRAIL_RESET,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE," 
+12.363          UPROCESSWATCH_STATUS uProcessWatch   AppErrorFlag=false,Uptime=11.0427,cpuload=0,memory_kb=4108,memory_max_kb=4244,MOOSName=uProcessWatch,Publishing="APPCAST,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,",Subscribing="APPCAST_REQ,DB_CLIENTS,EXITED_NORMALLY,PENC_PRINT_STATUS,PHELMIVP_STATUS,PHOSTINFO_STATUS,PLOGGER_STATUS,PMARINEVIEWER_STATUS,PSHARE_STATUS,UFLDSHOREBROKER_STATUS," 
+12.451          PSHARE_STATUS        pShare          AppErrorFlag=false,Uptime=10.7732,cpuload=0,memory_kb=4064,memory_max_kb=4128,MOOSName=pShare,Publishing="PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,",Subscribing="PSHARE_CMD," 
+12.644          PENC_PRINT_STATUS    pENC_Print      AppErrorFlag=false,Uptime=9.09863,cpuload=0.7995,memory_kb=2.332e+04,memory_max_kb=2.348e+04,MOOSName=pENC_Print,Publishing="PENC_PRINT_STATUS,",Subscribing="Current_Tide,ENC_INIT,MHW_Offset," 
+13.034          PHOSTINFO_STATUS     pHostInfo       AppErrorFlag=false,Uptime=10.9893,cpuload=0,memory_kb=4548,memory_max_kb=4548,MOOSName=pHostInfo,Publishing="APPCAST,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,",Subscribing="APPCAST_REQ,HOST_INFO_REQUEST,PSHARE_INPUT_SUMMARY," 
+13.040          PLOGGER_STATUS       pLogger         AppErrorFlag=false,Uptime=13.0396,cpuload=0,memory_kb=6104,memory_max_kb=6264,MOOSName=pLogger,Publishing="LOGGER_DIRECTORY,PLOGGER_STATUS,",Subscribing="AIS_REPORT,AIS_REPORT_LOCAL,APPCAST,APPCAST_REQ,APPCAST_REQ_ALL,APPCAST_REQ_SHORESIDE,ASTAR,Current_Tide,DB_CLIENTS,DB_EVENT,DB_QOS,DB_RWSUMMARY,DB_TIME,DB_UPTIME,DB_VARSUMMARY,DEPLOY,DESIRED_HEADING,DESIRED_SPEED,ENC_INIT,EXITED_NORMALLY,GRID_CONFIG,GRID_DELTA,HELM_MAP_CLEAR,HOST_INFO_REQUEST,IVPHELM_ALLSTOP,IVPHELM_ALLSTOP_DEBUG,IVPHELM_CPU,IVPHELM_DOMAIN,IVPHELM_LIFE_EVENT,IVPHELM_MODESET,IVPHELM_REGISTER,IVPHELM_REJOURNAL,IVPHELM_STATE,LOGGER_DIRECTORY,LOGGER_RESTART,MHW_Offset,MOOS_DEBUG,MOOS_MANUAL_OVERIDE,MOOS_MANUAL_OVERRIDE,MOOS_SYSTEM,NAV_DEPTH,NAV_HEADING,NAV_SPEED,NAV_X,NAV_Y,NODE_BROKER_PING,NODE_REPORT,NODE_REPORT_LOCAL,PENC_PRINT_STATUS,PHELMIVP_ITER_GAP,PHELMIVP_ITER_LEN,PHELMIVP_STATUS,PHI_HOST_INFO,PHI_HOST_IP,PHI_HOST_IP_ALL,PHI_HOST_IP_VERBOSE,PHI_HOST_PORT_DB,PHOSTINFO_ITER_GAP,PHOSTINFO_ITER_LEN,PHOSTINFO_STATUS,PLOGGER_CMD,PLOGGER_STATUS,PMARINEVIEWER_ITER_GAP,PMARINEVIEWER_ITER_LEN,PMARINEVIEWER_STATUS,PMV_CLEAR,PMV_CONNECT,PMV_MENU_CONTEXT,PROC_WATCH_EVENT,PROC_WATCH_FULL_SUMMARY,PROC_WATCH_SUMMARY,PROC_WATCH_TIME_WARP,PSHARE_CMD,PSHARE_INPUT_SUMMARY,PSHARE_OUTPUT_SUMMARY,PSHARE_STATUS,RESTART_HELM,RETURN,STATIONING,TRAIL_RESET,UFLDSHOREBROKER_ITER_GAP,UFLDSHOREBROKER_ITER_LEN,UFLDSHOREBROKER_STATUS,UMAC_8201_STATUS,UPROCESSWATCH_ITER_GAP,UPROCESSWATCH_ITER_LEN,UPROCESSWATCH_STATUS,VIEW_CIRCLE,VIEW_COMMS_PULSE,VIEW_GRID,VIEW_MARKER,VIEW_POINT,VIEW_POLYGON,VIEW_RANGE_PULSE,VIEW_SEGLIST,VIEW_SEGLR,VIEW_VECTOR,VIEW_WEDGE,WPT_UPDATE,simple,",LogAuxSrc=true 

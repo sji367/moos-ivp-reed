@@ -1,0 +1,58 @@
+total_vars=53
+logstart=1500146566.61
+logtmin=0.674
+logtmax=1271.351
+vname=shoreside
+var=APPCAST, type=string, srcs=pHelmIvP:pHostInfo:pMarineViewer:uFldNodeBroker:uFldShoreBroker:uProcessWatch
+var=APPCAST_REQ, type=string, srcs=pMarineViewer:uMAC_5987
+var=APPCAST_REQ_ALL, type=string, srcs=pMarineViewer:uMAC_5987
+var=APPCAST_REQ_SHORESIDE, type=string, srcs=pMarineViewer:uMAC_5987
+var=APPCAST_REQ_ZBOAT, type=string, srcs=uMAC_5987
+var=AUTONOMOUS_CONTROL, type=string, srcs=pMarineViewer
+var=DB_CLIENTS, type=string, srcs=MOOSDB_shoreside
+var=DB_EVENT, type=string, srcs=MOOSDB_shoreside
+var=DB_QOS, type=string, srcs=MOOSDB_shoreside
+var=DB_TIME, type=double, srcs=MOOSDB_shoreside
+var=DB_UPTIME, type=double, srcs=MOOSDB_shoreside
+var=DEPLOY, type=string, srcs=pMarineViewer
+var=ENC_INIT, type=string, srcs=pENC_Contact
+var=HELM_MAP_CLEAR, type=double, srcs=pMarineViewer
+var=LOGGER_DIRECTORY, type=string, srcs=pLogger
+var=MOOS_MANUAL_OVERIDE, type=string, srcs=pMarineViewer
+var=MVIEWER_LCLICK, type=string, srcs=pMarineViewer
+var=MVIEWER_RCLICK, type=string, srcs=pMarineViewer
+var=MVIEWER_UNHANDLED_MAIL, type=string, srcs=pMarineViewer
+var=NAV_HEADING, type=double, srcs=pEchoVar
+var=NAV_X, type=double, srcs=pEchoVar
+var=NAV_Y, type=double, srcs=pEchoVar
+var=NEW_POINTS, type=string, srcs=pMarineViewer
+var=NODE_BROKER_ACK_ZBOAT, type=string, srcs=uFldShoreBroker
+var=NODE_BROKER_PING, type=string, srcs=uFldNodeBroker
+var=NODE_BROKER_VACK, type=string, srcs=uFldShoreBroker
+var=NODE_REPORT, type=string, srcs=pNodeReporter
+var=PHI_HOST_INFO, type=string, srcs=pHostInfo
+var=PHI_HOST_IP, type=string, srcs=pHostInfo
+var=PHI_HOST_IP_ALL, type=string, srcs=pHostInfo
+var=PHI_HOST_IP_VERBOSE, type=string, srcs=pHostInfo
+var=PHI_HOST_PORT_DB, type=double, srcs=pHostInfo
+var=PHOSTINFO_ITER_GAP, type=double, srcs=pHostInfo
+var=PHOSTINFO_ITER_LEN, type=double, srcs=pHostInfo
+var=PMARINEVIEWER_ITER_GAP, type=double, srcs=pMarineViewer
+var=PMARINEVIEWER_ITER_LEN, type=double, srcs=pMarineViewer
+var=PMV_CONNECT, type=double, srcs=pMarineViewer
+var=PROC_WATCH_EVENT, type=string, srcs=uProcessWatch
+var=PROC_WATCH_FULL_SUMMARY, type=string, srcs=uProcessWatch
+var=PROC_WATCH_SUMMARY, type=string, srcs=uProcessWatch
+var=PROC_WATCH_TIME_WARP, type=double, srcs=uProcessWatch
+var=PSHARE_CMD, type=string, srcs=uFldShoreBroker
+var=PSHARE_INPUT_SUMMARY, type=string, srcs=pShare
+var=PSHARE_OUTPUT_SUMMARY, type=string, srcs=pShare
+var=RETURN, type=string, srcs=pMarineViewer
+var=STATIONING, type=string, srcs=pMarineViewer
+var=UFLDSHOREBROKER_ITER_GAP, type=double, srcs=uFldShoreBroker
+var=UFLDSHOREBROKER_ITER_LEN, type=double, srcs=uFldShoreBroker
+var=UPDATE_POLYS, type=string, srcs=pMarineViewer
+var=UPDATE_PTS, type=string, srcs=pMarineViewer
+var=UPROCESSWATCH_ITER_GAP, type=double, srcs=uProcessWatch
+var=UPROCESSWATCH_ITER_LEN, type=double, srcs=uProcessWatch
+var=VISUALS, type=string, srcs=pENC_Contact:pENC_WPT_Check:pHelmIvP:pMarineViewer
