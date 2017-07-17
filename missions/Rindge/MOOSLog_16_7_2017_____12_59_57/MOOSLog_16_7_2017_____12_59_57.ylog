@@ -1,0 +1,18 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_16_7_2017_____12_59_57/MOOSLog_16_7_2017_____12_59_57.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1500224397.23
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.069783   MOOS_DEBUG           pMarinePID           ** NEW CONTROLLER GAINS ARE ** 
+1.069817   MOOS_DEBUG           pMarinePID           YAW_PID_KP             = 0.700 
+1.069826   MOOS_DEBUG           pMarinePID           YAW_PID_KD             = 0.000 
+1.069833   MOOS_DEBUG           pMarinePID           YAW_PID_KI             = 0.300 
+1.06984    MOOS_DEBUG           pMarinePID           YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.06985    MOOS_DEBUG           pMarinePID           MAXRUDDER              = 45.000 
+1.076429   MOOS_DEBUG           pMarinePID           SPEED_PID_KP           = 0.700 
+1.07645    MOOS_DEBUG           pMarinePID           SPEED_PID_KD           = 0.000 
+1.076456   MOOS_DEBUG           pMarinePID           SPEED_PID_KI           = 0.000 
+1.076464   MOOS_DEBUG           pMarinePID           SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.076474   MOOS_DEBUG           pMarinePID           MAXTHRUST              = 60.000 
+1.947906   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+49.26212   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum ,07200.29689505,W,2,07,1.6,324.384,M,-33.463,M,6.8,0138*70 

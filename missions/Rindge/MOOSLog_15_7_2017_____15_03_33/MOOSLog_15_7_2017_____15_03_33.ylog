@@ -1,0 +1,26 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_15_7_2017_____15_03_33/MOOSLog_15_7_2017_____15_03_33.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1500145412.34
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.048044   MOOS_DEBUG           pMarinePID           ** NEW CONTROLLER GAINS ARE ** 
+1.048053   MOOS_DEBUG           pMarinePID           YAW_PID_KP             = 1.100 
+1.048055   MOOS_DEBUG           pMarinePID           YAW_PID_KD             = 0.000 
+1.048057   MOOS_DEBUG           pMarinePID           YAW_PID_KI             = 0.300 
+1.048058   MOOS_DEBUG           pMarinePID           YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.04806    MOOS_DEBUG           pMarinePID           MAXRUDDER              = 45.000 
+1.049339   MOOS_DEBUG           pMarinePID           SPEED_PID_KP           = 0.700 
+1.049342   MOOS_DEBUG           pMarinePID           SPEED_PID_KD           = 0.000 
+1.049343   MOOS_DEBUG           pMarinePID           SPEED_PID_KI           = 0.000 
+1.049345   MOOS_DEBUG           pMarinePID           SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.049347   MOOS_DEBUG           pMarinePID           MAXTHRUST              = 50.000 
+1.963543   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+5.728351   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum ‰©32 
+85.47783   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum 1458,N,07200.29705601,W,2,08,1.0,324.822,M,-33.462,M,7.4,0138*7A 
+93.47569   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum 9036107,N,07200.29869983,W,2,08,1.0,324.759,M,-33.462,M,7.4,0138*75 
+136.6703   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum .60,4242.98044487,N,07200.30930704,W,2,08,1.0,324.560,M,-33.462,M,4.6,0138*74 
+353.8233   MOOS_DEBUG           pMarinePID           pMarinePID Control Is On 
+353.8234   MOOS_DEBUG           pMarinePID           Paused Due To Tardy HELM Input: THRUST=0 
+354.1026   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
+800.0466   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: NothingToDo 
+800.548    MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
