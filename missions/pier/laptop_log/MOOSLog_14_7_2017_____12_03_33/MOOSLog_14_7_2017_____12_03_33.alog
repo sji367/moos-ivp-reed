@@ -1,0 +1,1000 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_14_7_2017_____12_03_33/MOOSLog_14_7_2017_____12_03_33.alog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1500048213.26
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+0.570           DB_EVENT             MOOSDB_shoreside connected=pHelmIvP 
+0.571           IVPHELM_REGISTER     pHelmIvP        NODE_REPORT_LOCAL 
+0.639           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+0.639           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+0.666           LOGGER_DIRECTORY     pLogger         ./MOOSLog_14_7_2017_____12_03_33 
+1.246           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+1.246           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+1.275           IVPHELM_REGISTER     pHelmIvP        IVPHELM_STATE 
+1.275           IVPHELM_REGISTER     pHelmIvP        DB_CLIENTS 
+1.275           IVPHELM_REGISTER     pHelmIvP        MOOS_MANUAL_OVERIDE 
+1.275           IVPHELM_REGISTER     pHelmIvP        MOOS_MANUAL_OVERRIDE 
+1.275           IVPHELM_REGISTER     pHelmIvP        RESTART_HELM 
+1.275           IVPHELM_REGISTER     pHelmIvP        IVPHELM_REJOURNAL 
+1.275           IVPHELM_REGISTER     pHelmIvP        NAV_SPEED 
+1.275           IVPHELM_REGISTER     pHelmIvP        NAV_HEADING 
+1.275           IVPHELM_REGISTER     pHelmIvP        NAV_DEPTH 
+1.275           IVPHELM_REGISTER     pHelmIvP        HELM_MAP_CLEAR 
+1.275           IVPHELM_REGISTER     pHelmIvP        AIS_REPORT 
+1.275           IVPHELM_REGISTER     pHelmIvP        NODE_REPORT 
+1.275           IVPHELM_REGISTER     pHelmIvP        AIS_REPORT_LOCAL 
+1.275           IVPHELM_REGISTER     pHelmIvP        NODE_REPORT_LOCAL 
+1.275           IVPHELM_REGISTER     pHelmIvP        RETURN 
+1.275           IVPHELM_REGISTER     pHelmIvP        DEPLOY 
+1.275           IVPHELM_REGISTER     pHelmIvP        ASTAR 
+1.282           IVPHELM_REGISTER     pHelmIvP        NAV_X 
+1.282           IVPHELM_REGISTER     pHelmIvP        NAV_Y 
+1.282           IVPHELM_REGISTER     pHelmIvP        NAV_SPEED 
+1.282           IVPHELM_REGISTER     pHelmIvP        WPT_UPDATE 
+1.282           IVPHELM_REGISTER     pHelmIvP        simple 
+1.282           IVPHELM_REGISTER     pHelmIvP        STATIONING 
+1.282           PLOGGER_CMD          pHelmIvP        COPY_FILE_REQUEST = mission2.bhv 
+1.394           DB_EVENT             MOOSDB_shoreside connected=pMarineViewer 
+1.497           DB_EVENT             MOOSDB_shoreside connected=uProcessWatch 
+1.538           MOOS_DEBUG           pHelmIvP        pHelmIvP AllStop: ManualOverride 
+1.538           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=1!@#node=shoreside!@#iter=1!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+1.659           APPCAST_REQ          uMAC_8201       node=shoreside,app=all,duration=0.1,key=uMAC_8201startup,thresh=any 
+1.659           DB_TIME              MOOSDB_shoreside 1500048214.91588 
+1.659           DB_UPTIME            MOOSDB_shoreside 2.03470      
+1.659           DB_CLIENTS           MOOSDB_shoreside uProcessWatch,pMarineViewer,pHelmIvP,pLogger,uMAC_8201, 
+1.659           DB_QOS               MOOSDB_shoreside pHelmIvP=0:0.0629425:0.0629425:0,pLogger=0:0.156164:0.117064:0,pMarineViewer=0:7.07984:7.07984:0,uMAC_8201=0:0.0720024:0.0619888:0,uProcessWatch=0:8.52299:8.52299:0, 
+1.780           DB_EVENT             MOOSDB_shoreside connected=pShare 
+1.788           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=2!@#node=shoreside!@#iter=2!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+1.863           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+1.863           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+1.275           DEPLOY               pHelmIvP:HELM_VAR_INIT false 
+1.275           RETURN               pHelmIvP:HELM_VAR_INIT false 
+1.275           STATIONING           pHelmIvP:HELM_VAR_INIT false 
+1.275           simple               pHelmIvP:HELM_VAR_INIT false 
+1.275           ASTAR                pHelmIvP:HELM_VAR_INIT true 
+1.282           IVPHELM_DOMAIN       pHelmIvP        speed,0,4,21:course,0,359,360 
+1.282           IVPHELM_MODESET      pHelmIvP         
+1.538           IVPHELM_ALLSTOP      pHelmIvP        ManualOverride 
+1.538           DESIRED_HEADING      pHelmIvP        0.00000      
+1.538           DESIRED_SPEED        pHelmIvP        0.00000      
+1.659           APPCAST_REQ_SHORESIDE uMAC_8201       node=shoreside,app=all,duration=0.1,key=uMAC_8201startup,thresh=any 
+2.042           PHELMIVP_ITER_GAP    pHelmIvP        1.01499      
+2.042           IVPHELM_CPU          pHelmIvP        0.79947      
+2.042           IVPHELM_STATE        pHelmIvP        PARK 
+2.042           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+2.042           PHELMIVP_ITER_LEN    pHelmIvP        0.00004      
+2.157           DB_EVENT             MOOSDB_shoreside connected=pHostInfo 
+2.202           HELM_MAP_CLEAR       pMarineViewer   0.00000      
+2.202           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=1!@#node=shoreside!@#iter=1!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      !@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       1!@Draw Count Rate:  3.78142!@Curr Time:        0.00!@Time Warp:        0.000!@Elapsed:          0.00000!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   0.00!@  pan_y:   0.00!@  zoom :   1.00!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+2.222           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=0.1,key=pMarineViewerstartup,thresh=any 
+2.226           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=0.1,key=pMarineViewerstartup,thresh=any 
+2.282           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=1!@#node=shoreside!@#iter=1!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       6.40       6.40    !@pHostInfo         ANT            [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.80       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       27.97      27.97   !@pShare            ANT            [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT            [7;32mOK[0m       0.00       0.00    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+2.295           PHELMIVP_ITER_GAP    pHelmIvP        1.01062      
+2.295           IVPHELM_CPU          pHelmIvP        0.79947      
+2.295           IVPHELM_STATE        pHelmIvP        PARK 
+2.295           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+2.295           PHELMIVP_ITER_LEN    pHelmIvP        0.00004      
+2.295           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=4!@#node=shoreside!@#iter=4!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+2.473           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+2.473           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+2.546           PHELMIVP_ITER_GAP    pHelmIvP        1.00489      
+2.546           IVPHELM_CPU          pHelmIvP        0.00000      
+2.546           IVPHELM_STATE        pHelmIvP        PARK 
+2.546           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+2.546           PHELMIVP_ITER_LEN    pHelmIvP        0.00004      
+2.641           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+2.642           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+2.642           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=1.1,key=pMarineViewernewproc,thresh=any 
+2.642           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=1.1,key=pMarineViewernewproc,thresh=any 
+2.677           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+2.677           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+2.688           DB_EVENT             MOOSDB_shoreside connected=uFldShoreBroker 
+2.724           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=3!@#node=shoreside!@#iter=3!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       5!@Draw Count Rate:  9.59573!@Curr Time:        1500048215.73!@Time Warp:        1.000!@Elapsed:          0.00000!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+2.725           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+2.725           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+2.783           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=3!@#node=shoreside!@#iter=3!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       6.40       6.40    !@pHostInfo         ANT            [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.80       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       27.97      27.97   !@pShare            ANT            [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT            [7;32mOK[0m       0.00       0.00    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+2.796           PHELMIVP_ITER_GAP    pHelmIvP        1.00148      
+2.796           IVPHELM_CPU          pHelmIvP        0.00000      
+2.796           IVPHELM_STATE        pHelmIvP        PARK 
+2.796           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+2.796           PHELMIVP_ITER_LEN    pHelmIvP        0.00004      
+2.796           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=6!@#node=shoreside!@#iter=6!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+2.975           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+2.975           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.047           PHELMIVP_ITER_GAP    pHelmIvP        1.00255      
+3.047           IVPHELM_CPU          pHelmIvP        0.00000      
+3.047           IVPHELM_STATE        pHelmIvP        PARK 
+3.047           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+3.047           PHELMIVP_ITER_LEN    pHelmIvP        0.00006      
+3.047           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=7!@#node=shoreside!@#iter=7!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.075           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+3.075           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+2.030           PROC_WATCH_TIME_WARP uProcessWatch   1.00000      
+2.030           PROC_WATCH_EVENT     uProcessWatch   Noted to be present: [pLogger] 
+2.202           PMV_CONNECT          pMarineViewer   0.00000      
+2.282           PROC_WATCH_SUMMARY   uProcessWatch   All Present 
+2.282           PROC_WATCH_FULL_SUMMARY uProcessWatch   pENC_Print(1/0),uFldShoreBroker(1/0),pHostInfo(1/0),pShare(1/0),pMarineViewer(1/0),pHelmIvP(1/0),pLogger(1/0) 
+3.035           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00765      
+3.035           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+3.225           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00488      
+3.225           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+3.225           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=5!@#node=shoreside!@#iter=5!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       9!@Draw Count Rate:  8.80138!@Curr Time:        1500048216.23!@Time Warp:        1.000!@Elapsed:          0.00002!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.232           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.234           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.275           PHI_HOST_IP          pHostInfo       192.168.1.206 
+3.275           PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,hostip_alts=,timewarp=1 
+3.275           APPCAST              pHostInfo       proc=pHostInfo!@#iter=1!@#node=shoreside!@#iter=1!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: !@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.276           APPCAST              pHostInfo       proc=pHostInfo!@#iter=2!@#node=shoreside!@#iter=2!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: !@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.285           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00090      
+3.285           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+3.285           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=5!@#node=shoreside!@#iter=5!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       6.40       6.40    !@pHostInfo         ANT            [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.00       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       27.97      27.97   !@pShare            ANT            [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT            [7;32mOK[0m       0.00       0.00    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+3.297           PHELMIVP_ITER_GAP    pHelmIvP        1.00170      
+3.297           IVPHELM_CPU          pHelmIvP        0.00000      
+3.297           IVPHELM_STATE        pHelmIvP        PARK 
+3.297           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+3.297           PHELMIVP_ITER_LEN    pHelmIvP        0.00012      
+3.297           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=8!@#node=shoreside!@#iter=8!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.372           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=1!@#node=shoreside!@#iter=1!@#messages=!@ Total PHI_HOST_INFO    received: 1!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 1!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: !@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.395           PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+3.476           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00106      
+3.476           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+3.476           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=1.1,key=pMarineViewernewproc,thresh=any 
+3.476           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=1.1,key=pMarineViewernewproc,thresh=any 
+3.478           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.479           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.536           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00628      
+3.536           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+3.548           PHELMIVP_ITER_GAP    pHelmIvP        1.00288      
+3.548           IVPHELM_CPU          pHelmIvP        0.00000      
+3.548           IVPHELM_STATE        pHelmIvP        PARK 
+3.548           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+3.548           PHELMIVP_ITER_LEN    pHelmIvP        0.00003      
+3.548           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=9!@#node=shoreside!@#iter=9!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.679           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+3.679           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+3.680           DB_TIME              MOOSDB_shoreside 1500048216.93677 
+3.680           DB_UPTIME            MOOSDB_shoreside 4.05559      
+3.680           DB_CLIENTS           MOOSDB_shoreside uFldShoreBroker,pHostInfo,pShare,uProcessWatch,pMarineViewer,pHelmIvP,pLogger,uMAC_8201, 
+3.680           DB_QOS               MOOSDB_shoreside pHelmIvP=0:0.164986:0.0629425:0,pHostInfo=0:8.99696:4.54187:0,pLogger=0:0.41914:0.0588894:0,pMarineViewer=0:7.07984:0.0970364:0,pShare=0:0.0970364:0.0700951:0,uFldShoreBroker=0:10.2601:10.2601:0,uMAC_8201=0:0.139952:0.0619888:0,uProcessWatch=0:8.52299:0.0529289:0, 
+3.726           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00148      
+3.726           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+3.726           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=7!@#node=shoreside!@#iter=7!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       13!@Draw Count Rate:  8.53465!@Curr Time:        1500048216.73!@Time Warp:        1.000!@Elapsed:          0.00003!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.727           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.728           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.778           APPCAST              pHostInfo       proc=pHostInfo!@#iter=6!@#node=shoreside!@#iter=6!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: localhost:9300!@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.780           DB_EVENT             MOOSDB_shoreside connected=pENC_Print 
+3.787           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00098      
+3.787           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00002      
+3.787           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=7!@#node=shoreside!@#iter=7!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       0.00       6.40    !@pHostInfo         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.00       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       27.97      27.97   !@pShare            ANT       DB   [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT       DB   [7;32mOK[0m       0.79       0.79    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+3.798           PHELMIVP_ITER_GAP    pHelmIvP        1.00117      
+3.799           IVPHELM_CPU          pHelmIvP        0.00000      
+3.799           IVPHELM_STATE        pHelmIvP        PARK 
+3.799           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+3.799           PHELMIVP_ITER_LEN    pHelmIvP        0.00300      
+3.799           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=10!@#node=shoreside!@#iter=10!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.874           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=5!@#node=shoreside!@#iter=5!@#messages=!@ Total PHI_HOST_INFO    received: 1!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 5!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: !@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+3.976           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00091      
+3.976           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+3.978           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+3.978           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoreside,thresh=any 
+4.037           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00128      
+4.037           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+4.049           PHELMIVP_ITER_GAP    pHelmIvP        1.00387      
+4.049           IVPHELM_CPU          pHelmIvP        0.00000      
+4.049           IVPHELM_STATE        pHelmIvP        PARK 
+4.049           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+4.049           PHELMIVP_ITER_LEN    pHelmIvP        0.00006      
+4.049           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=11!@#node=shoreside!@#iter=11!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.227           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00227      
+4.227           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00001      
+4.227           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=9!@#node=shoreside!@#iter=9!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       17!@Draw Count Rate:  8.39921!@Curr Time:        1500048217.23!@Time Warp:        1.000!@Elapsed:          0.00003!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.228           APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+4.228           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+3.395           PSHARE_OUTPUT_SUMMARY pShare           
+4.228           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+4.228           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+4.250           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00488      
+4.250           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00014      
+4.279           PHOSTINFO_ITER_GAP   pHostInfo       1.00078      
+4.279           PHI_HOST_IP          pHostInfo       192.168.1.206 
+4.279           PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+4.279           PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+4.279           PHI_HOST_PORT_DB     pHostInfo       9000 
+4.279           PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+4.279           PHOSTINFO_ITER_LEN   pHostInfo       0.00018      
+4.279           APPCAST              pHostInfo       proc=pHostInfo!@#iter=10!@#node=shoreside!@#iter=10!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: localhost:9300!@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,!@                       pshare_iroutes=192.168.1.206:9300,!@                       hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.280           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+4.280           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+4.287           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00078      
+4.287           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00000      
+4.287           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=9!@#node=shoreside!@#iter=9!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       0.00       6.40    !@pHostInfo         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.00       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       0.80       27.97   !@pShare            ANT       DB   [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT       DB   [7;32mOK[0m       0.79       0.79    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+4.300           PHELMIVP_ITER_GAP    pHelmIvP        1.00176      
+4.300           IVPHELM_CPU          pHelmIvP        0.00000      
+4.300           IVPHELM_STATE        pHelmIvP        PARK 
+4.300           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+4.300           PHELMIVP_ITER_LEN    pHelmIvP        0.00014      
+4.300           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=12!@#node=shoreside!@#iter=12!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.375           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00128      
+4.375           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00006      
+4.375           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=9!@#node=shoreside!@#iter=9!@#messages=!@ Total PHI_HOST_INFO    received: 2!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 9!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: 192.168.1.206:9300!@!@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.395           PSHARE_OUTPUT_SUMMARY pShare           
+4.395           PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+4.406           PHOSTINFO_ITER_GAP   pHostInfo       1.02061      
+4.406           PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+4.477           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00152      
+4.477           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+4.501           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00618      
+4.501           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00020      
+4.532           PHOSTINFO_ITER_GAP   pHostInfo       1.00518      
+4.532           PHOSTINFO_ITER_LEN   pHostInfo       0.00007      
+4.538           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00166      
+4.538           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00004      
+4.550           PHELMIVP_ITER_GAP    pHelmIvP        1.00148      
+4.550           IVPHELM_CPU          pHelmIvP        0.79941      
+4.550           IVPHELM_STATE        pHelmIvP        PARK 
+4.550           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+4.550           PHELMIVP_ITER_LEN    pHelmIvP        0.00007      
+4.550           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=13!@#node=shoreside!@#iter=13!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.626           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00136      
+4.626           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00042      
+4.658           PHOSTINFO_ITER_GAP   pHostInfo       1.00664      
+4.658           PHOSTINFO_ITER_LEN   pHostInfo       0.00011      
+4.728           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00481      
+4.728           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00010      
+4.729           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=11!@#node=shoreside!@#iter=11!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       21!@Draw Count Rate:  8.31491!@Curr Time:        1500048217.73!@Time Warp:        1.000!@Elapsed:          0.00003!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.751           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00190      
+4.751           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00038      
+4.783           PHOSTINFO_ITER_GAP   pHostInfo       1.00236      
+4.783           PHOSTINFO_ITER_LEN   pHostInfo       0.00013      
+4.783           APPCAST              pHostInfo       proc=pHostInfo!@#iter=14!@#node=shoreside!@#iter=14!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: localhost:9300!@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,!@                       pshare_iroutes=192.168.1.206:9300,!@                       hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.788           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00230      
+4.788           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+4.788           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=11!@#node=shoreside!@#iter=11!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       0.00       6.40    !@pHostInfo         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.00       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       0.80       27.97   !@pShare            ANT       DB   [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT       DB   [7;32mOK[0m       0.79       0.79    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+4.801           PHELMIVP_ITER_GAP    pHelmIvP        1.00249      
+4.801           IVPHELM_CPU          pHelmIvP        0.79941      
+4.801           IVPHELM_STATE        pHelmIvP        PARK 
+4.801           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+4.801           PHELMIVP_ITER_LEN    pHelmIvP        0.00006      
+4.801           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=14!@#node=shoreside!@#iter=14!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.878           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.01675      
+4.878           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00017      
+4.878           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=13!@#node=shoreside!@#iter=13!@#messages=!@ Total PHI_HOST_INFO    received: 2!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 13!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: 192.168.1.206:9300!@!@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+4.884           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+4.884           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+4.909           PHOSTINFO_ITER_GAP   pHostInfo       1.00442      
+4.909           PHOSTINFO_ITER_LEN   pHostInfo       0.00002      
+4.980           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00664      
+4.980           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00014      
+5.004           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00910      
+5.004           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00017      
+5.034           PHOSTINFO_ITER_GAP   pHostInfo       1.00184      
+5.034           PHOSTINFO_ITER_LEN   pHostInfo       0.00022      
+5.039           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00153      
+5.039           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00002      
+5.051           PHELMIVP_ITER_GAP    pHelmIvP        1.00162      
+5.051           IVPHELM_CPU          pHelmIvP        0.00000      
+5.051           IVPHELM_STATE        pHelmIvP        PARK 
+5.051           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+5.051           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+5.051           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=15!@#node=shoreside!@#iter=15!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.130           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00311      
+5.130           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00020      
+5.159           PHOSTINFO_ITER_GAP   pHostInfo       1.00222      
+5.159           PHOSTINFO_ITER_LEN   pHostInfo       0.00014      
+5.232           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00654      
+5.232           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+5.233           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=13!@#node=shoreside!@#iter=13!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       25!@Draw Count Rate:  8.25388!@Curr Time:        1500048218.24!@Time Warp:        1.000!@Elapsed:          0.00008!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.235           APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+5.235           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+5.256           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00760      
+5.256           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00023      
+5.235           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+5.235           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+5.285           PHOSTINFO_ITER_GAP   pHostInfo       1.00326      
+5.285           PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+5.285           APPCAST              pHostInfo       proc=pHostInfo!@#iter=18!@#node=shoreside!@#iter=18!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: localhost:9300!@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,!@                       pshare_iroutes=192.168.1.206:9300,!@                       hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.289           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00098      
+5.289           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+5.289           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=13!@#node=shoreside!@#iter=13!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       0.00       6.40    !@pHostInfo         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.80       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       0.80       27.97   !@pShare            ANT       DB   [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT       DB   [7;32mOK[0m       0.79       0.79    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+5.301           PHELMIVP_ITER_GAP    pHelmIvP        1.00112      
+5.301           IVPHELM_CPU          pHelmIvP        0.00000      
+5.301           IVPHELM_STATE        pHelmIvP        PARK 
+5.301           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+5.301           PHELMIVP_ITER_LEN    pHelmIvP        0.00004      
+5.301           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=16!@#node=shoreside!@#iter=16!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.381           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00335      
+5.381           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00006      
+5.381           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=17!@#node=shoreside!@#iter=17!@#messages=!@ Total PHI_HOST_INFO    received: 2!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 17!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: 192.168.1.206:9300!@!@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.410           PHOSTINFO_ITER_GAP   pHostInfo       1.00159      
+5.410           PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+5.419           PSHARE_OUTPUT_SUMMARY pShare           
+5.419           PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+5.483           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00583      
+5.483           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00087      
+5.486           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+5.486           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+5.506           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00279      
+5.506           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00028      
+5.535           PHOSTINFO_ITER_GAP   pHostInfo       1.00304      
+5.535           PHI_HOST_IP          pHostInfo       192.168.1.206 
+5.535           PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+5.535           PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+5.535           PHI_HOST_PORT_DB     pHostInfo       9000 
+5.535           PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+5.535           PHOSTINFO_ITER_LEN   pHostInfo       0.00019      
+5.539           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00178      
+5.539           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00009      
+5.552           PHELMIVP_ITER_GAP    pHelmIvP        1.00277      
+5.552           IVPHELM_CPU          pHelmIvP        0.00000      
+5.552           IVPHELM_STATE        pHelmIvP        PARK 
+5.552           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+5.552           PHELMIVP_ITER_LEN    pHelmIvP        0.00002      
+5.552           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=17!@#node=shoreside!@#iter=17!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.632           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00188      
+5.632           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00008      
+5.660           PHOSTINFO_ITER_GAP   pHostInfo       1.00090      
+5.660           PHOSTINFO_ITER_LEN   pHostInfo       0.00012      
+5.728           DB_TIME              MOOSDB_shoreside 1500048218.98460 
+5.728           DB_UPTIME            MOOSDB_shoreside 6.10343      
+5.728           DB_CLIENTS           MOOSDB_shoreside pENC_Print,uFldShoreBroker,pHostInfo,pShare,uProcessWatch,pMarineViewer,pHelmIvP,pLogger,uMAC_8201, 
+5.728           DB_QOS               MOOSDB_shoreside pENC_Print=0:11.204:0.0770092:0,pHelmIvP=0.179052:0.829935:0.0629425:0.261593,pHostInfo=0:8.99696:0.113964:0,pLogger=1.91808:1.91808:0.0588894:0.533867,pMarineViewer=0.0751019:7.07984:0.0751019:1.48983,pShare=0:0.113964:0.0481606:0,uFldShoreBroker=0:10.2601:0.113964:0,uMAC_8201=0.164986:0.164986:0.0619888:0.103569,uProcessWatch=0.0591278:8.52299:0.0529289:1.7828, 
+5.734           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00398      
+5.734           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+5.734           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=15!@#node=shoreside!@#iter=15!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       29!@Draw Count Rate:  8.2122!@Curr Time:        1500048218.74!@Time Warp:        1.000!@Elapsed:          0.00023!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.757           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00119      
+5.757           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00022      
+5.787           PHOSTINFO_ITER_GAP   pHostInfo       1.00974      
+5.787           PHOSTINFO_ITER_LEN   pHostInfo       0.00013      
+5.787           APPCAST              pHostInfo       proc=pHostInfo!@#iter=22!@#node=shoreside!@#iter=22!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: localhost:9300!@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,!@                       pshare_iroutes=192.168.1.206:9300,!@                       hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.790           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00177      
+5.790           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+5.790           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=15!@#node=shoreside!@#iter=15!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT       DB   [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       0.00       6.40    !@pHostInfo         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.80       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       0.80       27.97   !@pShare            ANT       DB   [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT       DB   [7;32mOK[0m       0.00       0.79    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+5.802           PHELMIVP_ITER_GAP    pHelmIvP        1.00148      
+5.802           IVPHELM_CPU          pHelmIvP        0.00000      
+5.802           IVPHELM_STATE        pHelmIvP        PARK 
+5.802           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+5.802           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+5.803           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=18!@#node=shoreside!@#iter=18!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.906           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.19606      
+5.906           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00019      
+5.906           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=21!@#node=shoreside!@#iter=21!@#messages=!@ Total PHI_HOST_INFO    received: 3!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 21!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: 192.168.1.206:9300!@!@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+5.912           PHOSTINFO_ITER_GAP   pHostInfo       1.00160      
+5.912           PHOSTINFO_ITER_LEN   pHostInfo       0.00012      
+5.984           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00152      
+5.984           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+6.031           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00152      
+6.031           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00021      
+6.037           PHOSTINFO_ITER_GAP   pHostInfo       1.00538      
+6.038           PHOSTINFO_ITER_LEN   pHostInfo       0.00064      
+6.040           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00216      
+6.040           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00006      
+6.053           PHELMIVP_ITER_GAP    pHelmIvP        1.00288      
+6.053           IVPHELM_CPU          pHelmIvP        0.00000      
+6.053           IVPHELM_STATE        pHelmIvP        PARK 
+6.053           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+6.053           PHELMIVP_ITER_LEN    pHelmIvP        0.00007      
+6.053           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=19!@#node=shoreside!@#iter=19!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.107           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+6.107           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+6.157           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00186      
+6.157           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00010      
+6.163           PHOSTINFO_ITER_GAP   pHostInfo       1.00335      
+6.163           PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+6.235           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00079      
+6.235           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00002      
+6.235           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=17!@#node=shoreside!@#iter=17!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       33!@Draw Count Rate:  8.18471!@Curr Time:        1500048219.24!@Time Warp:        1.000!@Elapsed:          0.00004!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.236           APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+6.236           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+6.236           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+6.236           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+6.282           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00222      
+6.282           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00009      
+6.288           PHOSTINFO_ITER_GAP   pHostInfo       1.00346      
+6.288           PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+6.288           APPCAST              pHostInfo       proc=pHostInfo!@#iter=26!@#node=shoreside!@#iter=26!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: localhost:9300!@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,!@                       pshare_iroutes=192.168.1.206:9300,!@                       hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.291           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00232      
+6.291           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00001      
+6.291           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=17!@#node=shoreside!@#iter=17!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT       DB   [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       0.00       6.40    !@pHostInfo         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.80       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       0.00       27.97   !@pShare            ANT       DB   [7;32mOK[0m       0.00       0.00    !@uFldShoreBroker   ANT       DB   [7;32mOK[0m       0.00       0.79    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+6.304           PHELMIVP_ITER_GAP    pHelmIvP        1.00244      
+6.304           IVPHELM_CPU          pHelmIvP        0.00000      
+6.304           IVPHELM_STATE        pHelmIvP        PARK 
+6.304           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+6.304           PHELMIVP_ITER_LEN    pHelmIvP        0.00004      
+6.304           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=20!@#node=shoreside!@#iter=20!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.408           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00579      
+6.408           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00042      
+6.408           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=25!@#node=shoreside!@#iter=25!@#messages=!@ Total PHI_HOST_INFO    received: 3!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 25!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: 192.168.1.206:9300!@!@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.414           PHOSTINFO_ITER_GAP   pHostInfo       1.00781      
+6.414           PHOSTINFO_ITER_LEN   pHostInfo       0.00012      
+6.444           PSHARE_OUTPUT_SUMMARY pShare           
+6.444           PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+6.485           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00250      
+6.485           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+6.533           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00191      
+6.533           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00031      
+6.539           PHOSTINFO_ITER_GAP   pHostInfo       1.00166      
+6.539           PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+6.541           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00134      
+6.541           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+6.554           PHELMIVP_ITER_GAP    pHelmIvP        1.00079      
+6.554           IVPHELM_CPU          pHelmIvP        0.00000      
+6.554           IVPHELM_STATE        pHelmIvP        PARK 
+6.554           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+6.554           PHELMIVP_ITER_LEN    pHelmIvP        0.00038      
+6.554           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=21!@#node=shoreside!@#iter=21!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.658           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00382      
+6.658           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00025      
+6.665           PHOSTINFO_ITER_GAP   pHostInfo       1.00750      
+6.665           PHOSTINFO_ITER_LEN   pHostInfo       0.00014      
+6.708           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+6.708           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+6.736           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00158      
+6.736           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+6.736           APPCAST              pMarineViewer   proc=pMarineViewer!@#iter=19!@#node=shoreside!@#iter=19!@#messages=Tiff File A:      data/portsmouth2.tif!@Info File A:      data/portsmouth2.info!@Tiff File B:      !@Info File B:      !@------------------!@Total GeoShapes:  0!@Clear GeoShapes:  0!@NodeReports Recd: 0!@NodeReport Index: 0!@Draw Count:       37!@Draw Count Rate:  8.16249!@Curr Time:        1500048219.74!@Time Warp:        1.000!@Elapsed:          0.00002!@CmdFolio size:    0!@!@Visual Settings: !@  pan_x:   275.00!@  pan_y:   -475.00!@  zoom :   4.50!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.784           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00229      
+6.784           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00010      
+6.791           PHOSTINFO_ITER_GAP   pHostInfo       1.00382      
+6.791           PHI_HOST_IP          pHostInfo       192.168.1.206 
+6.791           PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+6.791           PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+6.791           PHI_HOST_PORT_DB     pHostInfo       9000 
+6.791           PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+6.791           PHOSTINFO_ITER_LEN   pHostInfo       0.00019      
+6.791           APPCAST              pHostInfo       proc=pHostInfo!@#iter=30!@#node=shoreside!@#iter=30!@#messages=!@  PHI_HOST_IP:         192.168.1.206[0m!@  PHI_HOST_IP_ALL:     192.168.1.206!@!@  PHI_HOST_IP_VERBOSE: LINUX_ANY=192.168.1.206!@!@  PHI_HOST_PORT:       9000!@  PHI_PSHARES_IROUTES: localhost:9300!@  PHI_HOST_INFO:       community=shoreside,hostip=192.168.1.206,!@                       port_db=9000,!@                       pshare_iroutes=192.168.1.206:9300,!@                       hostip_alts=,timewarp=1!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.791           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00124      
+6.792           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00016      
+6.792           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=19!@#node=shoreside!@#iter=19!@#messages=Summary: All Present!@!@Antler List: pENC_Print,pHelmIvP,pHostInfo,pLogger,pMarineViewer!@             pShare,uFldShoreBroker!@!@                                          Current    Max     !@ProcName          Watch Reason   Status   CPU Load   CPU Load!@---------------   ------------   ------   --------   --------!@pENC_Print        ANT       DB   [7;32mOK[0m       0.00       0.00    !@pHelmIvP          ANT       DB   [7;32mOK[0m       0.00       6.40    !@pHostInfo         ANT       DB   [7;32mOK[0m       0.00       0.00    !@pLogger           ANT       DB   [7;32mOK[0m       0.80       0.80    !@pMarineViewer     ANT       DB   [7;32mOK[0m       0.00       27.97   !@pShare            ANT       DB   [7;32mOK[0m       0.80       0.80    !@uFldShoreBroker   ANT       DB   [7;32mOK[0m       0.00       0.79    !@!@#!@#events_total=7!@#events=[0.00]: Noted to be present: [pENC_Print]!@[0.00]: Noted to be present: [uFldShoreBroker]!@[0.00]: Noted to be present: [pHostInfo]!@[0.00]: Noted to be present: [pShare]!@[0.00]: Noted to be present: [pMarineViewer]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+6.854           PHELMIVP_ITER_GAP    pHelmIvP        1.19961      
+6.854           IVPHELM_CPU          pHelmIvP        0.00000      
+6.854           IVPHELM_STATE        pHelmIvP        PARK 
+6.854           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+6.854           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+6.854           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=22!@#node=shoreside!@#iter=22!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.909           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00387      
+6.909           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00011      
+6.909           APPCAST              uFldShoreBroker proc=uFldShoreBroker!@#iter=29!@#node=shoreside!@#iter=29!@#messages=!@ Total PHI_HOST_INFO    received: 4!@ Total NODE_BROKER_PING received: 0!@ Total NODE_BROKER_ACK    posted: 29!@ Total PSHARE_CMD         posted: 0!@!@===========================================================!@            Shoreside Node(s) Information:!@===========================================================!@!@     Community: shoreside!@        HostIP: 192.168.1.206!@   Port MOOSDB: 9000!@     Time Warp: 1!@       IRoutes: 192.168.1.206:9300!@!@===========================================================!@             Vehicle Node Information:!@===========================================================!@!@Node  IP               Elap  pShare              !@Name  Address  Status  Time  Input Route(s)  Skew!@----  -------  ------  ----  --------------  ----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+6.917           PHOSTINFO_ITER_GAP   pHostInfo       1.00812      
+6.917           PHOSTINFO_ITER_LEN   pHostInfo       0.00002      
+6.986           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00161      
+6.986           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+7.034           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00326      
+7.035           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00019      
+7.042           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00206      
+7.042           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00004      
+7.042           PHOSTINFO_ITER_GAP   pHostInfo       1.00350      
+7.042           PHOSTINFO_ITER_LEN   pHostInfo       0.00009      
+7.104           PHELMIVP_ITER_GAP    pHelmIvP        1.00076      
+7.104           IVPHELM_CPU          pHelmIvP        0.79856      
+7.104           IVPHELM_STATE        pHelmIvP        PARK 
+7.104           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+7.104           PHELMIVP_ITER_LEN    pHelmIvP        0.00007      
+7.104           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=23!@#node=shoreside!@#iter=23!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+7.160           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00051      
+7.160           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00026      
+7.168           PHOSTINFO_ITER_GAP   pHostInfo       1.00157      
+7.168           PHOSTINFO_ITER_LEN   pHostInfo       0.00014      
+7.237           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00328      
+7.237           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00005      
+7.238           APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+7.238           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+7.239           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+7.239           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+7.285           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00254      
+7.285           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00012      
+7.293           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00224      
+7.293           PROC_WATCH_SUMMARY   uProcessWatch   All Present 
+7.293           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+7.293           PHOSTINFO_ITER_GAP   pHostInfo       1.00407      
+7.293           PHOSTINFO_ITER_LEN   pHostInfo       0.00005      
+7.310           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+7.310           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+7.355           PHELMIVP_ITER_GAP    pHelmIvP        1.00226      
+7.355           IVPHELM_CPU          pHelmIvP        0.79856      
+7.355           IVPHELM_STATE        pHelmIvP        PARK 
+7.355           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+7.355           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+7.355           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=24!@#node=shoreside!@#iter=24!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+7.410           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00447      
+7.410           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00010      
+7.419           PHOSTINFO_ITER_GAP   pHostInfo       1.00479      
+7.419           PHOSTINFO_ITER_LEN   pHostInfo       0.00009      
+7.468           PSHARE_OUTPUT_SUMMARY pShare           
+7.468           PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+7.487           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00074      
+7.487           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+7.536           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00387      
+7.536           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00019      
+7.543           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00112      
+7.543           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+7.544           PHOSTINFO_ITER_GAP   pHostInfo       1.00223      
+7.544           PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+7.605           PHELMIVP_ITER_GAP    pHelmIvP        1.00128      
+7.605           IVPHELM_CPU          pHelmIvP        0.00000      
+7.605           IVPHELM_STATE        pHelmIvP        PARK 
+7.605           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+7.605           PHELMIVP_ITER_LEN    pHelmIvP        0.00003      
+7.605           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=25!@#node=shoreside!@#iter=25!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+7.662           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.01142      
+7.662           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00039      
+7.670           PHOSTINFO_ITER_GAP   pHostInfo       1.01110      
+7.670           PHOSTINFO_ITER_LEN   pHostInfo       0.00042      
+7.738           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00382      
+7.738           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+7.738           DB_TIME              MOOSDB_shoreside 1500048220.99508 
+7.738           DB_UPTIME            MOOSDB_shoreside 8.11390      
+7.738           DB_CLIENTS           MOOSDB_shoreside pENC_Print,uFldShoreBroker,pHostInfo,pShare,uProcessWatch,pMarineViewer,pHelmIvP,pLogger,uMAC_8201, 
+7.738           DB_QOS               MOOSDB_shoreside pENC_Print=0:11.204:0.0720024:0,pHelmIvP=0.141859:0.829935:0.0519753:0.254154,pHostInfo=0.0391006:8.99696:0.0391006:2.76155,pLogger=0.0648499:1.91808:0.0588894:0.163221,pMarineViewer=0.0519753:7.07984:0.0519753:1.4852,pShare=0.108004:0.113964:0.0481606:0.0874519,uFldShoreBroker=0.0641346:10.2601:0.0641346:2.16904,uMAC_8201=0.084877:0.164986:0.0619888:0.0875473,uProcessWatch=0.0479221:8.52299:0.0400543:1.78056, 
+7.788           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00599      
+7.788           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00018      
+7.793           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00161      
+7.793           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+7.796           PHOSTINFO_ITER_GAP   pHostInfo       1.00696      
+7.796           PHOSTINFO_ITER_LEN   pHostInfo       0.00012      
+7.882           PHELMIVP_ITER_GAP    pHelmIvP        1.10819      
+7.882           IVPHELM_CPU          pHelmIvP        0.00000      
+7.882           IVPHELM_STATE        pHelmIvP        PARK 
+7.882           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+7.882           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+7.882           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=26!@#node=shoreside!@#iter=26!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+7.912           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+7.912           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+7.913           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00289      
+7.913           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00017      
+7.922           PHOSTINFO_ITER_GAP   pHostInfo       1.00284      
+7.922           PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+7.989           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00284      
+7.989           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+8.039           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00311      
+8.039           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00018      
+8.044           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00262      
+8.044           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00002      
+8.047           PHOSTINFO_ITER_GAP   pHostInfo       1.00278      
+8.047           PHI_HOST_IP          pHostInfo       192.168.1.206 
+8.047           PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+8.047           PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+8.047           PHI_HOST_PORT_DB     pHostInfo       9000 
+8.047           PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+8.047           PHOSTINFO_ITER_LEN   pHostInfo       0.00022      
+8.132           PHELMIVP_ITER_GAP    pHelmIvP        1.00104      
+8.132           IVPHELM_CPU          pHelmIvP        0.00000      
+8.132           IVPHELM_STATE        pHelmIvP        PARK 
+8.132           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+8.132           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+8.132           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=27!@#node=shoreside!@#iter=27!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+8.165           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00626      
+8.165           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00035      
+8.173           PHOSTINFO_ITER_GAP   pHostInfo       1.00574      
+8.173           PHOSTINFO_ITER_LEN   pHostInfo       0.00039      
+8.239           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00266      
+8.239           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00001      
+8.240           APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+8.241           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+8.241           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+8.241           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+8.290           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00272      
+8.290           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00010      
+8.294           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00198      
+8.294           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00001      
+8.298           PHOSTINFO_ITER_GAP   pHostInfo       1.00179      
+8.298           PHOSTINFO_ITER_LEN   pHostInfo       0.00004      
+8.383           PHELMIVP_ITER_GAP    pHelmIvP        1.00127      
+8.383           IVPHELM_CPU          pHelmIvP        0.00000      
+8.383           IVPHELM_STATE        pHelmIvP        PARK 
+8.383           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+8.383           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+8.383           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=28!@#node=shoreside!@#iter=28!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+8.415           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00431      
+8.416           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00037      
+8.424           PHOSTINFO_ITER_GAP   pHostInfo       1.00860      
+8.424           PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+8.474           PSHARE_OUTPUT_SUMMARY pShare           
+8.474           PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+8.490           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00096      
+8.490           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+8.513           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+8.513           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+8.544           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.02910      
+8.544           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00014      
+8.545           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00294      
+8.545           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+8.550           PHOSTINFO_ITER_GAP   pHostInfo       1.00476      
+8.550           PHOSTINFO_ITER_LEN   pHostInfo       0.00007      
+8.633           PHELMIVP_ITER_GAP    pHelmIvP        1.00086      
+8.633           IVPHELM_CPU          pHelmIvP        0.00000      
+8.633           IVPHELM_STATE        pHelmIvP        PARK 
+8.633           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+8.633           PHELMIVP_ITER_LEN    pHelmIvP        0.00004      
+8.633           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=29!@#node=shoreside!@#iter=29!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+8.669           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00144      
+8.669           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00026      
+8.675           PHOSTINFO_ITER_GAP   pHostInfo       1.00675      
+8.675           PHOSTINFO_ITER_LEN   pHostInfo       0.00014      
+8.766           PMARINEVIEWER_ITER_GAP pMarineViewer   1.10687      
+8.766           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+8.795           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00160      
+8.795           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00034      
+8.796           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00206      
+8.796           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+8.801           PHOSTINFO_ITER_GAP   pHostInfo       1.00280      
+8.801           PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+8.884           PHELMIVP_ITER_GAP    pHelmIvP        1.00445      
+8.884           IVPHELM_CPU          pHelmIvP        0.00000      
+8.884           IVPHELM_STATE        pHelmIvP        PARK 
+8.884           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+8.884           PHELMIVP_ITER_LEN    pHelmIvP        0.00007      
+8.884           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=30!@#node=shoreside!@#iter=30!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+8.968           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.38559      
+8.968           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00016      
+8.968           PHOSTINFO_ITER_GAP   pHostInfo       1.33903      
+8.968           PHOSTINFO_ITER_LEN   pHostInfo       0.00002      
+9.017           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00323      
+9.017           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+9.046           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00197      
+9.046           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00010      
+9.093           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00604      
+9.093           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00028      
+9.094           PHOSTINFO_ITER_GAP   pHostInfo       1.00490      
+9.094           PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+9.134           PHELMIVP_ITER_GAP    pHelmIvP        1.00210      
+9.134           IVPHELM_CPU          pHelmIvP        0.00000      
+9.134           IVPHELM_STATE        pHelmIvP        PARK 
+9.134           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+9.134           PHELMIVP_ITER_LEN    pHelmIvP        0.00007      
+9.135           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=31!@#node=shoreside!@#iter=31!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+9.170           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+9.170           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+9.219           PHOSTINFO_ITER_GAP   pHostInfo       1.00426      
+9.219           PHOSTINFO_ITER_LEN   pHostInfo       0.00019      
+9.219           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00741      
+9.219           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00011      
+9.269           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00612      
+9.269           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+9.274           APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+9.275           APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+9.297           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00201      
+9.297           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00008      
+9.275           APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+9.275           APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+9.347           PHOSTINFO_ITER_GAP   pHostInfo       1.02062      
+9.347           PHI_HOST_IP          pHostInfo       192.168.1.206 
+9.347           PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+9.347           PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+9.347           PHI_HOST_PORT_DB     pHostInfo       9000 
+9.347           PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+9.347           PHOSTINFO_ITER_LEN   pHostInfo       0.00028      
+9.347           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.01996      
+9.347           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00013      
+9.385           PHELMIVP_ITER_GAP    pHelmIvP        1.00216      
+9.385           IVPHELM_CPU          pHelmIvP        0.00000      
+9.385           IVPHELM_STATE        pHelmIvP        PARK 
+9.385           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+9.385           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+9.385           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=32!@#node=shoreside!@#iter=32!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+9.472           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00105      
+9.472           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00004      
+9.472           PHOSTINFO_ITER_GAP   pHostInfo       1.00258      
+9.472           PHOSTINFO_ITER_LEN   pHostInfo       0.00009      
+9.481           PSHARE_OUTPUT_SUMMARY pShare           
+9.481           PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+9.520           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00326      
+9.520           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+9.548           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00479      
+9.548           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00006      
+9.597           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00250      
+9.597           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00017      
+9.597           PHOSTINFO_ITER_GAP   pHostInfo       1.00196      
+9.597           PHOSTINFO_ITER_LEN   pHostInfo       0.00004      
+9.636           PHELMIVP_ITER_GAP    pHelmIvP        1.00257      
+9.636           IVPHELM_CPU          pHelmIvP        0.79820      
+9.636           IVPHELM_STATE        pHelmIvP        PARK 
+9.636           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+9.636           PHELMIVP_ITER_LEN    pHelmIvP        0.00002      
+9.636           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=33!@#node=shoreside!@#iter=33!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+9.723           PHOSTINFO_ITER_GAP   pHostInfo       1.00550      
+9.723           PHOSTINFO_ITER_LEN   pHostInfo       0.00018      
+9.723           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00758      
+9.723           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00068      
+9.772           PMARINEVIEWER_ITER_GAP pMarineViewer   1.00855      
+9.772           PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+9.772           APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+9.772           APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+9.772           DB_TIME              MOOSDB_shoreside 1500048223.02921 
+9.772           DB_UPTIME            MOOSDB_shoreside 10.14803     
+9.772           DB_CLIENTS           MOOSDB_shoreside pENC_Print,uFldShoreBroker,pHostInfo,pShare,uProcessWatch,pMarineViewer,pHelmIvP,pLogger,uMAC_8201, 
+9.773           DB_QOS               MOOSDB_shoreside pENC_Print=0.560999:11.204:0.0720024:2.55604,pHelmIvP=0.375032:0.829935:0.0519753:0.300789,pHostInfo=0.191212:8.99696:0.0391006:2.79198,pLogger=0.213861:1.91808:0.0588894:0.193024,pMarineViewer=0.0638962:7.07984:0.0519753:1.48759,pShare=0.0460148:0.146866:0.0460148:0.0750542,uFldShoreBroker=0.180006:10.2601:0.0641346:2.19221,uMAC_8201=0.123024:0.164986:0.0619888:0.0951767,uProcessWatch=0.082016:8.52299:0.0400543:1.78738, 
+9.799           UPROCESSWATCH_ITER_GAP uProcessWatch   1.00350      
+9.799           UPROCESSWATCH_ITER_LEN uProcessWatch   0.00004      
+9.894           PHOSTINFO_ITER_GAP   pHostInfo       1.36613      
+9.894           PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+9.894           UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.36552      
+9.894           UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00010      
+9.895           PHELMIVP_ITER_GAP    pHelmIvP        1.03554      
+9.895           IVPHELM_CPU          pHelmIvP        0.79820      
+9.895           IVPHELM_STATE        pHelmIvP        PARK 
+9.895           IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+9.895           PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+9.895           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=34!@#node=shoreside!@#iter=34!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+10.020          PHOSTINFO_ITER_GAP   pHostInfo       1.00589      
+10.020          PHOSTINFO_ITER_LEN   pHostInfo       0.00293      
+10.020          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00784      
+10.020          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00015      
+10.020          LOGGER_DIRECTORY     pLogger         ./MOOSLog_14_7_2017_____12_03_33 
+10.022          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00109      
+10.022          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+10.049          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00244      
+10.049          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00012      
+10.145          PHELMIVP_ITER_GAP    pHelmIvP        1.00314      
+10.145          IVPHELM_CPU          pHelmIvP        0.00000      
+10.145          IVPHELM_STATE        pHelmIvP        PARK 
+10.145          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+10.145          PHELMIVP_ITER_LEN    pHelmIvP        0.00007      
+10.145          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=35!@#node=shoreside!@#iter=35!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+10.146          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00562      
+10.146          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00014      
+10.146          PHOSTINFO_ITER_GAP   pHostInfo       1.01334      
+10.146          PHOSTINFO_ITER_LEN   pHostInfo       0.00009      
+10.271          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00591      
+10.271          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00018      
+10.272          PHOSTINFO_ITER_GAP   pHostInfo       1.00343      
+10.272          PHOSTINFO_ITER_LEN   pHostInfo       0.00009      
+10.273          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00301      
+10.273          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00001      
+10.274          APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+10.275          APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+10.275          APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+10.275          APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+10.300          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00150      
+10.300          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00000      
+10.374          APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+10.374          APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+10.396          PHELMIVP_ITER_GAP    pHelmIvP        1.00180      
+10.396          IVPHELM_CPU          pHelmIvP        0.00000      
+10.396          IVPHELM_STATE        pHelmIvP        PARK 
+10.396          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+10.396          PHELMIVP_ITER_LEN    pHelmIvP        0.00022      
+10.396          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=36!@#node=shoreside!@#iter=36!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+10.397          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00236      
+10.397          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00009      
+10.397          PHOSTINFO_ITER_GAP   pHostInfo       1.00157      
+10.397          PHOSTINFO_ITER_LEN   pHostInfo       0.00003      
+10.481          PSHARE_OUTPUT_SUMMARY pShare           
+10.481          PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+10.522          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00455      
+10.522          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00022      
+10.523          PHOSTINFO_ITER_GAP   pHostInfo       1.00570      
+10.523          PHOSTINFO_ITER_LEN   pHostInfo       0.00005      
+10.523          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00232      
+10.523          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+10.551          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00333      
+10.551          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00006      
+10.646          PHELMIVP_ITER_GAP    pHelmIvP        1.00183      
+10.646          IVPHELM_CPU          pHelmIvP        0.00000      
+10.646          IVPHELM_STATE        pHelmIvP        PARK 
+10.646          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+10.646          PHELMIVP_ITER_LEN    pHelmIvP        0.00014      
+10.646          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=37!@#node=shoreside!@#iter=37!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+10.647          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00186      
+10.647          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00014      
+10.648          PHOSTINFO_ITER_GAP   pHostInfo       1.00241      
+10.648          PHI_HOST_IP          pHostInfo       192.168.1.206 
+10.648          PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+10.648          PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+10.648          PHI_HOST_PORT_DB     pHostInfo       9000 
+10.648          PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+10.648          PHOSTINFO_ITER_LEN   pHostInfo       0.00022      
+10.773          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00382      
+10.773          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00008      
+10.773          PHOSTINFO_ITER_GAP   pHostInfo       1.00461      
+10.773          PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+10.774          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00127      
+10.774          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+10.854          UPROCESSWATCH_ITER_GAP uProcessWatch   1.21410      
+10.854          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+10.897          PHELMIVP_ITER_GAP    pHelmIvP        1.00414      
+10.897          IVPHELM_CPU          pHelmIvP        0.00000      
+10.897          IVPHELM_STATE        pHelmIvP        PARK 
+10.897          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+10.897          PHELMIVP_ITER_LEN    pHelmIvP        0.00014      
+10.897          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=38!@#node=shoreside!@#iter=38!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+10.898          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00174      
+10.898          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00016      
+10.899          PHOSTINFO_ITER_GAP   pHostInfo       1.00223      
+10.899          PHOSTINFO_ITER_LEN   pHostInfo       0.00011      
+10.975          APPCAST_REQ          uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+10.975          APPCAST_REQ_ALL      uMAC_8201       node=all,app=all,duration=3.0,key=uMAC_8201:app,thresh=run_warning 
+11.024          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00164      
+11.024          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+11.024          PHOSTINFO_ITER_GAP   pHostInfo       1.00572      
+11.025          PHOSTINFO_ITER_LEN   pHostInfo       0.00228      
+11.025          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.01362      
+11.025          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00010      
+11.105          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00274      
+11.105          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+11.147          PHELMIVP_ITER_GAP    pHelmIvP        1.00075      
+11.147          IVPHELM_CPU          pHelmIvP        0.00000      
+11.147          IVPHELM_STATE        pHelmIvP        PARK 
+11.147          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+11.147          PHELMIVP_ITER_LEN    pHelmIvP        0.00012      
+11.148          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=39!@#node=shoreside!@#iter=39!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+11.150          PHOSTINFO_ITER_GAP   pHostInfo       1.00422      
+11.150          PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+11.150          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00414      
+11.150          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00016      
+11.274          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00080      
+11.274          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00005      
+11.276          PHOSTINFO_ITER_GAP   pHostInfo       1.00831      
+11.276          PHOSTINFO_ITER_LEN   pHostInfo       0.00023      
+11.277          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.01220      
+11.277          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00015      
+11.282          APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+11.283          APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+11.283          APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+11.283          APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+11.355          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00073      
+11.355          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00002      
+11.399          PHELMIVP_ITER_GAP    pHelmIvP        1.00464      
+11.399          IVPHELM_CPU          pHelmIvP        0.00000      
+11.399          IVPHELM_STATE        pHelmIvP        PARK 
+11.399          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+11.399          PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+11.399          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=40!@#node=shoreside!@#iter=40!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+11.400          DB_EVENT             MOOSDB_shoreside disconnected=uMAC_8201 
+11.402          PHOSTINFO_ITER_GAP   pHostInfo       1.00490      
+11.402          PHOSTINFO_ITER_LEN   pHostInfo       0.00019      
+11.403          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00474      
+11.403          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00022      
+11.493          PSHARE_OUTPUT_SUMMARY pShare           
+11.493          PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+11.525          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00246      
+11.525          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+11.530          PHOSTINFO_ITER_GAP   pHostInfo       1.02603      
+11.530          PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+11.530          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.01954      
+11.530          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00006      
+11.605          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00123      
+11.605          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+11.649          PHELMIVP_ITER_GAP    pHelmIvP        1.00187      
+11.649          IVPHELM_CPU          pHelmIvP        0.79957      
+11.649          IVPHELM_STATE        pHelmIvP        PARK 
+11.649          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+11.649          PHELMIVP_ITER_LEN    pHelmIvP        0.00002      
+11.649          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=41!@#node=shoreside!@#iter=41!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+11.655          PHOSTINFO_ITER_GAP   pHostInfo       1.00294      
+11.655          PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+11.655          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00274      
+11.655          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00014      
+11.775          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00261      
+11.775          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00003      
+11.776          DB_TIME              MOOSDB_shoreside 1500048225.03254 
+11.776          DB_UPTIME            MOOSDB_shoreside 12.15136     
+11.776          DB_CLIENTS           MOOSDB_shoreside pENC_Print,uFldShoreBroker,pHostInfo,pShare,uProcessWatch,pMarineViewer,pHelmIvP,pLogger, 
+11.776          DB_QOS               MOOSDB_shoreside pENC_Print=1.98293:11.204:0.0720024:2.84042,pHelmIvP=0.0748634:0.829935:0.0519753:0.240755,pHostInfo=0.133038:8.99696:0.0369549:2.78034,pLogger=0.140905:1.91808:0.0588894:0.178432,pMarineViewer=0.0779629:7.07984:0.0519753:1.4904,pShare=0.0770092:0.146866:0.0460148:0.0812531,uFldShoreBroker=0.0770092:10.2601:0.0641346:2.17161,uProcessWatch=0.0660419:8.52299:0.0400543:1.78418, 
+11.781          PHOSTINFO_ITER_GAP   pHostInfo       1.00268      
+11.781          PHOSTINFO_ITER_LEN   pHostInfo       0.00015      
+11.781          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00248      
+11.781          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00047      
+11.862          UPROCESSWATCH_ITER_GAP uProcessWatch   1.02676      
+11.862          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+11.900          PHELMIVP_ITER_GAP    pHelmIvP        1.00351      
+11.900          IVPHELM_CPU          pHelmIvP        0.79957      
+11.900          IVPHELM_STATE        pHelmIvP        PARK 
+11.900          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+11.900          PHELMIVP_ITER_LEN    pHelmIvP        0.00006      
+11.900          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=42!@#node=shoreside!@#iter=42!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+11.906          PHOSTINFO_ITER_GAP   pHostInfo       1.00240      
+11.906          PHI_HOST_IP          pHostInfo       192.168.1.206 
+11.906          PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+11.906          PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+11.906          PHI_HOST_PORT_DB     pHostInfo       9000 
+11.906          PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+11.906          PHOSTINFO_ITER_LEN   pHostInfo       0.00025      
+11.906          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00244      
+11.906          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00014      
+12.026          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00285      
+12.026          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00005      
+12.031          PHOSTINFO_ITER_GAP   pHostInfo       1.00411      
+12.031          PHOSTINFO_ITER_LEN   pHostInfo       0.00016      
+12.032          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00547      
+12.032          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00007      
+12.112          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00160      
+12.112          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00018      
+12.151          PHELMIVP_ITER_GAP    pHelmIvP        1.00234      
+12.151          IVPHELM_CPU          pHelmIvP        0.00000      
+12.151          IVPHELM_STATE        pHelmIvP        PARK 
+12.151          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+12.151          PHELMIVP_ITER_LEN    pHelmIvP        0.00013      
+12.151          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=43!@#node=shoreside!@#iter=43!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+12.157          PHOSTINFO_ITER_GAP   pHostInfo       1.00095      
+12.157          PHOSTINFO_ITER_LEN   pHostInfo       0.00009      
+12.157          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00183      
+12.157          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00014      
+12.277          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00280      
+12.277          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00001      
+12.278          APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+12.278          APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+12.282          PHOSTINFO_ITER_GAP   pHostInfo       1.00462      
+12.282          PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+12.282          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00283      
+12.282          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00010      
+12.278          APPCAST_REQ          pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+12.278          APPCAST_REQ_ALL      pMarineViewer   node=all,app=all,duration=3.0,key=pMarineViewer:shoresidegen,thresh=run_warning 
+12.363          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00146      
+12.363          PROC_WATCH_SUMMARY   uProcessWatch   All Present 
+12.363          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00001      
+12.401          PHELMIVP_ITER_GAP    pHelmIvP        1.00105      
+12.401          IVPHELM_CPU          pHelmIvP        0.00000      
+12.401          IVPHELM_STATE        pHelmIvP        PARK 
+12.401          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+12.401          PHELMIVP_ITER_LEN    pHelmIvP        0.00005      
+12.401          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=44!@#node=shoreside!@#iter=44!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+12.407          PHOSTINFO_ITER_GAP   pHostInfo       1.00200      
+12.407          PHOSTINFO_ITER_LEN   pHostInfo       0.00005      
+12.407          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00204      
+12.407          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00009      
+12.502          PSHARE_OUTPUT_SUMMARY pShare           
+12.503          PSHARE_INPUT_SUMMARY pShare          localhost:9300 
+12.528          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00248      
+12.528          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+12.533          PHOSTINFO_ITER_GAP   pHostInfo       1.00186      
+12.533          PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+12.533          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00511      
+12.533          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00019      
+12.613          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00199      
+12.613          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+12.651          PHELMIVP_ITER_GAP    pHelmIvP        1.00186      
+12.651          IVPHELM_CPU          pHelmIvP        0.00000      
+12.651          IVPHELM_STATE        pHelmIvP        PARK 
+12.651          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+12.651          PHELMIVP_ITER_LEN    pHelmIvP        0.00006      
+12.651          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=45!@#node=shoreside!@#iter=45!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+12.658          PHOSTINFO_ITER_GAP   pHostInfo       1.00114      
+12.658          PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+12.659          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00482      
+12.659          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00015      
+12.778          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00282      
+12.778          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+12.783          PHOSTINFO_ITER_GAP   pHostInfo       1.00426      
+12.783          PHOSTINFO_ITER_LEN   pHostInfo       0.00014      
+12.784          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00372      
+12.784          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00017      
+12.863          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00076      
+12.863          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00004      
+12.902          PHELMIVP_ITER_GAP    pHelmIvP        1.00138      
+12.902          IVPHELM_CPU          pHelmIvP        0.00000      
+12.902          IVPHELM_STATE        pHelmIvP        PARK 
+12.902          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+12.902          PHELMIVP_ITER_LEN    pHelmIvP        0.00007      
+12.902          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=46!@#node=shoreside!@#iter=46!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+12.909          PHOSTINFO_ITER_GAP   pHostInfo       1.00294      
+12.909          PHOSTINFO_ITER_LEN   pHostInfo       0.00010      
+12.909          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00181      
+12.909          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00016      
+13.029          PMARINEVIEWER_ITER_GAP pMarineViewer   1.00270      
+13.029          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00004      
+13.034          PHOSTINFO_ITER_GAP   pHostInfo       1.00266      
+13.034          PHOSTINFO_ITER_LEN   pHostInfo       0.00002      
+13.035          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00420      
+13.035          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00026      
+13.114          UPROCESSWATCH_ITER_GAP uProcessWatch   1.00211      
+13.114          UPROCESSWATCH_ITER_LEN uProcessWatch   0.00003      
+13.152          PHELMIVP_ITER_GAP    pHelmIvP        1.00178      
+13.152          IVPHELM_CPU          pHelmIvP        0.00000      
+13.152          IVPHELM_STATE        pHelmIvP        PARK 
+13.152          IVPHELM_ALLSTOP_DEBUG pHelmIvP        ManualOverride 
+13.152          PHELMIVP_ITER_LEN    pHelmIvP        0.00006      
+13.152          APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=47!@#node=shoreside!@#iter=47!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+13.159          PHOSTINFO_ITER_GAP   pHostInfo       1.00175      
+13.159          PHI_HOST_IP          pHostInfo       192.168.1.206 
+13.159          PHI_HOST_IP_ALL      pHostInfo       192.168.1.206 
+13.159          PHI_HOST_IP_VERBOSE  pHostInfo       LINUX_ANY=192.168.1.206 
+13.159          PHI_HOST_PORT_DB     pHostInfo       9000 
+13.159          PHI_HOST_INFO        pHostInfo       community=shoreside,hostip=192.168.1.206,port_db=9000,pshare_iroutes=192.168.1.206:9300,hostip_alts=,timewarp=1 
+13.159          PHOSTINFO_ITER_LEN   pHostInfo       0.00023      
+13.160          UFLDSHOREBROKER_ITER_GAP uFldShoreBroker 1.00244      
+13.160          UFLDSHOREBROKER_ITER_LEN uFldShoreBroker 0.00006      
+13.282          PMARINEVIEWER_ITER_GAP pMarineViewer   1.01296      
+13.282          PMARINEVIEWER_ITER_LEN pMarineViewer   0.00005      
+13.284          APPCAST_REQ          pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
+13.285          PHOSTINFO_ITER_GAP   pHostInfo       1.00690      
+13.285          PHOSTINFO_ITER_LEN   pHostInfo       0.00006      
+13.285          APPCAST_REQ_SHORESIDE pMarineViewer   node=shoreside,app=pHelmIvP,duration=3.0,key=pMarineViewer:shoresideapp,thresh=any 
