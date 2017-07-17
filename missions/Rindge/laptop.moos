@@ -1,0 +1,185 @@
+//-------------------------------------------------
+// NAME: Sam Reed
+// FILE: laptop.moos
+// Intended for dry testing at Chase
+//-------------------------------------------------
+
+ServerHost = localhost
+ServerPort = 9000
+Community  = shoreside
+
+MOOSTimeWarp = 1
+TERM_REPORTING = true
+
+// Rindge Floating Dock
+LatOrigin  = 42.716607
+LongOrigin =-72.005135
+
+//------------------------------------------
+// Antler configuration  block
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 400
+
+  Run = MOOSDB          @ NewConsole = false
+  //Run = uSimMarine	@ NewConsole = false
+  Run = pLogger         @ NewConsole = false
+  //Run = pHelmIvP	@ NewConsole = false
+  Run = pMarineViewer	  @ NewConsole = false
+  Run = uProcessWatch	  @ NewConsole = false
+  Run = pShare            @ NewConsole = false
+  Run = pHostInfo       @ NewConsole = false
+  Run = uFldShoreBroker  @ NewConsole = false
+  //Run = pENC_Print	@ NewConsole = true
+  //Run = pNodeReporter   @ NewConsole = false
+
+}
+
+//------------------------------------------
+// pNodeReporter config block
+
+ProcessConfig = pNodeReporter
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  platform_type   = SHIP
+  platform_length = 4
+
+}
+
+//------------------------------------------
+#include plug_pENC_Print.moos
+
+//------------------------------------------
+#include plug_pMarineViewer.moos
+
+//------------------------------------------
+// Vehicle Communication Config
+//------------------------------------------
+
+ProcessConfig = pHostInfo                                       
+{                                                               
+  AppTick   = 8                                                 
+  CommsTick = 8                                                 
+                                                                
+  TEMP_FILE_DIR  = ./                                           
+  DEFAULT_HOSTIP = localhost    // default is "localhost"  
+                                                                
+  //DEFAULT_HOSTIP_FORCE = 192.168.0.55                           
+} 
+
+ProcessConfig = uFldShoreBroker                                 
+{                                                               
+  AppTick   = 8
+  CommsTick = 8                  
+                                                                
+  //bridge = src=DEPLOY_ALL, alias=DEPLOY
+  //bridge = src=DEPLOY_$V,  alias=DEPLOY
+                                                                
+  bridge = src=RETURN
+  bridge = src=DEPLOY
+  bridge = src=STATIONING
+  //bridge = src=NODE_REPORT_LOCAL, alias=NODE_REPORT
+  //bridge = src=APPCAST_REQ
+  bridge = src=MOOS_MANUAL_OVERIDE, alias=MOOS_MANUAL_OVERIDE
+  bridge = src=NEW_POLYS
+  bridge = src=NEW_POINTS
+  bridge = src=UPDATE_PTS
+  bridge = src=UPDATE_POLYS
+  bridge = src=AUTONOMOUS_CONTROL
+  //bridge = src=ENC_INIT
+
+                                                                
+  // Note: [qbridge = FOO]  is shorthand for
+  //       [bridge = src=FOO_$V,  alias=FOO] and
+  //       [bridge = src=FOO_ALL, alias=FOO]
+}                                                                          
+                                                           
+ProcessConfig = pShare
+{
+  AppTick   = 8
+  CommsTick = 8
+
+  input = route = localhost:9300
+}
+
+
+//------------------------------------------
+// pHelmIvP config block
+
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  term_report_interval=0
+
+  bhv_dir_not_found_ok = true
+
+  behaviors  = mission2.bhv
+  domain     = course:0:359:360
+  domain     = speed:0:4:21
+
+  ok_skew    = any
+}
+
+//------------------------------------------
+// uProcessWatch config block
+
+ProcessConfig = uProcessWatch
+{
+  AppTick   = 4
+  CommsTick = 4
+
+  summary_wait = 5
+
+  nowatch   = uMAC*
+  nowatch   = uPokeDB*
+  nowatch   = uTermCommand*
+  watch_all = true
+}
+
+
+//------------------------------------------
+// pLogger config block
+
+ProcessConfig = pLogger
+{
+  AppTick   = 8
+  CommsTick = 8
+
+  AsyncLog = true
+
+  // For variables that are published in a bundle on their first post,
+  // explicitly declare their logging request
+
+  Log = IVPHELM_LIFE_EVENT @ 0 NOSYNC
+
+  LogAuxSrc = true
+  WildCardLogging = true
+  WildCardOmitPattern = *_STATUS
+  WildCardOmitPattern = DB_VARSUMMARY
+  WildCardOmitPattern = DB_RWSUMMARY
+  WildCardExclusionLog = true
+}
+
+//------------------------------------------
+
+
+ProcessConfig = uSimMarine
+{
+  AppTick	= 4
+  CommsTick	= 4
+
+  start_x       = 0
+  start_y       = 0
+
+  start_heading = 180
+  start_speed   = 0
+
+  prefix        = NAV
+
+  turn_rate     = 40
+  thrust_map    = 0:0, 20:1, 40:2, 60:3, 80:4, 100:5
+}

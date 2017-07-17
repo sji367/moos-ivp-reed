@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_16_7_2017_____16_23_25/MOOSLog_16_7_2017_____16_23_25.alog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1500236604.99
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+0.450           APPCAST_REQ          uMAC_7087       node=all,app=all,duration=3.0,key=uMAC_7087:app,thresh=run_warning 
+0.450           APPCAST_REQ_ALL      uMAC_7087       node=all,app=all,duration=3.0,key=uMAC_7087:app,thresh=run_warning 
+0.659           LOGGER_DIRECTORY     pLogger         ./MOOSLog_16_7_2017_____16_23_25 
+0.785           DB_EVENT             MOOSDB_zboat    disconnected=uMAC_7087 
+0.925           DB_EVENT             MOOSDB_zboat    connected=pHelmIvP 
+1.084           MOOS_DEBUG           pMarinePID      ** NEW CONTROLLER GAINS ARE ** 
+1.084           MOOS_DEBUG           pMarinePID      YAW_PID_KP             = 0.700 
+1.084           MOOS_DEBUG           pMarinePID      YAW_PID_KD             = 0.000 
+1.084           MOOS_DEBUG           pMarinePID      YAW_PID_KI             = 0.300 
+1.084           MOOS_DEBUG           pMarinePID      YAW_PID_INTEGRAL_LIMIT = 0.070 
+1.084           MOOS_DEBUG           pMarinePID      MAXRUDDER              = 45.000 
+1.090           MOOS_DEBUG           pMarinePID      SPEED_PID_KP           = 0.700 
+1.090           MOOS_DEBUG           pMarinePID      SPEED_PID_KD           = 0.000 
+1.090           MOOS_DEBUG           pMarinePID      SPEED_PID_KI           = 0.000 
+1.090           MOOS_DEBUG           pMarinePID      SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.090           MOOS_DEBUG           pMarinePID      MAXTHRUST              = 60.000 
+1.484           PLOGGER_CMD          pHelmIvP        COPY_FILE_REQUEST = mission2.bhv 
+1.142           DESIRED_RUDDER       pMarinePID      0.00000      
+1.142           DESIRED_THRUST       pMarinePID      0.00000      
+1.483           DEPLOY               pHelmIvP:HELM_VAR_INIT false 
+1.483           RETURN               pHelmIvP:HELM_VAR_INIT false 
+1.483           STATIONING           pHelmIvP:HELM_VAR_INIT false 
+1.483           simple               pHelmIvP:HELM_VAR_INIT false 
+1.483           ASTAR                pHelmIvP:HELM_VAR_INIT true 
+1.484           IVPHELM_REGISTER     pHelmIvP        POLY_UPDATE 
+1.484           IVPHELM_DOMAIN       pHelmIvP        speed,0,4,21:course,0,359,360 
+1.484           IVPHELM_MODESET      pHelmIvP         
+1.722           DB_EVENT             MOOSDB_zboat    connected=uProcessWatch 
+1.724           DB_TIME              MOOSDB_zboat    1500236606.71364 
+1.724           DB_UPTIME            MOOSDB_zboat    2.13146      
+1.724           DB_CLIENTS           MOOSDB_zboat    uProcessWatch,pMarinePID,pLogger,pHelmIvP, 
+1.725           DB_QOS               MOOSDB_zboat    pHelmIvP=0:0.440121:0.440121:0,pLogger=0:0.891924:0.22912:0,pMarinePID=0:0.402927:0.402927:0,uProcessWatch=0:1.06907:1.06907:0, 
+1.984           IVPHELM_STATE        pHelmIvP        PARK 
+1.984           MOOS_DEBUG           pHelmIvP        pHelmIvP AllStop: ManualOverride 
+1.984           DESIRED_SPEED        pHelmIvP        0.00000      
+1.984           DESIRED_HEADING      pHelmIvP        0.00000      
+1.985           APPCAST              pHelmIvP        proc=pHelmIvP!@#iter=1!@#node=zboat!@#iter=1!@#messages=  Helm Iteration: 0!@  IvP Functions:  0!@  Mode(s):        !@  SolveTime:   0.00   (max=0.00)!@  CreateTime:  0.00   (max=0.00)!@  LoopTime:    0.00   (max=0.00)!@  Halted:         false   (0 warnings)!@Helm Decision: []!@Behaviors Spawnable: --------- (0)!@Behaviors Active: ---------- (0)!@Behaviors Running: --------- (0)!@Behaviors Idle: ------------ (0)!@  !@Behaviors Completed: ------- (0)!@!@!@Variable  Behavior  Time  Iter  Value!@--------  --------  ----  ----  -----!@!@#!@#events_total=0!@#!@#run_warning_total=0!@# 
+2.438           DB_EVENT             MOOSDB_zboat    connected=Config_file 
+2.485           IVPHELM_STATE        pHelmIvP        PARK 
+2.526           APPCAST              uProcessWatch   proc=uProcessWatch!@#iter=1!@#node=zboat!@#iter=1!@#messages=Summary: All Present!@!@Antler List: iGPS,iZBoat,pENC_Contact,pENC_WPT_Check,pEchoVar!@             pHelmIvP,pHostInfo,pLogger,pMarinePID,pNodeReporter!@             pShare,uFldNodeBroker!@!@                                         Current    Max     !@ProcName         Watch Reason   Status   CPU Load   CPU Load!@--------------   ------------   ------   --------   --------!@iGPS             ANT            [7;32mOK[0m       0.00       0.00    !@iZBoat           ANT            [7;32mOK[0m       0.00       0.00    !@pENC_Contact     ANT            [7;32mOK[0m       0.00       0.00    !@pENC_WPT_Check   ANT            [7;32mOK[0m       0.00       0.00    !@pEchoVar         ANT            [7;32mOK[0m       0.00       0.00    !@pHelmIvP         ANT       DB   [7;32mOK[0m       2.40       2.40    !@pHostInfo        ANT            [7;32mOK[0m       0.00       0.00    !@pLogger          ANT       DB   [7;32mOK[0m       1.60       1.60    !@pMarinePID       ANT       DB   [7;32mOK[0m       6.40       6.40    !@pNodeReporter    ANT            [7;32mOK[0m       0.00       0.00    !@pShare           ANT            [7;32mOK[0m       0.00       0.00    !@uFldNodeBroker   ANT            [7;32mOK[0m       0.00       0.00    !@!@#!@#events_total=8!@#events=[0.00]: Noted to be present: [pNodeReporter]!@[0.00]: Noted to be present: [pEchoVar]!@[0.00]: Noted to be present: [iZBoat]!@[0.00]: Noted to be present: [iGPS]!@[0.00]: Noted to be present: [pENC_Contact]!@[0.00]: Noted to be present: [pHelmIvP]!@[0.00]: Noted to be present: [pMarinePID]!@[0.00]: Noted to be present: [pLogger]!@#run_warning_total=0!@# 
+2.538           DB_EVENT             MOOSDB_zboat    connected=iZBoat 
+2.538           DB_EVENT             MOOSDB_zboat    disconnected=Config_file 
