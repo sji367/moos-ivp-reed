@@ -2,18 +2,16 @@
 
 ProcessConfig = pMarineViewer
 {
-  AppTick    = 6
-  CommsTick  = 6
+  AppTick    = 4
+  CommsTick  = 4
 
-  //tiff_file_b           = data/RNC.tif
-  tiff_file	       = data/portsmouth2.tif
+  tiff_file            = data/portsmouth2.tif
 
   // Transit from UNH Pier
-  set_pan_x            = 375
-  set_pan_y            = -475//-575//
+  set_pan_x            = 275
+  set_pan_y            = -475
   zoom                 = 4.5
 
-  //zoom                 = 5//0.65//
   vehicle_shape_scale  = 1.5//3
 
   trails_point_size   = 1
@@ -43,8 +41,8 @@ ProcessConfig = pMarineViewer
   right_context[decrease_TLvl] = UPDATE_PTS = DECREASE
 
 // New Points (not in ENC)
-  left_context[Point1] = VIEW_POINT = x=0,y=200,label=1!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=greenyellow
-  left_context[Point1] = NEW_POINTS = x=0,y=200,1,1!$(XPOS)!$(YPOS)
+  left_context[Point1] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=1!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=greenyellow
+  left_context[Point1] = NEW_POINTS = x=$(XPOS),y=$(YPOS),1,1!$(XPOS)!$(YPOS)
 
   left_context[Point2] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=2!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=gold
   left_context[Point2] = NEW_POINTS = x=$(XPOS),y=$(YPOS),2,2!$(XPOS)!$(YPOS)
@@ -60,8 +58,8 @@ ProcessConfig = pMarineViewer
 
 
 // New Polygons (not in ENC)
-  left_context[Poly1] = VIEW_POLYGON = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1, major=20, minor=10, vertex_color=greenyellow,edge_color=greenyellow
-  left_context[Poly1] = NEW_POLYS = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+  left_context[Poly1] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1, major=20, minor=10, vertex_color=greenyellow,edge_color=greenyellow
+  left_context[Poly1] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
 
   left_context[Poly2] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=gold,edge_color=gold
   left_context[Poly2] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
@@ -69,20 +67,20 @@ ProcessConfig = pMarineViewer
   left_context[Poly3] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=darkorange,edge_color=darkorange
   left_context[Poly3] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
 
-  left_context[Poly4] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=30, pts=14, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
-  left_context[Poly4] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=30, pts=14, snap=1,major=20, minor=10
+  left_context[Poly4] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=30, pts=20, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
+  left_context[Poly4] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=30, pts=20, snap=1,major=20, minor=10
 
   left_context[Poly5] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=black, edge_color=black
   left_context[Poly5] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
-  
+
   button_one = DEPLOY # DEPLOY=true
   button_one = MOOS_MANUAL_OVERIDE=false # RETURN=false
   button_two = RETURN # RETURN=true
-  button_three = CONTINUE # STATIONING=false # DEPLOY=true
+  button_three = CONTINUE # STATIONING=false # DEPLOY=true # AUTONOMOUS_CONTROL=true
   button_four = STATION_KEEP # STATIONING=true
   button_four = RETURN=false # DEPLOY=false
 	
-	SCOPE= Obstacles,Current_Tide,WPT_UPDATE, Poly_Obs
+	SCOPE= Nav_Aids,ENC_INIT, Current_Tide
 
   action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false
   action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERIDE=false
@@ -94,5 +92,5 @@ ProcessConfig = pMarineViewer
   seglist_viewable_labels = false
   vehicles_name_mode = names
   trails_viewable = false
-	tiff_viewable = false
+	tiff_viewable = true
 }

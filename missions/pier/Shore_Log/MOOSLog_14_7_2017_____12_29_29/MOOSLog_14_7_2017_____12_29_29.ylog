@@ -1,0 +1,7 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_14_7_2017_____12_29_29/MOOSLog_14_7_2017_____12_29_29.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART               1500049769.11
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+1.418912   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+20.79599   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: BehaviorError 

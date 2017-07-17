@@ -22,19 +22,22 @@ done
 #-------------------------------------------------------
 #  Part 2: Launch the processes
 #-------------------------------------------------------
-printf "Launching the %s MOOS Community (WARP=%s) \n"  $COMMUNITY $TIME_WARP
-pAntler $COMMUNITY.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
+nsplug $COMMUNITY.moos new_$COMMUNITY.moos -f
 
-printf "Launching ENC_Print \n"
+printf "Launching the %s MOOS Community (WARP=%s) \n"  $COMMUNITY $TIME_WARP
+pAntler new_$COMMUNITY.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
+
+sleep 0.25
+printf "Launching Image Grabber \n"
 python ../../src/Python/ZBoat_image_grab.py >& /dev/null &
 
 sleep 0.25
-#printf "Launching ENC_SFoV \n"
-#python ../../src/Python/ENC_SFoV.py >& /dev/null &
+printf "Launching ENC_SFoV \n"
+python ../../src/Python/ENC_SFoV.py >& /dev/null &
 
 sleep 0.2
-#printf "Launching ENC_SFoV_GUI \n"
-#python ../../src/Python/ENC_Sensor_GUI.py >& /dev/null &
+printf "Launching ENC_SFoV_GUI \n"
+python ../../src/Python/ENC_Sensor_GUI.py >& /dev/null &
 
 
 #sleep 1
@@ -46,9 +49,9 @@ sleep 0.2
 #printf "Launching ENC_Print \n"
 #python ../../src/Python/ENC_Print.py >& /dev/null 
 
-uMAC $COMMUNITY.moos
+uMAC new_$COMMUNITY.moos
 
 printf "Killing all processes ... \n"
-kill %1 %2 %3 %3
+kill %1 %2 %3 %4
 #mykill
 printf "Done killing processes.   \n"
