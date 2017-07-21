@@ -58,6 +58,7 @@ class ENC_Print : public CMOOSApp
         Geodesy geod;
         GDALDataset *ds_pnt, *ds_poly, *ds_line;
         OGRLayer *Point_Layer, *Poly_Layer, *Line_Layer;
+        OGRPolygon *m_filter;
         bool first_print, m_ENC_INT, openned, print_all, UTM;
 };
 

@@ -14,7 +14,7 @@ ENC_Print::ENC_Print()
 {
   m_iterations = 0;
   m_timewarp   = 1;
-  m_tide = 0;
+  m_tide = 1.5;
   m_MHW_Offset = 2.735; // Value for Fort Point
   m_ASV_draft = 1;
 
@@ -53,7 +53,12 @@ bool ENC_Print::OnNewMail(MOOSMSG_LIST &NewMail)
         CMOOSMsg &msg = *p;
         name = msg.GetName();
         if (name == "Current_Tide")
-            vect_tide.push_back(atof(msg.GetString().c_str()));
+        {
+            if (msg.IsString())
+                vect_tide.push_back(atof(msg.GetString().c_str()));
+            else
+                vect_tide.push_back(msg.GetDouble());
+        }
         else if (name == "MHW_Offset")
             m_MHW_Offset = atof(msg.GetString().c_str());
         else if (name == "ENC_INIT")
@@ -129,7 +134,6 @@ bool ENC_Print::OnStartUp()
             string param = stripBlankEnds(toupper(biteString(*p, '=')));
             string value = stripBlankEnds(*p);
 
-            //cout << param + " " + value << endl;
             if(param == "MHW_OffSET")
                 m_MHW_Offset = atof(value.c_str());
 
@@ -427,6 +431,7 @@ bool ENC_Print::openLayers()
         Point_Layer->SetSpatialFilter(print_area_filter);
         Poly_Layer->SetSpatialFilter(print_area_filter);
         Line_Layer->SetSpatialFilter(print_area_filter);
+        m_filter = print_area_filter;
     }
 
     return true;
@@ -501,6 +506,8 @@ void ENC_Print::printPolygons()
 
     while(feature)
     {
+        geom = feature->GetGeometryRef();
+        geom = geom->Intersection(m_filter);
         MLLW_t_lvl = feature->GetFieldAsDouble(0); // Get threat level (@ MLLW)
         WL = feature->GetFieldAsDouble(1);
         depth = feature->GetFieldAsDouble(2);
@@ -509,7 +516,6 @@ void ENC_Print::printPolygons()
 
         if ((first_print) || (MLLW_t_lvl != t_lvl))
         {
-            geom = feature->GetGeometryRef();
             poly = (OGRPolygon *)geom;
 
             ring = poly->getExteriorRing();
@@ -537,19 +543,18 @@ void ENC_Print::printPolygons()
 
                 label = ",label="+obs_type+"_"+to_string(i);
                 sizes =  "vertex_size=2.5,edge_size=2,";
-                /*
+
                 if (t_lvl == 0)
                     active = "active=false";
                 else
-                */
-                active = "active=true";
+                    active = "active=true";
                 print_poly = vertex+sizes+color+active+label;
                 // Print the point
                 Notify("VIEW_SEGLIST", print_poly);
             }
         }
         feature = Poly_Layer->GetNextFeature();
-        i += 1;
+        i++;
     }
 
 }

@@ -53,6 +53,8 @@ class ENC_Contact : public CMOOSApp
 	void ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLayer *PolyLayer, OGRLayer *LineLayer, string LayerName);
 	void LayerMultiPoint (OGRLayer *layer_mp, OGRLayer *Point_Layer, string LayerName_mp);
 
+        OGRPolygon *check4Union(OGRPolygon* poly, OGRLayer *PolyLayer, double depth, string obs_type);
+
         // Function to build the search area polygon and filter ENC_DB to only include
         //  features from that area.
 	void build_search_poly();
@@ -100,9 +102,11 @@ class ENC_Contact : public CMOOSApp
         double m_ASV_x, m_ASV_y, m_ASV_head, m_ASV_length, m_ASV_width, m_ASV_draft;
         double m_MHW_Offset, m_tide;
         double m_search_dist, m_min_depth;
-        double m_segmentation_dist;
+        double m_segmentation_dist, m_buffer_size;
         bool m_first_run;
         string m_ENC;
+
+        bool m_simplifyPolys;
 
         // Adding points/polygons to avoid
         vector<int> pointTLvl, polyTLvl, vect_TLvl;
