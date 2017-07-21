@@ -79,10 +79,12 @@ ProcessConfig = uFldNodeBroker
   CommsTick = 8
 
   TRY_SHORE_HOST = pshare_route=192.168.1.206:9300
-  BRIDGE = src=NAV_X, alias=NAV_X
-  BRIDGE = src=NAV_Y, alias=NAV_Y
+  BRIDGE = src=NAV_X
+  BRIDGE = src=NAV_Y
   //BRIDGE = src=NAV_SPEED, alias=NAV_SPEED 
-  BRIDGE = SRC=NAV_HEADING, alias=NAV_HEADING
+  BRIDGE = src=NAV_HEADING
+  BRIDGE = src=DESIRED_HEADING
+  BRIDGE = src=DESIRED_RUDDER
   //BRIDGE = src=PWM, alias=PWM
   //BRIDGE = src=RETURN
   //BRIDGE = src=DEPLOY

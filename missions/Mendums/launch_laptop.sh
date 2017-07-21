@@ -31,27 +31,26 @@ sleep 0.25
 printf "Launching Image Grabber \n"
 python ../../src/Python/ZBoat_image_grab.py >& /dev/null &
 
-sleep 0.25
-printf "Launching ENC_SFoV \n"
+#sleep 0.25
+#printf "Launching ENC_SFoV \n"
 #python ../../src/Python/ENC_SFoV.py >& /dev/null &
 
-sleep 0.2
-printf "Launching ENC_SFoV_GUI \n"
+#sleep 0.2
+#printf "Launching ENC_SFoV_GUI \n"
 #python ../../src/Python/ENC_Sensor_GUI.py >& /dev/null &
 
 
-#sleep 1
-#printf "Launching Pub Points \n"
-#python ../../src/Python/pub_points.py >& /dev/null &
+sleep 2
+printf "Launching Heading viewer \n"
+python ../../src/Python/MOOSPlot.py >& /dev/null &
 
-
-#sleep 1
-#printf "Launching ENC_Print \n"
-#python ../../src/Python/ENC_Print.py >& /dev/null 
+sleep 1
+printf "Launching Box viewer \n"
+python ../../src/Python/MOOSPlot_Box.py >& /dev/null &
 
 uMAC new_$COMMUNITY.moos
 
 printf "Killing all processes ... \n"
-kill %1 %2 #%3 %4
+kill %1 %2 %3 %4
 #mykill
 printf "Done killing processes.   \n"
