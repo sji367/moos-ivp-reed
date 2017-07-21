@@ -28,6 +28,8 @@ ENC_Contact::ENC_Contact()
   m_max_pnts = 0;
   m_max_poly = 0;
   m_segmentation_dist = 3;
+  m_buffer_size = 5;
+  m_simplifyPolys = true;
 }
 
 ENC_Contact::~ENC_Contact()
@@ -76,7 +78,7 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
         parseNewPoly(msg.GetString());
     else if (name == "CYCLE_INDEX")
     {
-        cout << "Index: " << msg.GetDouble() << endl;
+        // Print and store the closest the ASV got to any of the obstacles
         if (dist2obstacle.size()>0)
         {
             // Calculate the minimum distance to the obstacle
@@ -84,13 +86,23 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
             cout << distance << endl;
             Notify("MIN_DIST", distance);
         }
-        if (msg.GetDouble()>1)
+        // Increase the threat level for the obstacle after each iteration
+        if (msg.GetDouble()>0)
         {
-            // Increase the threat level for the obstacle after each iteration
-            Notify("UPDATE_POLYS", "INCREASE");
-            Notify("UPDATE_PTS", "INCREASE");
+            if (fmod(msg.GetDouble(),5)==0)
+            {
+                    Notify("UPDATE_POLYS", "RESET");
+                    Notify("UPDATE_PTS", "RESET");
+            }
+            else
+            {
+                Notify("UPDATE_POLYS", "INCREASE");
+                Notify("UPDATE_PTS", "INCREASE");
+            }
+
         }
         dist2obstacle.clear();
+        cout << "Index: " << msg.GetDouble() << endl;
     }
     else if (name == "UPDATE_PTS")
     {
@@ -103,6 +115,8 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
                     pointTLvl[i]++;
                 else if(msg.GetString()=="DECREASE")
                     pointTLvl[i]--;
+                else if(msg.GetString()=="RESET")
+                    pointTLvl[i]=1;
 
                 // Make sure it is in the domain [-2 to 5]
                 if (pointTLvl[i] < -2)
@@ -128,6 +142,8 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
                     polyTLvl[i]++;
                 else if(msg.GetString()=="DECREASE")
                     polyTLvl[i]--;
+                else if(msg.GetString()=="RESET")
+                    polyTLvl[i]=1;
 
                 // Make sure it is in the domain [-2 to 5]
                 if (polyTLvl[i] < -2)
@@ -208,79 +224,81 @@ bool ENC_Contact::Iterate()
 //---------------------------------------------------------
 // Procedure: OnStartUp()
 //            happens before connection is open
-
 bool ENC_Contact::OnStartUp()
 {
-  double dfLatOrigin,dfLongOrigin;
-  list<string> sParams;
-  m_MissionReader.EnableVerbatimQuoting(false);
-  if(m_MissionReader.GetConfiguration(GetAppName(), sParams))
-  {
-    list<string>::iterator p;
-    for(p=sParams.begin(); p!=sParams.end(); p++)
+    double dfLatOrigin,dfLongOrigin;
+    list<string> sParams;
+    m_MissionReader.EnableVerbatimQuoting(false);
+    if(m_MissionReader.GetConfiguration(GetAppName(), sParams))
     {
-      string original_line = *p;
-      string param = stripBlankEnds(toupper(biteString(*p, '=')));
-      string value = stripBlankEnds(*p);
+        list<string>::iterator p;
+        for(p=sParams.begin(); p!=sParams.end(); p++)
+        {
+            string original_line = *p;
+            string param = stripBlankEnds(toupper(biteString(*p, '=')));
+            string value = stripBlankEnds(*p);
 
-      if(param == "ENCS")
-        m_ENC = value;
-      else if(param == "MHW_OffSET")
-        m_MHW_Offset = atof(value.c_str());
-      else if(param == "SEARCH_DIST")
-        m_search_dist = atof(value.c_str());
-      else if(param == "SEGMENTATION_DIST")
-        m_segmentation_dist = atof(value.c_str());
-      else if(param == "MIN_DEPTH")
-        m_min_depth = atof(value.c_str());
+            if(param == "ENCS")
+                m_ENC = value;
+            else if(param == "MHW_OffSET")
+                m_MHW_Offset = atof(value.c_str());
+            else if(param == "SEARCH_DIST")
+                m_search_dist = atof(value.c_str());
+            else if(param == "SEGMENTATION_DIST")
+                m_segmentation_dist = atof(value.c_str());
+            else if(param == "BUFFER_DIST")
+                m_buffer_size = atof(value.c_str());
+            else if(param == "MIN_DEPTH")
+                m_min_depth = atof(value.c_str());
+            else if(param == "UNION")
+                m_simplifyPolys = tolower(value)=="true";
 
-      // ASV Configuration
-      else if (param == "ASV_LENGTH")
-        m_ASV_length = atof(value.c_str());
+            // ASV Configuration
+            else if (param == "ASV_LENGTH")
+                m_ASV_length = atof(value.c_str());
 
-      else if (param == "ASV_WIDTH")
-        m_ASV_width = atof(value.c_str());
+            else if (param == "ASV_WIDTH")
+                m_ASV_width = atof(value.c_str());
 
-      else if (param == "ASV_DRAFT")
-        m_ASV_draft = atof(value.c_str());
+            else if (param == "ASV_DRAFT")
+                m_ASV_draft = atof(value.c_str());
+        }
     }
-  }
 
-  string sVal;
+    string sVal;
 
-  if (m_MissionReader.GetValue("LatOrigin", sVal)) {
-    dfLatOrigin = atof(sVal.c_str());
-  } else {
-    MOOSTrace("LatOrigin not set - FAIL\n");
+    if (m_MissionReader.GetValue("LatOrigin", sVal))
+        dfLatOrigin = atof(sVal.c_str());
+    else
+    {
+        MOOSTrace("LatOrigin not set - FAIL\n");
+        return false;
+    }
 
-    return false;
+    if (m_MissionReader.GetValue("LongOrigin", sVal))
+        dfLongOrigin = atof(sVal.c_str());
+    else
+    {
+        MOOSTrace("LongOrigin not set - FAIL\n");
+        return false;
+    }
 
-  }
+    if (!m_Geodesy.Initialise(dfLatOrigin, dfLongOrigin))
+    {
+        MOOSTrace("Geodesy Init failed - FAIL\n");
+        return false;
+    }
 
-  if (m_MissionReader.GetValue("LongOrigin", sVal)) {
-    dfLongOrigin = atof(sVal.c_str());
-  } else {
-    MOOSTrace("LongOrigin not set - FAIL\n");
+    geod.Initialise(dfLatOrigin, dfLongOrigin);
 
-    return false;
-  }
+    m_timewarp = GetMOOSTimeWarp();
+    RegisterVariables();
 
-  if (!m_Geodesy.Initialise(dfLatOrigin, dfLongOrigin)) {
-    MOOSTrace("Geodesy Init failed - FAIL\n");
+    // Build the ENC Layers
+    BuildLayers();
+    cout << "Initialized" << endl;
 
-    return false;
-  }
-
-  geod.Initialise(dfLatOrigin, dfLongOrigin);
-  
-  m_timewarp = GetMOOSTimeWarp();
-  RegisterVariables();
-
-  // Build the ENC Layers
-  BuildLayers();
-  cout << "Initialized" << endl;
-  
-  return(true);
+    return(true);
 }
 
 //---------------------------------------------------------
@@ -411,7 +429,7 @@ void ENC_Contact::parseNewPoly(string polyString)
         for (unsigned int i = 0; i<MOOS_poly.size(); i++)
         {
             ring->addPoint(MOOS_poly.get_vx(i), MOOS_poly.get_vy(i));
-            cout << MOOS_poly.get_vx(i) << ", " << MOOS_poly.get_vy(i) <<"; ";
+            //cout << MOOS_poly.get_vx(i) << ", " << MOOS_poly.get_vy(i) <<"; ";
         }
         cout << endl;
         ring->closeRings();
@@ -420,6 +438,11 @@ void ENC_Contact::parseNewPoly(string polyString)
 
         // Segmentize the polygon to m_segmentation_dist meters between the vertices and store it
         poly->segmentize(m_segmentation_dist);
+        ring = poly->getExteriorRing();
+        for (unsigned int i = 0; i<ring->getNumPoints(); i++)
+        {
+            cout << ring->getX(i) << ", " << ring->getY(i) <<"; ";
+        }
         newPoly.push_back(poly);
     }
 }
@@ -640,8 +663,10 @@ int ENC_Contact::calc_t_lvl(double &depth, double WL, string LayerName)
   double current_depth = 9999;
   
   // If it is Land set threat level to 5
-  if ((LayerName == "LNDARE")||(LayerName == "DYKCON")||(LayerName == "PONTON")||(LayerName == "COALNE")){
+  if ((LayerName == "LNDARE")||(LayerName == "DYKCON")||(LayerName == "PONTON")||(LayerName == "COALNE"))
+  {
     t_lvl = 5;
+    depth = -m_MHW_Offset-2;
   }
   else if (LayerName == "LIGHTS")
     t_lvl = -2;
@@ -1181,8 +1206,6 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	      new_feat->SetField("Cat", cat.c_str());
 	      new_feat->SetField("Visual", vis);
 
-              geom = geom->Buffer(0.00005);
-
               poPoly = ( OGRPolygon * )geom;
 	      ring = poPoly->getExteriorRing();
 	      // Build the new UTM ring and polygon
@@ -1202,9 +1225,14 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	      UTM_ring->closeRings();
 	      UTM_poly->addRing(UTM_ring);
               UTM_poly->closeRings();
-              UTM_poly->segmentize(m_segmentation_dist);
 
-              new_feat->SetGeometry(UTM_poly);
+              // Buffer and segmentize the polygon
+              buff_geom = UTM_poly->Buffer(m_buffer_size);
+              buff_poly = ( OGRPolygon * )buff_geom;
+              buff_poly = check4Union(buff_poly, PolyLayer, depth, LayerName);
+              buff_poly->segmentize(m_segmentation_dist);
+
+              new_feat->SetGeometry(buff_poly);
 	      
 	      // Build the new feature
 	      if( PolyLayer->CreateFeature( new_feat ) != OGRERR_NONE )
@@ -1216,7 +1244,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 	  else if(geom ->getGeometryType() == wkbLineString)
 	    {
 	      // Set attributes of the new feature
-	      poFDefn = LineLayer->GetLayerDefn();
+              poFDefn = LineLayer->GetLayerDefn();
 	      new_feat =  OGRFeature::CreateFeature(poFDefn);
 	      new_feat->SetField("Depth", depth);
 	      new_feat->SetField("WL", WL);
@@ -1238,11 +1266,19 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 		  UTM_line->addPoint(x,y,0);
 		}
 
-              UTM_line->segmentize(m_segmentation_dist);
-	      new_feat->SetGeometry(UTM_line);
-	      
-	      // Build the new feature
-	      if( LineLayer->CreateFeature( new_feat ) != OGRERR_NONE )
+              // Buffer the polygon
+              buff_geom = UTM_line->Buffer(m_buffer_size);
+              buff_poly = ( OGRPolygon * )buff_geom;
+
+              // Check to see if you can make unions with other polys
+              buff_poly = check4Union(buff_poly, PolyLayer, depth, LayerName);
+
+              // Segment the polygons
+              buff_poly->segmentize(m_segmentation_dist);
+
+              // Build the new feature as a polygon
+              new_feat->SetGeometry(buff_poly);
+              if( PolyLayer->CreateFeature( new_feat ) != OGRERR_NONE )
 		{
 		  printf( "Failed to create feature in shapefile.\n" );
 		  exit( 1 );
@@ -1255,6 +1291,34 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
     }
   else
       cout << "Layer " << LayerName << " is not in the ENC." << endl;
+}
+
+// Simplifies the layers so the objects are not overlapping
+OGRPolygon* ENC_Contact::check4Union(OGRPolygon *poly, OGRLayer *PolyLayer, double depth, string obs_type)
+{
+    OGRFeature *feat;
+    OGRGeometry *geom, *newGeom;
+    int FID;
+    string filter = "Type='"+obs_type+"'";
+
+    PolyLayer->SetSpatialFilter(poly);
+    PolyLayer->SetAttributeFilter(filter.c_str());
+    feat = PolyLayer->GetNextFeature();
+
+    while(feat)
+    {
+        if (feat->GetFieldAsDouble("Depth") == depth)
+        {
+            FID = feat->GetFID();
+            geom = feat->GetGeometryRef();
+            newGeom = poly->Union(geom);
+            poly=(OGRPolygon*) newGeom;
+            PolyLayer->DeleteFeature(FID);
+            feat = PolyLayer->GetNextFeature();
+        }
+    }
+
+    return poly;
 }
 
 void ENC_Contact::build_search_poly()
