@@ -12,6 +12,7 @@ Grid_Interp::Grid_Interp()
   minY = 0;
   maxX = 0;
   maxY = 0;
+  landZ = -500;
 }
 
 Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, double MHW_offset, Geodesy Geod)
@@ -26,6 +27,7 @@ Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size
   minY = 0;
   maxX = 0;
   maxY = 0;
+  landZ = static_cast<int>(round(-(MHW_offset+2)*100));
 }
 
 Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size, double buffer_dist, double MHW_offset, double lat, double lon)
@@ -40,6 +42,7 @@ Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Filename, double Grid_size
   minY = 0;
   maxX = 0;
   maxY = 0;
+  landZ = static_cast<int>(round(-(MHW_offset+2)*100));
 }
 
 void Grid_Interp::buildLayers()
@@ -229,7 +232,7 @@ void Grid_Interp::Run(bool csv, bool mat)
 
     // Build the geotransformation matrix of the target raster
     vector<double> geoTransform = {minX, grid_size, 0, maxY, 0, -grid_size};
-    if (GDALRasterizeLayersBuf(Map.data(), x_res, y_res, GDT_Int32, 0, 0, 1, (OGRLayerH*)&layers[0], spat_ref, geoTransform.data(), NULL, NULL, -500, opt, NULL, NULL ) == CE_Failure)
+    if (GDALRasterizeLayersBuf(Map.data(), x_res, y_res, GDT_Int32, 0, 0, 1, (OGRLayerH*)&layers[0], spat_ref, geoTransform.data(), NULL, NULL, landZ, opt, NULL, NULL ) == CE_Failure)
     */
 
     printf("Starting to grid data\n\tData points: %d, Grid: %dx%d\n", static_cast<int>(X.size()), y_res,x_res);
@@ -288,7 +291,7 @@ void Grid_Interp::updateMap(vector<int> &poly_data, vector<int> &depth_data, vec
             if (outline_data[rasterIndex] == 1)
             {
                 // Check to see if the index is on land.
-                if (poly_data[rasterIndex] == -500)
+                if (poly_data[rasterIndex] == landZ)
                     Map[y][x] =poly_data[rasterIndex];
                 else
                 {
@@ -315,11 +318,12 @@ void Grid_Interp::updateMap(vector<int> &poly_data, vector<int> &depth_data, vec
             }
             else
                 Map[y][x] = -1000;
-
+            /*
             // Store the Map data so that it can be converted to a raster
-            if (Map[y][x] <= -500)
+            if (Map[y][x] <= landZ)
                 new_rast_data[rasterIndex] = NAN;
             else
+            */
                 new_rast_data[rasterIndex] = 0.01*(1.0*Map[y][x]);
                 //new_rast_data[rasterIndex] = Map[y][x];//0.01*(1.0*Map[y][x]);
         }
@@ -567,9 +571,10 @@ void Grid_Interp::multipointFeat(OGRFeature* feat, OGRGeometry* geom)
 void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
 {
     OGRLineString *UTM_line;
-    OGRGeometry *geom_UTM;
-    OGRPoint pt;
+    OGRGeometry *geom_UTM, *buff_geom;
+    //OGRPoint pt;
     OGRFeature *new_feat;
+    OGRPolygon *Buff_line;
 
     double x,y,z;
     bool WL_flag;
@@ -579,31 +584,30 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
 
     geom_UTM = geod.LatLong2UTM(geom);
     UTM_line = ( OGRLineString * )geom_UTM;
+    buff_geom = UTM_line->Buffer(buffer_size);
+    Buff_line = (OGRPolygon *) buff_geom;
+    Buff_line->segmentize(grid_size);
 
     if (layerName=="DEPCNT")
-        z = feat->GetFieldAsDouble("VALDCO")*100;
-    else if ((layerName =="PONTON")||(layerName =="FLODOC")||(layerName =="DYKCON"))
     {
-        z = -500;
-        UTM_line->segmentize(grid_size/5);
-        // Place all lines into the point shapefile
+        z = feat->GetFieldAsDouble("VALDCO")*100;
+        UTM_line->segmentize(grid_size);
+        // Get the location in the grid coordinate system
         for (int j=0; j<UTM_line->getNumPoints(); j++)
         {
-            x = UTM_line->getX(j);// convert to local UTM
-            y = UTM_line->getY(j);// convert to local UTM
-            pt = OGRPoint(x,y);
-            new_feat =  OGRFeature::CreateFeature(feat_def_pnt);
-            new_feat->SetField("Depth", z);
-            new_feat->SetGeometry(&pt);
-            // Build the new feature
-            if( layer_pnt->CreateFeature( new_feat ) != OGRERR_NONE )
-            {
-                printf( "Failed to create feature in polygon shapefile.\n" );
-                exit( 1 );
-            }
-            OGRFeature::DestroyFeature(new_feat);
+            x = UTM_line->getX(j)-geod.getXOrigin();// convert to local UTM
+            y = UTM_line->getY(j)-geod.getYOrigin();// convert to local UTM
+
+            // Store the XYZ of the vertices
+            X.push_back(x);
+            Y.push_back(y);
+            depth.push_back(z); // in cm
         }
-        return;
+        return; // do not store the line as a polygon
+    }
+    else if ((layerName =="PONTON")||(layerName =="FLODOC")||(layerName =="DYKCON"))
+    {
+        z = landZ;
     }
     else if ((layerName == "OBSTRN"))
     {
@@ -618,7 +622,8 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
         }
         else
             z = feat->GetFieldAsDouble("VALSOU")*100;
-
+    }
+    /*
         UTM_line->segmentize(grid_size/5);
         // Place all lines into the point shapefile
         for (int j=0; j<UTM_line->getNumPoints(); j++)
@@ -640,11 +645,26 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
         if (WL_flag)
             return;
     }
+    */
     else
     {
         cout << "Unknown Line Layer: " << layerName << endl;
         return;
     }
+    // If it is a valid layer that we know how to deal with then store the buffered line
+    //  (which is now a polygon)
+    new_feat =  OGRFeature::CreateFeature(feat_def_poly);
+    new_feat->SetField("Depth", z);
+    new_feat->SetGeometry(Buff_line);
+    // Build the new feature
+    if( layer_poly->CreateFeature( new_feat ) != OGRERR_NONE )
+    {
+        printf( "Failed to create feature in polygon shapefile.\n" );
+        exit( 1 );
+    }
+    OGRFeature::DestroyFeature(new_feat);
+
+    /*
     UTM_line->segmentize(grid_size);
     // Get the location in the grid coordinate system
     for (int j=0; j<UTM_line->getNumPoints(); j++)
@@ -657,7 +677,7 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
         Y.push_back(y);
         depth.push_back(z); // in cm
     }
-
+    */
 }
 
 void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
@@ -676,7 +696,7 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
 
 
     if (layerName == "LNDARE")
-        z = -500;
+        z = landZ;
 
     else if ((layerName == "UWTROC")||(layerName == "WRECKS")||(layerName == "OBSTRN"))
     {
@@ -768,7 +788,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
 
     if (layerName == "LNDARE")
     {
-        z = -500;
+        z = landZ;
         new_feat =  OGRFeature::CreateFeature(feat_def_poly);
         new_feat->SetField("Depth", z);
         new_feat->SetGeometry(UTM_poly);
@@ -829,7 +849,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
     }
     else if ((layerName == "PONTON")||(layerName =="FLODOC")||(layerName == "DYKCON"))
     {
-        z = -500;
+        z = landZ;
         new_feat =  OGRFeature::CreateFeature(feat_def_poly);
         new_feat->SetField("Depth", z);
         new_feat->SetGeometry(UTM_poly);
@@ -980,7 +1000,7 @@ double Grid_Interp::calcDepth(int WL)
     {
         // At least 2 feet above MHW. Being shoal biased, we will take the
         //   object's "charted" depth as 2 feet above MHW
-        WL_depth = -(2.0*feet2meters+MHW_Offset);
+        WL_depth = -(1.0*feet2meters+MHW_Offset);
     }
 
     else if (WL == 3) // Always underwater
