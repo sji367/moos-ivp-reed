@@ -73,6 +73,7 @@ void Poly::setMB_Right_pnt(double center_pnt_cost, double center_pnt_angle)
 {
     double temp_cost = cost;
 
+    // Bound the cost
     if (cost>100)
         temp_cost =100;
     else if (cost<0)
@@ -101,7 +102,7 @@ void Poly::setMB_Left_pnt(double center_pnt_cost, double center_pnt_angle)
 {
     double temp_cost = cost;
 
-
+    // Bound the cost
     if (cost>100)
         temp_cost =100;
     else if (cost<0)

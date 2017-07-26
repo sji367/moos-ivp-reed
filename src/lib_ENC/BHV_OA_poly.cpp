@@ -297,6 +297,10 @@ void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly 
     int buff_high, buff_low;
     double calculated_cost, actual_cost;
 
+    double min_angle_rawBuffered, min_angle_Buffered, max_angle_rawBuffered, max_angle_Buffered;
+    double minAngleGap = 30;
+    double angleGap_buffered, angleGap_raw;
+
     int safety_buff = 90;
     int cur_ang = 0;
     int t_lvl = min_dist.getTLvL();
@@ -385,8 +389,48 @@ void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly 
                     OA_util[buff_high] = utility;
             }
         }
-        // Make sure the minimum angle and maximum angle (when accounting for the buffer width) does not wrap
-        //if (min_angle.getAngle()-buffer_width)
+        min_angle_rawBuffered = min_angle.getAngle()-buffer_width;
+        max_angle_rawBuffered = max_angle.getAngle()+buffer_width;
+        min_angle_Buffered = fmod(min_angle_rawBuffered, 360);
+        max_angle_Buffered = fmod(max_angle_rawBuffered, 360);
+
+        // Make sure the minimum angle and maximum angle (when accounting for the buffer width)
+        //  leaves atleast a 30 degree gap
+        angleGap_raw = 360-abs(fmod(max_angle.getAngle(),360)-fmod(min_angle.getAngle(),360));
+        if (angleGap_raw >minAngleGap)
+        {
+            if ((0<=min_angle_rawBuffered <360) && (0<=max_angle_rawBuffered <360))
+            {
+                angleGap_buffered = 360-(max_angle_Buffered-min_angle_Buffered);
+            }
+            else
+            {
+                // Case where both angles wrapped with the buffer
+                if (!(0<=min_angle_rawBuffered <360) && !(0<=max_angle_rawBuffered <360))
+                {
+                    angleGap_buffered = 360-(min_angle_Buffered-max_angle_Buffered);
+                }
+
+                // Case that only one of the angles is wrapped with the buffer
+                else
+                {
+                    angleGap_buffered = min_angle_Buffered-max_angle_Buffered;
+                }
+            }
+
+            // If the gap after the angles are buffered is less than 30, then
+            //  make the gap 30 degrees.
+            if (angleGap_buffered<minAngleGap)
+            {
+                buffer_width = (angleGap_raw-minAngleGap)/2;
+            }
+        }
+        else
+        {
+            // The gap in the maximum angular extent is more than 30 degrees.
+            //  Therefore remove the buffer completely.
+            buffer_width = 0;
+        }
 
         // This calculates the utility and stores that value if it is less than the current utility for all obstacles --> min angle to max cost
         // Makes the first half of the "V Shaped" penalty function
