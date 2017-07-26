@@ -7,7 +7,7 @@ ServerHost = localhost
 ServerPort = 9000
 Community  = ASV
 
-MOOSTimeWarp = 1
+MOOSTimeWarp = 3
 TERM_REPORTING = true
 
 // CCOM Pier
@@ -29,8 +29,9 @@ ProcessConfig = ANTLER
   Run = pHelmIvP        @ NewConsole = false
   Run = pMarineViewer	  @ NewConsole = false
   Run = pNodeReporter	  @ NewConsole = false
-  Run = pENC_Print	@ NewConsole = false
-  Run = pENC_WPT_Check	@ NewConsole = false
+  //Run = pENC_Print	@ NewConsole = true
+  //Run = pENC_WPT_Check	@ NewConsole = false
+  Run = pTestOA	@ NewConsole = false
 
 	//Run = uXMS			@ NewConsole = true
 	//Run = uFunctionVis		@ NewConsole = false
@@ -41,6 +42,14 @@ ProcessConfig = ANTLER
 
 //------------------------------------------------
 #include plug_pENC_Print.moos
+
+//------------------------------------------
+// pTestOA config block
+ProcessConfig = pTestOA                                    
+{                                                               
+  AppTick   = 2                                                 
+  CommsTick = 2                                          
+}
 
 //------------------------------------------
 // pENC_WPT_Check config block
@@ -95,9 +104,9 @@ ProcessConfig = uProcessWatch
 
 ProcessConfig = pLogger
 {
-  AppTick   = 8
-  CommsTick = 8
-  file = Test
+  AppTick   = 10
+  CommsTick = 10
+  file = POLY
   AsyncLog = true
 
   // For variables that are published in a bundle on their first post,
@@ -108,13 +117,13 @@ ProcessConfig = pLogger
   // Store the tiff
   //log_the_image = true
 
-  LogAuxSrc = true
-  WildCardLogging = true
-  WildCardOmitPattern = *_STATUS
-  WildCardOmitPattern = DB_VARSUMMARY
-  WildCardOmitPattern = DB_RWSUMMARY
-  WildCardOmitPattern = dummy_var
-  WildCardExclusionLog = true
+  //LogAuxSrc = true
+  //WildCardLogging = true
+  //WildCardOmitPattern = *_STATUS
+  //WildCardOmitPattern = DB_VARSUMMARY
+  //WildCardOmitPattern = DB_RWSUMMARY
+  //WildCardOmitPattern = dummy_var
+  //WildCardExclusionLog = true
 	//Log = Poly_Obs @ 0
 	//Log = C @ 0
 	//Log = Landmarks
@@ -126,6 +135,10 @@ ProcessConfig = pLogger
 	//Log = VIEW_SEGLIST @ 0
 	//Log = VIEW_POINT @ 0
 	//log = Next_WPT @ 0
+	//log = NEW_POLYS @ 0
+	//log = NEW_POINTS @ 0
+	log = MIN_DIST @ 0 
+	log = NEXT_WPT @ 0 
 }
 
 //------------------------------------------
@@ -133,8 +146,8 @@ ProcessConfig = pLogger
 
 ProcessConfig = uSimMarine
 {
-  AppTick	= 10
-  CommsTick	= 10
+  AppTick	= 20
+  CommsTick	= 20
 
   //start_x       = 6600//7615
   //start_x       = 1889//-25//877//0//50//1473//1000//
@@ -143,11 +156,11 @@ ProcessConfig = uSimMarine
 
 
   // Transit from UNH Pier
-  start_x	= 20//-100//
-  start_y	= -40//210//
+  //start_x	= 20//-100//20
+  //start_y	= -40//210//-40
 
-  //start_x	= -100//
-  //start_y	= 210//
+  start_x	= -100//
+  start_y	= 210//
 
   // WPT skip
   //start_x	= 1400//1275//1170//1455//
@@ -161,9 +174,12 @@ ProcessConfig = uSimMarine
   //start_x	= -25
   //start_y	= -1110
 
+  //start_x	= -560
+  //start_y	= 890
+
   // Many Points
-  //start_x	= 180
-  //start_y	= -500
+  //start_x	= 285//180
+  //start_y	= -550//-500
 
   // Landmarks
   //start_x       = 6600
@@ -177,7 +193,7 @@ ProcessConfig = uSimMarine
   //start_x	= 8890
   //start_y	= -10860
 
-  start_heading = 90
+  start_heading = 270// 90//
   start_speed   = 0
 
   prefix        = NAV
@@ -221,8 +237,8 @@ ProcessConfig = pMarinePID
   // Yaw PID controller
   yaw_pid_kp		 = 1.2
   yaw_pid_kd		 = 0.0
-  yaw_pid_ki		 = 0.3
-  yaw_pid_integral_limit = 0.07
+  yaw_pid_ki		 = 0.5
+  yaw_pid_integral_limit = 0.1
 
   // Speed PID controller
   speed_pid_kp		 = 1.0
@@ -231,7 +247,7 @@ ProcessConfig = pMarinePID
   speed_pid_integral_limit = 0.07
 
   //MAXIMUMS
-  maxrudder    = 100
+  maxrudder    = 45
   maxthrust    = 100
 
   // A non-zero SPEED_FACTOR overrides use of SPEED_PID
@@ -247,17 +263,17 @@ ProcessConfig = pMarineViewer
   AppTick    = 6
   CommsTick  = 6
 
-  //tiff_file_b           = data/RNC.tif
+  //tiff_file           = data/new.tif
   tiff_file	       = data/portsmouth2.tif
 
   // Transit from UNH Pier
   set_pan_x            = 375
-  set_pan_y            = -475//-575//
+  set_pan_y            = -575//-475//
   zoom                 = 4.5
 
   // points obstacles
-  //set_pan_x            = 500//375
-  //set_pan_y            = -50//350
+  //set_pan_x            = 500//375//550//
+  //set_pan_y            = -50//350//-1000//
 
   // Through an Island
   //set_pan_x            = -385
@@ -307,6 +323,24 @@ ProcessConfig = pMarineViewer
   right_context[decrease_TLvl] = UPDATE_POLYS = DECREASE
   right_context[decrease_TLvl] = UPDATE_PTS = DECREASE
 
+
+// New Polygons (not in ENC)
+  left_context[Poly1] = VIEW_POLYGON = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=20, snap=1, major=8, minor=5, vertex_color=greenyellow,edge_color=greenyellow
+  left_context[Poly1] = NEW_POLYS = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=20, snap=1,major=8, minor=5
+
+  left_context[Poly2] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=gold,edge_color=gold
+  left_context[Poly2] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+
+  left_context[Poly3] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=darkorange,edge_color=darkorange
+  left_context[Poly3] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+
+  left_context[Poly4] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=30, pts=20, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
+  left_context[Poly4] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=30, pts=20, snap=1,major=20, minor=10
+
+  left_context[Poly5] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=black, edge_color=black
+  left_context[Poly5] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
+  
+
 // New Points (not in ENC)
   left_context[Point1] = VIEW_POINT = x=0,y=200,label=1!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=greenyellow
   left_context[Point1] = NEW_POINTS = x=0,y=200,1,1!$(XPOS)!$(YPOS)
@@ -323,30 +357,14 @@ ProcessConfig = pMarineViewer
   left_context[Point5] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=5!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=black
   left_context[Point5] = NEW_POINTS = x=$(XPOS),y=$(YPOS),5,5!$(XPOS)!$(YPOS)
 
-
-// New Polygons (not in ENC)
-  left_context[Poly1] = VIEW_POLYGON = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1, major=20, minor=10, vertex_color=greenyellow,edge_color=greenyellow
-  left_context[Poly1] = NEW_POLYS = x=0,y=200,label=!1!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
-
-  left_context[Poly2] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=gold,edge_color=gold
-  left_context[Poly2] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!2!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
-
-  left_context[Poly3] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=darkorange,edge_color=darkorange
-  left_context[Poly3] = NEW_POLYS = x=$(XPOS),y=$(YPOS),label=!3!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
-
-  left_context[Poly4] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
-  left_context[Poly4] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
-
-  left_context[Poly5] = VIEW_POLYGON = x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10, vertex_color=black, edge_color=black
-  left_context[Poly5] = NEW_POLYS =    x=$(XPOS),y=$(YPOS),label=!5!$(XPOS)!$(YPOS), format=ellipse, degs=90, pts=14, snap=1,major=20, minor=10
-  
-
   button_one = DEPLOY # DEPLOY=true
   button_one = MOOS_MANUAL_OVERIDE=false # RETURN=false
   button_two = RETURN # RETURN=true
-  button_three = CONTINUE # CONTINUE=true
+  button_three = CONTINUE # STATIONING=false # DEPLOY=true
+  button_four = STATION_KEEP # STATIONING=true # DEPLOY=false
+
 	
-	SCOPE= Obstacles,Current_Tide,WPT_UPDATE, Poly_Obs
+	SCOPE= Util1, Angles1, Angles//Obstacles,Current_Tide,WPT_UPDATE, Poly_Obs
 
   action  = MENU_KEY=deploy # DEPLOY = true # RETURN = false
   action+ = MENU_KEY=deploy # MOOS_MANUAL_OVERIDE=false
@@ -370,7 +388,7 @@ ProcessConfig = pNodeReporter
   CommsTick	= 2
 
   platform_type   = ship
-  platform_length = 4
+  platform_length = 1.8
   //platform_length_src = SYSTEM_LENGTH
 }
 

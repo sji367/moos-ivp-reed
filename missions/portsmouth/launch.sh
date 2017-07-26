@@ -4,7 +4,7 @@ COMMUNITY="alpha"
 #-------------------------------------------------------
 #  Part 1: Check for and handle command-line arguments
 #-------------------------------------------------------
-TIME_WARP=2
+TIME_WARP=3
 for ARGI; do
     if [ "${ARGI}" = "--help" -o "${ARGI}" = "-h" ] ; then
 	printf "%s [SWITCHES] [time_warp]   \n" $0
@@ -30,8 +30,8 @@ nsplug alpha.moos OA.moos -f
 printf "Launching the %s MOOS Community (WARP=%s) \n"  $COMMUNITY $TIME_WARP
 pAntler OA.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
 
-#sleep 0.2
-#printf "Launching Config Reader \n"
+sleep 0.2
+printf "Launching Config Reader \n"
 #python ../../src/Python/config_reader.py >& /dev/null &
 
 sleep 1
@@ -50,7 +50,7 @@ uMAC alpha.moos
 
 
 printf "Killing all processes ... \n"
-kill %1 #%2 %3 #%4 %5
+kill %1 #%2 3 #%4 %5
 #mykill
 printf "Done killing processes.   \n"
 
