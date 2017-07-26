@@ -30,6 +30,7 @@ ENC_Contact::ENC_Contact()
   m_segmentation_dist = 3;
   m_buffer_size = 5;
   m_simplifyPolys = true;
+  m_SearchDistSet = false;
 }
 
 ENC_Contact::~ENC_Contact()
@@ -62,6 +63,8 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
     name   = msg.GetName();
     if (name == "NAV_X")
         vect_x.push_back(msg.GetDouble());
+    else if (name == "ASV_Length")
+        m_ASV_length = msg.GetDouble();
     else if (name == "NAV_Y")
         vect_y.push_back(msg.GetDouble());
     else if(name == "NAV_HEADING")
@@ -243,7 +246,11 @@ bool ENC_Contact::OnStartUp()
             else if(param == "MHW_OffSET")
                 m_MHW_Offset = atof(value.c_str());
             else if(param == "SEARCH_DIST")
+            {
+                // If the search distance is set, then use the user suppplied distance. Otherwise use 10*(vessel length).
+                m_SearchDistSet = true;
                 m_search_dist = atof(value.c_str());
+            }
             else if(param == "SEGMENTATION_DIST")
                 m_segmentation_dist = atof(value.c_str());
             else if(param == "BUFFER_DIST")
@@ -308,6 +315,7 @@ void ENC_Contact::RegisterVariables()
 {
     Register("NAV_X", 0);
     Register("NAV_Y", 0);
+    Register("ASV_Length",0);
     Register("NAV_HEADING", 0);
     Register("NAV_SPEED", 0);
     Register("Current_Tide",0);
@@ -443,6 +451,7 @@ void ENC_Contact::parseNewPoly(string polyString)
         {
             cout << ring->getX(i) << ", " << ring->getY(i) <<"; ";
         }
+        cout << endl;
         newPoly.push_back(poly);
     }
 }
@@ -1323,59 +1332,53 @@ OGRPolygon* ENC_Contact::check4Union(OGRPolygon *poly, OGRLayer *PolyLayer, doub
 
 void ENC_Contact::build_search_poly()
 {
-  /*
+    /*
     This function builds the polygon which represents the area that
-    the ASV is going to search the ENC for potential threats. The shape 
-    of the search area is a square that is centered on the ASV's 
-    current X,Ylocation. It also prints the search area polygon to 
+    the ASV is going to search the ENC for potential threats. The shape
+    of the search area is a square that is centered on the ASV's
+    current X,Ylocation. It also prints the search area polygon to
     pMarnine Viewer.
-        
+
     Outputs:
-    search_area_poly - OGR Polygon that describes the area in which we 
+    search_area_poly - OGR Polygon that describes the area in which we
     want to search the input layer for objects
-  */
-  OGRLinearRing *poRing;
-  //OGRPoint *pt;
-  
-  double lon1, lon2, lon3, lon4, lat1, lat2, lat3, lat4;
-  double x1, x2, x3, x4, y1, y2, y3, y4;
-  double theta = 45+fmod(m_ASV_head,90);
-  double add_sin = m_search_dist*sqrt(2)*sin(theta*PI/180);
-  double add_cos = m_search_dist*sqrt(2)*cos(theta*PI/180);
+    */
+    OGRLinearRing *poRing;
 
-  x1 = m_ASV_x+add_sin;
-  x2 = m_ASV_x-add_cos;
-  x3 = m_ASV_x-add_sin;
-  x4 = m_ASV_x+add_cos;
-  
-  y1 = m_ASV_y+add_cos;
-  y2 = m_ASV_y+add_sin;
-  y3 = m_ASV_y-add_cos;
-  y4 = m_ASV_y-add_sin;
+    // If the search distance is not set, then set the search distance by 10*(vessel length)
+    if (!m_SearchDistSet)
+        m_search_dist = 10*m_ASV_length;
 
-  /*
-  // Convert the positions for the vertices of the polygon to lat/long
-  m_Geodesy.UTM2LatLong(x1, y1, lat1, lon1);
-  m_Geodesy.UTM2LatLong(x2, y2, lat2, lon2);
-  m_Geodesy.UTM2LatLong(x3, y3, lat3, lon3);
-  m_Geodesy.UTM2LatLong(x4, y4, lat4, lon4);
-  */
-  
-  search_area_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
-  poRing = ( OGRLinearRing * ) OGRGeometryFactory::createGeometry(wkbLinearRing);
-  poRing->addPoint(x1, y1);
-  poRing->addPoint(x2, y2);
-  poRing->addPoint(x3, y3);
-  poRing->addPoint(x4, y4);
-  poRing->closeRings();
-  search_area_poly->addRing(poRing);
-  search_area_poly->closeRings();
+    double x1, x2, x3, x4, y1, y2, y3, y4;
+    double theta = 45+fmod(m_ASV_head,90);
+    double add_sin = m_search_dist*sqrt(2)*sin(theta*PI/180);
+    double add_cos = m_search_dist*sqrt(2)*cos(theta*PI/180);
 
-  string s_poly_str = "pts={"+to_string((int)x1)+","+ to_string((int)y1)+":"+ to_string((int)x2)+","+to_string((int)y2)+":"+ to_string((int)x3)+","+to_string((int)y3)+":" +to_string((int)x4)+","+to_string((int)y4)+"}";
-  
-  s_poly_str+=",label=Search,edge_size=10,vertex_size=1,edge_color=red,active=true";
-  
-  Notify("VIEW_POLYGON", s_poly_str);
+    x1 = m_ASV_x+add_sin;
+    x2 = m_ASV_x-add_cos;
+    x3 = m_ASV_x-add_sin;
+    x4 = m_ASV_x+add_cos;
+
+    y1 = m_ASV_y+add_cos;
+    y2 = m_ASV_y+add_sin;
+    y3 = m_ASV_y-add_cos;
+    y4 = m_ASV_y-add_sin;
+
+    search_area_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
+    poRing = ( OGRLinearRing * ) OGRGeometryFactory::createGeometry(wkbLinearRing);
+    poRing->addPoint(x1, y1);
+    poRing->addPoint(x2, y2);
+    poRing->addPoint(x3, y3);
+    poRing->addPoint(x4, y4);
+    poRing->closeRings();
+    search_area_poly->addRing(poRing);
+    search_area_poly->closeRings();
+
+    string s_poly_str = "pts={"+to_string((int)x1)+","+ to_string((int)y1)+":"+ to_string((int)x2)+","+to_string((int)y2)+":"+ to_string((int)x3)+","+to_string((int)y3)+":" +to_string((int)x4)+","+to_string((int)y4)+"}";
+
+    s_poly_str+=",label=Search,edge_size=10,vertex_size=1,edge_color=red,active=true";
+
+    Notify("VIEW_POLYGON", s_poly_str);
 }
 
 void ENC_Contact::filter_feats()

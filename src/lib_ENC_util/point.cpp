@@ -44,16 +44,25 @@ void Point::setStatics(int T_Lvl, string Obs_Type)
 void Point::calcDist(double ASV_x, double ASV_y)
 {
   dist = sqrt(pow(ASV_x-x,2) +pow(ASV_y-y,2));
+  cout << "!DIST: " << dist << " X: " << x << " Y:" << y << endl;
   if (dist<1)
     dist=1;
 }
 
 void Point::calcCost(double v_length, double speed, double maxutil)
 {
-  // make sure you cannot divide by zero
-  if (speed==0)
-    cost=0;
-  else
-    cost = pow((t_lvl*v_length/(dist)),2)*maxutil;
+    // make sure you cannot divide by zero
+    if (speed==0)
+        cost=0;
+    else
+        cost = 2*pow((t_lvl*v_length/(dist)),2)*maxutil;
+        //cost = exp(dist/t_lvl)*(1/v_length);
+
+    /*
+    if (cost <2.5)
+        cost = 0;
+    else if (cost > 100)
+        cost = 100;
+        */
 }
 
