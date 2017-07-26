@@ -52,6 +52,8 @@ protected: // State variables
   string m_obstacles, m_obs_info, m_WPT;
   double m_ASV_x, m_ASV_y, m_ASV_head, m_speed, m_v_length, m_maxutil, m_Desired_head;
   int m_num_obs, m_WPT_x, m_WPT_y;
+  double m_Safety_Dist;
+  bool m_SafetyDistSet;
 
 };
 

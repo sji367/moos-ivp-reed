@@ -2,6 +2,7 @@
 
 initialize   DEPLOY = false
 initialize   RETURN = false
+initialize   STATIONING = false
 
 //----------------------------------------------
 Behavior = BHV_Waypoint
@@ -14,6 +15,8 @@ Behavior = BHV_Waypoint
 
   idleflag  = WPTING = idle
   runflag   = WPTING = running
+
+  idleflag  = STATIONING = true// = idle
   endflag   = WPTING = end
   inactiveflag = WPTING = inactive
 
@@ -30,17 +33,18 @@ Behavior = BHV_Waypoint
 
                lead = 8
         lead_damper = 1
-              speed = 5   // meters per second
+              speed = 1   // meters per second
        //capture_line = true
      capture_radius = 5.0
-        slip_radius = 15.0
+        slip_radius = 5.0
  
-             repeat = 1
+             repeat = forever
 
 	// Transit from UNH Pier
-	//points = 150,-235//100,-1000
-	points = 17.5,-42.5:32.5,-27.5:37.5,-17.5:47.5,-7.5:52.5,2.5:57.5,7.5:62.5,17.5:62.5,37.5:57.5,42.5:52.5,52.5:32.5,72.5:17.5,77.5:-7.5,82.5:-17.5,82.5
-	//points = -17.5,82.5//-100,200:100,200:100,210:-100,210//
+	//points = 125,-235//100,-1000
+	//points = 17.5,-42.5: 32.5,-27.5: 37.5,-17.5: 57.5,2.5: 67.5,17.5: 67.5,22.5: 62.5,37.5: 57.5,42.5: 52.5,52.5: 32.5,72.5: 17.5,77.5: -7.5,82.5: -17.5,82.5 
+//17.5,-42.5:32.5,-27.5:37.5,-17.5:47.5,-7.5:52.5,2.5:57.5,7.5:62.5,17.5:62.5,37.5:57.5,42.5:52.5,52.5:32.5,72.5:17.5,77.5:-7.5,82.5:-17.5,82.5
+	points = -100,200:100,200:100,210:-100,210//-17.5,82.5//
 
 	// Many Point Obstacles
 	//points = format=lawnmower, x=100, y=-1160, height=60, width=200, lane_width=20, edge_size=10
@@ -82,6 +86,17 @@ Behavior = BHV_Waypoint
     visual_hints = vertex_size=1, edge_size=5
 	
 }
+//----------------------------------------------
+Behavior = BHV_StationKeep
+ {
+   name         = station-keep
+   pwt          = 100
+   condition    = STATIONING = true
+  condition     = DEPLOY = false
+   endflag      = STATIONING = false
+
+   center_activate = true
+}
 
 //----------------------------------------------
 Behavior=BHV_Waypoint
@@ -104,20 +119,21 @@ repeat = 10
 }
 
 //----------------------------------------------
-Behavior=BHV_OA_pnt
-{
-  name       = pnt_OA
-  updates = POINT_UPDATE
-  ASV_Length = 1.8
-  pwt        = 100
-}
-
-//----------------------------------------------
-Behavior=BHV_OA_poly
+//Behavior=BHV_OA_pnt
 //{
-//  name       = poly_OA
-//  updates = POLY_UPDATE
+//  name       = pnt_OA
+//  updates = POINT_UPDATE
 //  ASV_Length = 1.8
 //  pwt        = 100
 //}
+
+//----------------------------------------------
+Behavior=BHV_OA_poly
+{
+  name       = poly_OA
+  updates = POLY_UPDATE
+  ASV_Length = 1.8
+  Saftey_Distance = 5
+  pwt        = 100
+}
 

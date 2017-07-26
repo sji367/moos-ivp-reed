@@ -71,31 +71,58 @@ void Poly::setStatics(int Ref_Frame, int T_Lvl, string Obs_Type)
 //	***Use Right for max angle and Left for min angle***
 void Poly::setMB_Right_pnt(double center_pnt_cost, double center_pnt_angle)
 {
-  if (center_pnt_angle != ang)
+    double temp_cost = cost;
+
+    // Bound the cost
+    if (cost>100)
+        temp_cost =100;
+    else if (cost<0)
+        temp_cost = 0;
+
+    if (center_pnt_cost>100)
+        center_pnt_cost =100;
+    else if (center_pnt_cost<0)
+        center_pnt_cost = 0;
+
+
+    if (center_pnt_angle != ang)
     {
-      m = (center_pnt_cost - cost)/(center_pnt_angle - ang);
-      b = (center_pnt_cost) - (m*center_pnt_angle);
+        m = (center_pnt_cost - temp_cost)/(center_pnt_angle - ang);
+        b = (center_pnt_cost) - (m*center_pnt_angle);
     }
-  else
+    else
     {
-      // If the slope is infinite, make m and b 999
-      m = 999;
-      b = 999;
+        // If the slope is infinite, make m and b 999
+        m = 999;
+        b = 999;
     }
 }
 
 void Poly::setMB_Left_pnt(double center_pnt_cost, double center_pnt_angle)
 {
-  if (center_pnt_angle != ang)
+    double temp_cost = cost;
+
+    // Bound the cost
+    if (cost>100)
+        temp_cost =100;
+    else if (cost<0)
+        temp_cost = 0;
+
+    if (center_pnt_cost>100)
+        center_pnt_cost =100;
+    else if (center_pnt_cost<0)
+        center_pnt_cost = 0;
+
+    if (center_pnt_angle != ang)
     {
-      m = (cost - center_pnt_cost)/(ang- center_pnt_angle);
-      b = (cost) - (m*ang);
+        m = (temp_cost - center_pnt_cost)/(ang- center_pnt_angle);
+        b = (temp_cost) - (m*ang);
     }
-  else
+    else
     {
-      // If the slope is infinite, make m and b 999
-      m = 999;
-      b = 999;
+        // If the slope is infinite, make m and b 999
+        m = 999;
+        b = 999;
     }
 }
 

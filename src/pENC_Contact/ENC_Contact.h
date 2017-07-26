@@ -106,7 +106,7 @@ class ENC_Contact : public CMOOSApp
         bool m_first_run;
         string m_ENC;
 
-        bool m_simplifyPolys;
+        bool m_simplifyPolys, m_SearchDistSet;
 
         // Adding points/polygons to avoid
         vector<int> pointTLvl, polyTLvl, vect_TLvl;

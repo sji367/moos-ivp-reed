@@ -1,8 +1,8 @@
 // pENC_Print config block
 ProcessConfig = pENC_Print                                    
 {                                                               
-  AppTick   = 4                                                 
-  CommsTick = 4
+  AppTick   = 1                                                 
+  CommsTick = 1
 
   ASV_Draft = 0.3
 
@@ -12,7 +12,11 @@ ProcessConfig = pENC_Print
   N_lat = 43.073667
   W_long = -70.71541
   E_long = -70.704423
-  S_lat = 43.070264     
+  S_lat = 43.070264  
+
+//S_lat = 43.054
+//W_long = -70.73   
+//E_long = -70.68
 
   // Isle of Shoals
   //unit = UTM

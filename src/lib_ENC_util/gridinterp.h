@@ -103,7 +103,7 @@ private:
     vector <vector<int> > Map, t_map;
     double minX, minY, maxX, maxY;
     double grid_size;
-    double MHW_Offset;
+    double MHW_Offset, landZ;
     double buffer_size;
     GDALDataset *ds_poly, *ds_pnt, *ds_depth, *ds_outline;
     OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;

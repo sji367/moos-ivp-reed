@@ -40,11 +40,13 @@ BHV_OA_poly::BHV_OA_poly(IvPDomain gdomain) :
   // Add any variables this behavior needs to subscribe for
   //   Next_WPT --> Published by the Waypoint BHV
   //   Poly_Obs --> Published by ENC_Search
-  addInfoVars("Next_WPT, Poly_Obs, NAV_SPEED, NAV_X, NAV_Y, NAV_HEADING, ASV_length, DESIRED_HEADING");
+  addInfoVars("Next_WPT, Poly_Obs, NAV_SPEED, NAV_X, NAV_Y, NAV_HEADING, DESIRED_HEADING");
 
   m_maxutil = 100;
   m_v_length = 4;
   m_Desired_head = 0;
+  m_Safety_Dist = 2.5;
+  m_SafetyDistSet = false;
 }
 
 //---------------------------------------------------------------
@@ -52,19 +54,28 @@ BHV_OA_poly::BHV_OA_poly(IvPDomain gdomain) :
 
 bool BHV_OA_poly::setParam(string param, string val)
 {
-  // Convert the parameter to lower case for more general matching
-  param = tolower(param);
+    // Convert the parameter to lower case for more general matching
+    param = tolower(param);
 
-  // Get the numerical value of the param argument for convenience once
-  double double_val = atof(val.c_str());
+    // Get the numerical value of the param argument for convenience once
+    double double_val = atof(val.c_str());
 
-  // ASV Length
-  if((param == "vehicle_size") || (param == "vehicle_length" ) || (param == "asv_length" ) && (isNumber(val))) {
-    m_v_length = double_val;
-    return(true);
-  }
-  // If not handled above, then just return false;
-  return(false);
+    // ASV Length
+    if((param == "vehicle_size") || (param == "vehicle_length" ) || (param == "asv_length" ) && (isNumber(val)))
+    {
+        m_v_length = double_val;
+        postMessage("ASV_Length", double_val);
+        return(true);
+    }
+    else if (param == "saftey_distance")
+    {
+        // If this is not set, then it will default to 3*(Vessel Length)
+        m_SafetyDistSet = true;
+        m_Safety_Dist = double_val;
+        return true;
+    }
+    // If not handled above, then just return false;
+    return(false);
 }
 
 //---------------------------------------------------------------
@@ -77,7 +88,7 @@ IvPFunction* BHV_OA_poly::onRunState()
   IvPFunction *ipf = 0;
 
   // Part 2a: Get information from the InfoBuffer
-  bool ok1, ok2, ok3, ok4, ok5, ok6, ok7;
+  bool ok1, ok2, ok3, ok4, ok5, ok6, ok7, ok8;
   m_obstacles = getBufferStringVal("Poly_Obs", ok1);
   m_WPT = getBufferStringVal("Next_WPT", ok2);
   m_speed = getBufferDoubleVal("NAV_SPEED", ok3);
@@ -228,6 +239,7 @@ void BHV_OA_poly::getVertices(int i,string info, Poly& min_angle, Poly& min_dist
   min_angle.setXY(strtod(poly_ang_info[2].c_str(), NULL),strtod(poly_ang_info[3].c_str(), NULL));
   min_dist.setXY(strtod(poly_ang_info[4].c_str(), NULL),strtod(poly_ang_info[5].c_str(), NULL));
   max_angle.setXY(strtod(poly_ang_info[6].c_str(), NULL),strtod(poly_ang_info[7].c_str(), NULL));
+  postMessage("MAX_ANGLE", to_string(max_angle.getX())+","+ to_string(max_angle.getY()));
 
   // Set the reference frame, threat level and the obstacle type
   min_angle.setStatics(0, stoi(poly_gen_info[0]), poly_gen_info[1]);
@@ -245,7 +257,7 @@ void BHV_OA_poly::getVertices(int i,string info, Poly& min_angle, Poly& min_dist
   // Calculate and set the cost and distance of the the critical points "V"
   min_angle.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
   min_dist.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
-  min_dist.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
+  max_angle.calcLocation(m_ASV_x, m_ASV_y, m_v_length, m_speed, m_maxutil);
 
   // Calculate and set the slope and y-intercept of the the critical points "V"
   min_angle.setMB_Left_pnt(min_dist.getCost(), min_dist.getAngle());
@@ -267,13 +279,15 @@ double BHV_OA_poly::calcBuffer(double cost)
 
   // If the maximum cost is greater than 100, increase the size of the
   //  safety buffer
-  if (cost > 70)
+  if (cost > 100)
     {
-      temp_buff = floor(pow(2*cost/m_maxutil,3));
-      if (temp_buff >100)
-	temp_buff =100;
+      temp_buff = floor(4*cost/m_maxutil);
+      if (temp_buff >60)
+        temp_buff =60;
       buffer_width += temp_buff;
     }
+
+   postMessage("Buffer_Width", buffer_width);
 
   return buffer_width;
 }
@@ -283,13 +297,19 @@ void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly 
     int buff_high, buff_low;
     double calculated_cost, actual_cost;
 
-    int safety = 90;
+    double min_angle_rawBuffered, min_angle_Buffered, max_angle_rawBuffered, max_angle_Buffered;
+    double minAngleGap = 30;
+    double angleGap_buffered, angleGap_raw;
+
+    int safety_buff = 90;
     int cur_ang = 0;
     int t_lvl = min_dist.getTLvL();
 
     double utility = 0;
-
-    postMessage("Angles1",to_string(min_angle.getAngle())+", "+to_string(min_dist.getAngle())+", "+to_string(max_angle.getAngle()));
+    postMessage("Angles",to_string(min_angle.getAngle())+","+to_string(min_dist.getAngle())+","+to_string(max_angle.getAngle()));
+    postMessage("Angles1",to_string(min_angle.getAngle()-buffer_width)+", "+to_string(min_dist.getAngle())+", "+to_string(max_angle.getAngle()+buffer_width));
+    postMessage("Util1",to_string(min_angle.getCost())+","+to_string(min_dist.getCost())+","+to_string(max_angle.getCost()));
+    postMessage("DIST1", to_string(min_angle.getDist())+", "+to_string(min_dist.getDist())+", "+to_string(max_angle.getDist()));
 
     // If the ASV is inside of the obstacle, then try to leave it A.S.A.P.
     if (inside)
@@ -330,7 +350,9 @@ void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly 
     {
         // If you are close to the obstacle place a safety buffer of atleast +/- 90 degrees around the closest point
         //    only if the ASV is not inside another polygon
-        double safety_distance = 7.5+.5*t_lvl;
+        if (!m_SafetyDistSet)
+            m_Safety_Dist = 3*m_v_length;
+        double safety_distance = m_Safety_Dist+.5*t_lvl;
         postMessage("DIST", min_dist.getDist());
         if (min_dist.getDist() <= (safety_distance))
         {
@@ -340,13 +362,15 @@ void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly 
             //  that is being avoided
             gaussianAroundDesHead(OA_util, m_maxutil);
 
+            /*
             // Increase the NoGo region as the ASV gets closer to the obstacle
             if (min_dist.getDist()<safety_distance/2)
             {
                 safety += (safety_distance/2-min_dist.getDist())*10;
                 postMessage("SAFETY", (safety_distance/2-min_dist.getDist())*10);
             }
-            for (int i = 0; i<safety; i++)
+            */
+            for (int i = 0; i<safety_buff; i++)
             {
                 // Update the current buffer angles (Domain = [-360,360])
                 buff_low = (int)floor(fmod(min_dist.getAngle()-i,360));
@@ -365,6 +389,49 @@ void BHV_OA_poly::calcVShape(double buffer_width, vector<double> &OA_util, Poly 
                     OA_util[buff_high] = utility;
             }
         }
+        min_angle_rawBuffered = min_angle.getAngle()-buffer_width;
+        max_angle_rawBuffered = max_angle.getAngle()+buffer_width;
+        min_angle_Buffered = fmod(min_angle_rawBuffered, 360);
+        max_angle_Buffered = fmod(max_angle_rawBuffered, 360);
+
+        // Make sure the minimum angle and maximum angle (when accounting for the buffer width)
+        //  leaves atleast a 30 degree gap
+        angleGap_raw = 360-abs(fmod(max_angle.getAngle(),360)-fmod(min_angle.getAngle(),360));
+        if (angleGap_raw >minAngleGap)
+        {
+            if ((0<=min_angle_rawBuffered <360) && (0<=max_angle_rawBuffered <360))
+            {
+                angleGap_buffered = 360-(max_angle_Buffered-min_angle_Buffered);
+            }
+            else
+            {
+                // Case where both angles wrapped with the buffer
+                if (!(0<=min_angle_rawBuffered <360) && !(0<=max_angle_rawBuffered <360))
+                {
+                    angleGap_buffered = 360-(min_angle_Buffered-max_angle_Buffered);
+                }
+
+                // Case that only one of the angles is wrapped with the buffer
+                else
+                {
+                    angleGap_buffered = min_angle_Buffered-max_angle_Buffered;
+                }
+            }
+
+            // If the gap after the angles are buffered is less than 30, then
+            //  make the gap 30 degrees.
+            if (angleGap_buffered<minAngleGap)
+            {
+                buffer_width = (angleGap_raw-minAngleGap)/2;
+            }
+        }
+        else
+        {
+            // The gap in the maximum angular extent is more than 30 degrees.
+            //  Therefore remove the buffer completely.
+            buffer_width = 0;
+        }
+
         // This calculates the utility and stores that value if it is less than the current utility for all obstacles --> min angle to max cost
         // Makes the first half of the "V Shaped" penalty function
         for (double x1 = min_angle.getAngle()-buffer_width; x1<=min_dist.getAngle(); x1++)
@@ -510,7 +577,7 @@ void BHV_OA_poly::Update_Lead_Param(vector<double> vect_max_cost)
 //  that is being avoided
 void BHV_OA_poly::gaussianAroundDesHead(vector<double> &OA_util, double amplitude)
 {
-    double sigma = 153; // Puts the point 180 degrees from the previous heading at approximately 50 degrees
+    double sigma = 153; // Puts the point 180 degrees from the previous heading at approximately half of the amplitude
     double gauss_util;
     int cur_ang;
     for (int i=0; i<OA_util.size(); i++)
