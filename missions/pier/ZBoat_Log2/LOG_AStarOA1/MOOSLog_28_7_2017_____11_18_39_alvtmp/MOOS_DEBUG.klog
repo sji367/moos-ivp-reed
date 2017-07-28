@@ -1,0 +1,16 @@
+1.044           MOOS_DEBUG           pMarinePID      ** NEW CONTROLLER GAINS ARE ** 
+1.044           MOOS_DEBUG           pMarinePID      YAW_PID_KP             = 1.000 
+1.044           MOOS_DEBUG           pMarinePID      YAW_PID_KD             = 0.000 
+1.044           MOOS_DEBUG           pMarinePID      YAW_PID_KI             = 0.500 
+1.044           MOOS_DEBUG           pMarinePID      YAW_PID_INTEGRAL_LIMIT = 0.100 
+1.044           MOOS_DEBUG           pMarinePID      MAXRUDDER              = 45.000 
+1.050           MOOS_DEBUG           pMarinePID      SPEED_PID_KP           = 0.700 
+1.050           MOOS_DEBUG           pMarinePID      SPEED_PID_KD           = 0.000 
+1.050           MOOS_DEBUG           pMarinePID      SPEED_PID_KI           = 0.000 
+1.050           MOOS_DEBUG           pMarinePID      SPEED_PID_INTEGRAL_LIMIT = 0.070 
+1.051           MOOS_DEBUG           pMarinePID      MAXTHRUST              = 50.000 
+1.635           MOOS_DEBUG           pHelmIvP        pHelmIvP AllStop: ManualOverride 
+6.179           MOOS_DEBUG           iGPS_MB1        GPS Failed NMEA check sum ºbj±5.8,0138*7F 
+58.491          MOOS_DEBUG           pMarinePID      pMarinePID Control Is On 
+58.491          MOOS_DEBUG           pMarinePID      Paused Due To Tardy HELM Input: THRUST=0 
+58.535          MOOS_DEBUG           pHelmIvP        pHelmIvP AllStop: clear 

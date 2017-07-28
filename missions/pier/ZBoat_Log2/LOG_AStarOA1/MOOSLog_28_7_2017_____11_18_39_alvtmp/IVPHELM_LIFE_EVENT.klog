@@ -1,0 +1,5 @@
+58.534          IVPHELM_LIFE_EVENT   pHelmIvP        time=57.06, iter=1, bname=waypt_A_star, btype=BHV_Waypoint, event=spawn, seed=helm_startup 
+58.534          IVPHELM_LIFE_EVENT   pHelmIvP        time=57.06, iter=1, bname=waypt_simple, btype=BHV_Waypoint, event=spawn, seed=helm_startup 
+58.534          IVPHELM_LIFE_EVENT   pHelmIvP        time=57.06, iter=1, bname=station-keep, btype=BHV_StationKeep, event=spawn, seed=helm_startup 
+58.535          IVPHELM_LIFE_EVENT   pHelmIvP        time=57.06, iter=1, bname=pnt_OA, btype=BHV_OA_pnt, event=spawn, seed=helm_startup 
+58.535          IVPHELM_LIFE_EVENT   pHelmIvP        time=57.06, iter=1, bname=poly_OA, btype=BHV_OA_poly, event=spawn, seed=helm_startup 

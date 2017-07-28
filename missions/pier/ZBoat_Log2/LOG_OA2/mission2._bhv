@@ -1,0 +1,96 @@
+//--------    FILE: mission2.bhv   -------------
+
+initialize   DEPLOY = false
+initialize   RETURN = false
+initialize   STATIONING = false
+initialize   simple = false//true
+initialize   ASTAR = true//false
+
+
+Behavior = BHV_Waypoint
+{
+  name      = waypt_A_star
+  pwt       = 100
+  condition = RETURN = false
+  condition = DEPLOY = true
+  condition = ASTAR = true
+  endflag   = STATIONING = true
+  endflag   = DEPLOY = false
+  idleflag  = STATIONING = true// = idle
+  runflag   = WPTING = running
+  endflag   = WPTING = end
+  //inactiveflag = STATIONING = true
+  UPDATES   = WPT_UPDATE
+  perpetual = true
+  lead = 8
+  lead_damper = 1
+  speed =1.0
+  capture_radius = 5.0
+  slip_radius = 15.0
+  repeat = 1
+  points = -17.5,82.5//:32.5,-27.5
+//points =37.5,-17.5:47.5,-7.5:52.5,2.5:57.5,7.5:62.5,17.5:62.5,37.5:57.5,42.5:52.5,52.5:32.5,72.5:17.5,77.5:-7.5,82.5:-17.5,82.5
+// 17.5,-42.5:32.5,-27.5:
+  //points = pts={-1.5,-28.5:-11.5,51.5}
+  //points = pts={-1.5,-28.5: 38.5,-3.5: 63.5,6.5: 68.5,46.5: 28.5,61.5: -11.5,51.5}
+  //points = pts={-1.5,-28.5: 38.5,-3.5: 63.5,6.5: 68.5,46.5: 28.5,61.5: -11.5,51.5: -27, 57: 28.5,61.5:68.5,46.5: 63.5,6.5 :38.5,-3.5 :-1.5,-28.5}
+}
+
+//----------------------------------------------
+Behavior = BHV_Waypoint
+{
+  name      = waypt_simple
+  pwt       = 100
+  condition = RETURN = false
+  condition = DEPLOY = true
+  condition = simple = true
+  endflag   = STATIONING = true
+  endflag   = DEPLOY = false
+  idleflag  = STATIONING = true
+  UPDATES   = WPT_UPDATE
+  perpetual = true
+  lead = 8
+  lead_damper = 1
+  speed =2.057776
+  capture_radius = 5.0
+  slip_radius = 15.0
+  repeat = forever
+  //polygon = format=radial, x=14, y=-25, radius=10, pts=6//pts={-1.5,-28.5: 20,-10: 13,-30: 0,-20}
+  points = pts={-10,-30: 33,-13: 40,-22: 5,-35}
+}
+
+//----------------------------------------------
+Behavior = BHV_StationKeep
+ {
+   name         = station-keep
+   pwt          = 100
+   condition    = STATIONING = true
+  condition     = DEPLOY = false
+   endflag      = STATIONING = false
+
+   center_activate = true
+}
+
+//----------------------------------------------
+Behavior=BHV_OA_pnt
+{
+  name       = pnt_OA
+  updates = POINT_UPDATE
+  ASV_Length = 1.8
+  pwt        = 100
+}
+
+//----------------------------------------------
+Behavior=BHV_OA_poly
+{
+  name       = poly_OA
+  updates = POLY_UPDATE
+  ASV_Length = 1.8
+  pwt        = 100
+}
+
+
+
+
+
+
