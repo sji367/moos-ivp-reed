@@ -32,12 +32,16 @@ sleep 0.2
 printf "Launching Config Reader \n"
 python ../../src/Python/config_reader.py >& /dev/null &
 
+sleep 0.5
+printf "Launching Config Reader \n"
+python ../../src/Python/Plot_IvP.py >& /dev/null &
+
 sleep 0.2
 printf "Launching SFoV \n"
 #python ../../src/Python/ENC_SFoV.py >& /dev/null &
 
 printf "Killing all processes ... \n"
-kill %1 %2 #%3
+kill %1 %2 %3
 mykill
 ./../../scripts/turn_off_zboat.py
 printf "Done killing processes.   \n"

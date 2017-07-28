@@ -83,6 +83,7 @@ ProcessConfig = uFldNodeBroker
   CommsTick = 8
 
   TRY_SHORE_HOST = pshare_route=192.168.1.206:9300
+  BRIDGE = src=BHV_IPF
   BRIDGE = src=NAV_X, alias=NAV_X
   BRIDGE = src=NAV_Y, alias=NAV_Y
   //BRIDGE = src=NAV_SPEED, alias=NAV_SPEED 
@@ -118,8 +119,8 @@ ProcessConfig = pShare
 
 ProcessConfig = pNodeReporter
 {
-  AppTick    = 2
-  CommsTick  = 2
+  AppTick    = 4
+  CommsTick  = 4
 
   platform_type   = SHIP
   platform_length = 4
@@ -177,7 +178,7 @@ ProcessConfig = iGPS_MB1 // DO NOT CHANGE TO iGPS, KEEP AS iGPS_MB1
   AppTick    = 40
   CommsTick  = 40
 
-  PORT = /dev/ttyUSB1
+  PORT = /dev/ttyUSB0
    BAUDRATE = 19200
    HANDSHAKING = FALSE
    STREAMING = FALSE
@@ -205,11 +206,11 @@ ProcessConfig = iOS5000
 // iZBoat (pwm output)
 ProcessConfig = iZBoat
 {
-  AppTick   = 5
-  CommsTick = 5
+  AppTick   = 8
+  CommsTick = 8
 
   // Serial port configuration
-  PORT = /dev/ttyUSB0
+  PORT = /dev/ttyUSB1
   BAUDRATE = 115200
   HANDSHAKING = FALSE
   STREAMING = FALSE
@@ -243,8 +244,8 @@ ProcessConfig = pEchoVar
 
 ProcessConfig = pHelmIvP
 {
-  AppTick    = 2
-  CommsTick  = 2
+  AppTick    = 6
+  CommsTick  = 6
 
   term_report_interval=0
 
@@ -271,10 +272,10 @@ ProcessConfig = pMarinePID
   // SIM_INSTABILITY = 20
 
   // Yaw PID controller
-  yaw_pid_kp         = 1.1
+  yaw_pid_kp         = 1.0
   yaw_pid_kd         = 0.0
-  yaw_pid_ki         = 0.3
-  yaw_pid_integral_limit = 0.07
+  yaw_pid_ki         = 0.5
+  yaw_pid_integral_limit = 0.1
 
   // Speed PID controller
   speed_pid_kp       = 0.7

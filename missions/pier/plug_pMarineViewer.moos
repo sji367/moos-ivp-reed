@@ -40,6 +40,14 @@ ProcessConfig = pMarineViewer
   right_context[decrease_TLvl] = UPDATE_POLYS = DECREASE
   right_context[decrease_TLvl] = UPDATE_PTS = DECREASE
 
+  left_context[Boats] = VIEW_POLYGON = x=41,y=11,label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=20, pts=20, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
+  left_context[Boats] = VIEW_POLYGON = x=22.5,y=3,label=!4!$(XPOS)1!$(YPOS)1, format=ellipse, degs=20, pts=20, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
+  left_context[Boats] = VIEW_POLYGON = x=4,y=-5,label=!4!$(XPOS)2!$(YPOS)2, format=ellipse, degs=22, pts=20, snap=1,major=20, minor=10, vertex_color=red,edge_color=red
+
+  left_context[Boats] = NEW_POLYS = x=41,y=11,label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=20, pts=20, snap=1,major=20, minor=10
+  left_context[Boats] = NEW_POLYS = x=22.5,y=3,label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=20, pts=20, snap=1,major=20, minor=10
+  left_context[Boats] = NEW_POLYS = x=4,y=-5,label=!4!$(XPOS)!$(YPOS), format=ellipse, degs=22, pts=20, snap=1,major=20, minor=10
+
 // New Points (not in ENC)
   left_context[Point1] = VIEW_POINT = x=$(XPOS),y=$(YPOS),label=1!$(XPOS)!$(YPOS),vertex_size=8, vertex_color=greenyellow
   left_context[Point1] = NEW_POINTS = x=$(XPOS),y=$(YPOS),1,1!$(XPOS)!$(YPOS)

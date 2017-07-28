@@ -6,10 +6,10 @@ ProcessConfig = pENC_Contact
    CommsTick = 10
 
    ENCs = US5NH02M
-   ASV_Length = 4
+   ASV_Length = 1.8
    ASV_Width = 1
    ASV_Draft = 0.3
 
-   search_dist = 62.5 // In either direction
+   //search_dist = 62.5 // In either direction
    MIN_DEPTH = 1
 }
