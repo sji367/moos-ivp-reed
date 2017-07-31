@@ -1,0 +1,21 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LOG FILE:       ./MOOSLog_30_7_2017_____14_25_02/MOOSLog_30_7_2017_____14_25_02.ylog
+%% FILE OPENED ON  Wed Dec 31 19:00:00 1969
+%% LOGSTART                1501439101.4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+0.867655   MOOS_DEBUG           pMarinePID           ** NEW CONTROLLER GAINS ARE ** 
+0.8676879  MOOS_DEBUG           pMarinePID           YAW_PID_KP             = 1.000 
+0.8676949  MOOS_DEBUG           pMarinePID           YAW_PID_KD             = 0.000 
+0.867703   MOOS_DEBUG           pMarinePID           YAW_PID_KI             = 0.600 
+0.8677099  MOOS_DEBUG           pMarinePID           YAW_PID_INTEGRAL_LIMIT = 0.120 
+0.8677399  MOOS_DEBUG           pMarinePID           MAXRUDDER              = 45.000 
+0.874207   MOOS_DEBUG           pMarinePID           SPEED_PID_KP           = 0.700 
+0.8742239  MOOS_DEBUG           pMarinePID           SPEED_PID_KD           = 0.000 
+0.8742299  MOOS_DEBUG           pMarinePID           SPEED_PID_KI           = 0.000 
+0.874238   MOOS_DEBUG           pMarinePID           SPEED_PID_INTEGRAL_LIMIT = 0.070 
+0.8742468  MOOS_DEBUG           pMarinePID           MAXTHRUST              = 50.000 
+1.21216    MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: ManualOverride 
+22.87014   MOOS_DEBUG           iGPS_MB1             GPS Failed NMEA check sum rš¢bZ±D*0A 
+44.01085   MOOS_DEBUG           pMarinePID           pMarinePID Control Is On 
+44.0109    MOOS_DEBUG           pMarinePID           Paused Due To Tardy HELM Input: THRUST=0 
+44.01838   MOOS_DEBUG           pHelmIvP             pHelmIvP AllStop: clear 
