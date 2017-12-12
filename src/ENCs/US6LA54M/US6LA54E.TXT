@@ -1,0 +1,1 @@
+Vessel Traffic Services calling-in point, arrow indicates direction of vessel movement. Mandatory calling-in points are identified alphabetically. For additional information see U.S. Coast Pilot 5 and U.S. Notice to Mariners.

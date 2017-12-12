@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libASTAR.a  CMakeFiles/ASTAR.dir/ENC_Rasterize.cpp.o CMakeFiles/ASTAR.dir/gridinterp.cpp.o CMakeFiles/ASTAR.dir/ENC_Polygonize.cpp.o CMakeFiles/ASTAR.dir/astar.cpp.o
+/usr/bin/ranlib ../../../lib/libASTAR.a

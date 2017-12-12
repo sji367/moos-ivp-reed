@@ -1,0 +1,201 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov  2 09:40:06 2016
+
+@author: Sam
+"""
+
+from sys import argv
+from datetime import datetime as dt
+from pytides.tide import Tide
+import pytides.constituent as cons
+import numpy as np
+#import os
+
+from parse_txt import parse_file
+
+import pymoos
+
+# Used for delays
+import time
+
+#-----------------------------------------------------------------------------#
+#-----------------------------------------------------------------------------#
+class MOOS_comms(object):
+    """ This class id for MOOS communications. It has 2 parts:
+          1. Initialize comms
+              a. Set the Timewarp
+              b. Connect to the server
+          2. Get new values.
+    """
+    
+    def __init__(self):
+        # Open a communication link to MOOS
+        self.comms = pymoos.comms()
+        self.tide_station_ID = 'Fort_Point'
+
+    def Register_Vars(self):
+        """ Register for the ID for the Tide Station.
+        """
+        self.comms.register('Tide_station_ID', 0)
+        return True
+        
+    def Set_time_warp(self, timewarp):
+        if timewarp>1:
+            # Time Warp and Scaling factor constant
+            time_warp = timewarp
+            scaling_factor = 0.04*time_warp    
+            
+            # Set the timewarp and scale factor
+            pymoos.set_moos_timewarp(time_warp)
+            self.comms.set_comms_control_timewarp_scale_factor(scaling_factor)
+        
+    def Initialize(self):
+        """ This function registers for the current X,Y, and heading and then
+            connects to the server.
+        """
+        # Set timewarp        
+        self.Set_time_warp(1)
+        
+        # Register for desired variables
+        self.comms.set_on_connect_callback(self.Register_Vars)
+        
+        # Connect to the server
+        self.comms.run('localhost',9000,'Tides')
+        
+    def Get_mail(self):
+        """ Get the new value for the name of the tide station """
+        # Fetch the name of the tide station
+        info = self.comms.fetch()
+        
+        # Store the tide station's name
+        for x in info:
+            if x.is_string():
+                if x.name()=='Tide_station_ID':
+                    self.tide_station_ID = x.string()
+    
+class tide_prediction(object):
+    """ This publishes a tidal prediction based off of NOAA's tidal harmonic 
+    """
+    def __init__(self, publish_rate=.1):
+        # Rate of the tidal prediction (Hz)
+        self.publish_rate = publish_rate
+        
+        # Open a communication link to MOOS
+        MOOS = self.init_MOOS()
+        
+        # Get the name of the tide station
+        MOOS.Get_mail()
+        
+        # Determine which station was inputed - to make easier, we are converting 
+        #   all inputs to a lowercase string
+        ts = str(MOOS.tide_station_ID).lower()
+        if (ts == 'fort_point' or ts == 'fort point' or ts == '8423898'):
+            self.tide_station = 'Fort_Point'
+        elif (ts == 'wells' or ts == 'wells, me' or ts == '8419317'):
+            self.tide_station = 'Wells'
+        elif (ts == 'boston' or ts == 'boston, ma' or ts == '8443970'):
+            self.tide_station = 'Boston'
+        elif (ts == 'plum_island' or ts ==  'plum island' or ts == 'plum island, ma' or ts == '8440452'):
+            self.tide_station = 'Plum_Island'
+        elif (ts == 'dover' or ts == 'dover, nh' or ts == '8420411'):
+            self.tide_station = 'Dover'
+        elif (ts == 'seavey_island' or ts ==  'seavey island' or ts == 'seavey island, me' or ts == '8419870'):
+            self.tide_station = 'Plum_Island'
+        else:
+            print 'ERROR: Invalid Tide Station. Create a new file for {}.'.format(MOOS.tide_station_ID)
+            print 'Will use Default Tide Station (Fort Point)'
+            self.tide_station = 'Fort_Point'
+            
+    def init_MOOS(self):
+        """ Initializes the communication link to MOOS. 
+        
+        Ouputs:
+            self.comms - Communication link to MOOS
+            MOOS - Object to access the MOOSDB
+        """
+        MOOS = MOOS_comms()
+        MOOS.Initialize()
+        # Need this time to connect to MOOS
+        time.sleep(.25)
+        
+        self.comms = MOOS.comms
+        
+        return MOOS
+        
+    def get_model(self):
+        """ This function gives a model of the predicted tides. To get tides at  
+            a specific time, use the command:
+                tide.at([datetime(year,month,day,hour,minute)])
+            
+        Output:
+            self.tide - Model of the tides using NOAA's Harmonic Constituents 
+        """     
+        station_filename = '../../src/Tides/{}/{}.txt'.format(self.tide_station, self.tide_station)
+        
+        station_info = parse_file(station_filename)
+    
+        # These are the NOAA constituents, in the order presented on their website.
+        constituents = [c for c in cons.noaa if c != cons._Z0]
+        
+        # Phases and amplitudes (relative to GMT and in degrees and meters)
+        published_amplitudes = station_info[0][1]
+        published_phases = station_info[1][1]
+        
+        # We can add a constant offset (e.g. for a different datum, we will use
+        #   relative to MLLW):
+        MHW = station_info[3][1]
+#       MTL = station_info[4][1]
+        MSL = station_info[5][1]
+        MLLW = station_info[6][1]
+        offset = MSL - MLLW
+        constituents.append(cons._Z0)
+        published_phases.append(0)
+        published_amplitudes.append(offset)
+        
+        print str(MHW-MLLW)
+        self.comms.notify('MHW_Offset', str(MHW-MLLW))
+        
+        # Build the model.
+        assert(len(constituents) == len(published_phases) == len(published_amplitudes))
+        model = np.zeros(len(constituents), dtype = Tide.dtype)
+        model['constituent'] = constituents
+        model['amplitude'] = published_amplitudes
+        model['phase'] = published_phases
+        
+        self.tide = Tide(model = model, radians = False)
+
+    def get_curr_tide(self):
+        """ This function returns the current tide in relation to MLLW and 
+            publishes to the MOOSDB.
+        
+        Output:
+            current_tide - Current tide compared to MLLW
+        """
+        current_time = dt.now()
+        current_tide = self.tide.at([current_time])
+        self.comms.notify('Current_Tide', str(current_tide[0]))
+        return current_tide[0]
+        
+    def run(self):
+        """ This function publishes the current tide compared to MLLW to the 
+            MOOSDB at the previously defined rate in Hz
+        """
+        self.get_model()
+        while(True):
+            tide = self.get_curr_tide()
+            print tide
+            time.sleep(1/self.publish_rate)
+
+if __name__ == '__main__':
+    if len(argv)>1:
+        tide = tide_prediction(argv[1])
+    else:
+        tide = tide_prediction()
+    tide.run()
+    
+    
+    
+    
+    
+    

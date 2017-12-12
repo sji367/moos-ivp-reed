@@ -1,0 +1,18 @@
+Vessel Traffic Services calling-in point, arrow indicates
+direction of vessel movement. Mandatory calling-in
+points are identified alphabetically. For additional
+information see U.S. Coast Pilot 5 and U.S. Notice to
+Mariners.
+
+The U.S. Coast Guard operates a mandatory Vessel
+Traffic Services (VTS) system in the Lower Mississippi
+River. Vessel operating procedures and designated
+radiotelephone frequencies are published in 33 CFR 161, The
+U.S. Coast Pilot, and/or the VTS User's Manual. Mariners
+should consult these sources for applicable rules and
+reporting requirements. Although mandatory VTS parti-
+cipation is limited to the navigable waters of the United
+States, certain vessels are encouraged or may be required,
+as a condition of port entry, to report beyond this area to
+facilitate advance vessel traffic management within the
+VTS area.

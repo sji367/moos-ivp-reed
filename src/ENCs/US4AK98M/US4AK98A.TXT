@@ -1,0 +1,52 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US4AK98M  - Yukon River, Alaska
+
+INDEX:
+
+AIDS TO NAVIGATION
+POLLUTION REPORTS
+CAUTION  USE OF RADIO SIGNALS (LIMITATIONS)
+SUPPLEMENTAL INFORMATION
+CAUTION  TEMPORARY CHANGES
+WARNING  PRUDENT MARINER
+ADDITIONAL INFORMATION
+WARNING PROVISIONAL ENC
+SATELLITE DERIVED DEPTHS
+SHORELINE DATA
+
+
+NOTES:
+
+AIDS TO NAVIGATION 
+Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
+
+CAUTION  USE OF RADIO SIGNALS (LIMITATIONS) 
+Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 8 for important supplemental information.
+
+CAUTION  TEMPORARY CHANGES 
+Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
+
+WARNING  PRUDENT MARINER 
+The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
+
+ADDITIONAL INFORMATION 
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+WARNING PROVISIONAL ENC
+This ENC was constructed using the best data available. All or much of the shoreline, depths and shoals within this ENC are below customary quality, are not corrected for tides, nor based on a known sounding datum. All or much of the charted detail is highly changeable. Navigators should use this ENC with extreme caution.
+
+SATELLITE DERIVED DEPTHS
+Shoreline, depths, and obstruction areas within the area of this ENC are derived from satellite imagery from 2015.  Their vertical accuracy is typically ± 2m. Uncharted dangers may exist.
+
+SHORELINE DATA
+All shoreline data in this ENC cell is to be considered 'Approximate'.
+

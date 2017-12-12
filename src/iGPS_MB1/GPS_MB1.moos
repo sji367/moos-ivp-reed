@@ -1,0 +1,70 @@
+//-------------------------------------------------
+// NAME: Damian Manda
+// FILE: chase_remote.moos
+//-------------------------------------------------
+
+//Local server with pShare
+ServerHost = localhost
+ServerPort = 9000
+Community  = zboat
+
+MOOSTimeWarp = 1
+TERM_REPORTING = true
+
+// Chase Tank
+LatOrigin  = 43.1358694
+LongOrigin = -70.9391542
+
+
+//------------------------------------------------
+// pAntler config block
+
+ProcessConfig = ANTLER
+{
+	Run = MOOSDB	@ NewConsole = false
+	Run = iGPS_MB1	@ NewConsole = false
+	Run = uXMS	@ NewConsole = true
+	Run = iOS5000	@ NewConsole = false
+}
+
+//------------------------------------------------
+// iGPS_MB1 config block
+
+//This reads from a Network NMEA output from a serial port
+ProcessConfig = iGPS_MB1
+{
+  AppTick    = 40
+  CommsTick  = 40
+
+  PORT = /dev/ttyUSB0//S0
+   BAUDRATE = 4800//19200
+   HANDSHAKING = FALSE
+   STREAMING = FALSE
+
+//  IgnoreSats = true
+}
+
+//------------------------------------------------
+//iOS5000
+ProcessConfig = iOS5000
+{
+  AppTick    = 40
+  CommsTick  = 40
+
+  PORT = /dev/ttyUSB1
+  BAUDRATE = 19200
+  HANDSHAKING = FALSE
+  STREAMING = FALSE
+}
+
+//------------------------------------------------
+// uXMS config block
+ProcessConfig = uXMS
+{
+  AppTick    = 10
+  CommsTick  = 10
+
+	var = GPS_X, GPS_Y, GPS_N, GPS_E, GPS_LATITUDE, GPS_LONGITUDE, OS5000_HEADING
+}
+
+

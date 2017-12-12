@@ -1,0 +1,44 @@
+//--------    FILE: zboat.bhv   -------------
+
+initialize   DEPLOY = false
+initialize   RETURN = false
+
+//----------------------------------------------
+Behavior = BHV_Waypoint
+{ 
+  name      = waypt_survey
+  pwt       = 100
+  condition = RETURN = false
+  condition = DEPLOY = true
+  endflag   = RETURN = true
+
+  idleflag  = WPTING = idle
+  runflag   = WPTING = running
+  endflag   = WPTING = end
+  
+  updates = WPT_UPDATES
+
+           speed = 6.0
+  capture_radius = 2.0
+     slip_radius = 8.0
+          points = pts={0,0:0,1}
+}
+
+//----------------------------------------------
+Behavior=BHV_Waypoint
+{
+  name       = waypt_return
+  pwt        = 100
+  condition  = RETURN = true
+  condition  = DEPLOY = true
+  perpetual  = true
+  endflag    = RETURN = false
+  endflag    = DEPLOY = false
+  endflag    = MISSION = complete
+	updates = RETURN_UPDATES
+
+	speed = 6.0
+	capture_radius = 2.0
+	slip_radius = 8.0
+	point = 0,10
+}

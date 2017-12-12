@@ -1,0 +1,169 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5OR17M - WILLAMETTE RIVER, PORTLAND TO WALNUT EDDY
+
+INDEX:
+POLLUTION REPORTS
+CAUTION - TEMPORARY CHANGES
+SUPPLEMENTAL INFORMATION
+CAUTION - LIMITATIONS
+NOAA WEATHER RADIO BROADCASTS
+STATUTE MILES - WILLAMETTE RIVER
+CAUTION
+CAUTION - MARINERS
+AUTHORITIES
+WARNING - PRUDENT MARINER
+NOTE A
+CAUTION - SUBMARINE PIPELINES AND CABLES
+RADAR REFLECTORS
+TIDES
+NOTE C
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+ADMINISTRATION AREA
+SOUNDING DATUM
+
+
+NOTES:
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via 
+1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication
+is impossible (33 CFR 153).
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated. See 
+Local Notice to Mariners.
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 7 for important
+supplemental information.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and 
+should be used with caution.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio stations listed
+below provide continuous weather broadcasts.
+The reception range is typically 20 to 40 
+nautical miles from the antenna site, but can be
+as much as 100 nautical miles for stations at
+high elevations. 
+
+Portland, OR		KIG-98		162.55  MHz
+Salem, OR		WXL-96		162.475 MHz
+Astoria, OR		WGN-697		162.525 MHz
+
+
+STATUTE MILES - WILLAMETTE RIVER
+Mileage distances along the Willamette River are in Statute Miles. Distances along the 
+Willamette River are southward from the junction of the Columbia River. Tables for 
+converting Statute Miles to International Nautical Miles are given in Coast Pilot 7.
+
+
+CAUTION
+Numerous obstructions found in 2009, consi-
+sting mainly of submerged snags and ruined
+piles, are not charted in the Willamette River
+north of the Sellwood Fixed Bridge. These
+obstructions do not present a hazard to surf-
+ace navigation, but should be taken into cons-
+ideration for ground fishing and anchoring.
+
+
+CAUTION - MARINERS
+Mariners are cautioned that a large number of logs and deadheads are adrift in 
+the navigable waters of Oregon and Washington at all times, particularly after 
+storms, spring freshets, and unusually high tides.
+
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast 
+Survey, with additional data from the Corps of Engineers, Geological 
+Survey, and U.S. Coast Guard.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid 
+to navigation, particularly on floating aids. See U.S. Coast 
+Guard Light List and U.S. Coast Pilot for details.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S.
+Coast Pilot 7. Additions or revisions to Chapter 2 are pub-
+lished in the Notices to Mariners. Information concerning
+the regulations may be obtained at the Office of the Com-
+mander, 13th Coast Guard District in Seattle, Washington, or
+at the Office of the District Engineer, Corps of Engineers in
+Portland, Oregon.
+Refer to charted regulation section numbers.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and
+submarine cables may exist within the area of.
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and
+those that were originally buried may have
+become exposed. Mariners should use extreme
+caution when operating vessels in depths of
+water comparable to their draft in areas where
+pipelines and cables may exist, and when
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or
+unlighted buoys.
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+TIDES
+The diurnal range of the tide at Portland 45°31'N/
+122° 40'W) during lowest river stages is 2.4 feet. The range
+becomes progressively smaller with higher stages of the river.
+
+
+NOTE C
+Rock Island Channel Buoys 1 through 15 seasonal from May 15 to October 15.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at http://nauticalcharts.noaa.gov.
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an Administration Area. 
+This area covers land, internal waters, and territorial sea.  The territorial sea is 
+a maritime zone which the United States exercises sovereignty extending to the 
+airspace as well as to its bed and subsoil.  For more information, please 
+refer to the Coast Pilot.
+
+
+SOUNDING DATUM
+Soundings and Clearances of Bridges and Overhead Cables in the Willamette River from Portland to the locks at Oregon City referred to Columbia River Datum (Mean Lower Low Water During Lowest River Stages). Soundings above the locks are referred to Willamette River Datum which is 50 feet above Mean Sea Level. Clearances of Bridges and Overhead Cables above locks are referred to the Corps of Engineers datum for Newberg Pool which is 52 feet above Mean Sea Level.
+
+
+END OF FILE

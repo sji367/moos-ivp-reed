@@ -1,0 +1,93 @@
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US3EC07E - GEORGES BANK, EASTERN PART 
+
+INDEX:
+NOTE A
+NOTE G
+AUTHORITIES
+WARNING - PRUDENT MARINER
+POLLUTION REPORTS
+RADAR REFLECTORS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+TIDAL STREAM TIME SERIES TS_TIS
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S.
+Coast Pilot 2. Additions or revisions to Chapter 2 are pub-
+lished in the Notice to Mariners. Information concerning the
+regulations may be obtained at the Office of the Commander,
+1st Coast Guard District in Boston, MA, or at the Office
+of the District Engineer, Corps of Engineers in Concord, MA.
+Refer to charted regulation section numbers.
+
+
+NOTE G 
+Recommended routing to reduce the likelihood of ship strikes of endangered 
+whales are in effect within this area, but are not depicted on this chart. 
+See larger scale charts.
+
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast
+Survey, with additional data from the U.S. Coast Guard.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid
+to navigation, particularly on floating aids. See U.S. Coast
+Guard Light List and U.S. Coast Pilot for details.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via
+1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication
+is impossible (33 CFR 153).
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines 
+and submarine cables may exist within the 
+area of this chart. Not all submarine pipelines 
+and submarine cables are required to be buried, 
+and those that were originally buried may have 
+become exposed. Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas where
+pipelines and cables may exist, and when 
+anchoring, dragging or trawling.  
+Covered wells may be marked by lighted or 
+unlighted buoys.
+
+
+TIDAL STREAM TIME SERIES TS_TIS
+Directions and velocities of tidal currents at 3 stations are measured in hourly intervals from 
+maximum flood at Georges Bank, the daily predicted times should be increased by 20 percent 
+when the moon is full or new and decreased by 20 percent when the moon is in the first or third
+quarters. For the effect of wind on tidal currents, see Current Tables, Atlantic Coast.
+
+
+TIDAL INFORMATION
+For tidal information, see the NOS tide table publication or go to
+ http://co-ops.nos.noaa.gov
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+END OF FILE

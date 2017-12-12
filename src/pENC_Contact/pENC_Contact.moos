@@ -1,0 +1,71 @@
+//-------------------------------------------------
+// NAME: Sam Reed, CCOM/JHC
+// FILE: alpha.moos
+//-------------------------------------------------
+
+ServerHost = localhost		
+ServerPort = 9000
+Community  = ASV
+
+MOOSTimeWarp = 3
+TERM_REPORTING = true
+
+//#include plug_sensor.moos
+//#include plug_ASV_info.moos
+
+// CCOM Pier
+LatOrigin  = 43.071959194444446
+LongOrigin = -70.711610833333339 
+
+//------------------------------------------
+// Antler configuration  block
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 200
+
+  //Run = uProcessWatch	  @ NewConsole = false
+  //Run = MOOSDB          @ NewConsole = false
+  Run = pENC_Contact	@ NewConsole = false
+}
+
+//------------------------------------------------
+// pENC_Contact config block
+
+ProcessConfig = pENC_Contact
+{
+   AppTick   = 10
+   CommsTick = 10
+
+   ENCs = US5NH02M
+   ASV_Length = 1.8//4//
+   ASV_Width = 1//1.58//
+
+   MIN_DEPTH = 0
+   MHW_OffSET = 2.735
+   Bore_Steerage = 0.5
+   Desired_Speed = 1.0
+
+
+	//search_dist = 75
+	//avoid_dist = 200
+}
+
+/------------------------------------------
+// pHelmIvP config block
+
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  term_report_interval=0
+
+  bhv_dir_not_found_ok = true
+  //ivp_behavior_dir = /home/mapper/moos-ivp/moos-ivp-extend/lib
+  ok_skew = any
+
+  behaviors  = alpha.bhv
+  domain     = course:0:359:360
+  domain     = speed:0:5:42
+}
+

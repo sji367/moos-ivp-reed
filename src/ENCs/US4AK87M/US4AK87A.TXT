@@ -1,0 +1,63 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US4AK87M - BRISTOL BAY
+
+INDEX:
+AUTHORITIES
+NOTE A
+RADAR REFLECTORS
+POLLUTION REPORTS
+SUPPLEMENTAL INFORMATION
+NOAA WEATHER RADIO BROADCASTS
+WARNING
+COLREGS, 80.1705(see note A)
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+AUTHORITIES
+Hydrography and Topography by the National Ocean Service, Coast Survey, with additional data from the Geological Survey and U.S. Coast Guard.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S. Coast Pilot 9. Additions or revisions to Chapter 2 are published in the Notice to Mariners. Information concerning the regulations may be obtained at the Office of the Commander, 17th Coast Guard District in Juneau, Alaska, or at the Office of the District Engineer, Corps of Engineers in Anchorage, Alaska. Refer to charted Regulation section numbers. 
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids has been omitted from this chart.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), orto the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 9 for important supplemental information.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio station listed below provides continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+
+Tuklung Mt, AK		WNG-525		162.425 MHz
+
+
+WARNING
+The hydrography on this preliminary chart is of varying degrees of quality. In the areas of sparse soundings many of the depths were taken by lead line in the early 1900's,so further uncharted shoals are likely. The depths in the area of dense soundings were acquired by modern survey methods. Navigators should use this chart with extreme caution and report discrepancies or hazards to the Cheif, Marine Chart Division(N/CG22), National Ocean service, NOAA, Silver Spring, Maryland 20910. This preliminary chart is distributed as an interim product while modern surveys are being conducted. Each winter for the next several years a new edition will be published showing the unverified data collected the previous summer. When all surveys are completed, a final chart meeting modern charting standards will be published.
+
+
+COLREGS, 80.1705(see note A)
+International Regulations for Preventing Collisions of Sea, 1972. The entire area of this chart falls seaward of the COLREGS Demarcation Line.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS tide table publication or go to http://co-ops.nos.noaa.gov
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.gov
+
+
+END OF FILE

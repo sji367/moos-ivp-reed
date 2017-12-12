@@ -1,0 +1,156 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5OR26M - COLUMBIA RIVER JUNIPER TO PASCO
+
+
+INDEX:
+AIDS TO NAVIGATION
+NOTE A
+AUTHORITIES
+CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - RADIO BEACONS
+WARNING - PRUDENT MARINER
+CAUTION - TEMPORARY CHANGES
+CAUTION
+RADAR REFLECTORS
+SUPPLEMENTAL INFORMATION
+POLLUTION REPORTS
+NOAA VHF-FM WEATHER BROADCASTS
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+ADMINISTRATION AREA
+SOUNDINGS AND CLEARANCES 
+COLUMBIA AND SNAKE RIVERS
+
+
+NOTES:
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for
+supplemental information concerning aids to
+navigation.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S.
+Coast Pilot 7.  Additions or revisions to Chapter 2 are pub-
+lished in the Notices to Mariners.  Information concerning
+the regulations may be obtained at the Office of the Com-
+mander, 13th Coast Guard District in Seattle, Wash., or at the
+Office of the District Engineer, Corps of Engineers in
+Portland, Oregon.
+Refer to charted regulation section numbers.
+
+
+AUTHORITIES
+Hydrography and topography by the National
+Ocean Service, Coast Survey, with additional
+data from the Corps of Engineers, Geological 
+Survey and U.S. Coast Guard.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and
+submarine cables may exist within the area of 
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and
+those that were originally buried may have
+become exposed.  Mariners should use extreme
+caution when operating vessels in depths of
+water comparable to their draft in areas where
+pipelines and cables may exist, and when
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or
+unlighted buoys.
+
+
+CAUTION - RADIO BEACONS
+Only marine radio beacons have been cali-
+brated for surface use. Limitations on the use
+of certain other radio signals as aids to marine
+navigation can be found in U.S. Coast Guard
+Light Lists and National Imagery and Mapping
+Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and
+should be used with caution.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on
+any single aid to navigation, particularly on
+floating aids.  See U.S. Coast Guard Light List
+and U.S. Coast Pilot for details.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated.  See
+Notice to Mariners.
+
+
+CAUTION
+The depths of water expect for 
+the area above the Pasco highway bridge, have 
+been determined from conditions existing prior 
+to the filling of the pool.  Shallower depths than
+charted may exist, particularly near the shoreline.
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation.  Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 7 for important
+supplemental information.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via
+1-800-424-8802 (toll free), or to the nearest U.S.
+Coast Guard facility if telephone communication
+is impossible (33 CFR 153).
+
+
+NOAA VHF-FM WEATHER BROADCASTS
+The National Weather Service station listed
+below provides continuous marine weather broad-
+casts.  The range of reception is variable, but for
+most stations is usually 20 to 40 miles from the
+antenna site.
+Pendleton, OR		WXL-95		162.550 MHz
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an Administration Area. 
+This area covers land, internal waters, and territorial sea.  The territorial sea is 
+a maritime zone which the United States exercises sovereignty extending to the airspace 
+as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot.
+
+
+SOUNDINGS AND CLEARANCES
+Soundings and clearances of bridges and overhead cables are referred to normal pool 
+level which is 340 feet above mean sea level.
+
+
+COLUMBIA AND SNAKE RIVERS
+Mileage distances along the Columbia and Snake Rivers are in Statute Miles.  Distances along 
+the Columbia River are eastward from the mouth, and the Snake River are eastward from the 
+junction of the Columbia River. Tables for converting statute miles to International Nautical
+miles are given in Coast Pilot 7.
+
+END OF FILE

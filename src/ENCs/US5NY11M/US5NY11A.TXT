@@ -1,0 +1,95 @@
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5NY11M - EAST RIVER-NEWTOWN CREEK
+
+
+INDEX:
+WARNING - PRUDENT MARINER
+NOTE A
+POLLUTION REPORTS
+AIDS TO NAVIGATION
+CAUTION - LIMITATIONS
+CAUTION – TEMPORARY CHANGES
+SUPPLEMENTAL INFORMATION
+CAUTION - DREDGED AREAS
+AUTHORITIES
+NOAA WEATHER RADIO BROADCASTS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+RADAR REFLECTORS
+TIDAL INFORMATION 
+ADDITIONAL INFORMATION
+NOTE B
+Administration Area
+
+
+NOTES:
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S. Coast Pilot 2. Additions or revisions to Chapter 2 are published in the Notice to Mariners. Information concerning the regulations may be obtained at the Office of the Commander, 1ST Coast Guard District in Boston, MA or at the Office of the District Engineer, Corps of Engineers in New York, NY.
+Refer to charted regulation section numbers.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
+
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117.  Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
+
+
+CAUTION – TEMPORARY CHANGES
+Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners. During some winter months or when endangered by ice, certain aids to navigation are replaced by other types or removed. For details see U.S. Coast Guard Light List.
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 2 for important supplemental information.
+
+
+CAUTION - DREDGED AREAS
+Improved channels are subject to shoaling, particularly at the edges.
+
+
+AUTHORITIES
+Hydrography and Topography by the National Ocean Service, Coast Survey, with additional data from the Corps of Engineers, and U.S. Coast Guard.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio station listed below provides continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+
+New York, NY	KWO-35	162.550 MHz
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging or trawling.
+Covered wells may be marked by lighted or unlighted buoys.
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids has been omitted from this chart.
+
+
+TIDAL INFORMATION 
+For tidal information see the NOS Tide Table publication or go to http://co-
+ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+
+NOTE B
+The U.S. Coast Guard operates a mandatory Vessel Traffic Services (VTS) system in the New York Bay and surrounding areas. Vessel operating procedures and designated radiotelephone frequencies are published in 33 CFR 161, the U.S. Coast Pilot, and/or the VTS User's Manual. Mariners should consult these sources for applicable rules and reporting requirements. Although mandatory VTS participation is limited to the navigable waters of the United States, certain vessels are encouraged or may be required, as a condition of port entry, to report beyond this area to facilitate vessel traffic management within the VTS area.
+
+
+Administration Area
+The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot.
+
+
+END OF FILE

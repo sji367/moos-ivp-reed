@@ -1,0 +1,3 @@
+Bridge and overhead cable clearances. When the water surface is 
+above Low Water Datum, bridge and overhead cable clearances are 
+reduced accordingly. For clearances see U.S. Coast Pilot 2.

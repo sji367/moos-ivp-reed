@@ -1,0 +1,167 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US4WI03M - LOWER GREEN BAY
+
+INDEX:
+AUTHORITIES
+SAILING DIRECTIONS
+CAUTION - DREDGED AREAS
+SAILING COURSES
+BRIDGE AND OVERHEAD CABLE CLEARANCES
+AIDS TO NAVIGATION
+NOTE A
+NOTE D
+CAUTION - SUBMARINE PIPELINES AND CABLES
+WARNING - PRUDENT MARINER
+POLLUTION REPORTS
+SUPPLEMENTAL INFORMATION
+CAUTION - TEMPORARY CHANGES
+CAUTION - LIMITATIONS
+CAUTION - LOW WATER DATUM
+RADAR REFLECTORS
+NOAA WEATHER  RADIO BROADCASTS
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast Survey with 
+additional data from the Corps of Engineers, Geological Survey, and U.S. Coast Guard.
+
+
+SAILING DIRECTIONS
+Bearings of sailing courses are true and distances given thereon are 
+in statute miles (St M) and nautical miles (NM) between points of departure.  The true bearing 
+between any two points may be determined by connecting the two points with 
+a straight line and measuring the angle of its intersection with the meridian line.
+ 
+
+
+
+CAUTION - DREDGED AREAS
+Improved channels are 
+subject to shoaling, particularly at the edges.
+
+
+SAILING COURSES
+Sailing courses and limits are recommended by 
+the Lake Carriers Association and the Canadian Shipowners Association.
+
+
+BRIDGE AND OVERHEAD CABLE CLEARANCES
+When the water surface is above Low 
+Water Datum, bridge and overhead clearances are reduced correspondingly.  For clearance 
+see U.S. Coast Pilot 6.
+
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for supplemental information con-
+cerning aids to navigation.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S. Coast Pilot 
+6.  Additions or revisions to Chapter 2 are published in the Notice to 
+Mariners.  Information concerning the regulations may be obtained at 
+the Office of the Commander, 9th Coast Guard District in Cleveland, 
+Ohio, or at the Office of the District Engineer, Corps of Engineers in 
+Detroit, Michigan.
+Refer to charted regulation section numbers.
+
+
+NOTE D
+Mariners are warned that numerous uncharted stakes and fishing 
+structures, some submerged, may exist in the area of this chart. Such 
+structures are not charted unless known to be permanent.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines 
+and submarine cables may exist within the 
+area of this chart.  Not all submarine pipelines 
+and submarine cables are required to be 
+buried, and those that were originally buried 
+may have become exposed.  Mariners should 
+use extreme caution when operating vessels in 
+depths of water comparable to their draft in 
+areas where pipelines and cables may exist, 
+and when anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid 
+to navigation, particularly on floating aids.  See U.S. Coast 
+Guard Light List and U.S. Coast Pilot for details.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the 
+National Response Center via 1-800-424-8802 (toll free), or 
+to the nearest U.S. Coast Guard facility if telephone com-
+munication is impossible (33 CFR 153).
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 6 for important 
+supplemental information.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to 
+navigation are not indicated.  See 
+Local Notice to Mariners.
+During some winter months or when endan-
+gered by ice, certain aids to navigation are 
+replaced by other types or removed.  For details 
+see U.S. Coast Guard Light List.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as 
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National 
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial 
+broadcasting stations are subject to error and 
+should be used with caution.
+
+
+CAUTION - LOW WATER DATUM
+Due to periodic high water conditions in the Great 
+Lakes, some features charted as visible at Low Water 
+Datum may be submerged, particularly in the near 
+shore areas.  Mariners should proceed with caution.
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many 
+floating aids to navigation.  Individual radar 
+reflector identification on these aids has been 
+omitted from this chart.
+
+
+NOAA WEATHER  RADIO BROADCASTS
+The National Weather Service stations listed 
+below provide continuous marine weather broad-
+casts.  The range of reception is variable, but for 
+most stations is usually 20 to 40 miles from the 
+antenna site.
+
+Green Bay, WI		KIG-65		162.550 MHz
+Sister Bay, WI		WXN-69		162.425 MHz
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+
+END OF FILE

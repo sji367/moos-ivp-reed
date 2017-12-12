@@ -1,0 +1,24 @@
+// pENC_Print config block
+ProcessConfig = pENC_Print                                    
+{                                                               
+  AppTick   = 4                                                 
+  CommsTick = 4
+
+  ASV_Draft = 0.3
+
+  //print_all = true
+  
+  // UNH Pier
+  N_lat = 43.073667
+  W_long = -70.71541
+  E_long = -70.704423
+  S_lat = 43.070264     
+
+  // Isle of Shoals
+  //unit = UTM
+  //N_y = -10785//-8889
+  //W_x = 8876//5822
+  //S_y = -11139//-12500   
+  //E_x = 9124//9500                      
+} 
+

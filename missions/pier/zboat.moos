@@ -1,0 +1,327 @@
+//-------------------------------------------------
+// NAME: Sam Reed
+// FILE: zboat.moos
+// Intended for dry testing at Chase
+//-------------------------------------------------
+
+ServerHost = localhost      
+ServerPort = 9000
+Community  = zboat
+
+MOOSTimeWarp = 1
+TERM_REPORTING = true
+
+// CCOM Pier
+LatOrigin  = 43.071959194444446
+LongOrigin = -70.711610833333339
+
+// Chase Tank
+//LatOrigin  = 43.1358694
+//LongOrigin = -70.9391542
+
+//------------------------------------------
+// Antler configuration  block
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 400
+
+  Run = MOOSDB          @ NewConsole = false
+  Run = pLogger         @ NewConsole = false
+  Run = uSimMarine      @ NewConsole = false
+  Run = pMarinePID      @ NewConsole = false
+  Run = pHelmIvP        @ NewConsole = false
+  Run = pENC_Contact	  @ NewConsole = true
+  Run = uProcessWatch   @ NewConsole = false
+  //Run = iGPS            @ NewConsole = true
+  //Run = iZBoat		@ NewConsole = false
+  Run = pEchoVar        @ NewConsole = false
+  Run = pNodeReporter   @ NewConsole = false
+  Run = pShare          @ NewConsole = false
+  Run = pHostInfo       @ NewConsole = false
+  Run = uFldNodeBroker  @ NewConsole = false
+  //Run = uXMS	@ NewConsole = true
+  Run = pMarineViewer	  @ NewConsole = false
+  Run = pENC_Print	  @ NewConsole = true
+  Run = pENC_WPT_Check	@ NewConsole = false
+}
+
+//------------------------------------------------
+#include plug_pENC_Contact.moos
+
+//------------------------------------------------
+#include plug_pENC_Print.moos
+
+//------------------------------------------
+// pENC_WPT_Check config block
+ProcessConfig = pENC_WPT_Check                                    
+{                                                               
+  AppTick   = 2                                                 
+  CommsTick = 2   
+
+  Buffer_Dist = 20                                         
+}
+
+//------------------------------------------
+// Vehicle Communication Config
+//------------------------------------------
+
+//------------------------------------------  
+// pHostInfo
+ProcessConfig = pHostInfo                                       
+{                                                               
+  AppTick   = 8                                                 
+  CommsTick = 8                                                 
+                                                                
+  TEMP_FILE_DIR  = ./ 
+}
+
+//------------------------------------------  
+// uFldNodeBroker
+ProcessConfig = uFldNodeBroker
+{
+  AppTick   = 8
+  CommsTick = 8
+
+  TRY_SHORE_HOST = pshare_route=192.168.1.206:9300
+  BRIDGE = src=BHV_IPF
+  BRIDGE = src=NAV_X, alias=NAV_X
+  BRIDGE = src=NAV_Y, alias=NAV_Y
+  //BRIDGE = src=NAV_SPEED, alias=NAV_SPEED 
+  BRIDGE = SRC=NAV_HEADING, alias=NAV_HEADING
+  //BRIDGE = src=PWM, alias=PWM
+  //BRIDGE = src=RETURN
+  //BRIDGE = src=DEPLOY
+  //BRIDGE = src=STATIONING
+  BRIDGE = src=VIEW_POINT
+  BRIDGE = src=VIEW_SEGLIST
+  //BRIDGE = src=Landmarks
+  //BRIDGE = src=Nav_Aids
+  BRIDGE = src=APPCAST
+  BRIDGE = src=NODE_REPORT_LOCAL,  alias=NODE_REPORT
+  BRIDGE = src=NODE_MESSAGE_LOCAL, alias=NODE_MESSAGE
+  BRIDGE = src=VIEW_POLYGON
+  BRIDGE = src=ENC_INIT
+  BRIDGE = src=NEXT_WPT
+}
+
+//------------------------------------------  
+// pShare
+ProcessConfig = pShare
+{
+  AppTick   = 8
+  CommsTick = 8
+
+  Input = route = 192.168.1.205:9301
+}
+
+//------------------------------------------
+// pNodeReporter config block
+
+ProcessConfig = pNodeReporter
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+  platform_type   = SHIP
+  platform_length = 4
+
+
+  node_report_output = NODE_REPORT_LOCAL
+}
+
+//------------------------------------------
+// uProcessWatch config block
+
+ProcessConfig = uProcessWatch
+{
+  AppTick   = 4
+  CommsTick = 4
+
+  summary_wait = 5
+
+  //nowatch   = uXMS*
+  nowatch   = uMAC*
+  nowatch   = uPokeDB*
+  nowatch   = uTermCommand*
+  watch_all = true
+}
+
+
+//------------------------------------------
+// pLogger config block
+
+ProcessConfig = pLogger
+{
+  AppTick   = 8
+  CommsTick = 8
+
+  AsyncLog = true
+
+  // For variables that are published in a bundle on their first post,
+  // explicitly declare their logging request
+
+  Log = IVPHELM_LIFE_EVENT @ 0 NOSYNC
+
+  LogAuxSrc = true
+  WildCardLogging = true
+  WildCardOmitPattern = *_STATUS
+  WildCardOmitPattern = DB_VARSUMMARY
+  WildCardOmitPattern = DB_RWSUMMARY
+  WildCardExclusionLog = true
+}
+
+//------------------------------------------
+// GPS config blocks
+
+ProcessConfig = iGPS_MB1 // DO NOT CHANGE TO iGPS, KEEP AS iGPS_MB1
+{
+  AppTick    = 40
+  CommsTick  = 40
+
+  PORT = /dev/ttyUSB0
+   BAUDRATE = 19200
+   HANDSHAKING = FALSE
+   STREAMING = FALSE
+
+//  IgnoreSats = true
+
+}
+
+
+//------------------------------------------------
+//iOS5000
+ProcessConfig = iOS5000
+{
+  AppTick    = 40
+  CommsTick  = 40
+
+  PORT = /dev/ttyUSB2
+  BAUDRATE = 19200
+  HANDSHAKING = FALSE
+  STREAMING = FALSE
+}
+
+   
+//------------------------------------------  
+// iZBoat (pwm output)
+ProcessConfig = iZBoat
+{
+  AppTick   = 8
+  CommsTick = 8
+
+  // Serial port configuration
+  PORT = /dev/ttyUSB1
+  BAUDRATE = 115200
+  HANDSHAKING = FALSE
+  STREAMING = FALSE
+
+  //iZBoat Configuration
+  MaxInputRate = 20
+  MaxRudder = 45
+  MaxThrottle = 100
+}
+
+//------------------------------------------ 
+// Convert naviagational variables to the ones used by MOOS
+ProcessConfig = pEchoVar
+{
+  AppTick   = 30
+  CommsTick = 30
+
+  // Use iGPS for the GPS device
+  echo = GPS_LATITUDE     -> NAV_LAT
+  echo = GPS_LONGITUDE    -> NAV_LONG
+  echo = GPS_X            -> NAV_X
+  echo = GPS_Y            -> NAV_Y
+  //echo = GPS_HEADING      -> NAV_HEADING // THIS IS WHEN YOU HAVE $GPHDT NMEA STRING
+  echo = GPS_VTG_HEADING	-> NAV_HEADING
+  //echo = OS5000_HEADING	  -> NAV_HEADING
+  echo = GPS_SPEED        -> NAV_SPEED
+}
+
+//------------------------------------------
+// pHelmIvP config block
+
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 6
+  CommsTick  = 6
+
+  term_report_interval=0
+
+  bhv_dir_not_found_ok = true
+
+  behaviors  = mission.bhv
+  domain     = course:0:359:360
+  domain     = speed:0:4:21
+
+  ok_skew    = any
+}
+
+//------------------------------------------
+// pMarinePID config block
+
+ProcessConfig = pMarinePID
+{
+  AppTick    = 20
+  CommsTick  = 20
+
+  verbose       = true
+  depth_control = false
+
+  // SIM_INSTABILITY = 20
+
+  // Yaw PID controller
+  yaw_pid_kp         = 1.0
+  yaw_pid_kd         = 0.0
+  yaw_pid_ki         = 0.5
+  yaw_pid_integral_limit = 0.1
+
+  // Speed PID controller
+  speed_pid_kp       = 0.7
+  speed_pid_kd       = 0.0
+  speed_pid_ki       = 0.0
+  speed_pid_integral_limit = 0.07
+
+  //MAXIMUMS
+  maxrudder    = 45
+  maxthrust    = 50
+
+  // A non-zero SPEED_FACTOR overrides use of SPEED_PID
+  // Will set DESIRED_THRUST = DESIRED_SPEED * SPEED_FACTOR
+  speed_factor = 0
+}
+
+//------------------------------------------
+#include plug_pMarineViewer.moos
+
+//------------------------------------------------
+// uXMS config block
+ProcessConfig = uXMS
+{
+  AppTick    = 10
+  CommsTick  = 10
+
+	display_time = true
+
+	var = NAV_X, NAV_Y, NAV_LAT, NAV_LONG, NAV_HEADING, NAV_SPEED 
+	var = DESIRED_THRUST, DESIRED_RUDDER, PWM
+}
+
+//------------------------------------------
+ProcessConfig = uSimMarine
+{
+  AppTick	= 4
+  CommsTick	= 4
+
+  start_x       = 0
+  start_y       = -40
+
+  start_heading = 180
+  start_speed   = 0
+
+  prefix        = NAV
+
+  turn_rate     = 40
+  thrust_map    = 0:0, 20:1, 40:2, 60:3, 80:4, 100:5
+}

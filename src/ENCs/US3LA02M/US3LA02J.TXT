@@ -1,0 +1,3 @@
+Atchafalaya River
+The project depth for the Atchafalaya River Channel is 20 feet. For controlling depths, see 
+ENCs US4LA20 and US4LA21.

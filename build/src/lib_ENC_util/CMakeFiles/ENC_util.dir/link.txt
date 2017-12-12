@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libENC_util.a  CMakeFiles/ENC_util.dir/dir_walk.cpp.o CMakeFiles/ENC_util.dir/polyInside.cpp.o CMakeFiles/ENC_util.dir/ENC_picker.cpp.o CMakeFiles/ENC_util.dir/L84.cpp.o CMakeFiles/ENC_util.dir/poly_AngularSweep.cpp.o CMakeFiles/ENC_util.dir/point.cpp.o CMakeFiles/ENC_util.dir/geodesy.cpp.o
+/usr/bin/ranlib ../../../lib/libENC_util.a

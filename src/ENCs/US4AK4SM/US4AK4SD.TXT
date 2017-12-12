@@ -1,0 +1,18 @@
+CÂBLES
+
+Les_vitesses_des_courants
+
+SERVICES_DE_TRAFIC_MARITIME
+
+CÂBLES Les signes conventionnels des câbles sous-marins et aériens ne différencient pas les câbles conducteurs d'électricité, souvent à haute tension, des autres câbles de service.  Les navigateurs prendront garde en passant sous tous les câbles aériens et éviteront de jeter l'ancre ou d'effectuer des opérations de fond à proximité des câbles sous-marins.  La hauteur libre d'un câble aérien peut varier de sa valeur cartographiée à cause des changements dans les conditions atmosphériques, les niveaux d'eau et autres facteurs.  Pour plus de renseignements, consulter l'avis n° 16 des Avis aux navigateurs, édition annuelle et le volume approprié des Instructions nautiques du SHC.
+
+Les vitesses des courants représentent les vitesses maximales normales en vive-eau.  Pour des renseignements sur les courants, consulter les Tables des marées et courants du Canada Vol.7.
+
+SERVICES DE TRAFIC MARITIME Point d'appel numéroté pour les Services de trafic maritime; la flèche indique la direction du mouvement du navire.  Pour plus de renseignements concernant ces services, consulter l'Avis aux navigateurs n° 25 de chaque année.
+
+
+© Pêches et Océans Canada 2012. Publié par le Service hydrographique du Canada. La reproduction et la distribution de ce produit sont sujettes à l’obtention d’un permis octroyé par le Service hydrographique du Canada (www.charts.gc.ca). 
+
+De plus, ce produit a un contenu ou des données provenant du gouvernement des États-Unis d’Amérique et est publié avec l’autorisation de l’U.S. Office of Coast Survey. En vertu du Title 17 U.S.C., le gouvernement des États-Unis d’Amérique ne perçoit aucun droit d’auteur sur le contenu ou les données de ce produit qui proviennent des États-Unis d’Amérique. Par conséquent, aucune permission n'est requise de l’U.S. Office of Coast Survey pour reproduire et distribuer les données contenues dans ce produit qui proviennent des États-Unis d’Amérique.
+
+L'indication de toute frontière maritime internationale dans la zone contestée est sans préjudice à la position juridique des États-Unis ou du la zone Canada.

@@ -1,0 +1,17 @@
+// pENC_Contact config block
+
+ProcessConfig = pENC_Contact
+{
+   AppTick   = 10
+   CommsTick = 10
+
+   ENCs = US5NH02M
+   ASV_Length = 1.8 //4 //  14.63//
+   ASV_Width =  0.9//1.58//0.9// 4.27//
+   ASV_Draft = 0.3//1 // 1.397//
+
+   MIN_DEPTH = 1
+   MHW_OffSET = 2.735
+   Bore_Steerage = 0.5
+   Desired_Speed = 1.0
+}

@@ -1,0 +1,11 @@
+For details of operation of U.S. Coast Guard Marine
+Safety Office, New Orleans maintained Traffic Control Lights
+in the Mississippi River, consult the Coast Pilot and U.S. Coast
+Guard List of Lights Volume IV.
+Governor Nicholls Traffic Light shows Fl R or G 5s,
+Gretna Traffic Light shows Fl R or G 5s, and Westwego
+Traffic Light shows QR or G only when Traffic Control Lights
+are in operation.
+Traffic Lights operate when the gauge reads 2.4 meters/8 feet on
+the rise and cease to operate when the gauge reads 2.7 meters/9 feet
+on the fall of the river.

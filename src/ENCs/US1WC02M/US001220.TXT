@@ -1,0 +1,15 @@
+CAUTION
+The Cook Inlet area is affected by land uplift due to forces such as post 
+seismic crustal rebound.  As a result, the tidal datums including mean lower 
+low water, the plane of reference used for depth soundings, have changed 
+throughout this region. Tidal datums were updated in 1999 and depths of 
+11.5 fathoms or less on this chart were adjusted accordingly to account for
+this uplift. As the uplift rates can only be estimated and areas continue to 
+rise, depths may be shoaler than charted. Mariners are urged to excercise 
+caution.
+
+Minimal Depiction
+Most features, including bathymetry, are omitted in this area.
+The minimal depiction of detail in this area does not support 
+safe navigation, mariners should use a more appropriate 
+navigational purpose.

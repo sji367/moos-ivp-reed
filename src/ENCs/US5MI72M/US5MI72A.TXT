@@ -1,0 +1,81 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US5MI72M - KEWEENAW BAY
+
+INDEX:
+POLLUTION REPORTS
+AIDS TO NAVIGATION
+CAUTION - TEMPORARY CHANGES
+CAUTION - LOW WATER DATUM
+CAUTION - DREGDED AREAS
+SUPPLEMENTAL INFORMATION
+CAUTION - LIMITATIONS
+NOAA WEATHER RADIO BROADCASTS
+NOTE A
+AUTHORITIES
+WARNING - PRUDENT MARINER
+RADAR REFLECTORS
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+POLLUTION REPORTS 
+Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
+
+
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
+
+
+CAUTION - TEMPORARY CHANGES Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.During some winter months or when endangered by ice, certain aids to navigation are replaced by other types or removed. For details see U.S. Coast Guard Light List.
+
+
+CAUTION - LOW WATER DATUM
+Due to periodic high water conditions in the Great Lakes, some features charted as visible at Low Water Datum may be submerged, particularly in the near shore areas. Mariners should proceed with caution.
+
+
+CAUTION - DREGDED AREAS
+Improved channels are subject to shoaling, particularly at the edges.
+
+
+SUPPLEMENTAL INFORMATION
+Consult U.S. Coast Pilot 6 for important supplemental information.
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117.Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
+
+
+NOAA WEATHER RADIO BROADCASTS
+The NOAA Weather Radio station listed below provides continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+
+Houghton, MI		WXK-73		162.400 MHz (Chan WX-2)
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S. Coast Pilot 6.  Additions or revisions to Chapter 2 are published in the Notice to Mariners. Information concerning the regulations may be obtained at the Office of the Commander, 9th Coast Guard District in Cleveland, Ohio or at the Office of the District Engineer, Corps of Engineers in Detroit, Michigan. Refer to charted regulation section numbers.
+
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from the Corps of Engineers, Geological Survey, and U.S. Coast Guard.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many floating aids to navigation. Individual radar reflectors identification on these aids has been omitted from this chart.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+END OF FILE
