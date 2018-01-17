@@ -213,8 +213,20 @@ string A_Star::ReconstructPath(vector<vector<int>> direction_map)
 }
 
 
-// Check to see if the extended path runs through any obstacles
-bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &depth_cost)
+/* Check to see if the extended path runs through any obstacles. It also calculates the cost to
+ * travel to the cell.
+ *
+ *   Inputs -
+ *      i - index of the cell that we are trying to determine if it is valid
+ *      wptX - current X location
+ *      wptY - current Y location
+ *      ave_depth - value of the average detpth of all cells that were traveled through
+ *
+ *   Output -
+ *      Boolean describing if the extended path determined by the function is
+ *          drives through an obstacle
+ */
+bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
 {
     double x,y, m, b;
     int X,Y;
@@ -224,34 +236,59 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &depth_cost)
     int dY = abs(dy[i]);
 
     double cummulative_cost = 0;
+    double intermidate = 0;
 
-    int num_points = 5;
+    int num_points = 5; // number of data points per cell
     int total_points = 0;
-    // Only run this when the path is more than 1 grid cell away
-    if (max(dX,dY)>1)
+    double df_total_points = 0;
+
+    if (max(dX,dY)==1)
+    // If the node is a Moore Neighboor, check the cell on either side of desired cell
     {
+        // If either cell next to the desired cell is an obstacle, the path is not valid
+        if ((Map[wptY+dy[i]][wptX] < depth_cutoff) || (Map[wptY][wptX+dx[i]] < depth_cutoff))
+            return false; // Path is invalid)
+
+        ave_depth = Map[wptY+dy[i]][wptX+dx[i]]; // depth in grid cells
+    }
+    else
+    // Otherwise check all cells in the path between the two cells
+    {
+        // calculate the slope and y-intersect of the line between the two points
         m = (1.0*(dy[i]))/(1.0*(dx[i]));
         b = wptY - wptX*m;
 
+        // Segment the grid in the larger dimension
         if (dX < dY)
         {
             total_points = num_points*dY;
+            df_total_points = total_points*1.0;
+
+            // Cycle through all segmented grid nodes to check for path validity
+            //  determine the total water depth traveled through
             for (int j=1; j<=total_points; j++)
             {
-                if (signbit(dy[i]))// Returns true if negative
-                    y = wptY-j/num_points;
-                else
-                    y = wptY+j/num_points;
+                intermidate = (j*1.0)/(total_points*1.0);
 
-                x = (1.0*(y-b))/m;
+                // Calculate the current y grid node
+                if (signbit(dy[i]))// Returns true if negative
+                    y = wptY-intermidate;
+                else
+                    y = wptY+intermidate;
+
+                // Calculate the x gride node
+                x = (y-b)/m;
+
+                // Store the grid node's X,Y position as ints
                 X= static_cast<int>(x);
                 Y=static_cast<int>(y);
+
                 cummulative_cost += Map[Y][X];
 
+                // If either the grid node or the next closest node on the line in the x direction
+                //  is an obstacle, the path is not valid
                 floor_x = int(floor(x));
                 ceil_x = int(ceil(x));
-
-                // If either cell is an obstacle, the path is not valid
                 if ((Map[Y][floor_x] < depth_cutoff) || (Map[Y][ceil_x] < depth_cutoff))
                     return false; // Path is invalid
             }
@@ -259,35 +296,37 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &depth_cost)
         else
         {
             total_points = num_points*dX;
+            df_total_points = total_points*1.0;
+
+            // Cycle through all segmented grid nodes to check for path validity
+            //  determine the total water depth traveled through
             for (int j=1; j<total_points; j++)
             {
+                intermidate = (j*1.0)/(df_total_points);
+                // Calculate the x gride node
                 if (signbit(dx[i]))// Returns true if negative
-                    x = wptX-j/num_points;
+                    x = wptX-intermidate;
                 else
-                    x = wptX+j/num_points;
+                    x = wptX+intermidate;
+
+                // Calculate the y gride node
                 y= m*x+b;
+
+                // Store the grid node's X,Y position as ints
                 X= static_cast<int>(x);
                 Y=static_cast<int>(y);
 
                 cummulative_cost += Map[Y][X];
 
+                // If either the grid node or the next closest node on the line in the x direction
+                //  is an obstacle, the path is not valid
                 floor_y = int(floor(y));
                 ceil_y = int(ceil(y));
-
-                // If either cell is an obstacle, the path is not valid
                 if ((Map[floor_y][X] < depth_cutoff) || (Map[ceil_y][X] < depth_cutoff))
                     return false; // Path is invalid
             }
         }
-        depth_cost = int(round(cummulative_cost/(1.0*total_points))); // average depth in grid cells
-    }
-    else
-    {
-        // If either cell diagonal to the path is an obstacle, the path is not valid
-        if ((Map[wptY+dy[i]][wptX] < depth_cutoff) || (Map[wptY][wptX+dx[i]] < depth_cutoff))
-            return false; // Path is invalid)
-
-        depth_cost = Map[wptY+dy[i]][wptX+dx[i]]; // depth in grid cells
+        ave_depth = int(round(cummulative_cost/(df_total_points))); // average depth in grid cells
     }
 
     return true; // Path is valid so return true
@@ -374,7 +413,7 @@ void A_Star::buildMOOSFile(string filename, string WPTs)
   MOOS.close();
 }
 
-// This function runs A*. It outputs the generated path as a string
+// This function runs A*. It outputs the generated path as a string to stdout
 string A_Star::AStar_Search()
 {
   //FILE *myfile;

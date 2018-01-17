@@ -162,7 +162,7 @@ public:
         string ReconstructPath(vector<vector<int> > direction_map);
 
 	// Check to see if the extened path is valid
-        bool extendedPathValid(int i, int wptX, int wptY, int &depth_cost);
+        bool extendedPathValid(int i, int wptX, int wptY, int &ave_depth);
 
 	// This function runs A* search. It outputs the generated WPTs as a comma seperated string
 	string AStar_Search();
