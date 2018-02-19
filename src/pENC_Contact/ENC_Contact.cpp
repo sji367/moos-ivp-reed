@@ -808,14 +808,11 @@ void ENC_Contact::BuildLayers()
     poDriver = GetGDALDriverManager()->GetDriverByName(pszDriverName );
     GDALDataset *ds_pnt, *ds_poly, *ds_ENC, *ds_grid;
     OGRLayer *PointLayer, *PolyLayer, *GridLayer;
-    string ENC_filename="";
-    vector<string> all_ENCs = parseString(m_ENC,",");
-
-    cout << calcBuffer(4) << endl;
+    string ENC_filename;
 
     /*
     // Build the grid and interp. Then make a binary grid (based on the desired minimum depth)and polygonize it
-    ENC_Polygonize polygonize = ENC_Polygonize("../../", "new.tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
+    ENC_Polygonize polygonize = ENC_Polygonize("../../", "PostProcess.tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
     polygonize.runWithGrid(m_ENC, 5, calcBuffer(4), m_MHW_Offset, true);
     polygonize.closeDS();
 
@@ -827,7 +824,7 @@ void ENC_Contact::BuildLayers()
         printf( "Open grid shp file failed.\n" );
         exit( 1 );
     }
-    
+
     // Create the shapefile
     ds_pnt = poDriver->Create( "../../src/ENCs/Shape/Point.shp", 0, 0, 0, GDT_Unknown, NULL );
     if( ds_pnt == NULL )
@@ -929,7 +926,7 @@ void ENC_Contact::BuildLayers()
 
     int i = 0;
     // Get the ENC
-    ENC_filename= "../../src/ENCs/"+all_ENCs[i]+"/"+all_ENCs[i]+".000";
+    ENC_filename= "../../src/ENCs/"+m_ENC+"/"+m_ENC+".000";
     ds_ENC = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( ds_ENC == NULL )
       {
@@ -1011,7 +1008,7 @@ void ENC_Contact::StoreShallowPolys(OGRLayer *layer, OGRLayer *PolyLayer)
     OGRFeatureDefn *poFDefn;
     OGRGeometry *geom;
     OGRPolygon *poly, *UTM_poly;
-    OGRLinearRing *ring, *UTM_ring, *innerRing, *UTM_innerRing;
+    OGRLinearRing *ring, *UTM_ring;//, *innerRing, *UTM_innerRing;
     double x,y;
     int binaryType;
 

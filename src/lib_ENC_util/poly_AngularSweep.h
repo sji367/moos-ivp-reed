@@ -20,11 +20,12 @@ class polyAngularSweep
 public:
     polyAngularSweep(double x, double y, double length, double searchDist) {polyAngularSweep(x, y, length, searchDist, false);}
     polyAngularSweep(double x, double y, double length, double searchDist, bool debug);
-    ~polyAngularSweep() {if (Debug){GDALClose(DS);}}
+    ~polyAngularSweep() {if (Debug){GDALClose(DS); GDALClose(DS_pnt);}}
 
     void findIntersections(OGRGeometry *geomPoly, double threat_level);
     double calcUtil(double dist);
-    void getOtherVertex(double angle, double &x, double &y);
+    void getOtherVertex(double angle, double &x, double &y) {getOtherVertex(angle, m_search_dist, x, y); }
+    void getOtherVertex(double angle, double dist, double &x, double &y);
     void storeUtil(OGRGeometry *intersect_geom, int index);
     void setT_Lvl(double TLvl) { t_lvl=TLvl; }
     string getUtilVect_asString();
@@ -41,6 +42,8 @@ public:
 
     void resetUtilityIfInside();
 
+    void writeIntersectionPoint(double x, double y);
+
     void movingAverageFilter(int windowSize);
 
 private:
@@ -50,8 +53,8 @@ private:
 
     OGRPolygon *search_area_poly;
     OGRPoint *ASV_Location;
-    GDALDataset *DS;
-    OGRLayer *LineLayer;
+    GDALDataset *DS, *DS_pnt;
+    OGRLayer *LineLayer, *PointLayer;
     double minDist;
 
     int swathSize;

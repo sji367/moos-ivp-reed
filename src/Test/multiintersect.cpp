@@ -20,11 +20,11 @@ int main()
     OGRFeature *feat;
     OGRGeometry *geom;
 
-    double x = -12;//20.5311;
-    double y = -30;//72;//-17.2426;
-    double search = 18*sqrt(2);
-    double length = 1.8;
-    double t_lvl = 4;
+    double x = -23;//20.5311;
+    double y = -65;//72;//-17.2426;
+    double length = 4;
+    double search = length*10*sqrt(2);
+    double t_lvl = 5;
 
     const char *pszDriverName = "ESRI Shapefile";
     GDALDriver *poDriver;
@@ -41,12 +41,10 @@ int main()
 
     layer = ds->GetLayerByName("poly");
 
-    cout << "before" << endl;
     layer->SetSpatialFilterRect(-105,-138,94,20);
     polyAngularSweep angSweep = polyAngularSweep(x,y, length, search, true);
-    cout << "after" << endl;
-    //angSweep.buildLineLayer();
     angSweep.build_search_poly();
+    cout << "before" << endl;
 
     clock_t begin = clock();
     clock_t end;

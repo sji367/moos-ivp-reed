@@ -19,7 +19,10 @@ endif()
 
 
 SET(SRC
-  multiintersect.cpp
+  #multiintersect.cpp
+  #t3.cpp
+  t4.cpp
+  #depthcost.cpp
 )
 
 ADD_EXECUTABLE(iTest ${SRC})

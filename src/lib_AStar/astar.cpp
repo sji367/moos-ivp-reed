@@ -280,8 +280,8 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
                 x = (y-b)/m;
 
                 // Store the grid node's X,Y position as ints
-                X= static_cast<int>(x);
-                Y=static_cast<int>(y);
+                X= static_cast<int>(round(x));
+                Y= static_cast<int>(round(y));
 
                 cummulative_cost += Map[Y][X];
 
@@ -337,8 +337,21 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
     bool found_path;
 
     clock_t start;
+    string command = "Y";
     double total_time;
     cout << "Running A*\n";
+
+    // Print a warning if the depth cutoff is lower than NOAAs
+    if (depth_cutoff<400)
+    {
+        cout << "WARNING: Depth cutoff is set lower than the NOAA's mapping threshold. Do you want to continue? (Y/N)" << endl;
+        cin >>command;
+
+        // Check to see if the user wants to continue with the threshold lower depth cutoff
+        if (command != "Y")
+            exit(1);
+    }
+
     checkStartFinish();
     if ((getStartValid()) && (getFinishValid()))
     {
@@ -476,7 +489,6 @@ string A_Star::AStar_Search()
 		// Check to see if the extended path goes through obstacles 
                 if (extendedPathValid(i, x, y, depth_cost))
 		  {
-                    //depth_cost = calcDepthCost(x,y, i);
 		    // Build the new node
                     child = Node(new_x, new_y, depth_cost,
                                  n0.getCost(), grid_size);

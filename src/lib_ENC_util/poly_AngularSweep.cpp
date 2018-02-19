@@ -56,7 +56,7 @@ void polyAngularSweep::findIntersections(OGRGeometry *geomPoly, double threat_le
     boxPolyIntersect = search_area_poly->Intersection(geomPoly);
 
     // Only try to find the intersection if the ASV is NOT inside/touching the polygon
-    if (!(checkInside.determineIfInside(boxPolyIntersect)))
+    if (!(checkInside.determineIfInside(geomPoly)))
     {
         for (int cur_angle=0; cur_angle<360; cur_angle+=swathSize)
         {
@@ -69,11 +69,31 @@ void polyAngularSweep::findIntersections(OGRGeometry *geomPoly, double threat_le
 
             // Check to see if the line intersects the polygon. If it does, store the utility
             //  of the closest vertex into a vector
-            if (line->Intersects(boxPolyIntersect))
+            if ((line->Intersects(geomPoly))||(line->Touches(geomPoly)))
             {
-                linePolyintersect = line->Intersection(boxPolyIntersect);
+                linePolyintersect = line->Intersection(geomPoly);
                 storeUtil(linePolyintersect, index);
             }
+
+            // Store the line into a shape file if debugging is set to true
+            if (Debug)
+            {
+                OGRFeatureDefn *poFDefn;
+                OGRFeature *new_feat;
+
+                poFDefn = LineLayer->GetLayerDefn();
+                new_feat =  OGRFeature::CreateFeature(poFDefn);
+                new_feat->SetField("Utility", util[index]);
+                new_feat->SetField("Angle", cur_angle);
+                new_feat->SetGeometry(line);
+
+                if( LineLayer->CreateFeature( new_feat ) != OGRERR_NONE )
+                {
+                    printf( "Failed to create feature in shapefile.\n" );
+                    exit( 1 );
+                }
+            }
+
             // Increment the counter for the index of the vector
             index++;
         }
@@ -91,52 +111,11 @@ void polyAngularSweep::storeUtil(OGRGeometry *intersect_geom, int index)
     double minDist = ASV_Location->Distance(intersect_geom);
     double utility = calcUtil(minDist);
 
-    // Store the line into a shape file if debugging is set to true
     if (Debug)
     {
-        OGRMultiLineString *multiline;
-        OGRLineString *line;
-        OGRFeature *new_feat;
-        OGRFeatureDefn *poFDefn;
-        poFDefn = LineLayer->GetLayerDefn();
-
-        string geomName =intersect_geom->getGeometryName();
-        if (geomName == "MULTILINESTRING")
-        {
-            multiline = (OGRMultiLineString*) intersect_geom;
-            for (int i=0; i<multiline->getNumGeometries(); i++)
-            {
-                line = (OGRLineString *) multiline->getGeometryRef(i);
-                new_feat =  OGRFeature::CreateFeature(poFDefn);
-                new_feat->SetField("Distance", minDist);
-                new_feat->SetField("Utility", utility);
-                new_feat->SetField("Angle", index*5);
-
-                new_feat->SetGeometry(line);
-                // Build the new feature
-                if( LineLayer->CreateFeature( new_feat ) != OGRERR_NONE )
-                {
-                    printf( "Failed to create feature in shapefile.\n" );
-                    exit( 1 );
-                }
-            }
-        }
-        else
-        {
-            line = (OGRLineString *) intersect_geom;
-            new_feat =  OGRFeature::CreateFeature(poFDefn);
-            new_feat->SetField("Distance", minDist);
-            new_feat->SetField("Utility", utility);
-            new_feat->SetField("Angle", index*5);
-
-            new_feat->SetGeometry(line);
-            // Build the new feature
-            if( LineLayer->CreateFeature( new_feat ) != OGRERR_NONE )
-            {
-                printf( "Failed to create feature in shapefile.\n" );
-                exit( 1 );
-            }
-        }
+        double X,Y;
+        getOtherVertex(index*5, minDist, X, Y);
+        writeIntersectionPoint(X,Y);
     }
 
     // Only store the utility if less than the one that is currently stored in the function
@@ -168,18 +147,17 @@ double polyAngularSweep::calcUtil(double dist)
     return utility;
 }
 
-void polyAngularSweep::getOtherVertex(double angle, double &x, double &y)
+void polyAngularSweep::getOtherVertex(double angle, double dist, double &x, double &y)
 {
     // In MOOS angles
-    x = m_search_dist*sin(angle/180*PI)+m_ASV_x;
-    y = m_search_dist*cos(angle/180*PI)+m_ASV_y;
+    x = dist*sin(angle/180*PI)+m_ASV_x;
+    y = dist*cos(angle/180*PI)+m_ASV_y;
 }
 
 string polyAngularSweep::getUtilVect_asString()
 {
     string utilString;
     int windowSize = 5;
-
 
     // Use a moving average filter to extend angularly the penality for driving toward
     // polygons by (windowSize+1)/2*swathSize, which is 15 degrees in the default config.
@@ -232,6 +210,7 @@ void polyAngularSweep::build_search_poly()
     search_area_poly->closeRings();
 
     // Add the search box to the shapefile
+    /*
     if (Debug)
     {
         poFDefn = LineLayer->GetLayerDefn();
@@ -253,6 +232,7 @@ void polyAngularSweep::build_search_poly()
             exit( 1 );
         }
     }
+    //*/
 }
 
 void polyAngularSweep::buildLineLayer()
@@ -290,6 +270,20 @@ void polyAngularSweep::buildLineLayer()
     if( LineLayer->CreateField( &oField_Angle ) != OGRERR_NONE )
     {
         printf( "Creating angle field failed.\n" );
+        exit( 1 );
+    }
+
+    // build point layer
+    DS_pnt = poDriver->Create( "src/ENCs/Shape/Point.shp", 0, 0, 0, GDT_Unknown, NULL );
+    if( DS_pnt == NULL )
+    {
+        printf( "Creation of output file failed.\n" );
+        exit( 1 );
+    }
+    PointLayer = DS_pnt->CreateLayer( "Point", NULL, wkbPoint, NULL );
+    if( PointLayer == NULL )
+    {
+        printf( "Layer creation failed.\n" );
         exit( 1 );
     }
 
@@ -382,5 +376,26 @@ void polyAngularSweep::movingAverageFilter(int windowSize)
         movingAve = cumSum/(windowSize*1.0);
         if (util[index]>movingAve)
             util[index]=movingAve;
+    }
+}
+
+void polyAngularSweep::writeIntersectionPoint(double x, double y)
+{
+    OGRFeatureDefn *poFDefn;
+    OGRPoint *point;
+    OGRFeature *new_feat;
+
+    point = (OGRPoint *)OGRGeometryFactory::createGeometry(wkbPoint);
+    point->setX(x);
+    point->setY(y);
+
+    poFDefn = PointLayer->GetLayerDefn();
+    new_feat= OGRFeature::CreateFeature(poFDefn);
+    new_feat->SetGeometry(point);
+
+    if( PointLayer->CreateFeature( new_feat ) != OGRERR_NONE )
+    {
+        printf( "Failed to create feature in shapefile.\n" );
+        exit( 1 );
     }
 }

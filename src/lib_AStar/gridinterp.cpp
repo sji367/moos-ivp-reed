@@ -209,7 +209,7 @@ void Grid_Interp::Run(bool csv, bool mat)
 
     // Grid the data
     GDALGridLinearOptions options;
-    options.dfRadius = 0;
+    options.dfRadius = -1;
     options.dfNoDataValue = -1000;
 
     int x_res = int(round((maxX - minX)/grid_size));
@@ -254,7 +254,7 @@ void Grid_Interp::Run(bool csv, bool mat)
     }
 
     cout << "Gridded" << endl;
-    //writeRasterData("pre.tiff", x_res, y_res, griddedData);
+    writeRasterData("rawInterp.tiff", x_res, y_res, griddedData);
 
     // Combine the 3 1D vectors to one 2D vector
     updateMap(poly_rasterdata, depth_area_rasterdata, ENC_outline_rasterdata, point_rasterdata, new_rast_data, x_res, y_res);
@@ -262,7 +262,7 @@ void Grid_Interp::Run(bool csv, bool mat)
     if (csv)
         write2csv(poly_rasterdata, depth_area_rasterdata, point_rasterdata, x_res, y_res, mat);
 
-    writeRasterData("new.tiff", x_res, y_res, new_rast_data);
+    writeRasterData("PostPrecess.tiff", x_res, y_res, new_rast_data);
     clock_t end = clock();
     double total_time = double(end - start) / CLOCKS_PER_SEC;
     cout << "Elapsed Time: " << total_time << " seconds." << endl;
@@ -615,7 +615,7 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
         }
         return; // do not store the line as a polygon
     }
-    else if ((layerName =="PONTON")||(layerName =="FLODOC")||(layerName =="DYKCON"))
+    else if ((layerName =="PONTON")||(layerName =="FLODOC")||(layerName =="DYKCON")||(layerName=="LNDARE"))
     {
         z = landZ;
     }
@@ -891,7 +891,7 @@ void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vecto
     GDALClose(poDataset);
 }
 
-void Grid_Interp::writeRasterData(string filename, int nXSize, int nYSize, vector<float>&RasterData)
+void Grid_Interp::writeRasterData(string filename, int nXSize, int nYSize, vector<int>&RasterData)
 {
     GDALDataset *poDataset;
     GDALRasterBand *poBand;
@@ -904,6 +904,46 @@ void Grid_Interp::writeRasterData(string filename, int nXSize, int nYSize, vecto
     string full_Filename = MOOS_Path+"src/ENCs/Grid/" +filename;
 
     //cout << "File name: " << full_Filename << endl;
+
+    // Open file for writing
+    poDriver = GetGDALDriverManager()->GetDriverByName(pszFormat);
+    poDataset = poDriver->Create( full_Filename.c_str(), nXSize, nYSize, 1, GDT_Float32, papszOptions );
+
+    // Set geo transform
+    double adfGeoTransform[6] = {minX+geod.getXOrigin(), grid_size, 0, maxY+geod.getYOrigin(), 0, -grid_size};
+    poDataset->SetGeoTransform( adfGeoTransform );
+
+    // Set Coordinate system
+    oSRS = geod.getUTM();
+    oSRS.exportToWkt( &pszSRS_WKT );
+    poDataset->SetProjection( pszSRS_WKT );
+    CPLFree( pszSRS_WKT );
+
+    // Write the file
+    poBand = poDataset->GetRasterBand(1);
+    if (poBand->RasterIO( GF_Write, 0, 0, nXSize, nYSize,
+                      RasterData.data(), nXSize, nYSize, GDT_Int32, 0, 0 ) != CE_None )
+    {
+        printf( "Failed to write raster data.\n" );
+        GDALClose(poDataset);
+        exit( 1 );
+    }
+
+    // Once we're done, close properly the dataset
+    GDALClose( (GDALDatasetH) poDataset );
+}
+
+void Grid_Interp::writeRasterData(string filename, int nXSize, int nYSize, vector<float>&RasterData)
+{
+    GDALDataset *poDataset;
+    GDALRasterBand *poBand;
+    OGRSpatialReference oSRS;
+    GDALDriver *poDriver;
+    char *pszSRS_WKT = NULL;
+    char **papszOptions = NULL;
+    const char *pszFormat = "GTiff";
+
+    string full_Filename = MOOS_Path+"src/ENCs/Grid/" +filename;
 
     // Open file for writing
     poDriver = GetGDALDriverManager()->GetDriverByName(pszFormat);

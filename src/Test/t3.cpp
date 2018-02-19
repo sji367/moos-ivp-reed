@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
 
     // Build the grid and interp. Then make a binary grid (based on the desired minimum depth)and polygonize it
     ENC_Polygonize polygonize = ENC_Polygonize("", "new.tiff", "raster.shp",geod, m_MHW_Offset);
-    polygonize.runWithGrid("US5NH02M",5, calcBuffer(4, 1.8, 1.0), m_MHW_Offset, true);
+    polygonize.runWithGrid("US3EC10M",100, calcBuffer(4, 1.8, 1.0), m_MHW_Offset, true);//US5NH02M
     polygonize.closeDS();
 
     string gridFilename = "src/ENCs/Grid/raster.shp";
