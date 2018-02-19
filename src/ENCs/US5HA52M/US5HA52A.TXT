@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5HA52E - SOUTH COAST OF O'AHU   KALAELOA ( BARBERS POINT)
+US5HA52M - SOUTH COAST OF O'AHU   KALAELOA ( BARBERS POINT)
 
 
 INDEX:
@@ -19,6 +21,7 @@ AUTHORITIES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 ADMINISTRATION AREA
+USACE HYDROGRAPHIC SURVEYS
 
 NOTES:
 AIDS TO NAVIGATION
@@ -36,9 +39,9 @@ Notice to Mariners.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio Stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at
 high elevations.
 
 Hawaii Kai, HI  KBA-99          162.40 MHz
@@ -124,8 +127,15 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
 
+
 Administration Area
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

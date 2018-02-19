@@ -19,6 +19,7 @@ ADMINISTRATION AREA
 POLLUTION REPORTS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 
 
 SOUNDING DATUM
@@ -101,6 +102,12 @@ munication is impossible (33 CFR 153).
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 ADDITIONAL INFORMATION

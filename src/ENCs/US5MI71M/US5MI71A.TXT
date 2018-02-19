@@ -8,6 +8,7 @@ INDEX:
 AIDS TO NAVIGATION
 SUPPLEMENTAL INFORMATION
 POLLUTION REPORTS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
 CAUTION - TEMPORARY CHANGES
@@ -38,6 +39,10 @@ Consult U.S. Coast Pilot 6 for important supplemental information.
 
 POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 CAUTION - LOW WATER DATUM

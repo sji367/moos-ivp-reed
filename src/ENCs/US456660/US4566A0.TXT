@@ -1,0 +1,37 @@
+NATIONAL GEOSPATIAL-INTELLIGENCE AGENCY
+US456660 - PALAU - APPROACHES TO MALAKAL HARBOR
+ 
+INDEX:
+GLOSSARY
+LIDAR SURVEYS
+SURVEY SOUNDING DATUM
+DEPTH CURVES
+COASTLINE
+TOACHEL MLENGUI
+CAUTION
+
+NOTES: 
+GLOSSARY:
+Rael ... channel
+Rois ... mountain
+Toachel ... channel
+
+LIDAR SURVEYS:
+Much of the hydrography on this chart is based on surveys using airborne Laser Image Detection and Ranging, or LIDAR. The ability of LIDAR to detect depths and hazards is limited by water conditions, such as water clarity, depth, and the state of the sea surface. Therefore, certain LIDAR-surveyed areas are not thoroughly examined, particularly in areas with depths greater than 30 meters. In such areas, additional sources may have been used. See source diagram for detailed limits of survey areas.
+
+SURVEY SOUNDING DATUM:
+0.3 meters below Mean Low Water Springs.
+
+DEPTH CURVES:
+The 30-meter curve does not appear in areas based only on former Japanese charts.
+
+COASTLINE:
+Coastline compiled from orthorectified 2011 imagery.
+
+TOACHEL MLENGUI:
+Toachel Mlengui is closed to all navigation from sunset to sunrise.
+
+CAUTION:
+QUALITY OF BATHYMETRIC DATA - The areas represented by the object M_QUAL (Quality of Data) are approximate due to generalizing for clarity. Caution is advised, particularly for nearshore navigation or voyage planning. M_QUAL represents areas of uniform quality of bathymetric data. The CATZOC (Category of Zone of Confidence in Data) attribute of M_QUAL provides an assessment of the overall zone of confidence.
+
+END OF FILE

@@ -19,6 +19,7 @@ CAUTION - SUBMARINE PIPELINES AND CABLES
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 
@@ -123,6 +124,13 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
+
 
 Administration Area
 The entire extent of this ENC cell falls within the limits of an Administration Area. This

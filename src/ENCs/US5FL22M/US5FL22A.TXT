@@ -13,6 +13,7 @@ CAUTION - LIMITATIONS
 WARNING - PRUDENT MARINER
 SUPPLEMENTAL INFORMATION
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 AUTHORITIES
 POLLUTION REPORTS
@@ -80,6 +81,11 @@ CAUTION - DREDGED AREAS
 Improved channels are 
 subject to shoaling, particularly at the edges.
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+features hazardous to surface navigation are not expected but may exist
+in federal channels.
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines and
@@ -114,7 +120,7 @@ is impossible (33 CFR 153).
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
+The reception range is typically 20 to 40 nautical miles.
 nautical miles from the antenna site, but can be
 as much as 100 nautical miles for stations at 
 high elevations.

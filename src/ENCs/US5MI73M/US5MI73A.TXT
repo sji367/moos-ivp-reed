@@ -8,6 +8,7 @@ INDEX:
 AUTHORITIES
 AIDS TO NAVIGATION
 CAUTION - TEMPORARY CHANGES
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS	
 CAUTION - LOW WATER DATUM
 WARNING - PRUDENT MARINER
@@ -35,6 +36,10 @@ Consult U.S. Coast Guard Light List for supplemental information concerning aids
 CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners. During some winter months or when endangered by ice, certain aids to navigation are 
 replaced by other types or removed. For details see U.S. Coast Guard Light List.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 RADAR REFLECTORS 

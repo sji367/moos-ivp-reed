@@ -16,11 +16,9 @@ CAUTION - SUBMARINE PIPELINES AND CABLES
 COLREGS, 80.1705 (see Note A)
 NOTE A
 NOAA WEATHER RADIO BROADCASTS
-OIL SPILL TASK FORCE
+VESSEL TRANSITING
 POLLUTION REPORTS
-UPLIFT DUE TO EARTHQUAKE OF 1964
 ADMINISTRATION AREA
-CAUTION - MONTAGUE ISLAND UPLIFT (NOTE B)
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 
@@ -115,19 +113,19 @@ high elevations.
 Rugged I, AK       	WNG-526   	162.425 MHz
 Naked I, AK         	WNG-530    	162.500 MHz
 Point Pigot, AK     	KZZ-93      	162.450 MHz
-Cape Hinchinbrook  	WNG-532      	162.525 MHz
+Cape Hinchinbrook, AK  	WNG-532      	162.525 MHz
 Potato Point, AK      	WNG-527    	162.425 MHz
 Seward, AK          	KEC-81       	162.550 MHz
 Whittier, AK      	KXI-29       	162.400 MHz
 East Point, AK          WNG-530         162.500 MHZ 
 
 
-OIL SPILL TASK FORCE
+VESSEL TRANSITING
 The U.S. Coast Guard and the Pacific States/British 
 Columbia Oil Spill Task Force endorse a system of voluntary measures and 
 minimum distances from shore for certain commercial vessels transiting along 
 the coast anywhere between Cook Inlet, Alaska, and San Diego, California.  
-See U.S. Coast Pilot 8 or 9, Chapter 3 for details.
+See U.S. Coast Pilot 9, Chapter 3 for details.
 
 
 POLLUTION REPORTS
@@ -135,16 +133,6 @@ Report all spills of oil and hazardous substances to the
 National Response Center via 1-800-424-8802 (toll free), or
 to the nearest U.S. Coast Guard facility if telephone com-
 munication is impossible (33 CFR 153).
-
-
-UPLIFT DUE TO EARTHQUAKE OF 1964
-Significant changes in depths and shoreline may have occurred in 
-the area of this chart as a result of the earthquake of March 27, 1964. 
-Tidal observations since the earthquake indicate bottom uplift of 
-+7.0 feet / 2.13 m  at Sawmill Bay. Mariners are urged to use extreme 
-caution when navigating in the area of this chart as the magnitude of 
-change except at this site is not known. Shoreline and hydrography in 
-the vicinity of Sawmill Bay has been revised from 1966 surveys.
 
 
 ADMINISTRATION AREA
@@ -155,12 +143,6 @@ airspace as well as to its bed and subsoil.  For more information, please
 refer to the Coast Pilot.
 
 
-CAUTION - MONTAGUE ISLAND UPLIFT (NOTE B)
-The earthquake of 1964 caused uplifts as much as 32 feet 
-in the vicinity of Montague Island.  Thus, these waters may be shoaler 
-than charted.
-
-
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
 
@@ -169,4 +151,4 @@ ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 
-End of file
+END OF FILE

@@ -2,21 +2,20 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US6MI54M - CHEYBOYGAN RIVER LOCK; CROOKED RIVER LOCK
+US6MI54M - CHEBOYGAN RIVER LOCK; CROOKED RIVER LOCK
 
 INDEX:
 NOTE A
-SAILING DIRECTIONS
 POLLUTION REPORTS
 AIDS TO NAVIGATION
 AUTHORITIES
-SAILING COURSES
 SUPPLEMENTAL INFORMATION
 WARNING - PRUDENT MARINER
 CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 ADMINISTRATION AREA
@@ -38,11 +37,6 @@ Detroit, Michigan.
 Refer to charted regulation section numbers.
 
 
-SAILING DIRECTIONS
-Bearings of sailing courses are true and distances given
-thereon are in statute miles between points of departure. 
-
-
 POLLUTION REPORTS
 Report all spills of oil and hazardous sub-
 stances to the National Response Center via 
@@ -62,10 +56,6 @@ Hydrography and topography by the National Ocean Service,
 Coast Survey with additional data from the Corps of Engineers, Geological
 Survey, and U.S. Coast Guard, and Canadian authorities.
 
-
-SAILING COURSES
-Sailing courses and limits indicated are recommended by the 
-Lake Carriers Association and the Canadian Shipowners Association.
 
 
 SUPPLEMENTAL INFORMATION
@@ -109,6 +99,14 @@ caution.
 CAUTION - DREDGED AREAS
 Improved channels are 
 subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 BRIDGE AND OVERHEAD CABLE CLEARANCES
@@ -155,9 +153,9 @@ nautical miles from the antenna site, but can be
 as much as 100 nautical miles for stations at
 high elevations.
 
-Alpena, Mi.	          KIG-83	 162.550   MHz
-Newberry, MI. 	          WNG-576        162.450   MHz 
-Sault St. Marie, Mi.   	  KIG-74         162.550   MHz
+Alpena, MI	          KIG-83	 162.550   MHz
+Newberry, MI 	          WNG-576        162.450   MHz 
+Sault St. Marie, MI   	  KIG-74         162.550   MHz
 
 
 TIDAL INFORMATION 

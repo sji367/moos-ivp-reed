@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US3CA85E - POINT CONCEPTION TO POINT SUR
+US3CA85M - POINT CONCEPTION TO POINT SUR
 
 INDEX:
 AUTHORITIES
@@ -79,9 +81,9 @@ supplemental information.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at
 high elevations.
 
 San Luis Obispo, CA	        KIH-31	 162.550 MHz
@@ -121,7 +123,7 @@ TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
 
 VESSEL TRANSITING
-The U.S. Coast Guard and the Pacific States/British Columbia Oil Spill Task Force endorse a system of voluntary measures and minimum distances from shore for certain commercial vessels transiting along the coast anywhere between Cook Inlet, Alaska and San Diego,California. See U.S. Coast Pilot 7, Chapter 3 for details.
+The U.S. Coast Guard and the Pacific States/British Columbia Oil Spill Task Force endorse a system of voluntary measures and minimum distances from shore for certain commercial vessels transiting along the coast anywhere between Cook Inlet, Alaska and San Diego, California. See U.S. Coast Pilot 7, Chapter 3 for details.
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.gov

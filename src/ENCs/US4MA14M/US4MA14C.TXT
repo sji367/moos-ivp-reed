@@ -1,2 +1,13 @@
-Navigation regulations are published in Chapter 2, U.S. Coast Pilots 1 & 2. Additions or revisions to Chapter 2 are published in the Notice to Mariners. Information concerning the regulations may be obtained at the Office of the Commander, 1st Coast Guard District in Boston, MA or at the Office of the District Engineer, Corps of Engineers in Concord, MA.
-Refer to charted regulation section numbers.
+Under the Clean Water Act, Section 312, all vessels
+operating within a No-Discharge Zone (NDZ) are completely
+prohibited from discharging any sewage, treated or
+untreated, into the waters. All vessels with an installed
+marine sanitation device (MSD) that are navigating, moored,
+anchored, or docked within a NDZ must have the MSD
+disabled to prevent the overboard discharge of sewage
+(treated or untreated) or install a holding tank. Regulations
+for the NDZ are contained in the U.S. Coast Pilot.
+Additional information concerning the regulations and
+requirements may be obtained from the Environmental
+Protection Agency (EPA) web site: http://www.epa.gov/
+owow/oceans/regulatory/vessel_sewage/.

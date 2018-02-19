@@ -9,6 +9,7 @@ NOTE A
 AIDS TO NAVIGATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
+CAUTION - SUBMARINE PIPELINES AND CABLES
 POLLUTION REPORTS
 SUBSISTENCE WHALING IN THE BEAUFORT SEA
 SUPPLEMENTAL INFORMATION
@@ -18,6 +19,7 @@ TIDAL INFORMATION
 ADDITIONAL INFORMATION
 
 NOTES:
+
 NOTE A
 Navigation regulations are published in 
 Chapter 2, U.S. Coast Pilot 9.  Additions or 
@@ -36,6 +38,7 @@ Consult U.S. Coast Guard Light List for
 supplemental information concerning aids to 
 navigation.
 
+
 CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to 
 navigation are not indicated. See 
@@ -50,6 +53,21 @@ Geospatial-Intelligence Agency Publication 117.
 Radio direction-finder bearings to commercial
 broadcasting stations are subject to error and
 should be used with caution.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and 
+submarine cables may exist within the area of 
+this chart.  Not all submarine pipelines and sub-
+marine cables are required to be buried, and 
+those that were originally buried may have 
+become exposed.  Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas where 
+pipelines and cables may exist, and when 
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
 
 
 POLLUTION REPORTS
@@ -68,14 +86,17 @@ or aewcdir@barrow.com prior to entering this area for infor-
 mation about the location and avoidance of traditional Native 
 hunting parties.
 
+
 SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 9 for important supplemental information.
+
 
 WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on 
 any single aid to navigation, particularly on 
 floating aids. See U.S. Coast Guard Light List 
 and U.S. Coast Pilot for details.
+
 
 AUTHORITIES
 Hydrography and topography by the National Ocean Service, Coast 

@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5MI89M - PORT SHELDON; SAUGATUCK HARBOR; SOUTH HAVEN
+US5MI89M - SOUTH HAVEN; PORT SHELDON; SAUGATUCK HARBOR
 
 INDEX:
 AIDS TO NAVIGATION
@@ -16,9 +16,11 @@ CAUTION - TEMPORARY CHANGES
 CAUTION - LOW WATER DATUM
 CAUTION - LIMITATIONS
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 POLLUTION REPORTS
 NOAA WEATHER RADIO BROADCASTS
+ADMINISTRATION AREA
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
 
@@ -101,6 +103,14 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 RADAR REFLECTORS
 Radar reflectors have been placed on many
 floating aids to navigation. Individual radar
@@ -125,16 +135,24 @@ high elevations.
 
 Grand Rapids, MI	KIG-63	        162.550 MHz
 Hesperia, MI	        WWF-36		162.475 MHz
-Oshtemo			WWF-34		162.475 MHz
+Oshtemo, MI		WWF-34		162.475 MHz
 West Olive, MI 		WXN-99		162.425 MHz
 
 
-TIDAL INFORMATION
-For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
 
 
 END OF FILE

@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5SP21E - KINGMAN REEF
+US5SP21M - KINGMAN REEF
 
 INDEX:
 SYMBOLS AND ABBREVIATIONS
@@ -12,6 +14,7 @@ SUPPLEMENTAL INFORMATION
 PROHIBITED AREA
 CAUTION
 CAUTION
+ADMINISTRATION AREA
 
 
 SYMBOLS AND ABBREVIATIONS: For Symbols and Abbreviations see Chart no. 1.
@@ -32,5 +35,8 @@ CAUTION: Temporary changes or defects in aids to navigation are not indicated.  
 
 CAUTION: Pending further surveys, the utmost caution should be exercised in using this anchorage.
 
+Adminstration Area 
+The entire extent of this ENC falls within the limits of an Adminstration Area. This area covers land,internal waters, and territorial sea. The territorial sea 
+is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil. For more information,please refer to the Coast Pilot.
 
 END OF FILE

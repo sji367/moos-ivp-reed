@@ -1,1 +1,9 @@
-Vessels operating in fresh water lakes or river shall not discharge sewage, or ballast, or bilge water within such areas adjacent to domestic water intakes as are designated by the Commissioner of Food and Drugs (21 CFR 1250.93).  Consult U.S. Coast Pilot 6for important supplemental information.
+CAUTION - QUALITY OF BATHYMETRIC DATA
+
+The areas represented by the object M_QUAL (Quality of data) are approximate due to generalizing 
+for clarity. Caution is advised, particularly for nearshore navigation or voyage planning. M_QUAL 
+represents areas of uniform quality of bathymetric data. The CATZOC (Category of zone of confidence 
+in data) attribute of M_QUAL provides an assessment of the overall zone of confidence.
+
+ 
+

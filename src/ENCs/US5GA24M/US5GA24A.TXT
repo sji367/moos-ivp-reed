@@ -24,6 +24,7 @@ RADAR REFLECTORS
 TIDAL INFORMATION 
 ADMINISTRATION AREA
 CAUTION  TIDE GATE
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -103,6 +104,12 @@ The entire extent of this ENC cell falls within the limits of an Administration 
 
 CAUTION  TIDE GATE
 The Tide Gate will operate automatically; therefore, the areas upstream and downstream of the gate have been designated restricted areas and are marked by a line of buoys.
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+features hazardous to surface navigation are not expected but may exist
+in federal channels.
 
 
 END OF FILE

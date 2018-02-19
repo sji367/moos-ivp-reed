@@ -5,18 +5,23 @@ NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTATION
 US5AK5AM - PORTAGE AND WIDE BAYS
 
 INDEX:
-CAUTION
+AUTHORITIES
+CAUTION - TEMPORARY CHANGES
 POLLUTION REPORTS
 AIDS TO NAVIGATION
 SUPPLEMENTAL INFORMATION
 NOTE A
 COLREGS, 80.1705 (see note A)
-HEIGHTS
-LOCAL MAGNETIC DISTURBANCE
 TIDAL INFORMATION
+WARNING - PRUDENT MARINER
 ADDITIONAL INFORMATION
 
-CAUTION
+NOTES:
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast Survey.
+
+
+CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to navigation are not indicated on this chart. 
 See notice to mariners.
 
@@ -47,17 +52,15 @@ COLREGS, 80.1705 (see note A)
 International Regulations for Preventing Collisions at Sea, 1972. The entire area of this chart falls 
 seaward of the COLREGS Demarcation Line.
 
-HEIGHTS
-Heights in feet above Mean High Water.
-
-
-LOCAL MAGNETIC DISTURBANCE
-Differences of as much as 14° from the normal variation have been observed on Terrance Island
-and as much as 3° on East Channel Island.
 
 TIDAL INFORMATION 
 For tidal information see the NOS Tide Table publication or go to 
 http://co-ops.nos.noaa.gov.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid to navigation, particularly on
+floating aids.  See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
 
 ADDITIONAL INFORMATION

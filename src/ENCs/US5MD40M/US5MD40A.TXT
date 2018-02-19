@@ -27,6 +27,7 @@ SMALL CRAFT WARNINGS
 ADMINISTRATION AREA
 RACING BUOYS
 TIDAL INFORMATION
+OYSTER AQUACULTURE
 ADDITIONAL INFORMATION
 
 
@@ -219,6 +220,18 @@ not all listed in the U.S. Coast Guard Light List.
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+OYSTER AQUACULTURE
+Oyster bed aquaculture leases may exist within the limits of
+this chart. Mariners are cautioned that numerous markers
+may exist and watermen may be active in the area. Caution
+should be exercised when navigating in or near these areas,
+not to anchor or ground, in order to avoid damage to the
+beds. Depths may be shallower than the soundings shown.
+For more information, contact the local department of natural
+resources.
+
 
 
 ADDITIONAL INFORMATION

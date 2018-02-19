@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5OR12E - COLUMBIA RIVER, HARRINGTON POINT TO CRIMS ISLAND
+US5OR12M - COLUMBIA RIVER, HARRINGTON POINT TO CRIMS ISLAND
 
 INDEX:
 SOUNDING DATUM
@@ -18,6 +20,7 @@ RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 STATUTE MILES - COLUMBIA RIVER
 TIDAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 
@@ -111,10 +114,10 @@ omitted from this chart.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio Stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
-high elevations.
+as much as 185 kilometers / 100 nautical miles for stations at 
+high elevations. 
 
 Astoria, OR	 KEC-91		162.400 MHz
 Neahkahnie, OR	 WWF-94		162.425 MHz
@@ -137,6 +140,12 @@ of the tide during low river stages is 2.1 meters / 6.9 feet at Three Tree Point
 2.0 meters / 6.4 feet at Cathlamet and 1.7 meters / 5.5 feet at Eagle Creek. 
 The range becomes progressively small with higher stages of the river. 
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 ADMINISTRATION AREA

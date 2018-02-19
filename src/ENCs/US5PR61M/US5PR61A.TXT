@@ -1,8 +1,11 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5PR61E - BAHIA DE MAYAGUEZ
+US5PR61M - BAHIA DE MAYAGUEZ
 
 INDEX:
+
 AUTHORITIES 
 WARNING - PRUDENT MARINER
 RADAR REFLECTORS 
@@ -20,8 +23,11 @@ HURRICANES AND TROPICAL STORMS
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
 ADMINISTRATION AREA
+CORAL PROPAGATION
+
 
 NOTES:
+
 AUTHORITIES 
 Hydrography and topography by the National Ocean Service, Coast
 Survey, with additional data from the Corps of Engineers, and U.S. 
@@ -143,5 +149,10 @@ This area covers land, internal waters, and territorial sea.  The territorial se
 a maritime zone which the United States exercises sovereignty extending to the 
 airspace as well as to its bed and subsoil.  For more information, please 
 refer to the Coast Pilot.
+
+CORAL PROPAGATION
+Uncharted submerged manmade structures, designed for the purpose of coral propagation, may exist within the limits of this chart,
+principally in shallow water areas.
+
 
 END OF FILE

@@ -108,8 +108,7 @@ Local Notice to Mariners.
 
 CAUTION - DEPTHS
 The depths of water have been determined from conditions existing
-prior to the filling of the pool.  Shoaler depths than charted may exist within the
-blue tinted areas particularly near the shoreline.
+prior to the filling of the pool.  Shoaler depths than charted may exist, particularly near the shoreline.
 
 
 ADDITIONAL INFORMATION
@@ -122,11 +121,10 @@ For tidal information, see the NOS tide table publication or go to http://co-ops
 
 SOUNDING DATUM
 Soundings and clearances of bridges and overhead cables in Lower Monumental Reservoir west of
-Little Goose Lock and Dam are referrred to normal pool elevation of 540 feet above mean sea 
-level. Soundings in Lake Bryan are referred to 635 feet above mean sea level. Normal operating
-pool range is between 633 feet and 638 feet above mean sea level and drawn down to 635 feet may
-occur without prior notice. Vertical clearances for overhead cables and bridges are referred to
-the normal pool level of 638 feet above mean sea level.
+Little Goose Lock and Dam are referred to normal pool elevation of 164.6 meters / 540 feet above mean sea 
+level. Soundings in Lake Bryan are referred to 193.5 meters / 635 feet above mean sea level. Normal operating
+pool range is between 192.9 meters / 633 feet and 194.5 meters / 638 feet above mean sea level and drawn down to 193.5 meters / 635 feet may occur without prior notice. Vertical clearances for overhead cables and bridges are referred to
+the normal pool level of 194.5 meters / 638 feet above mean sea level.
 
 
 END OF FILE

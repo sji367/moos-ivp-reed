@@ -2,12 +2,9 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK4OM - HARBOR CHARTS, CLARENCE STRAIT AND BEHM CANAL
-
+US5AK4OM - HARBOR CHARTS - CLARENCE STRAIT AND BEHM CANAL; DEWEY ANCHORAGE; RATZ HARBOR; NAHA BAY; TOLSTOI AND THORNE BAYS; UNION BAY
 
 INDEX: 
-
-
 AIDS TO NAVIGATION
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION 
@@ -21,14 +18,10 @@ NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
 ADMINISTRATION AREA
 COLREGS, 80.1705 (see note A) 
-
-
 CAUTION - SUBMARINE PIPELINES AND CABLES
-CAUTION
+CAUTION - PRELIMINARY SURVEYS
 
 NOTES:
-
-
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
 
@@ -63,7 +56,8 @@ Refer to charted regulation section numbers.
 
 
 AUTHORITIES
-Hydrography and topography by the National Ocean Service, CoastSurvey, with additional data from the U.S. Coast Guard.
+Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from the U.S. Coast Guard.
+
 
 RADAR REFLECTORS
 Radar reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids 
@@ -115,7 +109,7 @@ Covered wells may be marked by lighted or
 unlighted buoys.
 
 
-CAUTION
+CAUTION - PRELIMINARY SURVEYS
 Hydrography and topography from preliminary
 surveys subject to revision.
 

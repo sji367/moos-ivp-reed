@@ -21,6 +21,8 @@ ADDITIONAL INFORMATION
 POLLUTION REPORTS
 ADMINISTRATION AREA
 SOUNDINGS AND CLEARANCES
+USACE HYDROGRAPHIC SURVEYS
+
 
 NOTES:
 NOTEA
@@ -126,5 +128,10 @@ Soundings and clearances of bridges and overhead cables between John Jay Dam and
 Dam in Lake Umatilla refer to normal pool elevation which is 265 feet above mean sea level.
 Soundings above Mc Nary Dam refer to normal pool elevation which is 340 feet above mean sea
 level.
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE

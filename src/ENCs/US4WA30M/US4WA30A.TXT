@@ -17,11 +17,13 @@ CAUTION - DREDGED AREAS
 AUTHORITIES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 RADAR REFLECTORS
-TIDAL INFORMATION 
+TIDAL INFORMATION
+ADMINISTRATION AREA  
 COLREGS, 80.1385, 80.1390 (see note A)
 CAUTION - NOTE I
 PUGET SOUND HARBOR SAFETY PLAN
 CANADIAN WEATHER RADIO BROADCASTS
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -141,7 +143,7 @@ CAUTION - NOTE I
 A Cooperative Vessel Traffic Services (CVTS) system
 has been established by the United States and Canada
 within the adjoining waters in the Juan de Fuca Region.
-The appropriate Vessel Traffic Center (VTC) (Tofino Traffic,
+The appropriate Vessel Traffic Center (VTC) (Prince Rupert Traffic,
 Seattle Traffic, Victoria Traffic) administers the rules
 issued by both nations, however, it will enforce only its
 own set of rules within its jurisdiction. 
@@ -163,8 +165,14 @@ CANADIAN WEATHER RADIO BROADCASTS
 The Canadian Weather Service station listed below
 provides continuous marine weather broadcasts. The range
 of reception is variable, but for most stations is usually
-20 to 40 miles from the antenna site.
+37 to 74 kilometers / 20 to 40 nautical miles from the antenna site.
+
 Vancouver, B.C.		CFA-240		162.400MHz   
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

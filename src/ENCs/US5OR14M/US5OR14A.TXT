@@ -24,6 +24,7 @@ ADMINISTRATION AREA
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 SOUNDING DATUM
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -116,8 +117,8 @@ munication is impossible (33 CFR 153).
 
 
 TIDES
-The diurnal range of the Vancouver (46°37'N/122°40'W) during 
-low river stages is 0.5 meters/1.8 feet. The range becomes 
+The diurnal range of the tide at Vancouver (46°37'N/122°40'W) during 
+lowest river stages is 0.5 meters/1.8 feet. The range becomes 
 progressively smaller with higher stages of the river. Apr 2016
 
 
@@ -160,5 +161,10 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov.
 SOUNDING DATUM
 Colubia River Datum: Mean Loweer Low Water During Lowest River Stages.
 
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 End of File

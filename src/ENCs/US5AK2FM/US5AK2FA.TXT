@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK2FM - CAPE RESURRECTION TO TWO ARM BAY, KENAI PENINSULA
+US5AK2FM - SEWARD
 
 INDEX:
 NOTE A
@@ -13,12 +13,12 @@ CAUTION - TEMPORARY CHANGES
 SUPPLEMENTAL INFORMATION
 WARNING - PRUDENT MARINER
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - LIMITATIONS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 NOAA WEATHER RADIO BROADCASTS
 POLLUTION REPORTS
 AUTHORITIES
-COLREGS, 80.1705 (see Note A)
 RADAR REFLECTORS
 ADMINISTRATION AREA
 COLREGS, 80.1705 (see note A)
@@ -40,11 +40,11 @@ Refer to charted regulation section numbers.
 
 
 VESSEL TRANSITING NOTE
-The U.S.Coast Guard and the Pacific States/British Columbia Oil Spill 
+The U.S. Coast Guard and the Pacific States/British Columbia Oil Spill 
 Task Force endorse a system of voluntary measures and minimum 
 distances from shore for certain commercial vessels transiting along 
-the coast anywhere between Cook Inlet, Alaska and Sandiego, 
-California. See U.S.Coast Pilot 9: Chapter 3 for details.
+the coast anywhere between Cook Inlet, Alaska and San Diego, 
+California. See U.S. Coast Pilot 9: Chapter 3 for details.
 
 
 CAUTION - UPLIFT
@@ -52,8 +52,8 @@ The entire area of this chart is affected by land uplift due to forces
 such as postseismic crustal rebound. As a result, the tidal datums including 
 mean lower low water, the plane of reference used for depth soundings, have 
 changed throughout this region. Tidal datums were updated in 1999 and depths 
-of 11.5 fathoms or less were adjusted accordingly, to account for this 
-uplift. As the uplift rates can only be estimated and areas continue to 
+of 21 meters / 11.5 fathoms or less were adjusted accordingly, to account for
+this uplift. As the uplift rates can only be estimated and areas continue to 
 rise, depths may be shoaler than charted. Mariners are urged to exercise caution.
 
 
@@ -84,6 +84,14 @@ and U.S. Coast Pilot for details.
 CAUTION - DREDGED AREAS 
 Improved channels are 
 subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 CAUTION - LIMITATIONS
@@ -138,13 +146,6 @@ AUTHORITIES
 Hydrography and topography by the National Ocean Service, Coast 
 Survey, with additional data from the Corps of Engineers, Geological 
 Survey, and U.S. Coast Guard.
-
-
-COLREGS, 80.1705 (see Note A) 
-International Regulations for Prevention Collision at sea,
-1972. 
-The entire area of this chart falls seaward of the COLREGS
-Demarcation Line.
 
 
 RADAR REFLECTORS

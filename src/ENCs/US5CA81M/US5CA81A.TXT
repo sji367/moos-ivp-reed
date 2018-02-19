@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5CA81E - ESTERO BAY
+US5CA81M - ESTERO BAY; MORRO BAY
 
 INDEX:
 AUTHORITIES
@@ -16,7 +18,8 @@ NOAA WEATHER RADIO BROADCASTS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
-ADMINISTRATION AREA 
+ADMINISTRATION AREA
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -66,7 +69,7 @@ CAUTION - LIMITATIONS
 Limitations on the use of radio signals as
 aids to marine navigation can be found in the
 U.S. Coast Guard Light Lists and National
-geospatial - intelligence Agency Publication 117.
+Geospatial-Intelligence Agency Publication 117.
 Radio direction finder bearings to commercial
 broadcasting stations are subject to error and
 should be used with caution.
@@ -80,9 +83,9 @@ omitted from this chart.
 NOAA WEATHER RADIO BROADCASTS 
 The NOAA Weather Radio station listed
 below provides continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at
 high elevations. 
 San Luis Obispo, CA	    KIH-31	  162.550 MHz WX1 
 
@@ -105,12 +108,16 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov.
 
-
 ADMINISTRATION AREA 
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, 
 internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises 
 sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to 
 the Coast Pilot.
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

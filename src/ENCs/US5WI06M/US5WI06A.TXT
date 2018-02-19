@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5WI06M - BAILEYS HARBOR, JACKSON HARBOR AND DETROIT HARBOR
+US5WI06M - DETROIT HARBOR; JACKSON HARBOR; BAILEYS HARBOR
 
 INDEX:
 AUTHORITIES
@@ -15,11 +15,12 @@ CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 SAILING DIRECTIONS
 SAILING COURSES
-CAUTION - SUBMARINE PIPELINES and CABLES
+CAUTION - SUBMARINE PIPELINES AND CABLES
 NOTE D
 BRIDGES AND OVERHEAD CABLE CLEARANCES
 TIDAL INFORMATION
@@ -97,6 +98,14 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 RADAR REFLECTORS
 Radar reflectors have been placed on many
 floating aids to navigation.  Individual radar
@@ -128,7 +137,7 @@ mended by the Lake Carriers Association and the Canadian
 Shipowners Association.
 
 
-CAUTION - SUBMARINE PIPELINES and CABLES
+CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines and 
 submarine cables may exist within the area of 
 this chart. Not all submarine pipelines and sub-
@@ -151,7 +160,7 @@ structures are not charted unless known to be permanent.
 
 BRIDGES AND OVERHEAD CABLE CLEARANCES
 When the water surface is above Low Water
-Datum, bridge and overhead clearances are reduced correspondingly.  For clearance see U.S.
+Datum, bridge and overhead clearances are reduced correspondingly.  For clearances see U.S.
 Coast Pilot 6.
 
 

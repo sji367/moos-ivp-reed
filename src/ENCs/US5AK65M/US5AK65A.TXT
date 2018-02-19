@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK65M - UNALASKA ISLAND AND KULILIAK BAY TO SURVEYOR BAY
+US5AK65M - UNALASKA ISLAND - KULILIAK BAY TO SURVEYOR BAY
 
 INDEX:
 SUPPLEMENTAL INFORMATION
@@ -91,9 +91,11 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
 
+
 COMMENTS REQUEST
 NOAA encourages users to submit inquiries, discrepancies or comments about this ENC at
 http://www.nauticalcharts.noaa.gov/staff/contact.htm
+
 
 END OF FILE
 

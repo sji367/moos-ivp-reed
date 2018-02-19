@@ -13,17 +13,19 @@ NOAA WEATHER RADIO BROADCASTS
 AUTHORITIES
 WARNING - PRUDENT MARINER
 CAUTION - LIMITATIONS
+CAUTION - SUBMARINE PIPELINES AND CABLES
 RADAR REFLECTORS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 
 
 NOTES:
+
 NOTE A
 Navigation regulations are published in 
 Chapter 2, U.S. Coast Pilot 9. Additions or
 revisions to Chapter 2 are published in the 
-Notices to Mariners.  Information concerning 
+Notice to Mariners.  Information concerning 
 the regulations may be obtained at the Office 
 of the Commander, 17th Coast Guard District 
 in Juneau, Alaska, or at the Office of the District 
@@ -84,6 +86,21 @@ Geospatial-Intelligence Agency Publication 117.
 Radio direction-finder bearings to commercial
 broadcasting stations are subject to error and
 should be used with caution.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and 
+submarine cables may exist within the area of 
+this chart.  Not all submarine pipelines and sub-
+marine cables are required to be buried, and 
+those that were originally buried may have 
+become exposed.  Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas where 
+pipelines and cables may exist, and when 
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
  
 
 RADAR REFLECTORS

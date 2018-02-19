@@ -1,51 +1,190 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 US5VT04M - BARBER POINT TO WHITEHALL
 
+
 INDEX:
-SYMBOLS AND ABBREVIATIONS
-AUTHORITIES		
-AIDS TO NAVIGATION	
-NOTE A			
-WARNING – PRUDENT MARINER
-POLLUTION REPORTS	
+
+AIDS TO NAVIGATION
+
+RADAR REFLECTORS
+POLLUTION REPORTS
+
 SUPPLEMENTAL INFORMATION
-CHAMPLAIN CANAL AND HUDSON RIVER
-CAUTION	
-CAUTION		
-RADAR REFLECTORS	
-SUBMARINE PIPELINES AND CABLES
+
+CAUTION - TEMPORARY CHANGES
+CAUTION - LOW WATER DATUM
+
+CAUTION - LIMITATIONS
+
+BRIDGES AND OVERHEAD CABLE CLEARANCES
+
 NOAA WEATHER RADIO BROADCASTS
-ADMINISTRATION AREA
+
+AUTHORITIES
+
+WARNING - PRUDENT MARINER
+
+NOTE A
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+TIDAL INFORMATION
+
+ADDITIONAL INFORMATION
 
 
-SYMBOLS AND ABBREVIATIONS: For complete list of Symbols and Abbreviations, see Chart no. 1.	
+NOTES:
+AIDS TO NAVIGATION
 
-AUTHORITIES: Hydrography and topography by the National Ocean Service, Coast Survey with additional data from the Corps of Engineers, Geological Survey, U.S. Coast Guard, and Canadian authorities.
+Consult U.S. Coast Guard Light List for supplemental information
+concerning aids to navigation.
 
-AIDS TO NAVIGATION: Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.  
 
-NOTE A: Navigation regulations are published in Chapter 2, U.S. Coast Pilot 6.  Additions or revisions to Chapter 2 are published in the Notice to Mariners.  Information concerning the regulations may be obtained at the Office of the Commander, 1st Coast Guard District in Boston, Mass, or at the Office of the District Engineer, Corps of Engineers in New York, New York. Refer to Code of Federal Regulations section numbers.  
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
 
-WARNING – PRUDENT MARINER: The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids.  See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
+ 
 
-POLLUTION REPORTS: Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
+POLLUTION REPORTS
 
-SUPPLEMENTAL INFORMATION: Consult U.S. Coast Pilot 6 for important supplemental information.
+Report all spills of oil and hazardous substances to the
+National Response Center via 1-800-424-8802 (toll free), or
+to the nearest U.S. Coast Guard facility if telephone com-
+munication is impossible (33 CFR 153).
 
-Champlain Canal and Hudson River to Troy N.Y. are covered in more detail on small craft Chart 14786.
 
-CAUTION: Temporary changes or defects in aids to navigation are not indicated.  See Local Notice to Mariners. During some winter months or when endangered by ice, certain aids to navigation are replaced by other types or removed.  For details, see U.S. Coast Guard Light List.
 
-CAUTION: Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Imagery and Mapping Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution. RADAR REFLECTORS: Radar reflectors have been placed on many floating aids to navigation.  Individual radar reflector identification on these aids has been omitted.
 
-SUBMARINE PIPELINES AND CABLES: Additional uncharted submarine pipelines and submarine cables may exist within the area.  Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed.  Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exists, and when anchoring, dragging, or trawling. Covered wells may be marked by lighted or unlighted buoys.
+SUPPLEMENTAL INFORMATION
 
-NOAA WEATHER RADIO BROADCASTS: The NOAA Weather Radio station listed below provides continuous weather broadcasts.  The range of reception is variable, but for most stations is usually 20 to 40 miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+Consult U.S. Coast Pilot 6 for important supplemental
+information.
 
-Burlington, VT	KIG-60		162.40 MHz (Chan. WX-2)
 
-ADMINISTRATION AREA
-The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea. The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil. For more information, please refer to the Coast Pilot.
+
+
+CAUTION - TEMPORARY CHANGES
+
+Temporary changes or defects in aids to 
+navigation are not indicated. See
+Local Notice to Mariners.
+During some winter months or when endan-
+gered by ice, certain aids to navigation are
+replaced by other types or removed. For details
+see U.S. Coast Guard Light List.
+
+
+
+CAUTION - LOW WATER DATUM
+
+Due to periodic high water conditions in the Great Lakes, some 
+features charted as visible at Low Water Datum may be submerged, particularly in
+the near shore areas. Mariners should proceed with caution.
+
+
+
+
+CAUTION - LIMITATIONS
+
+Limitations on the use of radio signals as
+aids to marine navigation can be found in the
+U.S. Coast Guard Light Lists and National
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial
+broadcasting stations are subject to error and
+should be used with caution.
+
+
+
+
+
+BRIDGES AND OVERHEAD CABLE CLEARANCES
+
+When the water surface is above Low Water
+Datum, bridge and overhead clearances are reduced correspondingly. For clearances see U.S.
+Coast Pilot 6.
+
+
+NOAA WEATHER RADIO BROADCASTS
+
+The NOAA Weather Radio stations listed 
+below provide continuous weather broadcasts.  
+The reception range is typically 20 to 40 
+nautical miles from the antenna site, but can be
+as much as 100 nautical miles for stations at
+high elevations.
+
+ 
+
+
+Burlington, VT    KIG-60      162.400 MHz (Chan. WX-2)
+	
+
+
+
+AUTHORITIES
+
+Hydrography and Topography by the National Ocean Service, Coast Survey,
+with additional data from the Corps of Engineers, Geological Survey, U.S Coast Guard, and
+Canadian authorities.
+
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid
+to navigation, particularly on floating aids. See U.S. Coast
+Guard Light List and U.S. Coast Pilot 6 for details.
+
+
+
+
+NOTE A
+
+Navigation regulations are published in Chapter 2, U.S. 
+Coast Pilot 6. Additions or revisions to Chapter 2 are pub-
+lished in the Notice to Mariners.  Information concerning 
+the regulation may be obtained at the Office of the Com-
+mander, 1st Coast Guard District in Boston, Mass., or at 
+the Office of the District Engineer, Corps of Engineers in 
+New York, New York.
+Refer to charted regulation section numbers.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and
+submarine cables may exist within the area of
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and
+those that were originally buried may have 
+become exposed. Mariners should use extreme
+caution when operating vessels in depths of
+water comparable to their draft in areas where
+pipelines and cables may exist, and when
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or
+unlighted buoys.
+
+
+
+
+TIDAL INFORMATION
+
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+
+
+ADDITIONAL INFORMATION
+
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+
+
 
 END OF FILE

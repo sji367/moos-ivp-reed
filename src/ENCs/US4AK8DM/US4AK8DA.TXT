@@ -9,6 +9,7 @@ NOTE A
 AIDS TO NAVIGATION
 SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
+CAUTION - SUBMARINE PIPELINES AND CABLES
 AUTHORITIES
 POLLUTION REPORTS
 COLREGS, 80.1705 (see note A)
@@ -31,6 +32,10 @@ Consult U.S. Coast Pilot 9 and National Geospatial-Intelligence Agency Pub. 155 
 
 CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or unlighted buoys.
 
 AUTHORITIES
 Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from the U.S. Coast Guard, Geological Survey, and National Geospatial-Intelligence Agency.

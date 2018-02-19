@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5CA63M - SANTA MONICA BAY 
+US5CA63M - SANTA MONICA BAY; KING HARBOR 
  
 INDEX  
 
@@ -20,6 +20,8 @@ RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS 
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
+
 
 NOTES:
 AUTHORITIES  
@@ -115,5 +117,9 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov.
 
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE 

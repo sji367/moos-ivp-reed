@@ -1,4 +1,5 @@
-NOAA ENC@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 US3CA14M - SAN FRANCISCO TO POINT ARENA
@@ -75,7 +76,7 @@ Refer to charted regulation section numbers.
 
 NOTE H
 The San Francisco Bay Vessel Traffic Service is not 
-shown. See  charts 18645 and 18649.
+shown. See US4CA11M and US5CA12M.
 
 WARNING - PRUDENT MARINER 
 The prudent mariner will not rely solely on any single aid 
@@ -101,9 +102,9 @@ unlighted buoys.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for station at 
+as much as 185 kilometers / 100 nautical miles for station at 
 high elevations.
 
 Point Arena, CA	       	KIH-30  	162.550 MHz

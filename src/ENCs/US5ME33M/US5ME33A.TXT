@@ -20,6 +20,7 @@ RADAR REFLECTORS
 COLREGS, 80.105 (see note A)
 ADMINISTRATION AREA
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 ADDITIONAL INFORMATION
 
 
@@ -49,7 +50,7 @@ Additional uncharted submarine pipelines and submarine cables may exist within t
 
 
 NOAA WEATHER RADIO BROADCASTS
-The NOAA Weather Radio station listed below provides continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+The NOAA Weather Radio stations listed below provide continuous weather broadcasts. The reception range is typically 32 to 64 kilometres / 20 to 40 nautical miles from the antenna site, but can be as much as 161 kilometres / 100 nautical miles for stations at high elevations.
 
 Ellsworth, ME          KEC-93       162.400 MHz
 
@@ -84,6 +85,10 @@ The entire extent of this ENC cell falls within the limits of an Administration 
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 ADDITIONAL INFORMATION

@@ -24,6 +24,7 @@ TIDAL INFORMATION
 ADDITIONAL INFORMATION
 CAUTION - LOG STORAGE AREAS
 SOUNDING DATUM
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -148,6 +149,12 @@ should exercise caution in these areas.
 
 SOUNDING DATUM
 Columbia River Datum: Mean Lower Low Water During Lower River Stages.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

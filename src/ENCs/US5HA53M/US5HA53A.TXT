@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5HA53E - OAHU - SOUTH COAST APPROACHES TO PEARL HARBOR
+US5HA53M - OAHU - SOUTH COAST APPROACHES TO PEARL HARBOR
 
 INDEX:
 AIDS TO NAVIGATION
@@ -86,9 +88,9 @@ Refer to charted regulation section numbers.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Hawaii Kai, HI		KBA-99		162.400 MHz
@@ -130,6 +132,7 @@ Mariners are urged to exercise extreme caution when transiting inshore waters du
 
 RADAR REFLECTORS
 Radar reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids has been omitted from this chart.
+
 
 ADMINISTRATION AREA
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot

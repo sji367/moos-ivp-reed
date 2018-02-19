@@ -1,8 +1,8 @@
-NOAA®
+NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK5MM - PART OF ALITAKBAY CAPE ALITAK TO MOSER BAY KODIAK ISLAND
+US5AK5MM - PART OF ALITAK BAY - CAPE ALITAK TO MOSER BAY
 
 INDEX:
 AIDS TO NAVIGATION
@@ -15,7 +15,7 @@ NOTE A
 AUTHORITIES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - LIMITATIONS
-CAUTION
+CAUTION - SIGNIFICANT CHANGES
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
@@ -57,18 +57,18 @@ CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine 
 pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. 
 Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where 
-pipelines and cables may exist, and when anchoring, dragging, or trawling.Covered wells may be marked by lighted or 
+pipelines and cables may exist, and when anchoring, dragging, or trawling. Covered wells may be marked by lighted or 
 unlighted buoys.
 
 CAUTION - LIMITATIONS
 Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists 
-and National Geospatial-Intelligence Agency Publication 117.Radio direction-finder bearings to commercial 
+and National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial 
 broadcasting stations are subject to error and should be used with caution.
 
-CAUTION
-Significant changes in depths and shorelinemay have occurred in the area of this chart as aresult of the earthquake of 
-March 27, 1964, Tidal subsidence of -0.1 meters/0.6 feet at Lazy Bay. Mariners areurged to use extreme caution when navigating in
-the area of this chart as the magnitude of changeexcept at this site is not known.
+CAUTION - SIGNIFICANT CHANGES
+Significant changes in depths may have occurred in the area of this chart as a result of the earthquake of March 27, 1964.  Tidal 
+observations since the earthquake indicate bottom subsidence of -0.18 meters / -0.6 feet at Lazy Bay. Mariners are urged to use 
+extreme caution when navigating in the area of this chart as the magnitude of change except at this site is not known.
 
 RADAR REFLECTORS
 Radar reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids 

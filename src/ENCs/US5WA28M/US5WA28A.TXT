@@ -27,6 +27,7 @@ TIDAL INFORMATION
 
 ADDITIONAL INFORMATION
 REGULATED NAVIGATION AREA
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 
@@ -46,7 +47,7 @@ The U.S. Coast Guard operates a mandatory Vessel Traffic Services
 (VTS) system in the Puget Sound area. Vessel operating procedures 
 and designated radiotelephone frequencies are published in 33 CFR
 161, the U.S. Coast Pilot, and/or the VTS User's Manual. The entire
-area of the chart falls within the the Vessel Traffic Services (VTS)
+area of the chart falls within the Vessel Traffic Services (VTS)
 system.
 
 
@@ -78,7 +79,7 @@ CAUTION - LIMITATIONS
 Limitations on the use of radio signals as
 aids to marine navigation can be  found in the
 U.S. Coast Guard Light Lists and National
-Geospatial-Intelligence  Agency Publication 117.
+Geospatial-Intelligence Agency Publication 117.
 Radio direction-finder bearings to commercial
 broadcasting stations are subject to error and
 should be used with caution.
@@ -132,9 +133,9 @@ facility if telephone communication is impossible (33 CFR 153).
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Seattle, WA		KHB-60		162.55 MHz
@@ -166,6 +167,12 @@ Administration Area. This area covers land, internal waters, and
 territorial sea. The territorial sea is a maritime zone which the United
 States exercises sovereignty extending to the airspace as well as to its
 bed and subsoil. For more information, please refer to the Coast Pilot.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

@@ -8,29 +8,28 @@ US5WA31M - ANACORTES TO SKAGIT BAY
 INDEX:
 AIDS TO NAVIGATION
 POLLUTION REPORTS
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS)
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS)
 SUPPLEMENTAL INFORMATION
-CAUTION  TEMPORARY CHANGES
-WARNING  PRUDENT MARINER
+CAUTION - TEMPORARY CHANGES
+WARNING - PRUDENT MARINER
 ADDITIONAL INFORMATION
 NOTE A
 AUTHORITIES
-CAUTION  SUBMARINE PIPELINES AND CABLES
-CAUTION  DREDGED AREAS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - DREDGED AREAS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 VESSEL TRAFFIC SERVICES
 TIDAL INFORMATION 
 ADMINISTRATION AREA
 COLREGS
-CAUTION  WASHINGTON STATE FERRIES
+CAUTION - WASHINGTON STATE FERRIES
 LIGHTERING STANDARDS OF CARE
 GUEMES CHANNEL VTS
 REGULATED NAVIGATION AREA
+USACE HYDROGRAPHIC SURVEYS
 
 NOTES:
-
-
 AIDS TO NAVIGATION 
 Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
 
@@ -39,15 +38,15 @@ POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
 
 
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS) 
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS) 
 Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
 
 
-CAUTION  TEMPORARY CHANGES 
+CAUTION - TEMPORARY CHANGES 
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
 
 
-WARNING  PRUDENT MARINER 
+WARNING - PRUDENT MARINER 
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
 
@@ -64,11 +63,11 @@ AUTHORITIES
 Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from the Corps of Engineers, Geological Survey, and U.S. Coast Guard.
 
 
-CAUTION  SUBMARINE PIPELINES AND CABLES 
+CAUTION - SUBMARINE PIPELINES AND CABLES 
 Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling. Covered wells may be marked by lighted or unlighted buoys.
 
 
-CAUTION  DREDGED AREAS 
+CAUTION - DREDGED AREAS 
 Improved channels are subject to shoaling, particularly at the edges.
 
 
@@ -77,7 +76,7 @@ Radar reflectors have been placed on many floating aids to navigation. Individua
 
 
 NOAA WEATHER RADIO BROADCASTS 
-The NOAA Weather Radio Station listed below provides continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+The NOAA Weather Radio Station listed below provides continuous weather broadcasts. The reception range is typically 37 to 74 kilometers / 20 to 40 nautical miles from the antenna site, but can be as much as 185 kilometers / 100 nautical miles for stations at high elevations.
 
 Puget Sound, WA		WWG-24		162.425 MHz
 
@@ -115,6 +114,12 @@ REGULATED NAVIGATION AREA
 A Regulated Navigation Area has been established by the U.S. Coast Guard.
 Please see Chapter 2, U.S. Coast Pilot 7 or 33 CFR 165.1301 and 33 CFR
 165.1303.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

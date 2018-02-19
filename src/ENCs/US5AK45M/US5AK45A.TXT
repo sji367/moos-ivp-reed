@@ -7,6 +7,7 @@ US5AK45M - TONGASS NARROWS INCLUDING WARD COVE TO KETCHIKAN HARBOR
 INDEX:
 POLLUTION REPORTS
 AIDS TO NAVIGATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - TEMPORARY CHANGES
 SUPPLEMENTAL INFORMATION
 NOAA WEATHER RADIO BROADCASTS
@@ -35,6 +36,10 @@ AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for 
 supplemental information concerning aids to 
 navigation.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 CAUTION - TEMPORARY CHANGES

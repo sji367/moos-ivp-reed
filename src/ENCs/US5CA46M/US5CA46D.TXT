@@ -1,3 +1,5 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 US5CA46M - SACRAMENTO AND SAN JOAQUIN RIVERS
@@ -24,6 +26,7 @@ NOAA WEATHER RADIO BROADCASTS
 ADMINISTRATION AREA
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -100,7 +103,7 @@ CAUTION - WARNING CONCERNING LARGE VESSELS
 The "Rules of the Road" state that recreational boats shall not impede the
 passage of a vessel that can navigate only within a narrow channel or fairway.
 Large vessels may appear to move slowly due to their large size but actually
-transit at speeds in excess of 12 knots, requiring a great distance in which
+transit at speeds in excess of 22 kilometers per hour / 12 knots, requiring a great distance in which
 to maneuver or stop. A large vessel's superstructure may block the wind with
 the result that sailboats and sailboards may unexpectedly find themselves unable
 to maneuver. Bow and stern waves can be hazardous to small vessels. Large vessels
@@ -192,6 +195,12 @@ http://co-ops.nos.noaa.gov
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

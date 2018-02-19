@@ -17,6 +17,7 @@ RADAR REFLECTORS
 COLREGS, 80.105 (see note A)
 FISH TRAPS
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 ADDITIONAL INFORMATION
 
 
@@ -27,7 +28,7 @@ supplemental information concerning aids to
 navigation.
 See Canadian List of Lights, Buoys and Fog
 Signals for information not included in the U.S.
-coast Guard Light List.
+Coast Guard Light List.
 
 
 POLLUTION REPORTS
@@ -39,7 +40,7 @@ is impossible (33 CFR 153).
 
 
 SUPPLEMENTAL INFORMATION
-Consult U.S. Coast Pilot 1 for and Canadian
+Consult U.S. Coast Pilot 1 for Canadian
 Sailing Directions, Nova Scotia (SE Coast)
 and Bay of Fundy, for important supplemental
 information.
@@ -114,6 +115,13 @@ shoreward of the 10 meter curve.
 
 TIDAL INFORMATION 
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These
+surveys are not intended to detect underwater features. Uncharted features
+hazardous to surface navigation are not expected but may exist in federal
+channels.
 
 
 ADDITIONAL INFORMATION 

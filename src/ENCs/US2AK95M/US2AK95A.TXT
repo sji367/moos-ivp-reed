@@ -2,16 +2,18 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US2AK95M - BERING SEA
+US2AK95M - BERING SEA - EASTERN PART
 
 
 INDEX:
+
 AIDS TO NAVIGATION
 SUPPLEMENTAL INFORMATION
 NOTE A
 CAUTION - TEMPORARY CHANGES
 POLLUTION REPORTS
 CAUTION - LIMITATIONS
+CAUTION - SUBMARINE PIPELINES AND CABLES
 NOAA WEATHER RADIO BROADCASTS
 AUTHORITIES
 CAUTION - DREDGED AREAS
@@ -23,6 +25,7 @@ TIDAL INFORMATION
 
 
 NOTES:
+
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for
 supplemental information concerning aids to 
@@ -74,6 +77,21 @@ broadcasting stations are subject to error and
 should be used with caution.
 
 
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and 
+submarine cables may exist within the area of 
+this chart.  Not all submarine pipelines and sub-
+marine cables are required to be buried, and 
+those that were originally buried may have 
+become exposed.  Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas where 
+pipelines and cables may exist, and when 
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
+
+
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
@@ -104,6 +122,7 @@ Chignick Bay, Alaska Peninsula. Observations at Sand Point, Popof
 Island, Indicated there was no change at that location. Mariners are 
 urged to use extreme caution when navigating in the area of this chart 
 as the magnitude of change except at these sites is not known.
+
 
 WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on

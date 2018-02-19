@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US4FL43M - SAINT LUCIE INLET TO FORT MYERS AND LAKE OKEECHOBEE
+US4FL43M - OKEECHOBEE WATERWAY ST. LUCIE INLET TO FORT MYERS; LAKE OKEECHOBEE
 
 INDEX:
 AUTHORITIES
@@ -15,6 +15,7 @@ POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 OVERHEAD CLEARANCES
 CAUTION - SURVEY PLATFORMS
 CAUTION	- LIMITATIONS
@@ -71,7 +72,7 @@ The "Rules of the Road" state that recreational boats shall
 not impede the passage of a vessel that can navigate only 
 within a narrow channel or fairway. Large vessels may 
 appear to move slowly due to their large size but actually 
-transit at speeds in excess of 12 knots, requiring a great 
+transit at speeds in excess of 22 kilometers per hour / 12 knots, requiring a great 
 distance in which to maneuver or stop. A large vessel's 
 superstructure may block the wind with the result that 
 sailboats and sailboards may unexpectedly find themselves 
@@ -93,6 +94,12 @@ navigation are not indicated. See Local Notice to Mariners.
 
 CAUTION - DREDGED AREAS  
 Improved channels are subject to shoaling, particularly at the edges.
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+features hazardous to surface navigation are not expected but may exist
+in federal channels.
 
 OVERHEAD CLEARANCES
 Overhead clearances, Okeechobee Waterway-St. Lucie 
@@ -146,7 +153,7 @@ Distress calls for small craft are made on 2182 kHz of channel 16 (156.80 MHz) V
 
 RULES OF THE ROAD (ABRIDGED) 
 Motorless craft have the right-of-way in almost all cases. 
-Sailing vessels and motorboats less than sixty-five feet in 
+Sailing vessels and motorboats less than 19.8 metres / 65 feet in 
 length, shall not hamper, in a narrow channel, the safe 
 passage of a vessel which can navigate only inside that 
 channel. 

@@ -18,6 +18,7 @@ RADAR REFLECTORS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 COLREGS, 80.105 (see note A)
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 ADDITIONAL INFORMATION
 
 
@@ -85,7 +86,7 @@ CAUTION - LIMITATIONS
 Limitations on the use 
 of certain other radio signals as aids to marine 
 navigation can be found in the U.S. Coast Guard 
-Light Lists and National Imagery and Mapping 
+Light Lists and National Geospatial-Intelligence 
 Agency Publication 117.
 Radio direction-finder bearings to commercial
 broadcasting stations are subject to error and
@@ -127,6 +128,13 @@ The entire area of this chart falls seaward of the COLREGS Demarcation line.
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These
+surveys are not intended to detect underwater features. Uncharted features
+hazardous to surface navigation are not expected but may exist in federal
+channels.
 
 
 ADDITIONAL INFORMATION

@@ -12,6 +12,7 @@ CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 WARNING - PRUDENT MARINER
 CAUTION - LOW WATER DATUM
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - DREDGED AREAS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 AIDS TO NAVIGATION
@@ -76,6 +77,8 @@ particularly in the near shore areas.  Mariners should proceed
 with caution.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 CAUTION - DREDGED AREAS
 Improved channels are 
 subject to shoaling, particularly at the edges.

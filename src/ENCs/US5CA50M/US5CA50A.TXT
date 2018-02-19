@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION  
 
-US5CA50M - MONTEREY BAY
+US5CA50M - MONTEREY BAY; MONTEREY HARBOR; MOSS LANDING HARBOR; SANTA CRUZ SMALL CRAFT HARBOR
 
 INDEX:
 NOTE A
@@ -17,6 +19,7 @@ AIDS TO NAVIGATION
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 SUPPLEMENTAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 NOTES:
@@ -69,9 +72,9 @@ these aids has been omitted from this chart.
 
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed below provide continuous
-weather broadcasts. The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be as much as 100
-nautical miles for stations at high elevations.
+weather broadcasts. The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be as much as 185 kilometers / 100 nautical miles
+for stations at high elevations.
 
 Mt. Umunhum, CA	KEC-49		162.550 MHz
 Mt. Umunhum, CA	WWF-64		162.450 MHz
@@ -110,6 +113,12 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 7 for important supplemental information.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 ADMINISTRATION AREA

@@ -148,7 +148,7 @@ Traffic Separation Scheme procedures and regulations, see 33 CFR 167 and / or
 chapter 2 of the US Coast Pilot.
 For information governing the VESSEL TRAFFIC MANAGEMENT AND
 INFORMATION SYSTEM for the coastal waters of southern British Columbia,
-see National Imagery and Mapping Agency Publication 154, Sailing Directions
+see National Geospatial and Intelligence Agency Publication 154, Sailing Directions
 (enroute) for British Columbia, and the Sailing Directions British Columbia
 Coast (South Portion) Volume 1, published by the Canadian Hydrographic
 Service.
@@ -157,9 +157,9 @@ Service.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Neah Bay, WA    	KIH-36		162.550 MHz
@@ -170,7 +170,7 @@ NOTE F
 A Cooperative Vessel Traffic Service (CVTS) has been
 established by the United States and Canada within the
 adjoining water in the Juan de Fuca Region. The appropriate
-Vessel Traffic Center (VTC) (Tofino Traffic, Seattle Traffic,
+Vessel Traffic Center (VTC) (Prince Rupert Traffic, Seattle Traffic,
 and Victoria Traffic) administers the rules issued by both
 nations; however, it will enforce only its own set of rules
 within its jurisdiction.

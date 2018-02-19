@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5WA12M - PUGET SOUND APPLE COVE POINT TO KEYPORT
+US5WA12M - PUGET SOUND - APPLE COVE POINT TO KEYPORT; AGATE PASSAGE
 
 INDEX:
 AUTHORITIES
@@ -100,9 +100,9 @@ not all listed in the U.S. Coast Guard Light List.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio station listed
 below provides continuous weather broadcasts.
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Seattle, WA.		KHB-60		162.550 MHz

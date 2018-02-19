@@ -15,6 +15,8 @@ CAUTION - TEMPORARY CHANGES
 CAUTION - DREDGED AREAS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 COLREGS, 80.1705(see note A)
 TIDAL INFORMATION 
 ADDITIONAL INFORMATION
@@ -98,6 +100,14 @@ Gravina I, AK		KZZ-96		162.525 MHz
 Mt. McArthur, AK	KZZ-95		162.525 MHz
 Wrangell, AK		WXJ-83		162.400 MHz
 Craig, AK		KXI-80		162.475 MHz
+
+
+CAUTION - DREDGED AREAS
+Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 COLREGS, 80.1705(see note A)

@@ -20,6 +20,7 @@ WARNING - PRUDENT MARINER
 MINERAL DEVELOPMENT STRUCTURES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 
@@ -138,11 +139,16 @@ ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
+
+
 ADMINISTRATION AREA
 The entire extent of this ENC cell falls within the limits of an Administration Area.
 This area covers land, internal waters, and territorial sea.  The territorial sea is a
 maritime zone which the United States exercises sovereignty extending to the airspace
 as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot.
 
-
-END OF FILE
+End of File

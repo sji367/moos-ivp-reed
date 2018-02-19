@@ -3,6 +3,6 @@ water Datum, 171.3 meters/562.2 feet referred to mean water
 level at Rimouski, Quebec, International Great
 Lakes Datum (1985).
 Channel depths tabulated from surveys by the 
-Corps of Engineers, May 2015, For changes
+Corps of Engineers, Dec. 2016, For changes
 subscquent to the above information consult the
 Corps of Engineers.

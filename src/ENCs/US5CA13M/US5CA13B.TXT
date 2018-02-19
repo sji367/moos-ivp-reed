@@ -2,11 +2,11 @@ San Francisco Vessel Traffic Service
 The U.S. Coast Guard operates a mandatory Vessel Traffic Services (VTS) system in 
 San Francisco Bay and surrounding areas. Vessels operating procedures and designated
 radiotelephone frequencies are published in 33 CFR 161, the U.S. Coast Pilot, and/or the 
-VTS Users's Manual.
+VTS User's Manual.
 
 
 TRAFFIC LANES
-Traffic lanes are intended for use by vessels 1600 gross tons and over. 
+Traffic lanes are intended for use by vessels 1625 metric tons / 1600 gross tons and over. 
 The provisions of Inland Navigation Rule 9 apply to all vessels navigating in the Traffic Lanes.
 
 

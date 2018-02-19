@@ -6,19 +6,17 @@ US5WI05M - STURGEON BAY AND CANAL
 
 
 INDEX:
-
-
 AIDS TO NAVIGATION
 POLLUTION REPORTS
 CAUTION - LIMITATIONS
 SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
 WARNING - PRUDENT MARINER
-ADDITIONAL INFORMATION
 NOTE A
 AUTHORITIES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
@@ -26,14 +24,15 @@ SAILING DIRECTIONS
 SAILING COURSES
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 CAUTION - LOW WATER DATUM
+ADMINISTRATION AREA
+ADDITIONAL INFORMATION
 
 
 NOTES:
-
-
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for supplemental infor-
 mation concerning aids to navigation.
+
 
 POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National 
@@ -72,10 +71,6 @@ to navigation, particularly on floating aids.  See U.S. Coast
 Guard Light List and U.S. Coast Pilot for details.
 
 
-ADDITIONAL INFORMATION
-Additional information can be obtained at www.nauticalcharts.gov
-
-
 NOTE A
 Navigation regulations are published in Chapter 2, U.S. 
 Coast Pilot 6.  Additions or revisions to Chapter 2 are pub-
@@ -111,6 +106,14 @@ unlighted buoys.
 CAUTION - DREDGED AREAS
 Improved channels are
 subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 RADAR REFLECTORS
@@ -158,7 +161,16 @@ particularly in the near shore areas.  Mariners should proceed with
 caution.
 
 
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.gov
 
 
 END OF FILE

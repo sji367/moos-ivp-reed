@@ -1,138 +1,255 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
-US5CN20M - WATCH HILL TO NEW HAVEN HARBOR - LONG ISLAND SOUND
+
+US5CN20M - LONG ISLAND SOUND-WATCH HILL TO NEW HAVEN HARBOR
+
 
 INDEX:
+
+
 AIDS TO NAVIGATION
-SUPPLEMENTAL INFORMATION
 POLLUTION REPORTS
-CAUTION - SUBMARINE PIPELINES AND CABLES
-RACING BUOYS
-SMALL CRAFT WARNINGS
-CAUTION - TEMPORARY CHANGES
-CAUTION - DREDGED AREAS
 CAUTION - LIMITATIONS
+SUPPLEMENTAL INFORMATION
+CAUTION - TEMPORARY CHANGES
+WARNING - PRUDENT MAIRNER
+ADDITIONAL INFORMATION
+NOTE A
+AUTHORITIES
+NOAA WEATHER RADIO BROADCASTS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - DREDGED AREAS
+RADAR REFLECTORS
+TIDAL INFORMATION
+ADMINISTRATION AREA
+RACING BUOYS
+CAUTION - SMALL CRAFT WARNINGS
 CAUTION - SMALL CRAFT
-CAUTION - RIPRAP
 CAUTION - WARNINGS CONCERNING LARGE VESSELS
 RULES OF THE ROAD (ABRIDGED)
 BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
-NOAA WEATHER RADIO BROADCASTS
 MARINE WEATHER FORECASTS
-NOTE A
-AUTHORITIES
-WARNING - PRUDENT MAIRNER
-TIDAL INFORMATION
-RADAR REFLECTORS
 FISHING AND HUNTING STRUCTURES
 PUBLIC BOATING INSTRUCTION PROGRAMS
-ADDITIONAL INFORMATION
-ADMINISTRATION AREA 
-
+ 
 
 NOTES:
+
+
 AIDS TO NAVIGATION 
-Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
+Consult U.S. Coast Guard Light List for 
+supplemental information concerning aids to 
+navigation.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the 
+National Response Center via 1-800-424-8802 (toll free), or 
+to the nearest U.S. Coast Guard facility if telephone com-
+munication is impossible (33 CFR 153).
+
+
+CAUTION - LIMITATIONS
+Limitations on the use of radio signals as 
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National 
+Geospatial-Intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial 
+broadcasting stations are subject to error and 
+should be used with caution.
+
 
 SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 2 for important supplemental information.
 
-POLLUTION REPORTS
-Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
-
-CAUTION - SUBMARINE PIPELINES AND CABLES
-Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling.
-Covered wells may be marked by lighted or unlighted buoys.
-
-RACING BUOYS
-Racing buoys within the limits of this chart are not shown hereon. Information may be obtained from the U.S. Coast Guard District Offices as racing and other private buoys are not all listed in the U.S. Coast Guard Light List.
-
-SMALL CRAFT WARNINGS
-During the boating season small-craft warnings will be displayed from sunrise to sunset on Suffolk County Marine Police Patrol Boats while underway in the coastal and navigable inland waters of Suffolk County Long Island, New York.
 
 CAUTION - TEMPORARY CHANGES
-Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners. 
-During some winter months or when endangered by ice, certain aids to navigation are replaced by other types or removed. For details see U.S. Coast Guard Light List.
+Temporary changes or defects in aids to
+navigation are not indicated. See
+Local Notice to Mariners.
+During some winter months or when endan-
+gered by ice, certain aids to navigation are
+replaced by other types or removed. For details
+see U.S. Coast Guard Light List.
 
-CAUTION - DREDGED AREAS
-Improved channels are subject to shoaling, particularly at the edges.
 
-CAUTION - LIMITATIONS
-Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117.
-Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
+WARNING - PRUDENT MAIRNER
+The prudent mariner will not rely solely on any single aid 
+to navigation, particularly on floating aids. See U.S. Coast 
+Guard Light List and U.S. Coast Pilot for details.
 
-CAUTION - SMALL CRAFT
-Small craft should stay clear of large commercial and government vessels even if small craft have the right-of-way. All craft should avoid areas where the skin divers flag, a red square with a diagonal white stripe, is displayed.
 
-CAUTION - RIPRAP
-Mariners are warned to stay clear of the protective riprap surrounding navigational light structures.
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
 
-CAUTION - WARNINGS CONCERNING LARGE VESSELS
-The "Rules of the Road" state that recreational boats shall not impede the passage of a vessel that can navigate only within a narrow channel or fairway. Large vessels may appear to move slowly due to their large size but actually transit at speeds in excess of 12 knots, requiring a great distance in which to maneuver or stop. A large vessel's superstructure may block the wind with the result that sailboats and sailboards may unexpectedly find themselves unable to maneuver. Bow and stern waves can be hazardous to small vessels. Large vessels may not be able to see small craft close to their bows.
 
-RULES OF THE ROAD (ABRIDGED)
-Motor less craft have the right-of-way in almost all cases. Sailing vessels and motorboats less than sixty-five feet in length shall not hamper, in a narrow channel, the safe passage of a vessel which can navigate only inside that channel.
-A motorboat being overtaken has the right-of-way. Motorboats approaching head to head or nearly so should pass port to port. When motorboats approach each other at right angles or obliquely, the boat on the right has the right-of-way in most cases.
-Motorboats must keep to the right in narrow channels when safe and practicable. 
-Mariners are urged to become familiar with the complete text of the Rules of the Road in U.S. Coast Guard publication" Navigation Rules."
+NOTE A
+Navigation regulations are published in Chapter 2, U.S.
+Coast Pilot 2. Additions or revisions to Chapter 2 are pub-
+lished in the Notice to Mariners. Information concerning
+the regulations may be obtained at the Office of the Com-
+mander, 1st Coast Guard District in Boston, MA or at the
+Office of the District Engineer, Corps of Engineers in
+Concord, MA.
+Refer to charted regulations section numbers.
 
-BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
 
-CITY		STATION             FREQ.		BROADCAST TIMES – EST       SPECIAL WARNING			              
-New York, NY	NMY-41	2670 kHz	 7:20 AM & PM		         +On receipt
-					             *4:20 AM, 1:20 & 4:20 PM
-						 7:20 & 10:20 AM, & 7:20 PM			        
-+Preceded by announcement on 2182 kHz and 156.800 MHz
-Distress calls for small craft are made on 2182 kHz or channel 16 (156.800 MHz) VHF.
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast 
+Survey, with additional data from the Corps of Engineers, Geological 
+Survey, and U.S. Coast Guard.
 
 
 NOAA WEATHER RADIO BROADCASTS
-The NOAA Weather Radio stations listed below provide continuous weather broadcasts. The reception range is typically 37 to 74 km / 20 to 40 nautical miles from the antenna site, but can be as much as 186 km / 100 nautical miles for stations at high elevations.
-CITY			 STATION	  FREQ. 	                  BROADCAST TIMES
-New London, CT	 KHB-47		  162.550 MHz  	    24 hours daily
-Providence, RI		 WXJ-39	  162.400 MHz 	    24 hours daily
-Meriden, CT		 WXJ-42	  162.400 MHz        24 hours daily
+The NOAA Weather Radio stations listed 
+below provide continuous weather broadcasts. 
+The reception range is typically 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 100 nautical miles for stations at 
+high elevations.
+CITY			 STATION	 FREQ. 	    	BROADCAST TIMES
+New London, CT	 	 KHB-47		 162.550 MHz  	24 hours daily
+Providence, RI		 WXJ-39	  	 162.400 MHz 	24 hours daily
+Meriden, CT		 WXJ-42	  	 162.400 MHz    24 hours daily
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and 
+submarine cables may exist within the area of 
+this chart. Not all submarine pipelines and sub-
+marine cables are required to be buried, and 
+those that were originally buried may have 
+become exposed. Mariners should use extreme 
+caution when operating vessels in depths of 
+water comparable to their draft in areas 
+where pipelines and cables may exist, and when 
+anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or 
+unlighted buoys.
+
+
+CAUTION - DREDGED AREAS
+Improved channels are 
+subject to shoaling, particularly at the edges.
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
+omitted from this chart.
+
+
+TIDAL INFORMATION
+For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
+
+
+RACING BUOYS
+Racing buoys within the limits 
+are not shown hereon. Information may be 
+obtained from the U.S. Coast Guard District 
+Offices as racing and other private buoys are 
+not all listed in the U.S. Coast Guard Light List.
+
+
+CAUTION - SMALL CRAFT WARNINGS
+During the boating season small-craft warnings 
+will be displayed from sunrise to sunset on 
+Suffolk County Marine Police Patrol Boats while 
+underway in the coastal and navigable inland 
+waters of Suffolk County Long Island, New York.
+
+
+CAUTION - SMALL CRAFT
+Small craft should stay clear of large com-
+mercial and government vessels even if small
+craft have the right-of-way.
+All craft should avoid areas where the skin
+divers flag, a red square with a diagonal white
+stripe, is displayed.
+
+
+CAUTION - WARNINGS CONCERNING LARGE VESSELS
+The "Rules of the Road" state that recreational boats shall 
+not impede the passage of a vessel that can navigate only 
+within a narrow channel or fairway. Large vessels may 
+appear to move slowly due to their large size but actually 
+transit at speeds in excess of 12 knots, requiring a great 
+distance in which to maneuver or stop. A large vessel's 
+superstructure may block the wind with the result that 
+sailboats and sailboards may unexpectedly find themselves 
+unable to maneuver. Bow and stern waves can be hazardous 
+to small vessels. Large vessels may not be able to see small 
+craft close to their bows.
+
+
+RULES OF THE ROAD (ABRIDGED)
+Motor less craft have the right-of-way in almost all cases. 
+Sailing vessels and motorboats less than sixty-five feet in 
+length shall not hamper, in a narrow channel, the safe 
+passage of a vessel which can navigate only inside that 
+channel.
+A motorboat being overtaken has the right-of-way. 
+Motorboats approaching head to head or nearly so should 
+pass port to port. 
+When motorboats approach each other at right angles or 
+obliquely, the boat on the right has the right-of-way in most 
+cases.
+Motorboats must keep to the right in narrow channels when 
+safe and practicable. 
+Mariners are urged to become familiar with the complete text 
+of the Rules of the Road in U.S. Coast Guard publication
+"Navigation Rules."
+
+
+BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
+CITY		STATION             FREQ.		BROADCAST TIMES – EST       SPECIAL WARNING			              
+New York, NY	NMY-41		    2670 kHz	 	7:20 AM & PM		    +On receipt
+					                *4:20 AM, 1:20 & 4:20 PM
+						        7:20 & 10:20 AM, & 7:20 PM			        
++Preceded by announcement on 2182 kHz and 156.800 MHz
+Distress calls for small craft are made on 2182 kHz or channel 16 (156.800 MHz) VHF.
 
 
 MARINE WEATHER FORECASTS 
 NATIONAL WEATHER SERVICE	   TELEPHONE NUMBER		OFFICE HOUR
 New York, NY		 	    (631) 924-0517		9:00 AM - 5:00 PM M-F
 								Recorded forecast only other times
-Boston/Taunton, MA		     (508) 828-2672   		8:00 AM - 5:00 PM M-F
+Boston/Taunton, MA		    (508) 828-2672   		8:00 AM - 5:00 PM M-F
 				   *(508) 822-0634		24 hours
-Portland (Gray), ME		     (207) 688-3216		7:00 AM - 5:00 PM M-F
+Portland (Gray), ME		    (207) 688-3216		7:00 AM - 5:00 PM M-F
 				   *(207) 688-3210		24 hours daily
 *Recorded
 
 
-NOTE A
-Navigation regulations are published in Chapter 2, U.S. Coast Pilot 2. Additions or revisions to Chapter 2 are published in the Notice to Mariners. Information concerning the regulations may be obtained at the Office of the Commander, 1st Coast Guard District in Boston, MA or at the Office of the District Engineer, Corps of Engineers in Concord, MA.
-Refer to charted regulation section numbers.
-
-AUTHORITIES
-Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from the Corps of Engineers, Geological Survey, and U.S. Coast Guard.
-
-WARNING - PRUDENT MAIRNER
-The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
-
-TIDAL INFORMATION
-For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
-
-RADAR REFLECTORS
-Radar reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids has been omitted from this chart.
-
 FISHING AND HUNTING STRUCTURES
-Uncharted fish and wildlife harvesting devices and structures such as fish traps, pound nets, crab traps, and duck blinds, some submerged, may exists in the area of this chart, particularly in the near shore area. Mariners should proceed with caution.
+Uncharted fish and wildlife harvesting devices 
+and structures such as fish traps, pound nets, 
+crab traps, and duck blinds, some submerged, 
+may exist in the area of this chart, particularly in 
+the near shore area. Mariners should proceed 
+with caution.
+
 
 PUBLIC BOATING INSTRUCTION PROGRAMS
-The United States Power Squadron and U.S. Coast Guard Auxiliary, national organizations of boatman, conduct extensive boating instruction programs in communities throughout the United States. For information regarding these educational courses contact the following sources:
-USPS - Local Squadron Commander of USPS Headquarters, post office Box 30423, Raleigh, North Carolina 27612, 919-821-0281.
-USCGAUX - 1st Coast Guard District, 408 Atlantic Ave., Boston, MA 02110-2209. Tel. 617-223-8310 or USCG Headquarters (G-BAU), Washington, D.C.  20593-0001.
-
-ADDITIONAL INFORMATION
-Additional information can be obtained at www.nauticalcharts.noaa.gov.
-
-ADMINISTRATION AREA 
-The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot.
+The United States Power Squadron and U.S. Coast Guard Auxiliary, national 
+organizations of boatman, conduct extensive boating instruction programs in 
+communities throughout the United States. For information regarding these 
+educational courses contact the following sources:
+USPS - Local Squadron Commander of USPS Headquarters, post office Box 
+30423, Raleigh, North Carolina 27612, 919-821-0281.
+USCGAUX - 1st Coast Guard District, 408 Atlantic Ave., Boston, MA 02110-
+2209. Tel. 617-223-8310 or USCG Headquarters (G-BAU), Washington, D.C.  
+20593-0001.
 
 
 END OF FILE

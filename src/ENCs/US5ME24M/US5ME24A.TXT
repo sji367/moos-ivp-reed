@@ -21,6 +21,7 @@ CAUTION DREDGED AREAS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 ADMINISTATION AREA
 CAUTION - LIMITATIONS
 RACING BUOYS
@@ -80,11 +81,7 @@ Radar reflectors have been placed on many floating aids to navigation. Individua
 
 
 NOAA WEATHER RADIO BROADCASTS
-The National Weather Service stations listed 
-below provide continuous marine weather broad-
-casts. The range of reception is variable, but for 
-most stations is usually 20 to 40 miles from the 
-antenna site.
+The NOAA Weather Radio stations listed below provide continuous weather broadcasts. The reception range is typically 32 to 64 kilometres / 20 to 40 nautical miles from the antenna site, but can be as much as 161 kilometres / 100 nautical miles for stations at high elevations.
 
 Ellsworth, ME		KEC-93		162.40 MHz
 Dresden, ME		WXM-60		162.475 MHz
@@ -92,6 +89,10 @@ Dresden, ME		WXM-60		162.475 MHz
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 Administration Area

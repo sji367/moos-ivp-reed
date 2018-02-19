@@ -1,0 +1,4 @@
+Directions and velocities of tidal currents at 3 stations are measured in hourly intervals from 
+maximum flood at Georges Bank, the daily predicted times should be increased by 20 percent 
+when the moon is full or new and decreased by 20 percent when the moon is in the first or third
+quarters. For the effect of wind on tidal currents, see Current Tables, Atlantic Coast.

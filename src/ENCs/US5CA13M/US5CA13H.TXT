@@ -1,6 +1,5 @@
 SAN FRANCISCO-OAKLAND BAY BRIDGE
 (Privately maintained aids)
-The piers are lettered on the chart for reference.
 Lights:
 Spans BC,CD and IJ. Fixed green lights on each side of the bridge
 over the center of the channel.
@@ -8,7 +7,7 @@ over the center of the channel.
 CAUTION:
 Mid-span clearance under the long 
 spans of the San Francisco-Oakland Bay Bridge 
-are approximate and at a temperature of 55°F.  
-These clearances may be reduced several feet 
+are approximate and at a temperature of 12.7°C / 55°F.  
+These clearances may be reduced several meters / feet 
 due to extreme traffic conditions and a prolonged 
 period of abnormally high temperature.

@@ -4,8 +4,8 @@ NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 US5WA44M - BOUNDARY PASS
 
-
 INDEX:
+
 NOTE A
 SUPPLEMENTAL INFORMATION
 AIDS TO NAVIGATION
@@ -98,8 +98,8 @@ CANADIAN WEATHER RADIO BROADCASTS
 The Canadian Weather Service station listed
 below provides continuous marine weather broad-
 casts. The range of reception is variable, but for
-most stations is usually 20 to 40 miles from the
-antenna site.
+most stations is usually 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site.
 
 Vancouver, B.C.		CFA-240		162.400 MHz
 

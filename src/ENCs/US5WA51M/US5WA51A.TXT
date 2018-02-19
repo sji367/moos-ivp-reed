@@ -23,6 +23,7 @@ ADDITIONAL INFORMATION
 NOTE C
 ADMINISTRATION AREA
 REGULATED NAVIGATION AREA
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -96,9 +97,9 @@ and U.S. Coast Pilot for details.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio station listed
 below provides continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Seattle, WA		KHB 60		162.550 MHz
@@ -154,6 +155,12 @@ REGULATED NAVIGATION AREA
 A Regulated Navigation Area has been established by the U.S. Coast Guard.
 Please see Chapter 2, U.S. Coast Pilot 7 or 33 CFR 165.1301 and 33 CFR
 165.1303.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

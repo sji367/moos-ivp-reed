@@ -1,3 +1,5 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 18424(US5WA45E) - BELLINGHAM BAY
@@ -21,7 +23,8 @@ WARNING
 AUTHORITIES
 RADAR REFLECTORS
 REGULATED NAVIGATION AREA
-Administration Area
+USACE HYDROGRAPHIC SURVEYS
+ADMINISTRATION AREAS
 
 
 AIDS TO NAVIGATION
@@ -144,18 +147,27 @@ data from the U.S. Coast Guard, Geological
 Survey, and National Geospatial-Intelligence
 Agency.
 
+
 RADAR REFLECTORS
 Radar reflectors have been placed on many
 floating aids to navigation. Individual radar
 reflector identification on these aids has been
 omitted from this chart.
 
+
 REGULATED NAVIGATION AREA
 A Regulated Navigation Area has been established by the U.S. Coast Guard.
 Please see Chapter 2, U.S. Coast Pilot 7 or 33 CFR 165.1301 and 33 CFR
 165.1303.
 
-Administration Area
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
+
+
+ADMINISTRATION AREA
 This area covers land, internal waters and territorial sea. The territorial sea is a 
 maritime zone over which the United States exercises sovereignty extending to the 
 airspace as well as to its bed and subsoil. For more information, please refer to the 

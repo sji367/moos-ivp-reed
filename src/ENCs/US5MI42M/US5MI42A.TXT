@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5MI42M - PORT SANILAC HARBOR AND HARBOR BEACH MICHIGAN
+US5MI42M - PORT SANILAC HARBOR; HARBOR BEACH MICHIGAN
 
 INDEX:
 POLLUTION REPORTS
@@ -16,6 +16,7 @@ CAUTION - LIMITATIONS
 CAUTION - TEMPORARY CHANGES
 SAILING DIRECTIONS
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - LOW WATER DATUM
 WARNING - PRUDENT MARINER
 NOTE A
@@ -69,6 +70,10 @@ Bearings of sailing courses are true and distances given thereon are in statute 
 
 CAUTION - DREDGED AREAS
 Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 CAUTION - LOW WATER DATUM

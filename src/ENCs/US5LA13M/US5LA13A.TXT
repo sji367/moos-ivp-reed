@@ -25,8 +25,6 @@ RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
 TIDAL INFORMATION
-INTRACOASTAL WATERWAY (ALTERNATE ROUTE) MORGAN CITY TO PORT ALLEN
-INTRACOASTAL WATERWAY (LANDSIDE ROUTE) MORGAN CITY TO PORT ALLEN
 INTRACOASTAL WATERWAY AIDS
 ATCHAFALAYA RIVER ROUTE
 VERMILION RIVER
@@ -113,16 +111,6 @@ channel 16 (156.80 MHz) VHF.
 
 TIDAL INFORMATION
 For tidal information, see the NOS tide table publication or go to http://co-ops.nos.noaa.gov
-
-INTRACOASTAL WATERWAY (ALTERNATE ROUTE) MORGAN CITY TO PORT ALLEN
-The Project Depth is 3.6 meters/12 feet meters from Morgan City, Louisiana to Port Allen, Louisiana.
-The controlling depths are published periodically in the U.S. Coast Guard Local Notice to Mariners.
-Mileage distances shown along the Waterway are in Statute Miles, based on zero at the junction with the Gulf Intracoastal Waterway at Morgan City.  Tables for converting Statute Miles to International Nautical Miles are given in U.S. Coast Pilot 5.
-
-INTRACOASTAL WATERWAY (LANDSIDE ROUTE) MORGAN CITY TO PORT ALLEN
-The controlling depth was 2.1 meters/7 feet Sep. 1994 to its junction with the Alternate Route in the Lower Grand River.
-The controlling depths are published periodically in the U.S. Coast Guard Local Notice to Mariners.
-Mileage distances shown along the Waterway are in Statute Miles, based on zero at the junction of Bayou Boeuf and the Gulf Intracoastal Waterway.  Tables for converting Statute Miles to International Nautical Miles are given in U.S. Coast Pilot 5.
 
 INTRACOASTAL WATERWAY AIDS
 The U.S. Aids to Navigation System is designed for use with nautical charts, and the exact meaning of an aid to navigation may not be clear unless the appropriate chart is consulted.  Aids to navigation marking the Intracoastal Waterway exhibit unique yellow symbols to distinguish them from aids marking other waterways.

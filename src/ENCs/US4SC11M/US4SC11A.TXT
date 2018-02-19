@@ -59,9 +59,8 @@ unlighted buoys.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is 37 to 74 kilometres / 20 to 40 nautical miles from the antenna site, but can be
+as much as 185 kilometres / 100 nautical miles for stations at
 high elevations.
 
 Charlestown, SC	    KHB-29	  162.55 MHz
@@ -117,7 +116,7 @@ revisions to Chapter 2 are published in the
 Notice to Mariners. Information concerning the
 regulations may be obtained at the Office of the
 Commander, 7th Coast Guard District in
-Miami, Florida., or at the Office of the District
+Miami, Florida, or at the Office of the District
 Engineer, Corps of Engineers in Charleston, S.C.
 Refer to charted regulation section numbers.
 

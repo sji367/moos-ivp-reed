@@ -11,6 +11,7 @@ INDEX:
 AIDS TO NAVIGATION
 POLLUTION REPORTS
 CAUTION  USE OF RADIO SIGNALS (LIMITATIONS)
+CAUTION - SUBMARINE PIPELINES AND CABLES
 SUPPLEMENTAL INFORMATION
 CAUTION  TEMPORARY CHANGES
 WARNING  PRUDENT MARINER
@@ -36,6 +37,11 @@ Report all spills of oil and hazardous substances to the National Response Cente
 
 CAUTION  USE OF RADIO SIGNALS (LIMITATIONS) 
 Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
+
+
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or unlighted buoys.
 
 
 SUPPLEMENTAL INFORMATION

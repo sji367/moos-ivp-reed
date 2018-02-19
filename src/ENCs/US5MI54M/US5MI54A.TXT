@@ -6,8 +6,6 @@ US5MI54M - INLAND ROUTE - CHEYBOYGAN TO CONWAY
 
 INDEX:
 NOTE A
-SAILING DIRECTIONS
-SAILING COURSES
 POLLUTION REPORTS
 AIDS TO NAVIGATION
 AUTHORITIES
@@ -17,11 +15,13 @@ CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
-TIDAL INFORMATION 
+TIDAL INFORMATION
+ADMINISTRATION AREA
 ADDITIONAL INFORMATION
 
 
@@ -37,16 +37,6 @@ Detroit, Michigan.
 Refer to charted regulation section numbers.
 
 
-SAILING DIRECTIONS
-Bearings of sailing courses are true and distances given
-thereon are in statute miles between points of departure.
-
-
-SAILING COURSES
-Sailing courses and limits indicated in magenta are recommended by the
-Lake Carriers Association and the Canadian Shipowners Association. 
-
-
 POLLUTION REPORTS
 Report all spills of oil and hazardous sub-
 stances to the National Response Center via 
@@ -56,15 +46,14 @@ is impossible (33 CFR 153).
 
 
 AIDS TO NAVIGATION
-Consult U.S. Coast Guard Light List for supplemental info-
-rmation concerning aids to navigation. See canadian List, Buoys and Fog
-Signals for information not included in the U.S. Coast Guard Light List.
+Consult U.S. Coast Guard Light List for supplemental information
+concerning aids to navigation.
 
 
 AUTHORITIES
 Hydrography and topography by the National Ocean Service,
 Coast Survey with additional data from the Corps of Engineers, Geological
-Survey, and U.S. Coast Guard, and Canadian authorities.
+Survey, and U.S. Coast Guard.
 
 
 SUPPLEMENTAL INFORMATION
@@ -110,6 +99,14 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 When the water surface is above
 Low Water Datum, bridge and overhead clearances are reduced correspondingly.
@@ -146,16 +143,25 @@ nautical miles from the antenna site, but can be
 as much as 100 nautical miles for stations at
 high elevations.
 
-Alpena, Mi.	          KIG-83	 162.550   MHz
-Newberry, MI. 	          WNG-576        162.450   MHz 
-Sault St. Marie, Mi.   	  KIG-74         162.550   MHz
+Alpena, MI	          KIG-83	 162.550   MHz
+Newberry, MI 	          WNG-576        162.450   MHz 
+Sault St. Marie, MI   	  KIG-74         162.550   MHz
 
 
 TIDAL INFORMATION 
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
 
 
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
+
+
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.gov
+
 
 END OF FILE

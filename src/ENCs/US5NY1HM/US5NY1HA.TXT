@@ -2,31 +2,27 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5NY1HM - HUDSON RIVER GEORGE WASHINGTON BRIDGE TO YONKERS:
+US5NY1HM - HUDSON RIVER GEORGE WASHINGTON BRIDGE TO YONKERS
 
 
 INDEX:
-
-
 AIDS TO NAVIGATION
 POLLUTION REPORTS
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS)
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS)
 SUPPLEMENTAL INFORMATION
-CAUTION  TEMPORARY CHANGES
-WARNING  PRUDENT MARINER
+CAUTION - TEMPORARY CHANGES
+WARNING - PRUDENT MARINER
 ADDITIONAL INFORMATION
 NOTE A
 AUTHORITIES 
 NOAA WEATHER RADIO BROADCASTS
-CAUTION  SUBMARINE PIPELINES AND CABLES
+CAUTION - SUBMARINE PIPELINES AND CABLES
 RADAR REFLECTORS
 TIDAL INFORMATION 
 ADMINISTRATION AREA
 
 
 NOTES:
-
-
 AIDS TO NAVIGATION 
 Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
 
@@ -35,7 +31,7 @@ POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
 
 
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS) 
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS) 
 Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
 
 
@@ -43,11 +39,11 @@ SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 5 for important supplemental information.
 
 
-CAUTION  TEMPORARY CHANGES 
+CAUTION - TEMPORARY CHANGES 
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
 
 
-WARNING  PRUDENT MARINER 
+WARNING - PRUDENT MARINER 
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
 
@@ -70,7 +66,7 @@ The NOAA Weather Radio Station listed below provides continuous weather broadcas
 New York, NY.	 KWO-35        162.550 MHz
 
 
-CAUTION  SUBMARINE PIPELINES AND CABLES 
+CAUTION - SUBMARINE PIPELINES AND CABLES 
 Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling. Covered wells may be marked by lighted or unlighted buoys.
 
 

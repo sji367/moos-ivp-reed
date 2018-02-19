@@ -2,10 +2,9 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5MI14M - SOUTH END OF LAKE HURON
+US5MI41M - SOUTH END OF LAKE HURON
 
 INDEX:
-CAUTION - DREDGED AREAS
 CAUTION - TEMPORARY CHANGES
 SUPPLEMENTAL INFORMATION
 POLLUTION REPORTS
@@ -14,7 +13,9 @@ AIDS TO NAVIGATION
 RACING BUOYS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 CAUTION - LIMITATIONS
-CAUTION - MARINERS
+CAUTION - UNCHARTED STRUCTURES
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - LOW WATER DATUM
 SAILING DIRECTIONS
 SAILING COURSES
@@ -27,11 +28,6 @@ ADDITIONAL INFORMATION
 
 
 NOTES:
-CAUTION - DREDGED AREAS
-Improved channels are
-subject to shoaling, particularly at the edges.
-
-
 CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to 
 navigation are not indicated. See 
@@ -64,7 +60,7 @@ high elevations.
 
 
 Clio, MI	KIH-29		162.400 MHz
-sandusky, MI	WNG-582		162.450 MHz
+Sandusky, MI	WNG-582		162.450 MHz
 
 
 AIDS TO NAVIGATION
@@ -97,10 +93,23 @@ broadcasting stations are subject to error and
 should be used with caution.
 
 
-CAUTION - MARINERS
+CAUTION - UNCHARTED STRUCTURES
 Mariners are warned that numerous uncharted stakes and fishing 
 structures, some submerged, may exist in the area of this chart.  
 Such structures are not charted unless known to be permanent.
+
+
+CAUTION - DREDGED AREAS
+Improved channels are
+subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 CAUTION - LOW WATER DATUM
@@ -111,7 +120,7 @@ caution.
 
 
 SAILING DIRECTIONS
-Bearings of sailing courses are true and distances given thereon are are in 
+Bearings of sailing courses are true and distances given thereon are in 
 statute miles between points of departure.
 
 
@@ -126,9 +135,9 @@ submarine cables may exist within the area of
 this chart.  Not all submarine pipelines and sub-
 marine cables are required to be buried, and 
 those that were originally buried may have 
-become exposed.  Marinersshould use extreme 
+become exposed.  Mariners should use extreme 
 caution when operating vessels in depths of 
-water comparable totheir draft in areas where 
+water comparable to their draft in areas where 
 pipelines and cables may exist, and when 
 anchoring, dragging, or trawling. 
 Covered wells may be marked by lighted or 
@@ -154,7 +163,7 @@ Canadian authorities.
 
 WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on any single aid 
-to navigation, particularlyon floating aids. See U.S. Coast 
+to navigation, particularly on floating aids. See U.S. Coast 
 Guard Light List and U.S. Coast Pilot 6 for details.
 
 

@@ -7,7 +7,6 @@ US5MI22M - TRENTON CHANNEL AND RIVER ROUGE
 
 INDEX:
 
-CAUTION - DREDGED AREAS
 CAUTION - TEMPORARY CHANGES
 SUPPLEMENTAL INFORMATION
 POLLUTION REPORTS
@@ -15,10 +14,11 @@ RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 AIDS TO NAVIGATION
 BRIDGE AND OVERHEAD CABLE CLEARANCES
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 NOTE A
-SAILING DIRECTIONS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 AUTHORITIES
 WARNING - PRUDENT MARINER
@@ -27,11 +27,6 @@ ADDITIONAL INFORMATION
 
 
 NOTES:
-CAUTION - DREDGED AREAS
-Improved channels are
-subject to shoaling, particularly at the edges.
-
-
 CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to
 navigation are not indicated. See
@@ -85,6 +80,19 @@ Datum, bridge and overhead clearances are reduced correspondingly. For clearance
 U.S. Coast Pilot 6.
 
 
+CAUTION - DREDGED AREAS
+Improved channels are
+subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 CAUTION - LIMITATIONS
 Limitations on the use of radio signals as
 aids to marine navigation can be found in the
@@ -111,11 +119,6 @@ mander, 9th Coast Guard District in Cleveland, Ohio, or at
 the Office of the District Engineer, Corps of Engineers in
 Detroit, Michigan.
 Refer to charted regulation section numbers.
-
-
-SAILING DIRECTIONS
-Bearings of sailing courses are true and distances given thereon are
-in statute miles between points of departure.
 
 
 CAUTION - SUBMARINE PIPELINES AND CABLES

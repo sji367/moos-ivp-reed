@@ -1,4 +1,2 @@
-The project depth is 3.6 meters/12 feet Carrabelle,
-Florida to Brownsville, Texas.
-The controlling depths are published periodically
-in the U.S. Coast Guard Local Notice to Mariners.
+CAUTION – QUALITY OF BATHYMETRIC DATA
+The areas represented by the object M_QUAL (Quality of data) are approximate due to generalizing for clarity. Caution is advised, particularly for nearhsore navigation or voyage planning. M_QUAL represents areas of uniform quality of bathymetric data. The CATZOC (Category of zone of confidence in data) attribute of M_QUAL provides an assessment of the overall zone of confidence.

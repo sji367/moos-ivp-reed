@@ -7,6 +7,7 @@ US5WI1AM - LAKE WINNEBAGO
 INDEX:
 AUTHORITIES
 AIDS TO NAVIGATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 SAILING DIRECTIONS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 NOTE A
@@ -36,6 +37,10 @@ Coast Guard.
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for supplemental infor-
 mation concerning aids to navigation.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 SAILING DIRECTIONS

@@ -1,3 +1,6 @@
+NOAA ENC®
+
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 
@@ -11,16 +14,15 @@ WARNING - PRUDENT MARINER
 NOTE A
 POLLUTION REPORTS
 CAUTION - SUBMARINE PIPELINES AND CABLES
-CAUTION - TEMPORARY
+CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
+TRAFFIC SEPARATION SCHEMES
+RADAR REFLECTORS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
-RADAR REFLECTORS
-DISPUTED
 
 
 NOTES:
-
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for
 supplemental information concerning aids to
@@ -38,7 +40,7 @@ Guard, British Admiralty and Canadian Charts.
 
 WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on
-any single aid to navigation, particularly on 
+any single aid to navigation, particularly on
 floating aids. See U.S. Coast Guard Light List
 and U.S. Coast Pilot for details.
 
@@ -56,8 +58,8 @@ Refer to charted regulation section numbers.
 
 POLLUTION REPORTS
 Report all spills of oil and hazardous sub-
-stances to the National Response Center via 
-1-800-424-8802 (toll free), or to the nearest U.S. 
+stances to the National Response Center via
+1-800-424-8802 (toll free), or to the nearest U.S.
 Coast Guard facility if telephone communication
 is impossible (33 CFR 153).
 
@@ -77,16 +79,16 @@ Covered wells may be marked by lighted or
 unlighted buoys.
 
 
-CAUTION - TEMPORARY
-Temporary changes or defects in aids to 
-navigation are not indicated. See 
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to
+navigation are not indicated. See
 Local Notice to Mariners.
 During some winter months or when endan-
 gered by ice, certain aids to navigation are
 replaced by other types or removed. For details
 see U.S. Coast Guard Light List.
 
-																							
+																				
 CAUTION - LIMITATIONS
 Limitations on the use of radio signals as
 aids to marine navigation can be found in the
@@ -97,25 +99,30 @@ broadcasting stations are subject to error and
 should be used with caution.
 
 
-TIDAL INFORMATION
-For tidal information, see the NOS tide table publication or go to http://co-
-ops.nos.noaa.gov.
-
-
-ADDITIONAL INFORMATION
-Additional information can be obtained at www.nauticalcharts.noaa.gov. 
+TRAFFIC SEPARATION SCHEMES
+One-way traffic lanes are overprinted RECOMMENDED for use by all vessels traveling be-
+tween the points involved. They have been designed to aid in the prevention of collisions at the approaches to
+Portland Harbor and the approach to Boston Harbor and for routing traffic through the Bay of Fundy but are
+not intended in any way to supersede or alter the applicable Rules of the Road. Separation zones are intended
+to separate inbound and outbound traffic and to be free of ship traffic. Separation zones should not be used
+except for crossing purposes. When crossing traffic lanes and separation zones use extreme caution.
+The recommended route in the Bay of Fundy has been established by the Department of Transport, Canada.
+See large scale Canadian charts.
 
 
 RADAR REFLECTORS
-Radar reflectors have been placed on many 
-floating aids to navigation. Individual radar 
-reflector identification on these aids has been 
+Radar reflectors have been placed on many
+floating aids to navigation. Individual radar
+reflector identification on these aids has been
 omitted from this chart.
 
 
-DISPUTED
-Any international maritime boundary shown in the disputed area is without
-prejudice to the legal position of the United States or Canada.
+TIDAL INFORMATION
+For tidal information, see the NOS tide table publication or go to http://coops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 
 END OF FILE

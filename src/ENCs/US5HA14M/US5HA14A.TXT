@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5HA14E - WEST COAST OF HAWAI'I, HONOKOHAU HARBOR AND KEAUHOU BAY
+US5HA14M - HONOKOHAU HARBOR AND KEAUHOU BAY
 
 INDEX:
 SYMBOLS AND ABBREVIATIONS
@@ -19,6 +21,7 @@ NOAA WEATHER RADIO BROADCASTS
 SUBMARINE PIPELINES AND CABLES
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 
@@ -65,7 +68,9 @@ Kailua-Kona, Kona Inn (19°38.6' - 156°00.0')
 Mahukona (20°11.2' - 155°54.2')
 
 NOAA WEATHER RADIO BROADCASTS: 
-The NOAA Weather Radio stations listed below provide continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+The NOAA Weather Radio stations listed below provide continuous weather broadcasts. The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be as much as 185 kilometers / 100 nautical miles for stations at high elevations.
+
 Kulani Cone, HI		KBA-99		162.55 MHz
 South Point, HI		KBA-99		162.55 MHz
 Mt Haleakala, HI	KBA-99		162.40 MHz
@@ -79,6 +84,11 @@ Additional information can be obtained at nauticalcharts.noaa.gov
 
 TIDAL INFORMATION:
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 ADMINISTRATION AREA:
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea. The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil. For more information, please refer to the Coast Pilot.

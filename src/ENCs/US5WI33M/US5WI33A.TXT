@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5WI33M - PORT WASHINGTON TO WAUKEGAN
+US5WI33M - PORT WASHINGTON; KENOSHA; NORTH POINT MARINA; WAUKEGAN
 
 INDEX:
 AUTHORITIES
@@ -17,13 +17,13 @@ CAUTION - SUBMARINE PIPELINES AND CABLES
 RADAR REFLECTORS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 NOTE D
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
-ADDITIONAL INFORMATION
-SAILING DIRECTIONS
-SAILING COURSES
 BRIDGE AND OVERHEAD CABLES CLEARANCES
+ADMINISTRATION AREA
+ADDITIONAL INFORMATION
 
 NOTES:
 AUTHORITIES
@@ -118,6 +118,14 @@ Improved channels are
 subject to shoaling particularly at the edges.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 NOTE D
 Mariners are warned that numerous uncharted stakes and fishing
 structures, some submerged may exist in the area. Such
@@ -143,27 +151,22 @@ TIDAL INFORMATION
 For tidal information, see the NOS tide table publication or go to http://co-ops.nos.noaa.gov
 
 
-ADDITIONAL INFORMATION
-Additional information can be obtained at nauticalcharts.gov
-
-
-SAILING DIRECTIONS
-Bearings of sailings courses are true and distances given thereon are in
-statute miles between points of departure.
-
-
-SAILING COURSES
-Sailing courses and limits are recom-
-mended by the Lake Carriers Association and the Canadian
-Shipowners Association.
-
-
 BRIDGE AND OVERHEAD CABLES CLEARANCES
 When the water surface is above Low Water
 Datum, bridge and overhead clearances are reduced correspondingly. For clearances see U.S.
 Coast Pilot 6.
 
 
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at nauticalcharts.gov
+
+
 END OF FILE
-
-

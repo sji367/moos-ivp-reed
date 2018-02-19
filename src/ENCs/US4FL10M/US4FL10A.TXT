@@ -23,6 +23,7 @@ CAUTION - LIMITATIONS
 CABLE AND PIPELINE AREAS
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 
 NOTES:
 NOTE A
@@ -167,6 +168,13 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+features hazardous to surface navigation are not expected but may exist
+in federal channels.
 
 
 END OF FILE

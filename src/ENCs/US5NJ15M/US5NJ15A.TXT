@@ -135,7 +135,7 @@ subject to shoaling, particularly at the edges.
 
 
 CAUTION - USACE CONDUCTS
-USACE Conducts hydrographic surveys to monitor navigation
+USACE conducts hydrographic surveys to monitor navigation
 condition.  These surveys are not intended to detect under-
 water features.  Uncharted features hazardous to surface
 navigation are not expected but may exist in federal channels.

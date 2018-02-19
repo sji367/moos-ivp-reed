@@ -13,7 +13,6 @@ CAUTION - LIMITATIONS
 POLLUTION REPORTS
 AIDS TO NAVIGATION
 CAUTION - TEMPORARY CHANGES
-CAUTION - DREDGED AREAS
 CAUTION - SUBMARINE PIPELINES and CABLES
 CAUTION - LOW WATER DATUM
 NOAA WEATHER RADIO BROADCASTS
@@ -87,11 +86,6 @@ replaced by other types or removed. For details
 see U.S. Coast Guard Light List.
 
 
-CAUTION - DREDGED AREAS
-Improved channels are
-subject to shoaling, particularly at the edges.
-
-
 CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines and 
 submarine cables may exist within the area of 
@@ -130,7 +124,7 @@ WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on
 any single aid to navigation, particularly on
 floating aids.  See U.S. Coast Guard Light List
-and U.S.Coast Pilot for details.
+and U.S. Coast Pilot for details.
 
 
 RACING BUOYS

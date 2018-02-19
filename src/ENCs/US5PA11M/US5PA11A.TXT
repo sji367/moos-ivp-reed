@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5PA11M - DELAWARE RIVER
+US5PA11M - DELAWARE RIVER WILMINGTON TO PHILADELPHIA
 
 INDEX:
 AIDS TO NAVIGATION
@@ -70,9 +70,10 @@ subject to shoaling, particularly at the edges.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74
+kilometres / 20 to 40 nautical miles from the
+antenna site, but can be as much as 185
+kilometres / 100 nautical miles for stations at
 high elevations.
 
 Atlantic City, NJ	KHB-38	      162.400 MHz

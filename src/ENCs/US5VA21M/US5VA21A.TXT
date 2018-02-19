@@ -19,7 +19,6 @@ NOTE A
 ADMINISTRATION AREA
 RADAR REFLECTORS
 TIDAL INFORMATION
-OYSTER AQUACULTURE
 ADDITIONAL INFORMATION
 
 
@@ -35,9 +34,9 @@ Chesapeake Bay and tributaries.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 
+to 40 nautical miles from the antenna site, but can be
+as much as 100 nautical miles / 185 kilometers for stations at
 high elevations.
 
 Salisbury, MD          KEC-92              162.476 MHz
@@ -134,17 +133,6 @@ omitted from this chart.
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
-
-
-OYSTER AQUACULTURE
-Oyster bed aquaculture leases may exist within the limits of
-this chart. Mariners are cautioned that numerous markers
-may exist and watermen may be active in the area. Caution
-should be exercised when navigating in or near these areas,
-not to anchor or ground, in order to avoid damage to the
-beds. Depths may be shallower than the soundings shown.
-For more information, contact the local department of natural
-resources.
 
 
 ADDITIONAL INFORMATION

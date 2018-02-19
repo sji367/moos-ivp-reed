@@ -1,34 +1,35 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5CN44E - FISHERS ISLAND SOUND
+US5CN44M - FISHERS ISLAND SOUND
 
 INDEX:
-Administration Area
+ADMINISTRATION AREA
 AUTHORITIES	
 AIDS TO NAVIGATION	
-NOTE A
-NOTE B
-NOTE X				
+NOTE A			
 WARNING - PRUDENT MARINER	
 POLLUTION REPORTS		
 SUPPLEMENTAL INFORMATION	
 CAUTION - TEMPORARY CHANGES			
-CAUTION - LIMITATIONS
-CAUTION - MARINERS				
+CAUTION - LIMITATIONS				
 RADAR REFLECTORS		
 CAUTION - SUBMARINE PIPELINES AND CABLES
 NOAA WEATHER RADIO BROADCASTS
-SMALL CRAFT WARNINGS
-CAUTION - CHANGES IN BUOYAGE
+WARNINGS - SMALL CRAFT WARNINGS
 CAUTION - DREDGED AREAS
-Inland Navigational Rules
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 
 
 NOTES:
-Administration Area
-The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea. The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace and well as to its bed and subsoil. For more information, please refer to the Cosat Pilot.
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 AUTHORITIES
@@ -54,12 +55,6 @@ Office of the District Engineer, Corps of Engineers in
 Concord, MA.
 Refer to charted regulation section numbers.
 
-NOTE B
-These waterways are marked with numerous uncharted private aids.
-
-NOTE x
-Within the 12 nautical mile Territorial Sea, established by Presidential Proclamation, some Federal laws apply. The Three Nautical Mile Line, previously identified as the outer limit of the territorial sea, is retained as it continues to depict the jurisdictional limit of the other laws. The 9 nautical mile Natural Resource Boundary off the Gulf coast of Florida, Texas, and Puerto Rico, and the Three Nautical Mile Line elsewhere remain in most cases the inner limit of Federal fisheries jurisdiction and the outer limit of the jurisdiction of the states. The 24 nautical mile Contiguous Zone and the 200 nautical mile Exclusive Economic Zone were established by Presidential Proclamation. Unless fixed by treaty or the U.S. Supreme Court, these maritime limits are subject to modification.
-
 
 WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on 
@@ -69,10 +64,11 @@ and U.S. Coast Pilot for details.
 
 
 POLLUTION REPORTS
-Report all spills of oil and hazardous substances to the National 
-Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. 
-Coast Guard facility if telephone communication is impossible (33 CFR 
-153).
+Report all spills of oil and hazardous sub-
+stances to the National Response Center via 
+1-800-424-8802 (toll free), or to the nearest U.S. 
+Coast Guard facility if telephone communication 
+is impossible (33 CFR 153).
 
 
 SUPPLEMENTAL INFORMATION
@@ -98,12 +94,6 @@ Geospatial-Intelligence Agency Publication 117.
 Radio direction-finder bearings to commercial 
 broadcasting stations are subject to error and 
 should be used with caution.
-
-
-CAUTION - MARINERS
-Mariners are warned to stay clear of the pro-
-tective riprap surrounding navigational light 
-structures.
 
 
 RADAR REFLECTORS
@@ -136,12 +126,12 @@ nautical miles from the antenna site, but can be
 as much as 100 nautical miles for stations at 
 high elevations.
 
-New London, CT	 KHB-47	    162.55 MHz
-Providence, RI	 WXJ-39	    162.40 MHz
+New London, CT	 KHB-47	    162.550 MHz
+Providence, RI	 WXJ-39	    162.400 MHz
 Riverhead, NY	 WXM-80	    162.475 MHz
 
 
-SMALL CRAFT WARNINGS
+WARNINGS - SMALL CRAFT WARNINGS
 Small-craft warnings will be displayed from sunrise 
 to sunset from Suffolk County Marine Police Patrol 
 Boats underway in the coastal and navigable inland 
@@ -153,20 +143,13 @@ CAUTION - DREDGED AREAS
 Improved channels are
 subject to shoaling, particularly at the edges.
 
-Inland Navigational Rules
-
-The Inland Navigational Rules Act of 1980 is in effect for vessels transiting this 
-area. The seaward boundaries of this area are the COLREGS demarcation lines. 
-In the area seaward of the COLREGS demarcation lines, vessels are governed by 
-COLREGS: International Regulations for Prevention of Collisions at Sea, 1972.  
-The COLREGS demarcation lines are defined in 33 CFR 80.155a and 80.155b.
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
 
 
 ADDITIONAL INFORMATION
-Additional information can be obtained at www.nauticalcharts.noaa.gov.
+Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 
 END OF FILE

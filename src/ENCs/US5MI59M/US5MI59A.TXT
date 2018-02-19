@@ -5,7 +5,6 @@ NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 US5MI59M - MANISTIQUE HARBOR
 
 INDEX:
-
 AUTHORITIES
 AIDS TO NAVIGATION
 NOTE A
@@ -17,15 +16,14 @@ CAUTION - LIMITATIONS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
-SAILING COURSES
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
-SAILING DIRECTIONS
 NOTE D
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
+ADMINISTRATION AREA
 ADDITIONAL INFORMATION
-
 
 
 NOTES:
@@ -115,21 +113,18 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
-SAILING COURSES
-Sailing courses and are recom-
-mended by the Lake Carriers Association and the Canadian
-Shipowners Association.
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 BRIDGE AND OVERHEAD CABLE CLEARANCES 
 When the water surface is above Low Water 
 Datum, bridge and overhead clearances are reduced correspondingly.  For clearances see U.S. 
 Coast Pilot 6.
-
-
-SAILING DIRECTIONS
-Bearings of sailing courses are true and distances given thereon are in 
-statute miles between points of departure.
 
 
 NOTE D
@@ -162,6 +157,14 @@ Sister Bay, MI			WXN-69			162.425 MHz
 
 TIDAL INFORMATION
 For tidal information see the NOS tide table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 ADDITIONAL INFORMATION

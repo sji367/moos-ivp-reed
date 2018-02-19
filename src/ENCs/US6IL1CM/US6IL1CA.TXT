@@ -9,6 +9,7 @@ AIDS TO NAVIGATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - LOW WATER DATUM
 WARNING - PRUDENT MARINER
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 NOTE A
 NOAA WEATHER RADIO BROADCASTS
 POLLUTION REPORTS
@@ -52,6 +53,10 @@ WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on any single aid
 to navigation, particularly on floating aids. See U.S. Coast
 Guard Light List and U.S. Coast Pilot for details.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 NOTE A

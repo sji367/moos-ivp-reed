@@ -2,37 +2,32 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5IL11M - CHICAGO HARBOR:
+US5IL11M - CHICAGO HARBOR
 
 
 INDEX:
-
-
 AIDS TO NAVIGATION
 POLLUTION REPORTS
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS)
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS)
 SUPPLEMENTAL INFORMATION
-CAUTION  TEMPORARY CHANGES
-WARNING  PRUDENT MARINER
+CAUTION - TEMPORARY CHANGES
+WARNING - PRUDENT MARINER
 ADDITIONAL INFORMATION
 NOTE A
 AUTHORITIES 
 NOAA WEATHER RADIO BROADCASTS
-CAUTION  SUBMARINE PIPELINES AND CABLES
-CAUTION  DREDGED AREAS
+CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 TIDAL INFORMATION
 SAILING DIRECTIONS
 BRIDGES AND OVERHEAD CABLE CLEARANCES
 ADMINISTRATION AREA
-NOTE B
-CAUTION  LOW WATER DATUM
-CAUTION  FIXED AND FLOATING
+CAUTION - LOW WATER DATUM
 
 
 NOTES:
-
-
 AIDS TO NAVIGATION 
 Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
 
@@ -41,19 +36,19 @@ POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
 
 
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS) 
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS) 
 Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
 
 
 SUPPLEMENTAL INFORMATION
-Consult U.S. Coast Pilot 5 for important supplemental information.
+Consult U.S. Coast Pilot 6 for important supplemental information.
 
 
-CAUTION  TEMPORARY CHANGES 
+CAUTION - TEMPORARY CHANGES 
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
 
 
-WARNING  PRUDENT MARINER 
+WARNING - PRUDENT MARINER 
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
 
@@ -73,17 +68,21 @@ Hydrography and topography by the National Ocean Service, Coast Survey, with add
 NOAA WEATHER RADIO BROADCASTS 
 The NOAA Weather Radio Station listed below provides continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
 
-Chicago, IL 		KWO-39 	162.550 MHz 
-Crystal Lake, IL		KXI-41		162.500 MHz
+Chicago, IL 		KWO-39 		162.550 MHz 
+Crystal Lake, IL	KXI-41		162.500 MHz
 Lockport, IL		KZZ-81		162.425 MHz
 
 
-CAUTION  SUBMARINE PIPELINES AND CABLES 
+CAUTION - SUBMARINE PIPELINES AND CABLES 
 Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling. Covered wells may be marked by lighted or unlighted buoys.
 
 
-CAUTION  DREDGED AREAS 
+CAUTION - DREDGED AREAS 
 Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 RADAR REFLECTORS 
@@ -106,16 +105,8 @@ ADMINISTRATION AREA
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot.
 
 
-NOTE B
-The channel legend reflects the Corps of Engineers project depth.  The Corps of Engineers publishes the controlling depth periodically in the U.S Coast Guard Local Notice to Mariners. For further information on channel depths, direct inquiries to Office of the District Engineer, Corps of Engineers, Chicago, III
-
-
-CAUTION  LOW WATER DATUM
+CAUTION - LOW WATER DATUM
 Due to periodic high water conditions in the Great Lakes, some features charted as visible at Low Water Datum may be submerged, particularly in the near shore areas. Mariners should proceed with caution.
-
-
-CAUTION  FIXED AND FLOATING
-Fixed and floating obstructions, some submerged, may exist within the magenta tinted bridge construction area. Mariners are advised to proceed with caution.
 
 
 END OF FILE

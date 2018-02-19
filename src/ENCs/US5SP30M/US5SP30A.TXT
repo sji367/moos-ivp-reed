@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5SP30M - PAGO PAGO HARBOR - TUTUILA ISLAND - SAMOA ISLANDS, UNITED STATES POSSESSION 
+US5SP30M - TUTUILA ISLAND; PAGO PAGO HARBOR - SAMOA ISLANDS, SOUTH PACIFIC OCEAN, UNITED STATES POSSESSION 
 
 INDEX:
 AUTHORITIES
@@ -49,4 +51,3 @@ The entire area of this chart falls seaward of the COLREGS Demarcation Line.
 PORT OF ENTRY
 Pago Pago is the only port of entry for American Samoa. All vessels are prohibited from entering other harbors or calling at other ports in American Samoa unless they have entered Pago Pago and obtained the necessary permission.
 
-END OF FILE

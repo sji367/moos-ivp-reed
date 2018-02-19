@@ -1,0 +1,124 @@
+NOAA ENC®
+
+NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
+
+US2EC04M - WEST QUODDY HEAD TO NEW YORK
+
+INDEX:
+AIDS TO NAVIGATION
+AUTHORITIES
+WARNING - PRUDENT MARINER
+NOTE A
+CAUTION - MAGNETIC VARIATION
+CAUTION - TEMPORARY CHANGES
+CAUTION - LIMITATIONS
+POLLUTION REPORTS
+RADAR REFLECTORS
+TRAFFIC SEPARATION SCHEME
+TIDAL INFORMATION
+ADDITIONAL INFORMATION
+
+
+NOTES:
+AIDS TO NAVIGATION
+Consult U.S. Coast Guard Light List for 
+supplemental information concerning aids to 
+navigation.
+See Canadian List of Lights, Buoys, and Fog
+Signals for information not included in the U.S.
+Coast Guard Light List.
+
+
+AUTHORITIES
+Hydrography and topography by the National Ocean Service, Coast
+Survey, with additional data from the U.S. Coast Guard, British Admiralty
+and Canadian charts.
+
+
+WARNING - PRUDENT MARINER
+The prudent mariner will not rely solely on any single aid 
+to navigation, particularly on floating aids. See U.S. Coast 
+Guard Light List and U.S. Coast Pilot for details.
+
+
+NOTE A
+Navigation regulations are published in Chapter 2, U.S. 
+Coast Pilots 1,2, and 3. Additions or revisions to Chapter 2
+are published in the Notice to Mariners. Information con-
+cerning the regulations may be obtained at the Office of the
+Commander, 1st Coast Guard District in Boston, MA, and
+5th Coast Guard District in Portsmouth, VA, or at the Office
+of the District Engineer, Corps of Engineers in Concord, MA,
+or the office of the District Engineer, Corps of Engineers in
+New York, NY.
+Refer to charted regulation section numbers.
+
+
+CAUTION - MAGNETIC VARIATION
+Magnetic variation curves are for 2012 derived from
+2015 World Magnetic Modei and accompanying secular
+change. If annual change is in same direction as variation
+it is additive and the variation is increasing. If annual
+change is opposite in direction to variation it is subtractive
+and the variation is decreasing.
+
+
+CAUTION - TEMPORARY CHANGES
+Temporary changes or defects in aids to 
+navigation are not indicated. See 
+Local Notice to Mariners.
+During some winter months or when endan-
+gered by ice, certain aids to navigation are 
+replaced by other types or removed. For details 
+see U.S. Coast Guard Light List.
+
+
+CAUTION - LIMITATIONS 
+Limitations on the use of radio signals as 
+aids to marine navigation can be found in the 
+U.S. Coast Guard Light Lists and National 
+Geospatial-intelligence Agency Publication 117.
+Radio direction-finder bearings to commercial 
+broadcasting stations are subject to error and 
+should be used with caution.
+
+
+POLLUTION REPORTS
+Report all spills of oil and hazardous substances to the 
+National Response Center via 1-800-424-8802 (toll free), or 
+to the nearest U.S. Coast Guard facility if telephone com-
+munication is impossible (33 CFR 153).
+
+
+RADAR REFLECTORS
+Radar reflectors have been placed on many 
+floating aids to navigation. Individual radar 
+reflector identification on these aids has been 
+omitted from this chart.
+
+
+TRAFFIC SEPARATION SCHEME
+One way traffic lanes are recommended 
+for use by all vessels traveling between the points involved. They have 
+been designed to aid in the prevention of collisions at the approaches 
+to Portland Harbor and New York Harbor and the approach to 
+Narragansett Bay, Buzzards Bay and Boston Harbor and for routing 
+traffic through the Bay of Fundy but are not intended in an way to super-
+sede or alter the applicable Rules of the Road. Separation Zones are 
+intended to separate inbound and outbound traffic and to be free of 
+ship traffic. Separation zones should not be used except for crossing 
+purposes. When crossing traffic lanes and separation zones use extreme 
+caution. 
+The recommended route in the Bay of Fundy has been established 
+by the Department of Transport, Canada. See large scale Canadian 
+charts.
+
+
+TIDAL INFORMATION
+For tidal information, see the NOS tide table publication or go to http://coops.nos.noaa.gov.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+END OF FILE

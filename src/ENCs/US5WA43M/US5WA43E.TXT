@@ -1,153 +1,20 @@
-NOAA ENC®
-
-NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
-
-US5WA43M - HARO STRAIT, MIDDLE BANK TO STUART ISLAND
-
-INDEX:
-AIDS TO NAVIGATION
-SUPPLEMENTAL INFORMATION
-POLLUTION REPORTS
-CAUTION - LIMITATIONS
-RADAR REFLECTORS
-CAUTION - SUBMARINE PIPELINES AND CABLES
-COLREGS, 80.1390 (see note A)
-NOTE A
-ADDITIONAL INFORMATION
-CAUTION - TEMPORARY CHANGES
-CANADIAN WEATHER RADIO BROADCASTS
-NOTE E - COOPERATIVE VESSEL TRAFFIC SERVICES SYSTEM
-AUTHORITIES
-WARNING - PRUDENT MARINER
-TIDAL INFORMATION
-ADDITIONAL INFORMATION
-
-NOTES:
-AIDS TO NAVIGATION
-Consult U.S. Coast Guard Light List for
-supplemental information concerning aids to
-navigation.
-See Canadian List of Lights, Buoys and Fog
-Signals for information not include in the U.S.
-Coast Guard Light List.
-
-
-SUPPLEMENTAL INFORMATION
-Consult U.S. Coast Pilot 7 for important
-supplemental information.
-
-
-POLLUTION REPORTS
-Report all spills of oil and hazardous sub-
-stances to the National Response Center via
-1-800-424-8802 (toll free), or to the nearest U.S.
-Coast Guard facility if telephone communication is
-impossible (33 CFR 153).
-
-
-CAUTION - LIMITATIONS
-Limitations on the use of radio signals as
-aids to marine navigation can be found in the
-U.S. Coast Guard Light Lists and National
-Geospatial-Intelligence Agency Publication 117.
-Radio direction-finder bearings to commercial
-broadcasting stations are subject to error and
-should be used with caution.
-
-
-
-RADAR REFLECTORS
-Radar reflectors have been placed on many
-floating aids to navigation. Individual radar
-reflector identification on these aids has been
-omitted from this chart.
-
-
-
-CAUTION - SUBMARINE PIPELINES AND CABLES
-Additional uncharted submarine pipelines and
-submarine cables may exist within the area of
-this chart. Not all submarine pipelines and sub-
-marine cables are required to be buried, and
-those that were originally buried may have
-become exposed. Mariners should use extreme
-caution when operating vessels in depths of
-water comparable to their draft in areas where
-pipelines and cables may exist, and when
-anchoring, dragging or trawling.
-Covered wells may be marked by lighted or
-unlighted buoys.
-The cable and pipeline areas falling
-within the areas of the larger scale Cana-
-dian charts are not shown.
-
-
-
-COLREGS, 80.1390 (see note A)
-International Regulations for Preventing Collisions at Sea, 1972.
-The entire area of this chart falls seaward of the COLREGS Demarcation Line.
-
-
-NOTE A
-Navigation regulations are published in Chapter 2, U.S.
-Coast Pilot 7.  Additions or revisions to Chapter 2 are pub-
-lished in the Notice to Mariners.  Information concerning the
-regulations may be obtained at the Office of the Commander,
-13th Coast Guard District in Seattle, Washington or at the
-Office of the District Engineer, Corps of Engineers in
-Seattle, Washington.
-Refer to charted regulation section numbers.
-
-
-ADDITIONAL INFORMATION
-Additional information can be obtained at www.nauticalcharts.noaa.gov
-
-
-CAUTION - TEMPORARY CHANGES
-Temporary changes or defects in aids to
-navigation are not indicated.  See
-Local Notice to Mariners.
-
-
-CANADIAN WEATHER RADIO BROADCASTS
-The Canadian Weather Service station listed
-below provides continuous marine weather broad-
-casts. The range of reception is variable, but for
-most stations is usually 20 to 40 miles from the
-antenna site.
-
-Vancouver, B.C.		CFA-240		162.40 MHz
-
-
-NOTE E - COOPERATIVE VESSEL TRAFFIC SERVICES SYSTEM
-A Cooperative Vessel Traffic Services (CVTS) system
-has been established by the United States and Canada
-within the adjoining waters in the Juan de Fuca Region.
-The appropriate Vessel Traffic Center (VTC) (Tofino Traffic,
-Seattle Traffic, and Victoria Traffic) administers the rules
-issued by both nations, however, it will enforce only its
-own set of rules within its jurisdiction.
-
-AUTHORITIES
-Hydrography and topography by the National Ocean
-Service, Charting and Geodetic Services, with additional
-data from the Geological Survey, Corps of Engineer, U.S.
-Coast Guard and Canadian Authorities.
-
-
-WARNING - PRUDENT MARINER
-The prudent mariner will not rely solely on
-any single aid to navigation, particularly on
-floating aids. See U.S. Coast Guard Light List
-and U.S. Coast Pilot for details.
-
-
-TIDAL INFORMATION
-For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
-
-
-ADDITIONAL INFORMATION	
-Additional information can be obtained at www.nauticalcharts.noaa.gov
-
-
-END OF FILE 
+One-way traffic lanes overprinted on this chart are RECOMMENDED for use by
+all vessels traveling between the points involved.  They have been designated to
+aid in the prevention of collisions in the Strait of Juan De Fuca and Strait
+of Georgia waters, but are not intended in any way to supersede or alter
+the applicable Rules of the Road.  Separation zones are intended to separate
+inbound and outbound traffic and to be free of ship traffic.  Separation
+Zones should not be used except for crossing purposes.  When crossing
+traffic lanes and separation zones, use extreme caution.
+Precautionary Areas have been established where major lanes merge
+and cross the traffic separation scheme.  It is recommended that vessels proceed
+with caution in these areas.  Wherever practical, vessels entering or leaving the
+system should do so at these precautionary areas.  For more information regarding
+Traffic Separation Scheme procedures and regulations, see 33 CFR 167 and / or
+chapter 2 of the U.S. Coast Pilot.
+For information governing the VESSEL TRAFFIC MANAGEMENT AND
+INFORMATION SYSTEM for the coastal waters of southern British Columbia,
+see National Geospatial-Intelligence Agency Publication 154, Sailing Directions
+(enroute) for British Columbia, and the Sailing Directions British Columbia
+Coast (South Portion) Volume 1, published by the Canadian Hydrographic
+Service.

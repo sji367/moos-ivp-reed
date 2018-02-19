@@ -1,0 +1,15 @@
+NATIONAL GEOSPATIAL-INTELLIGENCE AGENCY
+US456670 - PALAU - HELEN REEF
+ 
+INDEX:
+TIDAL INFORMATION
+CAUTION
+
+NOTES: 
+TIDAL INFORMATION:
+Mean H.W. Interval...7hrs. 7min.; Spring Rise...1.8 meters; Neaps Rise...1.2 meters; Mean Tide Level...0.9 meters
+
+CAUTION:
+QUALITY OF BATHYMETRIC DATA - The areas represented by the object M_QUAL (Quality of Data) are approximate due to generalizing for clarity. Caution is advised, particularly for nearshore navigation or voyage planning. M_QUAL represents areas of uniform quality of bathymetric data. The CATZOC (Category of Zone of Confidence in Data) attribute of M_QUAL provides an assessment of the overall zone of confidence.
+
+END OF FILE

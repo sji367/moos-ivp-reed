@@ -10,6 +10,7 @@ AIDS TO NAVIGATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - LOW WATER DATUM
 CAUTION - DREGDED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 SUPPLEMENTAL INFORMATION
 CAUTION - LIMITATIONS
 NOAA WEATHER RADIO BROADCASTS
@@ -39,6 +40,10 @@ Due to periodic high water conditions in the Great Lakes, some features charted 
 
 CAUTION - DREGDED AREAS
 Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 SUPPLEMENTAL INFORMATION

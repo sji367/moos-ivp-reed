@@ -97,7 +97,7 @@ not all listed in the U.S. Coast Guard Light List.
 
 
 NOTE C
-Numerous fish traps and stakes hav been reported in
+Numerous fish traps and stakes have been reported in
 the area of this chart; some may be submerged. Small
 craft should use caution when operating outside the main
 channel.
@@ -106,9 +106,9 @@ channel.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40 
-nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+The reception range is typically 37 to 74 kilometers /
+20 to 40 nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 New Bern, NC		KEC-84		162.40 MHz

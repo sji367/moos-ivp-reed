@@ -87,16 +87,15 @@ Refer to charted regulation section numbers.
 
 
 NOTE C
-One-way traffic lanes overprinted are
-RECOMMENDED for use by all vessels traveling between the
-points involved. They have been designed to aid in the pre-
-vention of collisions at the approaches to Cape Fear River, but are
-not intended in any way to supersede or alter the applicable
-Rules of the Road. The separation zone is intended to separate
-inbound and outbound traffic and to be free of ship traffic.
-Separation zoneS should not be used except for crossing
-purposes. When crossing traffic lanes and the separation zoneS
-use extreme caution.
+One-way traffic lanes are RECOMMENDED for use by all vessels 
+traveling between the points involved. They have been designed 
+to aid in the prevention of collisions at the approaches to 
+Delaware Bay, but are not intended in any way to supersede 
+or alter the applicable Rules of the Road. The separation zone 
+is intended to separate inbound and outbound traffic and to be 
+free of ship traffic. Separation zones should not be used except
+for crossing purposes. When crossing traffic lanes and the separation
+zones use extreme caution.
 
 
 NOTE D
@@ -114,8 +113,7 @@ area.
 
 
 CAUTION - DREDGED AREAS
-Improved channels are 
-subject to shoaling, particularly at the edges.
+Improved channels are subject to shoaling, particularly at the edges.
 
 
 NOAA WEATHER RADIO BROADCASTS
@@ -133,8 +131,7 @@ Sudlersville, MD      WXK-97	162.500 MHz
 
                       
 SUPPLEMENTAL INFORMATION
-Consult U.S. Coast Pilot 3 for important 
-supplemental information.
+Consult U.S. Coast Pilot 3 for important supplemental information.
 
 
 POLLUTION REPORTS

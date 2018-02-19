@@ -1,36 +1,40 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5SP02E - ISLAND OF GUAM
+US5SP02M - MARIANA ISLANDS; ISLAND OF GUAM; TERRITORY OF GUAM; COCOS LAGOON
 
 INDEX:
 SYMBOLS AND ABBREVIATIONS
 AUTHORITIES
 AIDS TO NAVIGATION
 NOTE A
+NOTE B
 WARNING – PRUDENT MARINER
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
-CAUTION
-CAUTION
-CAUTION
+CAUTION - TEMPORARY CHANGES
+CAUTION - LIMITATIONS
+CAUTION - AIRCRAFT OPERATIONS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 SUBMARINE PIPELINES AND CABLES
-Administration Area
+ADMINISTRATION AREA
 
-SYMBOLS AND ABBREVIATIONS: 
+NOTES:
+SYMBOLS AND ABBREVIATIONS 
 For Symbols and Abbreviations, see Chart No. 1.
 
-AUTHORITIES: 
+AUTHORITIES
 Hydrography and topography by the National Ocean Service, Coast Survey, 
 with additional data from the Corps of Engineers, Geological Survey, U.S. Coast Guard 
 and Department of the Navy.
 
-AIDS TO NAVIGATION: 
+AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for supplemental information 
 concerning aids to navigation.
 
-NOTE A: 
+NOTE A 
 Navigation regulations are published in NGA Publication 126 or weekly Notice 
 to Mariners which include new or revised regulations. Information concerning the 
 regulations may be obtained at the Office of the Commander, 14th Coast Guard District 
@@ -41,43 +45,44 @@ NOTE B
 Submerged submarine operations are conducted at various times in the waters contained on this chart.
 Proceed with caution.
 
-WARNING – PRUDENT MARINER: 
+WARNING – PRUDENT MARINER 
 The prudent mariner will not rely solely on any single 
 aid to navigation, particularly on floating aids.  See U.S. Coast Guard Light List 
 and U.S. Coast Pilot, and NGA Publication 126 for details.
 
-POLLUTION REPORTS: 
+POLLUTION REPORTS 
 Report all spills of oil and hazardous substances to the National Response Center 
 via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if 
 telephone communication is impossible (33 CFR 153).
 
-SUPPLEMENTAL INFORMATION: 
+SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 7 and NGA Publication 126 for supplemental information.
 
-CAUTION: 
+CAUTION - TEMPORARY CHANGES 
 Temporary changes or defects in aids to navigation are not indicated.  See Local Notice to Mariners.
 
-CAUTION: 
+CAUTION - LIMITATIONS 
 Limitations on the use of certain other radio signals as aids to marine navigation 
 can be found in the U.S. Coast Guard Light Lists and National Imagery and Mapping Agency Publication 117.
 Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
 
-CAUTION: 
+CAUTION - AIRCRAFT OPERATIONS
 Surface, subsurface, and aircraft operations including exercises are conducted at various 
 times in areas within an approximate 220 mile radius of Guam.
 
-RADAR REFLECTORS: 
+RADAR REFLECTORS 
 Radar reflectors have been placed on many floating aids to navigation.  
 Individual radar reflector identification on these aids has been omitted.
 
-NOAA WEATHER RADIO BROADCASTS: 
+NOAA WEATHER RADIO BROADCASTS 
 The NOAA Weather Radio stations listed below provide continuous weather broadcasts.  
-The reception range is typically 20 to 40 nautical miles from the antenna site, but 
-can be as much as 100 nautical miles for stations at high elevations.
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be as much as 185 kilometers / 100 nautical miles
+for stations at high elevations.
 
 Guam		WXM-85		162.40 MHz		
 
-SUBMARINE PIPELINES AND CABLES: 
+SUBMARINE PIPELINES AND CABLES 
 Additional uncharted submarine pipelines and submarine cables may exist within the area.  
 Not all submarine pipelines and submarine cables are required to be buried, and those 
 that were originally buried may have become exposed.  Mariners should use extreme caution 
@@ -85,7 +90,7 @@ when operating vessels in depths of water comparable to their draft in areas whe
 and cables may exists, and when anchoring, dragging, or trawling.
 Covered wells may be marked by lighted or unlighted buoys.
 
-Administration Area
+ADMINISTRATION AREA
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area  
 covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which 
 the United States exercises sovereignty extending to the airspace as well as to its bed and 

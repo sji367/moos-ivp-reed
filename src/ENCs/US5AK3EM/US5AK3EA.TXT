@@ -2,13 +2,15 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK3EM - SALISBURY SOUND PERIL STRAIT AND HOONAH SOUND
+US5AK3EM - SALISBURY SOUND, PERIL STRAIT AND HOONAH SOUND
 
 INDEX:
 NOTE A
 AIDS TO NAVIGATION
 VEGETATION
 CAUTION - TEMPORARY CHANGES
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 NOAA WEATHER RADIO BROADCASTS
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
@@ -39,11 +41,19 @@ CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
 
 
+CAUTION - DREDGED AREAS
+Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
+
+
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed below provide continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
 
-Althorp Peak, AK		KZZ-86	162.425 MHz
-Sitka, AK			KWXJ-80	162.550 MHz
+Althorp Peak, AK	KZZ-86	162.425 MHz
+Sitka, AK		KWXJ-80	162.550 MHz
 Mt. Robert Barron, AK	KZZ-87	162.450 MHz
 
 
@@ -73,7 +83,7 @@ Radar reflectors have been placed on many floating aids to navigation. Individua
 
 
 ADMINISTRATION AREA
-This area covers land, internal waters, and territorial sea. The territorial sea is a maritime zone over which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil. For more information, please refer to the Coast Pilot.
+The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea. The territorial sea is a maritime zone over which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 ADDITIONAL INFORMATION

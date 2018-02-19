@@ -1,6 +1,6 @@
 Acoustic sensors, consisting of a concrete anchor and
 tethered instrument package floating above the anchor,
-are positioned approximately 1000 yards apart along the
+are positioned approximately 914.4 meters / 1000 yards apart along the
 line. The depth of the floating portion of the instrument
 varies with local bottom depth. For instruments anchored
 at less than 150m depth (near shore), the floating portion

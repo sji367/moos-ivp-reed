@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5OR46E - UMPQUA RIVER
+US5OR46M - UMPQUA RIVER
 
 INDEX:
 AUTHORITIES
@@ -15,6 +17,7 @@ CAUTION - LIMITATIONS
 CAUTION - DREDGED AREAS
 SUBMARINE PIPELINES AND CABLES
 NOAA WEATHER RADIO BROADCASTS
+USACE HYDROGRAPHIC SURVEYS
 
 NOTES:
 
@@ -102,6 +105,11 @@ as much as 100 nautical miles for stations at
 high elevations. 
 
 Coos Bay, OR	KIH-32	162.40 MHz
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

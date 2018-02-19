@@ -2,15 +2,13 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK68M - MAKUSHIN BAY:
+US5AK68M - MAKUSHIN BAY
 
 
 INDEX:
-
-
 AIDS TO NAVIGATION
 POLLUTION REPORTS
-CAUTION USE OF RADIO SIGNALS(LIMITATIONS)
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS)
 SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
 WARNING - PRUDENT MARINER
@@ -21,12 +19,10 @@ RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
 ADMINISTRATION AREA
-COLREGS, 82.1705 (see note A)
+COLREGS, 80.1705 (see note A)
 
 
 NOTES:
-
-
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
 
@@ -36,7 +32,7 @@ Report all spills of oil and hazardous substances to the National Response Cente
 nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
 
 
-CAUTION USE OF RADIO SIGNALS(LIMITATIONS)
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS)
 Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and 
 National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations 
 are subject to error and should be used with caution.
@@ -46,11 +42,11 @@ SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 9 for important supplemental information.
 
 
-CAUTION TEMPORARY CHANGES 
+CAUTION - TEMPORARY CHANGES 
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
 
 
-WARNING PRUDENT MARINER
+WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light 
 List and U.S. Coast Pilot for details.
 
@@ -67,7 +63,7 @@ Refer to charted regulation section numbers.
 
 
 AUTHORITIES 
-Hydrography and topography by the National Ocean Service, CoastSurvey, with additional data from the U.S. Coast Guard.
+Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from the U.S. Coast Guard.
 
 
 RADAR REFLECTORS 

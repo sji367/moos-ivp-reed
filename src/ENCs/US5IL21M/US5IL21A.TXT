@@ -15,6 +15,7 @@ POLLUTION REPORTS
 CAUTION - DREDGED AREAS
 CAUTION - LIMITATIONS
 CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 SUPPLEMENTAL INFORMATION
 AUTHORITIES
 BRIDGE AND OVERHEAD CABLE CLEARANCES
@@ -114,6 +115,14 @@ pipelines and cables may exist, and when
 anchoring, dragging, or trawling.
  Covered wells may be marked by lighted or 
 unlighted buoys.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 SUPPLEMENTAL INFORMATION

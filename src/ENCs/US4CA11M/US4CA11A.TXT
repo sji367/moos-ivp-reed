@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US4CA11E - GULF OF THE FARALLONES
+US4CA11M - GULF OF THE FARALLONES
 
 INDEX:
 AUTHORITIES
@@ -18,6 +20,7 @@ CAUTION - LIMITATIONS
 RADAR REFLECTORS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -50,7 +53,7 @@ is impossible (33 CFR 153).
 
 VESSEL TRANSITING
 The U.S. Coast Guard and the Pacific States/British Columbia Oil Spill 
-Task Force endorce a system of voluntary measures and minimum 
+Task Force endorse a system of voluntary measures and minimum 
 distances from shore for certain commercial vessels transiting along 
 the coast anywhere between Cook Inlet, Alaska and San Diego, 
 California. See U. S. Coast Pilot 7, Chapter 3 for details.
@@ -86,9 +89,9 @@ unlighted buoys.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Mt. Pise, CA      	KHB-49       162.400 MHz 
@@ -121,5 +124,10 @@ For tidal information, see the NOS tide table publication or go to http://co-ops
 
 ADDITIONAL INFORMATION 
 Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE

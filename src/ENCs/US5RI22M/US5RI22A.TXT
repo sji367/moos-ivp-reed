@@ -107,12 +107,11 @@ reflector identification on these aids has been
 omitted from this chart.
 
 NOAA WEATHER RADIO BROADCASTS
-The NOAA Weather Radio stations listed
+The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
-high elevations.
+The reception range is typically 20 to 40 nautical 
+miles from the antenna site, but can be as much as 
+100 nautical miles for stations at high elevations.
 
 Providence, RI	WXJ-39        162.40 MHz
 New London, CT	KHB-47	      162.55 MHz

@@ -23,6 +23,7 @@ RADAR REFLECTORS
 TIDAL INFORMATION 
 ADMINISTRATION AREA
 CAUTION  CHANGES IN BUOYAGE
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 SAILING DIRECTIONS
 SAILING COURSES
@@ -100,6 +101,9 @@ Mariners are advised that authorized aids to navigation are being changed to con
 port hand buoys to green; black and white vertically striped buoys to red and white vertically striped buoys, and lateral lights from white to red or green as appropriate. Changes to aids to navigation will be announced in the National 
 Geospatial-Intelligence Agency weekly Notice to Mariners and U.S. Coast Guard Local Notice to Mariners.
 
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels
 
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 When the water surface is above Low Water Datum, bridge and overhead clearances are reduced correspondingly. For clearances see U.S. Coast Pilot 6.

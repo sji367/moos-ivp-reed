@@ -29,6 +29,7 @@ RACING BUOYS
 ADMINISTRATION AREA
 CAUTION - MARINERS
 CAUTION - LOW WATER DATUM
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -179,6 +180,13 @@ Due to periodic high water conditions in the Great Lakes, some
 features charted as visible at Low Water Datum may be submerged, 
 particularly in the near shore areas.  Mariners should proceed with 
 caution.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These
+survyes are not intended to detect underwater features. Uncharted features
+hazardous to surface navigation are not expected but may exist in federal
+channels. 
 
 
 END OF FILE

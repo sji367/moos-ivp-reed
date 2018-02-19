@@ -1,4 +1,4 @@
-SHIP REPORTING SYSTEM: The following vessels entering or departing any U.S. port of place and
+SHIP REPORTING SYSTEM: The following vessels entering or departing any U.S. port or place and
 in transit through the reporting area are required to report into the system: all vessels 300
 gross tons or greater and all vessels in the event of a developing emergency. The following
 vessels in transit through the reporting area should report into the system: all vessels 300

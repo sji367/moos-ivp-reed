@@ -18,6 +18,7 @@ NOTE A
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - LIMITATIONS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 NOAA WEATHER RADIO BROADCASTS
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
@@ -123,6 +124,14 @@ Geospatial-Intelligence Agency Publication 117.
 Radio direction-finder bearings to commercial
 broadcasting stations are subject to error and
 should be used with caution.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 NOAA WEATHER RADIO BROADCASTS

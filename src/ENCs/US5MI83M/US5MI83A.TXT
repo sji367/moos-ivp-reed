@@ -89,8 +89,14 @@ Geological Survey, and U.S. Coast Guard.
 
 
 CAUTION - DREDGED AREAS
-Improved channels are
-subject to shoaling, particularly at the edges.
+Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. 
+These surveys are not intended to detect underwater features. 
+Uncharted features hazardous to surface navigation are not expected 
+but may exist in federal channels.
 
 
 RADAR REFLECTORS

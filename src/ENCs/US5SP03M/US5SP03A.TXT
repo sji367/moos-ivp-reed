@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5SP03M - APRA HARBOR
+US5SP03M - MARIANA ISLANDS APRA HARBOR GUAM
 
 INDEX:
 SYMBOLS AND ABBREVIATIONS
@@ -51,7 +53,6 @@ ACOUSTIC RANGE FACILITY: Numerous shore connected bottom cables are located with
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
-
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.

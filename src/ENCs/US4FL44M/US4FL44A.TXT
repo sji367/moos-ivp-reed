@@ -21,6 +21,7 @@ RACING BUOYS
 CAUTION - LIMITATIONS
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -66,12 +67,8 @@ unit.
 
 
 NOAA WEATHER RADIO BROADCASTS
-The NOAA Weather Radio stations listed
-below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
-high elevations.
+The NOAA Weather Radio stations listed below provide continuous weather broadcasts.
+The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
 
 Fort Myers, FL	  WXK-83	162.475 MHz
 Naples, FL	  WWG-92	162.525 MHz
@@ -153,6 +150,10 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 END OF FILE

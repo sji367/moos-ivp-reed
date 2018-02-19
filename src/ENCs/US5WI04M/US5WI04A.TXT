@@ -18,6 +18,7 @@ CAUTION - DREDGED AREAS
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - MARINERS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
@@ -124,10 +125,16 @@ chart. Such structures are not charted unless known to be
 permanent.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+ features hazardous to surface navigation are not expected but may exist 
+in federal channels.
+
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 When the water surface is above Low Water
-Datum, bridge and overhead clearances are reduced correspondingly. For clearances see U.S.
-Coast Pilot 6.
+Datum, bridge and overhead clearances are reduced correspondingly. For 
+clearances see U.S. Coast Pilot 6.
 
 
 TIDAL INFORMATION

@@ -1,0 +1,6 @@
+The project depth is 14.6 meters/48 feet.  Controlling depths are 
+published monthly in the Local Notice to Mariners by 
+the U.S. Coast Guard and monthly in the National 
+Geospatial-Intelligence Agency Notice to Mariners.
+Additional information may be obtained from the 
+Corps of Engineers, U.S. Army, Portland, Oregon.

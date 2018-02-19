@@ -20,6 +20,7 @@ SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
@@ -136,6 +137,13 @@ Lakes, some features charted as visible at Low Water
 Datum may be submerged, particularly in the near 
 shore areas.  Mariners should proceed with caution.
 
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not intended 
+to detect underwater features. Uncharted features 
+hazardous to surface navigation are not expected but 
+may exist in federal channels.
 
 RADAR REFLECTORS
 Radar reflectors have been placed on many 

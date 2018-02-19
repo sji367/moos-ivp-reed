@@ -26,6 +26,8 @@ TIDAL INFORMATION
 ADMINISTRATION AREA
 COLREGS
 Sea Turtles Critical Habitat
+CORAL PROPAGATION
+
 
 
 NOTES:
@@ -101,6 +103,13 @@ The entire area of this chart falls seaward of the COLREGS Demarcation Line.
 
 Sea Turtles Critical Habitat
 Protected area: 50 CFR 226.208
+
+
+CORAL PROPAGATION
+Uncharted submerged manmade structures, designed for the purpose of coral propagation, may exist within the limits of this chart,
+principally in shallow water areas.
+
+
 
 
 END OF FILE

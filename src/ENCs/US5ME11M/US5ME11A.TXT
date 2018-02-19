@@ -19,6 +19,7 @@ RADAR REFLECTORS
 WARNING - PRUDENT MARINER
 ADMINISTRATION AREA
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 ADDITIONAL INFORMATION
 
 
@@ -136,6 +137,13 @@ bed and subsoil. For more information, please refer to the Coast Pilot.
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These
+surveys are not intended to detect underwater features. Uncharted features
+hazardous to surface navigation are not expected but may exist in federal
+channels.
 
 
 ADDITIONAL INFORMATION

@@ -2,29 +2,29 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK2CM - ORCA BAY AND INLET CHANNEL ISLANDS TO CORDOVA
+US5AK2CM - ORCA BAY AND INLET - CHANNEL ISLANDS TO CORDOVA
 
 INDEX:
 AIDS TO NAVIGATION
 AUTHORITIES
-WARNING PRUDENT MARINER
+WARNING - PRUDENT MARINER
 NOTE A
-NOTE B CAUTION
 SUPPLEMENTAL INFORMATION
-CAUTION TEMPORARY
-CAUTION DREDGED AREAS
-CAUTION  LIMITATIONS
+CAUTION - TEMPORARY CHANGES
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+CAUTION - LIMITATIONS
 POLLUTION REPORTS
 NOAA WEATHER RADIO BROADCASTS
-COLREGS
-CAUTIONSUBMARINE PIPELINES AND CABLES
+COLREGS, 80.1750 (see note A)
+CAUTION - SUBMARINE PIPELINES AND CABLES
 RADAR REFLECTORS
 ADDITIONAL INFORMATION
+ADMINISTRATION AREA
 TIDAL INFORMATION
 
 
 NOTES:
-
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for supplemental information 
 concerning aids to navigation.
@@ -32,7 +32,7 @@ concerning aids to navigation.
 
 AUTHORITIES
 Hydrography and topography by the National Ocean Service, Coast 
-Survey, with additional data from the Corps of Engineers, and U. S. 
+Survey, with additional data from the Corps of Engineers, and U.S. 
 Coast Guard.
  
 
@@ -44,16 +44,11 @@ Coast Pilot for details.
 
 NOTE A
 Navigation regulations are published in Chapter 2, U.S. Coast Pilot 9. Additions 
-or revisions to Chapter 2 are published in the Notices to Mariners. Information 
+or revisions to Chapter 2 are published in the Notice to Mariners. Information 
 concerning the regulations may be obtained at the Office of the Commander, 
 17th Coast Guard District in Juneau, Alaska, or at the Office of the District 
 Engineer, Corps of Engineers in Anchorage, Alaska.
 Refer to charted regulation section numbers.
-
-
-NOTE B CAUTION
-Odiak Slough is marked with two red spherical buoys numbered "2" and "4". 
-The channel should be navigated only above half tide with local knowledge.
 
 
 SUPPLEMENTAL INFORMATION
@@ -61,18 +56,26 @@ Consult U.S. Coast Pilot 9 for important
 supplemental information.
 
 
-CAUTION TEMPORARY
+CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to 
 navigation are not indicated on this chart. See
 Notice to Mariners.
 
 					
-CAUTION DREDGED AREAS
+CAUTION - DREDGED AREAS
 Improved channels are 
 subject to shoaling, particularly at the edges.
 
 
-CAUTION LIMITATIONS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
+CAUTION - LIMITATIONS
 Limitations on the use of radio signals as
 aids to marine navigation can be found in the
 U.S. Coast Guard Light Lists and National
@@ -91,24 +94,24 @@ communication is impossible (33 CFR 153).
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed below provide continuous weather 
 broadcasts. The reception range is typically 37 to 74 km / 20 to 40 nautical 
-miles from the antenna site, but can be as much as 186 km / 100 nautical 
+miles from the antenna site, but can be as much as 185 km / 100 nautical 
 miles for stations at high elevations.
 
-Naked I, AK	         		WNG-530    	162.500 MHz
+Naked I, AK	         	WNG-530    	162.500 MHz
 Point Pigot, AK          	KZZ-93     	162.450 MHz
 Potato Point, AK        	WNG-527    	162.425 MHz
-Cape Hinchinbrook	 	WNG-532    	162.525 MHz
-Valdez, AK 	         		WXJ-63     	162.550 MHz
-Cordova, AK 	        		WXJ-79     	162.400 MHz
-Tripod Mountain, AK      WNG-715    	162.450 MHz
+Cape Hinchinbrook, AK	 	WNG-532    	162.525 MHz
+Valdez, AK 	         	WXJ-63     	162.550 MHz
+Cordova, AK 	        	WXJ-79     	162.400 MHz
+Tripod Mountain, AK      	WNG-715    	162.450 MHz
 
 
-COLREGS
+COLREGS, 80.1750 (see note A)
 International Regulations for Preventing Collisions at Sea, 1972. 
-The entire area falls seaward of the COLREGS Demarcation Line.
+The entire area of this chart falls seaward of the COLREGS Demarcation Line.
 
 
-CAUTION SUBMARINE PIPELINES AND CABLES
+CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines and submarine cables may exist within the area of 
 this chart. Not all submarine pipelines and submarine cables are required to be buried, and
 those that were originally buried may have become exposed. Mariners should use extreme
@@ -124,6 +127,14 @@ reflector identification on these aids has been omitted from this chart.
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 TIDAL INFORMATION

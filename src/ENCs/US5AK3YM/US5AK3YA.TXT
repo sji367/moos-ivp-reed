@@ -11,7 +11,7 @@ SUPPLEMENTAL INFORMATION
 NOTE A
 WARNING - PRUDENT MARINER
 POLLUTION REPORTS
-CAUTION-TEMPORARY CHANGES
+CAUTION - TEMPORARY CHANGES
 NOAA WEATHER RADIO BROADCASTS
 VEGETATION
 COLREGS, 80.1705 (see note A) 
@@ -53,15 +53,13 @@ any single aid to navigation, particularly on
 floating aids. See U.S. Coast Guard Light List
 and U.S. Coast Pilot for details.
 
-
-
 POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National
 Response Center via 1-800-424-8802 (toll free), or to the nearest U.S.
 Coast Guard facility if telephone communication is impossible (33 CFR
 153).
 
-CAUTION-TEMPORARY CHANGES
+CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to
 navigation are not indicated. See
 Local Notice to Mariners.
@@ -74,15 +72,15 @@ nautical miles from the antenna site, but can be
 as much as 100 nautical miles for stations at
 high elevations.
 Althorp Peak, AK 		KZZ-86	162.425 MHz
-Mt. Robert Barron, AK 	KZZ-87	162.450 MHz
+Mt. Robert Barron, AK 		KZZ-87	162.450 MHz
 Mt. McArthur, AK		KZZ-95	162.525 MHz
 Sitka, AK			WXJ-80	162.550 MHz
 
 VEGETATION
 The land is generally heavily wooded up to
-an elevation of 1500 feet. Above that the woods
-gradually thin out and the higher elevations
-are bare.
+an elevation of 457 meters / 1500 feet. Above
+that the woods gradually thin out and the higher
+elevations are bare.
 
 COLREGS, 80.1705 (see note A) 
 International Regulations for Preventing Collisions at Sea, 1972. 
@@ -102,6 +100,5 @@ territorial sea.  The territorial sea is a maritime zone which the
 United States exercises sovereignty extending to the airspace as well 
 as to its bed and subsoil.  For more information, please refer to the 
 Coast Pilot.
-
 
 END OF FILE

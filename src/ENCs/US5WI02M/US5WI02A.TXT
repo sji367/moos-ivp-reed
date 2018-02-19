@@ -19,6 +19,7 @@ CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
@@ -132,6 +133,13 @@ and cables may exist, and when anchoring, drag-
 ging or trawling.
 Covered wells may be marked by lighted or un-
 lighted buoys.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation 
+conditions. These surveys are not intended to detect 
+underwater features. Uncharted features hazardous to surface 
+navigation are not expected but may exist in federal channels.
 
 
 RADAR REFLECTORS

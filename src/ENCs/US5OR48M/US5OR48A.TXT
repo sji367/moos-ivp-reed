@@ -16,6 +16,7 @@ NOAA WEATHER RADIO BROADCASTS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 
@@ -122,5 +123,10 @@ maritime zone over which the United States exercises sovereignty extending to th
 airspace as well as to its bed and subsoil. For more information, please refer to the
 Coast Pilot.
 
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE

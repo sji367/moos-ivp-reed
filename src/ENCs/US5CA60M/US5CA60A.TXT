@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5CA60E - DANA POINT HARBOR
+US5CA60M - DANA POINT HARBOR
 
 INDEX:
 NOTE A
@@ -20,6 +22,8 @@ NOAA WEATHER RADIO BROADCASTS
 MINERAL DEVELOPMENT STRUCTURES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
+
 
 NOTES:
 NOTE A 
@@ -155,5 +159,11 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE

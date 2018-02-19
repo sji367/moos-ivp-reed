@@ -6,23 +6,23 @@ US5MI65M - TAWAS HARBOR; ENTRANCE TO AU SABLE RIVER; SEBEWAING HARBOR; CASEVILLE
 
 INDEX:
 NOTE A
-NOTE B
 AUTHORITIES
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 WARNING - PRUDENT MARINER
 NOAA WEATHER RADIO BROADCASTS
-RADAR REFLECTORS
 AIDS TO NAVIGATION
 CAUTION - SUBMARINE PIPELINES AND CABLES
+RADAR REFLECTORS
 CAUTION - LIMITATIONS
 CAUTION - TEMPORARY CHANGES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - LOW WATER DATUM
 SAILING DIRECTIONS
 SAILING COURSES
-CAUTION - CHANGES IN BUOYAGE
+ADMINISTRATION AREA
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
 
@@ -37,13 +37,6 @@ mander, 9th Coast Guard District in Cleveland, Ohio or at
 the Office of the District Engineer, Corps of Engineers in
 Detroit, Michigan.
 Refer to charted regulation section numbers.
-
-
-NOTE B
-Unexploded ordnance may exist in this area.
-Anyone finding unexploded ordnance should
-notify the nearest U.S. Coast Guard or law en-
-forcement facility.
 
 
 AUTHORITIES
@@ -139,6 +132,14 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 CAUTION - LOW WATER DATUM
 Due to periodic high water conditions in the
 Great Lakes, some features charted as visible
@@ -157,15 +158,12 @@ Sailing coursed and limits are recommended by
 the Lake Carriers Association and the Canadian Shipowners Association.
 
 
-CAUTION - CHANGES IN BUOYAGE
-Mariners are advised that authorized aids to navigation are being changed to
-conform to maritime standards of the International Association of Lighthouse
-Authorities Maritime Buoyage System, Region B. Significant changes are: black
-port hand buoys to green; black and white vertically striped buoys to red and white 
-vertically striped buoys; and lateral lights from white to red and green as appropriate.
-Changes to aids to navigation will be announced in the National Geospatial-Intelligence
-Agency weekly Notice to Mariners and the U.S. Coast Guard Local Notice to 
-Mariners.
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 ADDITIONAL INFORMATION

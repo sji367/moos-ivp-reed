@@ -1,5 +1,5 @@
-Mariners are cautioned that the Washington State Ferries may
-deviate from the published standard routes due to inclement weather,
-traffic conditions, navigational hazards or other emergency conditions.
-Standard ferry routes within the waters of the San Juan Islands are not
-displayed on this chart.
+CAUTION - QUALITY OF BATHEMETRIC DATA
+The areas represented by the object M_QUAL (Quality of Data) are approximate due to generalizing for 
+clarity. Caution is advised, particularly for nearshore navigation or voyage planning. M-QUAL represents
+areas of uniform quality of bathymetric data. The CATZOC (Category of Zone of Confidence in Data) attribute 
+of M_QUAL provides an assessment of the overall zone of confidence. 

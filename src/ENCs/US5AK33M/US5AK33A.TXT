@@ -4,17 +4,13 @@ NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 
 
-US5AK33M - LYNN CANAL, POINT SHERMAN TO SKAGWAY
-
-
+US5AK33M - LUTAK INLET; SKAGWAY AND NAHKU BAY; PORTAGE COVE, CHILKOOT INLET
 
 INDEX:
 
 AIDS TO NAVIGATION
 
 CAUTION - TEMPORARY CHANGES
-CAUTION - DREDGED AREAS
-
 POLLUTION REPORTS
 
 SUPPLEMENTAL INFORMATION
@@ -23,6 +19,9 @@ NOAA WEATHER RADIO BRODCASTS
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
 
+CAUTION - DREDGED AREAS
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 COLREGS, 80.1705 (see note A)
 
 NOTE A
@@ -56,10 +55,6 @@ navigation are not indicated. See
 
 Local Notice to Mariners.
 
-
-CAUTION - DREDGED AREAS
-Improved channels are
-subject to shoaling, particularly at the edges.
 
 POLLUTION REPORTS 
 Report all spills of oil and hazardous substances to the National Response 
@@ -107,6 +102,16 @@ pipelines and cables may exist, and when
 anchoring, dragging, or trawling.
 Covered wells may be marked by lighted or
 unlighted buoys.
+
+CAUTION - DREDGED AREAS
+Improved channels are
+subject to shoaling, particularly at the edges.
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. 
+These surveys are not intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not expected but may exist 
+in federal channels.
 
 COLREGS, 80.1705(see note A)
 International Regulations for Preventing Collisions at Sea, 1972.

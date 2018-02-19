@@ -5,12 +5,12 @@ NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 US5MI58M - LITTLE BAY DE NOC
 
 INDEX:
-SAILING DIRECTIONS
 NOTE A
 CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 WARNING - PRUDENT MARINER
 NOAA WEATHER RADIO BROADCASTS
@@ -20,16 +20,14 @@ AIDS TO NAVIGATION
 RADAR REFLECTORS
 AUTHORITIES
 SUPPLEMENTAL INFORMATION
+SAILING DIRECTIONS
+SAILING COURSES
 TIDAL INFORMATION
+ADMINISTRATION AREA
 ADDITIONAL INFORMATION
 
 
 NOTES:
-SAILING DIRECTIONS
-Bearings of sailing courses are true and distances given thereon are in 
-statute miles between points of departure.
-
-
 NOTE A
 Navigation regulations are published in Chapter 2, U.S. 
 Coast Pilot 6. Additions or revisions to Chapter 2 are pub-
@@ -71,6 +69,14 @@ caution.
 CAUTION - DREDGED AREAS
 Improved channels are
 subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
@@ -142,8 +148,26 @@ Consult U.S. Coast Pilot 6 for important
 supplemental information.
 
 
+SAILING DIRECTIONS
+Bearings of sailing courses are true and distances given thereon are in 
+statute miles between points of departure.
+
+
+SAILING COURSES
+Sailing courses and limits are recommended by
+the Lake Carriers Association and the Canadian Shipowners Association.
+
+
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 ADDITIONAL INFORMATION

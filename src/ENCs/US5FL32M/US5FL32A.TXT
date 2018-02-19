@@ -19,6 +19,7 @@ NOTE A
 AUTHORITIES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 HURRICANES AND TROPICAL STORMS
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
@@ -88,6 +89,12 @@ unlighted buoys.
 CAUTION - DREDGED AREAS
 Improved channels are subject to shoaling, particularly at the edges.
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+features hazardous to surface navigation are not expected but may exist
+in federal channels.
+
 
 HURRICANES AND TROPICAL STORMS
 Hurricanes, tropical storms and other major storms may cause considerable damage to marine structures, aids to navigation 
@@ -95,7 +102,7 @@ and moored vessels, resulting in submerged debris in unknown locations. Charted 
 may not reflect actual conditions following these storms. Fixed aids to navigation may have been damaged or destroyed. Buoys 
 may have been moved from their charted positions, damaged, sunk, extinguished or otherwise made inoperative. Mariners 
 should not rely upon the position or operation of an aid to navigation. Wrecks and submerged obstructions may have been 
-displaced from charted locations. Pipelines may have become uncovered or moved.Mariners are urged to exercise extreme 
+displaced from charted locations. Pipelines may have become uncovered or moved. Mariners are urged to exercise extreme 
 caution and are requested to report aids to navigation discrepancies and hazards to navigation to the nearest United States 
 Coast Guard unit.
 

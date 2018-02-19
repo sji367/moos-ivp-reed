@@ -18,6 +18,7 @@ CAUTION - SUBMARINE PIPELINES AND CABLES
 NOTE S
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 NOTES:
@@ -106,7 +107,7 @@ unlighted buoys.
 
 
 NOTE S
-Regulations for Ocean Dumping Sites are contained in 40 CFR, parts 220-229.
+Regulations for Ocean Dumping Sites are contained in 40 CFR, parts 220-228.
 Additional information concerning the regulations and requirements for use of the
 sites may be obtained from the Environmental Protection Agency (EPA). See
 U.S. Coast pilots appendix for addresses of EPA offices. Dumping subsequent to
@@ -119,6 +120,13 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 TIDAL INFORMATION
 For tidal information, see the NOS tide table publication or go to http://co-ops.nos.noaa.gov
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
+
 
 ADMINISTRATION AREA
 This area covers land, internal waters, and territorial sea. The territorial sea is a

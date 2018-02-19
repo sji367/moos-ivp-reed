@@ -2,7 +2,7 @@ The aids in Oregon Inlet, Oregon Inlet Channel to junction of Old House
 Channel, and buoys in Walter Slough, Old House Channel and Davis 
 Channel are not charted because they are moved frequently. Consult Local 
 Notice to Mariners, 5th Coast Guard District at http://www.navcen.uscg.gov/
-?pageName = lnm District&region = 5 for the latest positions of aids to 
+?pageName=lnmDistrict&region=5 for the latest positions of aids to 
 navigation. 
 Hydrography in Oregon Inlet is not shown due to its continually shifting 
 nature. The most recent hydrographic survey information, centerline 

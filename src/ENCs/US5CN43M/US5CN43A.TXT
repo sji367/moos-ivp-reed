@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5CN43E - NEW LONDON HARBOR AND VICINITY
+US5CN43M - NEW LONDON HARBOR AND VICINITY; BAILEY POINT TO SMITH COVE
 
 INDEX:
 AUTHORITIES
@@ -11,7 +13,6 @@ WARNING - PRUDENT MARINER
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
-CAUTION - MARINERS
 RADAR REFLECTORS
 RACING BUOYS
 FISHING AND HUNTING STRUCTURES
@@ -79,12 +80,6 @@ replaced by other types or removed. For details
 see U.S. Coast Guard Light List.
 
 
-CAUTION - MARINERS
-Mariners are warned to stay clear 
-of the protective riprap surrounding 
-navigational light structures.
-
-
 RADAR REFLECTORS
 Radar reflectors have been placed on many 
 floating aids to navigation.  Individual radar 
@@ -117,7 +112,7 @@ nautical miles from the antenna site, but can be
 as much as 100 nautical miles for stations at 
 high elevations.
 
-New London, CT	        	KHB-47		162.550 MHz
+New London, CT	        KHB-47		162.550 MHz
 Providence, RI		WXJ-39		162.400 MHz
 Riverhead, NY		WXM-80		162.475 MHz
 
@@ -144,7 +139,5 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
 
-ADMINISTRATION AREA
-This area covers land, internal waters, and territorial sea. The territorial sea is a maritime zone over which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil. For more information, please refer to the Coast Pilot.
 
 END OF FILE

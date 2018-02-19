@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US4CA46M - SACRAMENTO AND SAN JOAQUIN RIVERS
+US4CA46M - UPPER REACHES OF THE OLD RIVER AND MIDDLE RIVER
 
 INDEX:
 AUTHORITIES
@@ -127,7 +129,7 @@ to High Water (HW) and Low Water (LW).
 
 RULES OF THE ROAD (ABRIDGED)
 Motorless craft have the right-of-way in almost all cases.  
-Sailing vessels and motorboats less than sixty-five feet 
+Sailing vessels and motorboats less than twenty meters/sixty-five feet 
 in length shall not hamper, in a narrow channel, the safe 
 passage of a vessel which can navigate only inside that 
 channel.

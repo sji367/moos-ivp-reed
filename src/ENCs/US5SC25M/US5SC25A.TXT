@@ -64,9 +64,8 @@ Covered wells may be marked by lighted or unlighted buoys.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio station listed 
 below provides continuous weather broadcasts. 
-The reception range is typically 20 to 40 
-nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at high elevations.
+The reception range is typically 37 to 74 kilometres / 20 to 40 nautical miles. from the antenna site, but can be 
+as much as 185 kilometres/100 nautical miles for stations at high elevations.
 
 Charleston, SC	    KHB-29	  162.550 MHz
 	    	  

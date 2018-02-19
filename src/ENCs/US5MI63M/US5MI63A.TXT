@@ -2,12 +2,12 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5MI63M - ST MARYS RIVER HEAD OF LAKE NICOLET TO WHITEFISH BAY
+US5MI63M - ST MARYS RIVER - HEAD OF LAKE NICOLET TO WHITEFISH BAY; SAULT STE MARIE
 
 INDEX:
 AIDS TO NAVIGATION
 CAUTION - TEMPORARY CHANGES
-RADAR REFLECTOR
+RADAR REFLECTORS
 CAUTION - LOW WATER DATUM
 CAUTION - SUBMARINE PIPELINES AND CABLES
 WARNING - PRUDENT MARINER
@@ -17,6 +17,7 @@ AUTHORITIES
 NOAA WEATHER RADIO BROADCASTS
 POLLUTION REPORTS
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 SAILING DIRECTIONS
 SAILING COURSES
 CAUTION - LIMITATIONS
@@ -34,12 +35,13 @@ CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to navigation are not indicated . See Local Notice to Mariners. During some winter months or when endangered by ice, certain aids to navigation are replaced by other types or removed. For details see U.S. Coast Guard Light List.
 
 
-RADAR REFLECTOR
+RADAR REFLECTORS
 Radar Reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids has been omitted from this chart.
 
 
 CAUTION - LOW WATER DATUM
 Due to periodic high water conditions in the Great Lakes, some features charted as visible at Low Water Datum may be submerged, particularly in the near shore areas. Mariners should proceed with caution.
+
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging or trawling. Covered wells may be marked by lighted or unlighted buoys.
@@ -66,7 +68,7 @@ The NOAA Weather Radio stations listed below provide continuous weather broadcas
 
 Sault Ste Marie, MI   KIG-74    162.550 MHz
 Newberry, MI          WNG-576   162.450 MHz
- 
+
 
 POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
@@ -74,6 +76,10 @@ Report all spills of oil and hazardous substances to the National Response Cente
 
 CAUTION - DREDGED AREAS
 Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 SAILING DIRECTIONS

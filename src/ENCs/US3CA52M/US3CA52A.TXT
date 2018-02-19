@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US3CA52E - POINT SUR TO SAN FRANCISCO
+US3CA52M - POINT SUR TO SAN FRANCISCO
 
 INDEX:
 AUTHORITIES
@@ -111,9 +113,9 @@ California. See Coast Pilot 7, Chapter 3 for details.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio Station listed 
 below provides continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Mt. Pise, CA 	       	 KHB-49  		162.400 MHz WX2

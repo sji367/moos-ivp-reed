@@ -29,6 +29,7 @@ NOAA WEATHER RADIO BROADCASTS
 BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
 CAUTION - HURRICANES AND TROPICAL STORMS
 RADAR REFLECTORS
+SOUNDING DATUM
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 
@@ -150,8 +151,8 @@ craft close to their bows.
 
 RULES OF THE ROAD (ABRIDGED)
 Motorless craft have the right-of-way in almost all cases. 
-Sailing vessels and motorboats less than sixty-five feet in 
-length shall not hamper, in a narrow channel, the safe 
+Sailing vessels and motorboats less than 20 meters / 65 feet 
+in length shall not hamper, in a narrow channel, the safe 
 passage of a vessel which can navigate only inside that 
 channel.  
 A motorboat being overtaken has the right-of-way. 
@@ -270,6 +271,13 @@ Radar reflectors have been placed on many
 floating aids to navigation. Individual radar 
 reflector identification on these aids has been 
 omitted from this chart.
+
+SOUNDING DATUM
+The plane of reference for depth measurements in the Atlantic Ocean is Mean Lower 
+Low Water (MLLW). In the sounds and rivers shown on this chart, except near the inlets, 
+the periodic tide has a mean range of less than 0.15 meter / 0.5 foot. In these areas, 
+the plane of reference for depth measurements is Low Water Datum (LWD), which is determined by 
+subtracting 0.15 meter / 0.5 foot from observed Mean Sea Level (MSL).
 
 
 TIDAL INFORMATION

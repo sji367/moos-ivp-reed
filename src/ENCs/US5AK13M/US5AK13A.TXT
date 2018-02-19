@@ -19,13 +19,13 @@ MINERAL DEVELOPMENT STRUCTURES
 POLLUTION REPORTS
 NOAA WEATHER RADIO BROADCASTS
 CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 WARNING - PRUDENT MARINER
 COLREGS, 80.1705 (see note A)
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 ADMINISTRATION AREA
-
-
 
 
 NOTES:
@@ -94,6 +94,14 @@ Additional uncharted submarine pipelines and submarine cables may exist within t
 Covered wells may be marked by lighted or unlighted buoys.
 
 
+CAUTION - DREDGED AREAS
+Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
+
+
 WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
@@ -111,9 +119,9 @@ http://co-ops.nos.noaa.gov
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
 
+
 ADMINISTRATION AREA
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot
-
 
 
 END OF FILE

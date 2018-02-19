@@ -51,10 +51,10 @@ supplemental information.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
-nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
-high elevations.
+The reception range is typically 37 to 74 kilometers /
+20 to 40 nautical miles from the antenna site, but can 
+be as much as 185 kilometers / 100 nautical miles for 
+stations at high elevations.
 
 Norfolk, VA		KHB-37		162.55 MHz
 Mamie, NC		WWH-26		162.425 MHz
@@ -94,7 +94,7 @@ The U.S. Aids to Navigation System is de-
 signed for use with nautical charts, and the exact
 meaning of an aid to navigation may not be clear
 unless the approximate charts is consulted.
-Aids to navigation markingthe Intracoastal
+Aids to navigation marking the Intracoastal
 Waterway exhibit unique yellow symbols to
 distinguish them from aids marking other water-
 ways.
@@ -151,7 +151,7 @@ Uncharted fish and wildlife harvesting devices
 and structures such as fish traps, pound nets, 
 crab traps, and duck blinds, some submerged, 
 may exist in the area of this chart, particularly in 
-the near shore area. Mariners should proceed 
+the nearshore area. Mariners should proceed 
 with caution.
 
 

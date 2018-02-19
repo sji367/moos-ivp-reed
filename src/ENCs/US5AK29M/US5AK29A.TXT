@@ -2,31 +2,26 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK29M - DRIER BAY:
-
+US5AK29M - DRIER BAY - PRINCE WILLIAM SOUND
 
 INDEX:
-
-
 AIDS TO NAVIGATION
 POLLUTION REPORTS
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS)
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS)
 SUPPLEMENTAL INFORMATION
-CAUTION  TEMPORARY CHANGES
-WARNING  PRUDENT MARINER
+CAUTION - TEMPORARY CHANGES
+WARNING - PRUDENT MARINER
 ADDITIONAL INFORMATION
 NOTE A
 AUTHORITIES
 NOAA WEATHER RADIO BROADCASTS
-CAUTION  SUBMARINE PIPELINES AND CABLES
+CAUTION - SUBMARINE PIPELINES AND CABLES
 TIDAL INFORMATION 
 ADMINISTRATION AREA
-COLREGS
+COLREGS, 80.1705 (see Note A)
 
 
 NOTES:
-
-
 AIDS TO NAVIGATION 
 Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
 
@@ -35,7 +30,7 @@ POLLUTION REPORTS
 Report all spills of oil and hazardous substances to the National Response Center via 1-800-424-8802 (toll free), or to the nearest U.S. Coast Guard facility if telephone communication is impossible (33 CFR 153).
 
 
-CAUTION  USE OF RADIO SIGNALS (LIMITATIONS) 
+CAUTION - USE OF RADIO SIGNALS (LIMITATIONS) 
 Limitations on the use of radio signals as aids to marine navigation can be found in the U.S. Coast Guard Light Lists and National Geospatial-Intelligence Agency Publication 117. Radio direction-finder bearings to commercial broadcasting stations are subject to error and should be used with caution.
 
 
@@ -43,11 +38,11 @@ SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 9 for important supplemental information.
 
 
-CAUTION  TEMPORARY CHANGES 
+CAUTION - TEMPORARY CHANGES 
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
 
 
-WARNING  PRUDENT MARINER 
+WARNING - PRUDENT MARINER 
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
 
@@ -70,13 +65,13 @@ The NOAA Weather Radio Station listed below provides continuous weather broadcas
 Rugged I, AK            	 	WNG-526    	162.425 MHz
 Naked I, AK              		WNG-530    	162.500 MHz
 Point Pigot, AK          		KZZ-93		162.450 MHz
-Cape Hinchinbrook, AK    	WNG-532    	162.525 MHz
+Cape Hinchinbrook, AK    		WNG-532    	162.525 MHz
 Potato Point, AK         		WNG-527    	162.425 MHz
 Whittier, AK             		KXI-29     	162.400 MHz
-East Point, Ak           		WNG-530    	162.500 MHz
+East Point, AK           		WNG-530    	162.500 MHz
 
 
-CAUTION  SUBMARINE PIPELINES AND CABLES 
+CAUTION - SUBMARINE PIPELINES AND CABLES 
 Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling. Covered wells may be marked by lighted or unlighted buoys.
 
 
@@ -88,7 +83,7 @@ ADMINISTRATION AREA
 The entire extent of this ENC cell falls within the limits of an Administration Area. This area covers land, internal waters, and territorial sea.  The territorial sea is a maritime zone which the United States exercises sovereignty extending to the airspace as well as to its bed and subsoil.  For more information, please refer to the Coast Pilot.
 
 
-COLREGS 
+COLREGS, 80.1705 (see Note A)
 International Regulations for Preventing Collisions at Sea, 1972 
 The entire area of this chart falls seaward of the COLREGS Demarcation Line.
 

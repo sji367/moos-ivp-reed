@@ -70,9 +70,9 @@ Significant changes in depths and shoreline
 have occurred in the area of this chart as a re-
 sult of the earthquake of March 27, 1964.  Tidal
 observations since the earthquake indicate
-bottom subsidence of -5.8 feet at Kodiak and
--3.7 feet at Uganik Bay.  Mariners are urged to
-use extreme caution when navigating in the
+bottom subsidence of -1.8 meters / -5.8 feet at Kodiak
+and -1.1 meters / -3.7 feet at Uganik Bay.  Mariners are 
+urged to use extreme caution when navigating in the
 area of this chart as the magnitude of change
 except at these sites is not known.
 

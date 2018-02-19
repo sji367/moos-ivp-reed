@@ -14,6 +14,7 @@ SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 NOAA WEATHER RADIO BROADCASTS
 RADAR REFLECTORS
 ADMINISTRATION AREA
@@ -97,6 +98,14 @@ unlighted buoys.
 
 CAUTION - DREDGED AREAS
 Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. 
+These surveys are not intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not expected but may exist 
+in federal channels.
+
 
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 

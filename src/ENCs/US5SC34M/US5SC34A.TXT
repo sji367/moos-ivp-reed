@@ -133,9 +133,9 @@ NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
 The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
-high elevations.
+nautical miles / 37 to 74 Kilometers from the 
+antenna site, but can be as much as 100 nautical 
+miles for stations at high elevations.
 
 CITY 		STATION		FREQ. MHz	BROADCAST TIMES
 

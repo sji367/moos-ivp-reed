@@ -22,6 +22,7 @@ NOAA VHF-FM WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 REGULATED NAVIGATION AREA
+USACE HYDROGRAPHIC SURVEYS
 ADMINISTRATION AREA
 
 
@@ -140,6 +141,12 @@ REGULATED NAVIGATION AREA
 A Regulated Navigation Area has been established by the U.S. Coast Guard.
 Please see Chapter 2, U.S. Coast Pilot 7 or 33 CFR 165.1301 and 33 CFR
 165.1303.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 ADMINISTRATION AREA

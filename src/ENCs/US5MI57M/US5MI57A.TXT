@@ -13,15 +13,17 @@ NOTE A
 WARNING - PRUDENT MARINER
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
-CAUTION-SUBMARINE PIPELINES AND CABLES
+CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 RACING BUOYS
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
+ADMINISTRATION AREA
 ADDITIONAL INFORMATION
 
 
@@ -29,12 +31,12 @@ NOTES:
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 When the water surface is above Low Water
 Datum, bridge and overhead clearances are reduced correspondingly. For clearances see U.S
-Coast pilot 6.
+Coast Pilot 6.
 
 
 AUTHORITIES
 Hydrography and Topography by the National Ocean Service, Coast Survey,
-with additional data from the Corps of Engineers, Geological Survey,and U.S. Coast Guard,
+with additional data from the Corps of Engineers, Geological Survey, and U.S. Coast Guard.
 
 
 AIDS TO NAVIGATION
@@ -119,6 +121,14 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 RADAR REFLECTORS
 Radar reflectors have been placed on many
 floating aids to navigation.  Individual radar
@@ -148,6 +158,14 @@ Traverse City, MI	KIH-22	 162.400 MHz
 
 TIDAL INFORMATION
 For tidal information, see the NOS tide table publication or go to http://co-ops.nos.noaa.gov.
+
+
+ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an
+Administration Area. This area covers land, internal waters, and
+territorial sea. The territorial sea is a maritime zone which the United
+States exercises sovereignty extending to the airspace as well as to its
+bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
 ADDITIONAL INFORMATION

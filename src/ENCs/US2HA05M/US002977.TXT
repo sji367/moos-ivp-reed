@@ -7,9 +7,9 @@ INDEX:
 AUTHORITIES
 AIDS TO NAVIGATION
 NOTE A
-WARNING – PRUDENT MARINER
+WARNING - PRUDENT MARINER
 POLLUTION REPORTS
-OCEAN DUMPING SITES
+NOTE S
 CAUTION
 CAUTION
 RADAR REFLECTORS
@@ -39,7 +39,7 @@ Hawaii or at the Office of the District Engineer, Corps of Engineers in Honolulu
 Refer to Code of Federal Regulations section numbers. 
 
 
-WARNING – PRUDENT MARINER: 
+WARNING - PRUDENT MARINER: 
 The prudent mariner will not rely solely on any single aid to navigation, particularly on 
 floating aids.  See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
@@ -50,8 +50,8 @@ Report all spills of oil and hazardous substances to the National Response Cente
 is impossible (33 CFR 153).
 
 
-OCEAN DUMPING SITES: 
-Regulations for Ocean Dumping Sites are contained in 40 CFR, Parts 220-229.  Additional 
+NOTE S: 
+Regulations for Ocean Dumping Sites are contained in 40 CFR, Parts 220-228.  Additional 
 information concerning the regulations and requirements for use of the sites may be obtained 
 from the Environmental Protection Agency (EPA).  See U.S. Coast Pilots appendix for 
 addresses of EPA offices.  Dumping subsequent to the survey dates may have reduced the depths shown.

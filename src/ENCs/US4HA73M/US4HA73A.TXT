@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US4HA73E - MARO REEF
+US4HA73M - MARO REEF
 
 INDEX:
 SYMBOLS AND ABBREVIATIONS
@@ -16,7 +18,7 @@ TIDAL INFORMATION
 SYMBOLS AND ABBREVIATIONS: For Symbols and Abbreviations, see Chart No. 1.
 
 AUTHORITIES: Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from 
-the U.S. Coast Guard and National Imagery and Mapping Agency.
+the U.S. Coast Guard and National Geospatial-Intelligence Agency.
 
 NOTE A: Navigation regulations are published in Chapter 2, U.S. Coast Pilot 7.  Additions or revisions to 
 Chapter 2 are published in the Notice to Mariners. Information concerning the regulations may be obtained 

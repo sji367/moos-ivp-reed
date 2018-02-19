@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5MI50M - SAINT MARYS RIVER
+US5MI50M - SAINT MARYS RIVER - NEEBISH ISLAND
 
 INDEX:
 AUTHORITIES
@@ -11,6 +11,7 @@ NOTE A
 CAUTION - TEMPORARY CHANGES
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - LIMITATIONS
 WARNING - PRUDENT MARINER
@@ -68,6 +69,14 @@ with caution.
 
 CAUTION - DREDGED AREAS
 Improved channels are subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
@@ -129,7 +138,7 @@ is impossible (33 CFR 153).
 NOTE C
 The U.S. Coast Guard operates a mandatory Vessel Traffic 
 Services (VTS) system in the Saint Mary's River. Vessel 
-operating  procedures  and designated radiotelephone 
+operating procedures and designated radiotelephone 
 frequencies are  published in 33 CFR 161,  the  U.S. Coast 
 Pilot, and/or the VTS User's Manual.
 

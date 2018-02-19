@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5OR30M - COLUMBIA RIVER BONNEVILLE TO THE DALLES
+US5OR30M - COLUMBIA RIVER; BONNEVILLE TO THE DALLES; THE DALLES; HOOD RIVER
 
 INDEX:
 SUPPLEMENTAL INFORMATION
@@ -18,6 +18,7 @@ ADDITIONAL INFORMATION
 RADAR REFLECTORS
 ADMINISTRATION AREA
 SOUNDING DATUM
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -44,9 +45,9 @@ munication is impossible (33 CFR 153).
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at
 high elevations.
 
 Woodland, WA		WNG-604		162.525 MHz
@@ -110,7 +111,13 @@ refer to the Coast Pilot.
 
 SOUNDING DATUM
 Soundings and clearances of bridges and overhead cables are  referred to normal pool
-level of Bonneville Reservoir whis is 72 feet above mean sea level.
+level of Bonneville Reservoir which is 21.9 meters / 72 feet above mean sea level.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

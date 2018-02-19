@@ -23,6 +23,7 @@ ADMINISTRATION AREA
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 SOUNDING DATUM
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -118,9 +119,9 @@ omitted from this chart.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Portland, OR	     KIG-98 	162.550 MHz
@@ -155,7 +156,13 @@ SOUNDING DATUM
 Soundings and clearances of bridges and overhead cables below the Bonneville Dam are referred
 to the Columbia River Datum, which is the plane of mean lower low water during the lowest river 
 stages; soundings above the dam are referred to the normal pool level of Bonneville Reservoir
-which is 72 feet above mean sea level.
+which is 21.9 meters / 72 feet above mean sea level.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5OR11M – COLUMBIA RIVER, PACIFIC OCEAN TO HARRINGTON POINT
+US5OR11M – COLUMBIA RIVER, PACIFIC OCEAN TO HARRINGTON POINT; ILWACO HARBOR
 
 INDEX:
 AUTHORITIES
@@ -128,10 +128,10 @@ omitted from this chart.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio Stations listed 
 below provide continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
-high elevations.
+as much as 185 kilometers / 100 nautical miles for stations at 
+high elevations. 
 
 Astoria, OR	  KEC-91	  162.400 MHz
 Neahkahnie, OR    WWF-94	  162.425 MHz

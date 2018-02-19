@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5MI32M - SAINT CLAIR RIVER
+US5MI30M - SAINT CLAIR RIVER
 
 
 INDEX:
@@ -10,6 +10,7 @@ POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - LIMITATIONS
 NOAA WEATHER RADIO BROADCASTS
 CAUTION - LOW WATER DATUM
@@ -52,6 +53,14 @@ see U.S. Coast Guard Light List.
 CAUTION - DREDGED AREAS
 Improved channels are
 subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 
 CAUTION - LIMITATIONS
@@ -145,7 +154,6 @@ Radar reflectors have been placed on many
 floating aids to navigation. Individual radar 
 reflector identification on these aids has been 
 omitted from this chart.
-
 
 
 TIDAL INFORMATION

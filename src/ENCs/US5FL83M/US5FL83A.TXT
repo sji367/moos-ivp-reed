@@ -7,6 +7,7 @@ US5FL83M - TOLOMATO RIVER TO PALM SHORES
 INDEX:
 AUTHORITIES			
 AIDS TO NAVIGATION
+INTRACOASTAL WATERWAY AIDS 
 NOTE A
 WARNING - PRUDENT MARINER
 CAUTION - SMALL CRAFT
@@ -24,7 +25,6 @@ WEATHER INFORMATION BY MARINE RADIOTELEPHONE
 RULES OF THE ROAD (ABRIDGED)
 HURRICANES AND TROPICAL STORMS
 CAUTION - SUBMARINE PIPELINES AND CABLES
-INTRACOASTAL WATERWAY AIDS
 PUBLIC BOATING INSTRUCTION PROGRAMS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
@@ -39,6 +39,8 @@ Hydrography and topography by the National Ocean Service, Coast Survey, with add
 AIDS TO NAVIGATION 
 Consult U.S. Coast Guard Light List for supplemental information concerning aids to navigation.
 
+INTRACOASTAL WATERWAY AIDS 
+The U.S. Aids to Navigation System is designed for use with nautical charts, and the exact meaning of an aid to navigation may not be clear unless the appropriate chart is consulted. Aids to navigation marking the Intracoastal Waterway exhibit unique yellow symbols to distinguish them from aids marking other waterways. When following the Intracoastal Waterway southward from Norfolk, VA to Cross Bank in Florida Bay, aids with yellow triangles should be kept on the starboard side of the vessel and aids with yellow squares should be kept on the port side of the vessel. A horizontal yellow band provides no lateral information, but simply identifies aids to navigation as marking the Intracoastal Waterway.
 
 NOTE A 
 Navigation regulations are published in Chapter 2, U.S. Coast Pilot 4.  Additions or revisions to Chapter 2 are published in the Notice to Mariners.  Information concerning the regulations may be obtained at the Office of the Commander, 7th Coast Guard District in Miami, Fla., or at the Office of the District Engineer, Corps of Engineers in Jacksonville, Fla. Refer to Charted regulation Regulations section numbers. 
@@ -121,10 +123,6 @@ Hurricanes, tropical storms and other major storms may cause considerable damage
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines and submarine cables may exist within the area. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exists, and when anchoring, dragging, or trawling. Covered wells may be marked by lighted or unlighted buoys.
-
-
-INTRACOASTAL WATERWAY AIDS 
-The U.S. Aids to Navigation System is designed for use with nautical charts, and the exact meaning of an aid to navigation may not be clear unless the appropriate chart is consulted. Aids to navigation marking the Intracoastal Waterway exhibit unique yellow symbols to distinguish them from aids marking other waterways. When following the Intracoastal Waterway southward from Norfolk, VA to Cross Bank in Florida Bay, aids with yellow triangles should be kept on the starboard side of the vessel and aids with yellow squares should be kept on the port side of the vessel. A horizontal yellow band provides no lateral information, but simply identifies aids to navigation as marking the Intracoastal Waterway.
 
 
 PUBLIC BOATING INSTRUCTION PROGRAMS

@@ -17,16 +17,16 @@ SUPPLEMENTAL INFORMATION
 CAUTION - LOW WATER DATUM
 CAUTION - TEMPORARY CHANGES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
-CAUTION - MARINERS
 CAUTION - SUBMARINE PIPELINES AND CABLES
+CAUTION - UNCHARTED STRUCTURES
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 NOAA WEATHER RADIO BROADCASTS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 
 	
-
 NOTES:
 AUTHORITIES
 Hydrography and topography by the National Ocean Service, Coast 
@@ -110,6 +110,14 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
+
+
 RADAR REFLECTORS
 Radar reflectors have been placed on many floating aids 
 to navigation.  Individual radar reflector identification on 
@@ -131,7 +139,7 @@ Covered wells may be marked by lighted or
 unlighted buoys.
 
 
-CAUTION - MARINERS
+CAUTION - UNCHARTED STRUCTURES
 Mariners are warned that numerous uncharted stakes and fishing 
 structures, some submerged, may exist in the areas of this chart. Such 
 structures are not charted unless known to be permanent

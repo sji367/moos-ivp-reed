@@ -22,6 +22,7 @@ TIDES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 SOUNDING DATUM
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -136,11 +137,18 @@ April 2016
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
 
+
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
+
 
 SOUNDING DATUM
 Columbia River Datum: Mean Lower Low Water during lowest river stages.
 
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE

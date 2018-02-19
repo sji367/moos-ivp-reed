@@ -49,9 +49,9 @@ munication is impossible (33 CFR 153).
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio station listed 
 below provides continuous weather broadcasts. 
-The reception range is typically 20 to 40 
+The reception range is typically 37 to 74 kilometers / 20 to 40 
 nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+as much as 185 kilometers / 100 nautical miles for stations at 
 high elevations.
 
 Seattle, WA	KHB-60	162.550 MHz
@@ -154,7 +154,7 @@ Anchoring Standards of Care have been established for
 this area through the Harbor Safety Plan. These Standards
 of Care supplement existing regulations with good marine
 practices for anchoring, and are separated into different
-weather catagories. If your vessel does not have a copy of
+weather categories. If your vessel does not have a copy of
 the Anchoring Standards of Care, you can download one
 at http://pshsc.org/about/harbor_safety_plan or contact
 (206) 443-3830.

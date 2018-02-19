@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5VA25M - JAMES RIVER, NEWPORT NEWS TO JAMESTOWN ISLAND
+US5VA25M - JAMES RIVER, NEWPORT NEWS TO JAMESTOWN ISLAND; BACK RIVER AND COLLEGE CREEK
 
 INDEX:
 SUPPLEMENTAL INFORMATION
@@ -52,7 +52,7 @@ Additional uncharted submarine pipelines and submarine cables may exist within t
 
 
 NOAA WEATHER RADIO BROADCASTS
-The NOAA Weather Radio station listed below provides continuous weather broadcasts.The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+The NOAA Weather Radio station listed below provides continuous weather broadcasts. The reception range is typically 20 to 40 nautical miles / 37 to 74 kilometers from the antenna site, but can be as much as 100 nautical miles / 185 kilometers for stations at high elevations.
 
 Norfolk, VA          KHB-37       162.550 MHz
 

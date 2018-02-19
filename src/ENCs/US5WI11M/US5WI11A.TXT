@@ -12,6 +12,7 @@ NOTE A
 SAILING DIRECTIONS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 SAILING COURSES
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - TEMPORARY CHANGES
 CAUTION - DREDGED AREAS
@@ -52,6 +53,10 @@ When the water surface is above Low Water Datum, bridge and overhead clearances 
 
 SAILING COURSES
 Sailing courses and limits are recommended by the Lake Carriers Association and the Canadian Shipowners Association.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 CAUTION - SUBMARINE PIPELINES AND CABLES

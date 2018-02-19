@@ -19,6 +19,8 @@ COLREGS, 80.1705 (see note A)
 ADMINISTRATION AREA
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
+CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -115,5 +117,15 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov.
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to
 http://co-ops.nos.noaa.gov.
+
+CAUTION - DREDGED AREAS
+Improved channels are
+subject to shoaling, particularly at the edges.
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+features hazardous to surface navigation are not expected but my exist
+in federal channels.
 
 END OF FILE

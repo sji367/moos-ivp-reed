@@ -3,5 +3,4 @@ pipe structure that oscillates around a universal
 coupling connected to a sinker. The structure is 
 kept upright by the buoyancy of a submerged 
 flotation chamber. It is designed primarily to 
-mark narrow channels in depths of up to 18.2 meters/60 feet. 
-All articulated aids are labeled "Art".
+mark narrow channels in depths of up to 18.2 meters/60 feet.

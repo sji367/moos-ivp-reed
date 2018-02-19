@@ -7,17 +7,17 @@ US5AK94M - CAPE THOMPSON TO POINT HOPE:
 
 INDEX:
 
-
 AIDS TO NAVIGATION
 POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
-CAUTION  TEMPORARY CHANGES
-WARNING  PRUDENT MARINER
+CAUTION - TEMPORARY CHANGES
+CAUTION - SUBMARINE PIPELINES AND CABLES
+WARNING - PRUDENT MARINER
 ADDITIONAL INFORMATION
 NOTE A
 AUTHORITIES
 TIDAL INFORMATION
-COLREGS
+COLREGS, 80.1705
 
 
 NOTES:
@@ -35,11 +35,16 @@ SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 9 for important supplemental information.
 
 
-CAUTION  TEMPORARY CHANGES
+CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to navigation are not indicated. See Local Notice to Mariners.
 
 
-WARNING  PRUDENT MARINER
+CAUTION - SUBMARINE PIPELINES AND CABLES
+Additional uncharted submarine pipelines and submarine cables may exist within the area of this chart. Not all submarine pipelines and submarine cables are required to be buried, and those that were originally buried may have become exposed. Mariners should use extreme caution when operating vessels in depths of water comparable to their draft in areas where pipelines and cables may exist, and when anchoring, dragging, or trawling.
+Covered wells may be marked by lighted or unlighted buoys.
+
+
+WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.
 
 
@@ -60,7 +65,7 @@ TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
 
 
-COLREGS
+COLREGS, 80.1705
 International Regulations for Preventing Collisions at Sea, 1972.
 The entire area of this chart falls seaward of the COLREGS Demarcation Line.
 

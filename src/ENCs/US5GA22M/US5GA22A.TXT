@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5GA22M - SAVANNAH RIVER
+US5GA22M - SAVANNAH RIVER SAVANNAH TO BRIER CREEK
 
 INDEX:
 AUTHORITIES
@@ -19,7 +19,6 @@ CAUTION - MARINERS
 NOAA WEATHER RADIO BROADCASTS
 BROADCASTS OF MARINE WEATHER FORECASTS AND WARNINGS BY MARINE RADIOTELEPHONE STATIONS
 MARINE WEATHER FORCASTS 
-OVERHEAD CLEARANCES
 WARNING - PRUDENT MARINER
 PUBLIC BOATING INSTRUCTION PROGRAMS
 HURRICANES AND TROPICAL STORMS
@@ -102,11 +101,6 @@ NATIONAL WEATHER SERVICE
 CITY			TELEPHONE NUMBERS	OFFICE HOURS
 Charleston, SC		*(843) 747-5859		9:00 AM-4:30 PM (Mon.-Fri.)
 *Recording (24 hours daily)
-
-
-OVERHEAD CLEARANCES
-Bridge and overhead cable clearances are in feet. High water clearances north of S.S. Railroad bascule bridge, at 32-13-53N. latitude, 81-06-46W. longitude, refer to a water plane established by a discharge of 62,000 cubic feet per second at New Savannah Bluff Dam. Low water clearances north of the bridge refer to a discharge of 6,100 cubic feet per second. Clearances at the bridge and to the south refer to Mean High Water.
-
 
 WARNING - PRUDENT MARINER
 The prudent mariner will not rely solely on any single aid to navigation, particularly on floating aids. See U.S. Coast Guard Light List and U.S. Coast Pilot for details.

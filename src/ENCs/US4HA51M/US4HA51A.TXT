@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US4HA51E - ISLAND OF O'AHU
+US4HA51M - ISLAND OF O'AHU
 
 INDEX:
 SUPPLEMENTAL INFORMATION
@@ -20,6 +22,7 @@ RACING BUOYS
 SUBMERGED SUBMARINE OPERATING AREAS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -45,7 +48,7 @@ Navigation regulations are published in Chapter 2, U.S. Coast Pilot 7. Additions
 Refer to charted regulation section numbers. 
 
 NOTE B
-Submerged submarine operations are conducted at various times in the these waters. Proceed with caution.
+Submerged submarine operations are conducted at various times in these waters. Proceed with caution.
 
 
 NOTE - FADS
@@ -71,7 +74,7 @@ Report all spills of oil and hazardous substances to the National Response Cente
 
 
 NOAA WEATHER RADIO BROADCASTS
-The NOAA Weather Radio stations listed below provide continuous weather broadcasts.  The reception range is typically 20 to 40 nautical miles from the antenna site, but can be as much as 100 nautical miles for stations at high elevations.
+The NOAA Weather Radio stations listed below provide continuous weather broadcasts.  The reception range is typically 37 to 74 kilometers / 20 to 40 nautical miles from the antenna site, but can be as much as 185 kilometers / 100 nautical miles for stations at high elevations.
 
 Mt Kaala, HI	KBA-99		162.550 MHz
 Hawaii Kai, HI	KBA-99		162.400 MHz
@@ -91,6 +94,12 @@ For tidal information see the NOS tide table publication or go to http://co-ops.
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

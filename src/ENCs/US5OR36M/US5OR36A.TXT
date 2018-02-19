@@ -24,6 +24,7 @@ ADMINISTRATION AREA
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
 SOUNDING DATUM
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -167,5 +168,10 @@ Soundings and vertical clearances of bridges and overhead cables in Lower Granit
 are referred to normal pool elevation of 738 feet above mean sea level. Soundings in 
 Lake Bryan west of Lower Granite Lock and Dam are referred to 635 feet above mean sea level.
 
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE

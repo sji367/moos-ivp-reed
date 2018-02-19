@@ -16,10 +16,9 @@ WARNING - PRUDENT MARINER
 POLLUTION REPORTS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 
-SAILING COURSES
-SAILING DIRECTIONS
 SUPPLEMENTAL INFORMATION
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS 
@@ -96,16 +95,6 @@ U.S. Coast Pilot 6.
 
 
 
-SAILING COURSES
-Sailing courses and limits are recommended by
-the Lake Carriers Association and the Canadian Shipowners Association.
-
-
-SAILING DIRECTIONS
-Bearings of sailing courses are true and distances given thereon are in
-statute miles between points of departure.
-
-
 
 SUPPLEMENTAL INFORMATION
 Consult U.S. Coast Pilot 6 for important 
@@ -115,6 +104,13 @@ supplemental information.
 CAUTION - DREDGED AREAS
 Improved channels are 
 subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. 
+Uncharted features hazardous to surface navigation are not expected 
+but may exist in federal channels.
 
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
@@ -167,8 +163,8 @@ WARNING - UNEXPLODED ORDNANCE
 Unexploded ordnance may exist in this area. 
 Anyone finding unexploded ordnance should
 notify 
-the nearest U.S. Coast Guard or law en-
-forcement facility. 
+the nearest U.S. Coast Guard or law
+enforcement facility. 
 
 
 RADAR REFLECTORS

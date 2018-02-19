@@ -102,10 +102,10 @@ maintained by the States of Maryland and Virginia.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio Stations listed 
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40 
-nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
-high elevations. 
+The reception range is typically 37 to 74 kilometers / 
+20 to 40 nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations 
+at high elevations. 
 
 Salisbury, MD            KEC-92       162.475 MHz
 Heathsville, VA          WXM-57       162.40 MHz 
@@ -151,9 +151,9 @@ States exercises sovereignty extending to the airspace as well as to its
 bed and subsoil. For more information, please refer to the Coast Pilot.
 
 TRAFFIC SEPARATION SCHEME
-One-way traffic lanes overprinted on this chart in the vicinity of Smith Point are RECOMMENDED for all vessels except small craft. They 
+One-way traffic lanes exist on this chart in the vicinity of Smith Point are RECOMMENDED for all vessels except small craft. They 
 have been designed to aid in the prevention of collisions but are not intended in any way to supersede or alter the applicable Rules of 
-the Road. The recommended route is marked by a fairway buoy and tinted magenta band which separates the courses of inbound and 
+the Road. The recommended route is marked by a fairway buoy which separates the courses of inbound and 
 outbound vessels. Vessels should leave the buoy on their port hand.
 
 TIDAL INFORMATION 

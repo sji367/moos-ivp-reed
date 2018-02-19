@@ -18,6 +18,7 @@ POLLUTION REPORTS
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 SOUNDING DATUM
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -94,6 +95,11 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov.
 SOUNDING DATUM
 Soundings and clearances of bridges and overhead cables refer to normal pool elevation, which is 160 feet
 above mean sea level in the upper pool above The Dalles Dam.
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
  
 
 END OF FILE

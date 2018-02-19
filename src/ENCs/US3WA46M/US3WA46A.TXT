@@ -19,13 +19,14 @@ SUPPLEMENTAL INFORMATION
 RADAR REFLECTORS		
 NOAA WEATHER RADIO BROADCASTS
 BRIDGES AND OVERHEAD CABLES			
-COLREGS, 33 CFR 80.1395 (See note A)
+COLREGS 33 CFR 80.1395 (See note A)
 PUGET SOUND HARBOR SAFETY PLAN
 ADDITIONAL INFORMATION
 TIDAL INFORMATION
 
 	
-NOTES:	
+NOTES:
+
 AIDS TO NAVIGATION
 Consult U.S. Coast Guard Light List for
 supplemental information concerning aids to
@@ -127,9 +128,9 @@ omitted from this chart.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provides continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at
 high elevations. 
 
 Seattle, WA		KHB-60		162.55MHz
@@ -145,7 +146,7 @@ For more detailed information use the larger
 scale charts.
 
 
-COLREGS, 33 CFR 80.1395 (See note A)
+COLREGS,33 CFR 80.1395 (See note A)
 International Regulations for Preventing Collisions of Sea, 1972.
 The entire area of this chart falls seaward of the COLREGS Demarcation Line.
 
@@ -157,7 +158,7 @@ for Puget Sound and surrounding waters. These Standards of Care are intended to
 supplement existing regulations by documenting good marine practices for a variety
 of operations including tug escorts, pilotage, anchoring, lightering, and provides
 additional information on required charts, Aids to Navigation and Emergency Response.
-If you vessel dose not already have a copy of the Puget Sound Harbor Safety Plan,
+If your vessel does not already have a copy of the Puget Sound Harbor Safety Plan,
 log on to http://pshsc.org/about/harbor_safety_plan or contact the Seattle Marine
 Exchange at (206) 443-3830.
 

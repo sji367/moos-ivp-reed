@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5AK0EM - THOMAS, FARRAGUT AND PORTAGE BAYS
+US5AK0EM - THOMAS, FARRAGUT AND PORTAGE BAYS - FREDERICK SOUND
 
 INDEX:
 AUTHORITIES
@@ -70,9 +70,9 @@ Local Notice to Mariners.
 
 VEGETATION
 The land is generally heavily wooded up to
-an elevation of 1500 feet.  Above that the woods
-gradually thin out and the higher elevations are
-bare.
+an elevation of 457 meters / 1500 feet.
+Above that the woods gradually thin out and
+the higher elevations are bare.
 
 RADAR REFLECTORS
 Radar reflectors have been placed on many
@@ -88,9 +88,9 @@ marine cables are required to be buried, and
 those that were originally buried may have
 become exposed. Mariners should use extreme
 caution when operating vessels in depths of
-water coparable to thier draft in areas where
+water comparable to their draft in areas where
 pipelines and cables may exist, and when
-anchoring, dragging, or trawilng.
+anchoring, dragging, or trawling.
 Covered wells may be marked by lighted or
 unlighted buoys. 
  
@@ -104,7 +104,7 @@ high elevations.
 
 Mt. McArthur, AK        KZZ-95		162.525 MHz
 Cape Fanshaw, AK	KZZ-88		162.425 MHz
-Zerembo I, AK		KZZ-91		162.450 MHz
+Zarembo I, AK		KZZ-91		162.450 MHz
 Wrangell, AK		WXJ-83		162.400 MHz
 
 COLREGS, 80.1705 (see note A)
@@ -121,6 +121,6 @@ maritime zone which the United States exercises sovereignty extending to the air
 as to its bed and subsoil. For more information, please refer to the Coast Pilot.
 
 ADDITIONAL INFORMATION:
-Additional information can be obtained at WWW.nauticalcharts.noaa.gov
+Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 END OF FILE

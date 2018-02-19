@@ -57,7 +57,7 @@ Improved channels are
 subject to shoaling, particularly at the edges.
 
 
-CAUTION -  TEMPORARY CHANGES
+CAUTION - TEMPORARY CHANGES
 Temporary changes or defects in aids to
 navigation are not indicated. See
 Local Notice to Mariners.

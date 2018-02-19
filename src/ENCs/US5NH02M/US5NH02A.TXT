@@ -50,11 +50,11 @@ subject to shoaling, particularly at the edges.
 
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
-below provide continuous weather broadcasts. 
+below provide continuous weather broadcasts.
 The reception range is typically 20 to 40 
-nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
-high elevations.
+nautical miles from the antenna site, but 
+can be as much as 100 nautical miles for 
+stations at high elevations.
 
 Portland, ME	        KDO-95		162.550 MHz
 Boston, MA		KHB-35 		162.475 MHz

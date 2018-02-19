@@ -18,6 +18,7 @@ CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - LOW WATER DATUM
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 CAUTION - SUBMARINE PIPELINES AND CABLES
 RADAR REFLECTORS
 NOAA WEATHER RADIO BROADCASTS
@@ -37,9 +38,9 @@ mation concerning aids to navigation.
 
 SAILING DIRECTIONS
 Bearings of sailing courses are true and distances given there-
-on are in statute miles between points of departure. The true bearing between any
-two points may be be determined by connecting the two points with a str-
-aight line and measuring the angle of its intersection with a meridian line at or near
+on are in statute miles between points of departure. The true bearing between
+any two points may be determined by connecting the two points with a straight
+line and measuring the angle of its intersection with a meridian line at or near
 the middle of the course.
 
 BRIDGE AND OVERHEAD CABLE CLEARANCES
@@ -49,7 +50,7 @@ For clearances see U.S. Coast Pilot 6.
 
 NOTE A
 Navigation regulations are published in Chapter 2, U.S. Coast Pilot
-6.  Additions or revisions to Chapter 2 are published in the Notices to
+6.  Additions or revisions to Chapter 2 are published in the Notice to
 Mariners.  Information concerning the regulations may be obtained at
 the Office of the Commander, 9th Coast Guard District in Cleveland,
 Ohio, or at the Office of the District Engineer, Corps of Engineers, in
@@ -105,6 +106,13 @@ caution.
 CAUTION - DREDGED AREAS
 Improved channels are
 subject to shoaling, particularly at the edges.
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor 
+navigation conditions. These surveys are not 
+intended to detect underwater features. Uncharted 
+features hazardous to surface navigation are not 
+expected but may exist in federal channels.
 
 CAUTION - SUBMARINE PIPELINES AND CABLES
 Additional uncharted submarine pipelines

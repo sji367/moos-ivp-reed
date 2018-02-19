@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US3WA01M - Approaches to Strait of Juan de Fuca - Destruction Island to Amphitrite Point
+US3WA01M - APPROACHES TO STRAIT OF JUAN DE FUCA - DESTRUCTION ISLAND TO AMPHITRITE POINT
 
 INDEX:
 AIDS TO NAVIGATION
@@ -87,9 +87,9 @@ should be used with caution.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed
 below provide continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at
 high elevations.
 
 Neah Bay, WA	 KIH-36		162.550 MHz
@@ -160,7 +160,7 @@ COOPERATIVE VESSEL TRAFFIC SERVICE
 A Cooperative Vessel Traffic Service (CVTS) has been
 established by the United States and Canada within the
 adjoining water in the Juan de Fuca Region. The appropriate
-Vessel Traffic Center (VTC) (Tofino Traffic, Seattle Traffic,
+Vessel Traffic Center (VTC) (Prince Rupert Traffic, Seattle Traffic,
 Victoria Traffic) administers the rules issued by both
 nations; however, it will enforce only its own set of rules
 within its jurisdiction.

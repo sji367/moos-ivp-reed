@@ -18,8 +18,9 @@ WARNING - PRUDENT MARINER
 RADAR REFLECTORS
 SUBMARINE PIPELINES AND CABLES
 ADMINISTRATION AREA
-ADDITIONAL INFORMATION
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+ADDITIONAL INFORMATION
 
 
 NOTES:
@@ -43,10 +44,11 @@ should be used with caution.
 
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio stations listed 
-below provide continuous marine weather broadcasts. 
-The reception range is typically 20 to 40 
-nautical miles from the antenna site, but can be 
-as much as 100 nautical miles for stations at 
+below provide continuous weather broadcasts.
+The reception range is typically 32 to 64
+kilometres / 20 to 40 nautical miles from the 
+antenna site, but can be as much as 161
+kilometres / 100 nautical miles for stations at 
 high elevations.
 
 Ellsworth, ME	KEC-93		162.400 MHz
@@ -134,12 +136,19 @@ States exercises sovereignty extending to the airspace as well as to its
 bed and subsoil. For more information, please refer to the Coast Pilot.
 
 
-ADDITIONAL INFORMATION
-Additional information can be obtained at www.nauticalcharts.noaa.gov.
-
-
 TIDAL INFORMATION
 For tidal information see the NOS tide table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These
+surveys are not intended to detect underwater features. Uncharted features
+hazardous to surface navigation are not expected but may exist in federal
+channels.
+
+
+ADDITIONAL INFORMATION
+Additional information can be obtained at www.nauticalcharts.noaa.gov.
 
 
 END OF FILE

@@ -20,6 +20,7 @@ ADMINISTRATION AREA
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 SOUNDINGS AND CLEARANCES
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -112,10 +113,16 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov.
 
+
 SOUNDINGS AND CLEARANCES
 Soundings and clearances of bridges and overhead cables between John Jay Dam
 and McNAry Dam in Lake Umatilla refer to normal pool elevation which is 265
 feet above mean sea level.
 
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 END OF FILE

@@ -1,3 +1,5 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
 US2GC09M - KEY WEST TO THE MISSISSIPPI RIVER
@@ -18,6 +20,8 @@ CAUTION - LIMITATIONS
 POLLUTION REPORTS
 TIDAL INFORMATION
 HURRICANES AND TROPICAL STORMS
+GAS AND OIL WELL STRUCTURES
+CONTIGUOUS ZONE
 ADDITIONAL INFORMATION
 
 
@@ -76,7 +80,13 @@ For tidal information see the NOS Tide Table publication or go to http://co-ops.
  
 HURRICANES AND TROPICAL STORMS
 Hurricanes, tropical storms and other major storms may cause considerable damage to marine structures, aids to navigation and moored vessels, resulting in submerged debris in unknown locations. Charted soundings, channel depths and shoreline may not reflect actual conditions following these storms. Fixed aids to navigation may have been damaged or destroyed. Buoys may have been moved from charted positions, damaged, sunk extinguished  or otherwise made inoperative. Mariners should not rely upon the position or operation of an aid to navigation. Wrecks and submerged obstructions may have been displaced from charted locations.  Pipelines may have become uncovered or moved. Mariners are urged to exercise extreme caution and  are requested to report aids to navigation discrepancies and hazards to navigation to the nearest United States Coast Guard unit.
- 
+
+GAS AND OIL WELL STRUCTURES
+Numerous platforms and gas and oil well structures exist in the water areas from Key West, Florida, to Brazos Santiago, Texas. Some wells are submerged and capped. Only those structures reported submerged of unknown depth and submerged structures covered less than 20.1 meters/11 fathoms are charted outside of the 18.2 meter/10 fathom curve. See charts in the 1:400,000 scale range and 1:80,000 scale series charts for location of surface platform structures, surface wells, and wells submerged 20.1 meters/11 fathoms or more, submarine pipelines and cables, aids to navigation and safety fairways through oil fields.
+
+CONTIGUOUS ZONE
+The Contiguous Zone is a zone contiguous to the territorial sea, in which the United States may exercise the control necessary to prevent and punish infringement within its territory or territorial sea of its customs, fiscal, immigration, cultural heritage or sanitary laws and regulations. For more information, please refer to the Coast Pilot.
+
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
 

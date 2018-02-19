@@ -2,7 +2,7 @@ NOAA ENC®
 
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5OR33M - SNAKE RIVER LAKE SACAJAWEA 
+US5OR33M - SNAKE RIVER; LAKE SACAJAWEA 
 
 
 INDEX:
@@ -24,6 +24,7 @@ ADMINISTRATION AREA
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 SOUNDINGS AND CLEARANCES
+USACE HYDROGRAPHIC SURVEYS
 COLUMBIA AND SNAKE RIVERS
 
 NOTES:
@@ -53,8 +54,8 @@ NOAA VHF-FM WEATHER BROADCASTS
 The National Weather Service station listed 
 below provides continuous marine weather broad-
 casts.  The range of reception is variable, but for 
-most stations is usually 20 to 40 miles from the 
-antenna site.
+most stations is usually 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site.
 
 Pendleton, OR		WXL-95		162.55 MHz
 
@@ -77,7 +78,7 @@ CAUTION - WARNINGS CONCERNING LARGE VESSELS
 The "Rules of The Road" state that recreational boats shall not impede the 
 passage of a vessel that can navigate only within a narrow channel or fairway.  
 Large vessels may appear to move slowly due to their large size, but actually 
-transit at speeds in excess of 12 knots, requiring a great distance in which to 
+transit at speeds in excess of 22 kph / 12 knots, requiring a great distance in which to 
 maneuver or stop.  A large vessel's superstructure may block the wind with 
 the result that sailboats and sailboards may unexpectedly find themselves 
 unable to maneuver.  Bow and stern waves can be hazardous to small 
@@ -87,7 +88,7 @@ bows.
 
 RULES OF THE ROAD (ABRIDGED)
 Motorless craft have the right-of-way in almost all cases.
-Sailing vessels and motorboats less than sixty-five feet in 
+Sailing vessels and motorboats less than 19.8 meters / 65 feet in 
 length shall not hamper, in a narrow channel, the safe 
 passage of a vessel which can navigate only inside that 
 channel.
@@ -113,7 +114,7 @@ and U.S. Coast Pilot for details.
 
 CAUTION
 The water level in the upper pool above Ice Harbor Dam may fluctuate without 
-warning between 437 feet MSL, (pool low water elevation) and the 440 feet MSL, 
+warning between 133 meters / 437 feet MSL, (pool low water elevation) and the 134 meters / 440 feet MSL, 
 (normal pool) sounding datum.
 Mariners are advised to use caution due to possible change in water level.
 
@@ -162,14 +163,20 @@ Additional information can be obtained at www.nauticalcharts.noaa.gov
 
 SOUNDINGS AND CLEARANCES
 Soundings and vertical clearances of bridges and overhead cables are referred to the
-respective normal pool levels which are 340 feet above mean sea level in the lower
-pool and 440 feet in the upper pool above Ice Harbor Dam.
+respective normal pool levels which are 103.6 meters / 340 feet above mean sea level in the lower
+pool and 134 meters / 440 feet in the upper pool above Ice Harbor Dam.
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 COLUMBIA AND SNAKE RIVERS
 Mileage distances along the Columbia and Snake Rivers are in Statute Miles along the
 Columbia River eastward from the mouth, and the Snake River eastward from the junction 
-of tghe Columbia River. Tables for converting Statute Miles to International Nautical
+of the Columbia River. Tables for converting Statute Miles to International Nautical
 Miles are given Coast Pilot 7.
 
 End of file

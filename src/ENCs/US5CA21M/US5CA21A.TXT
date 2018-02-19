@@ -22,6 +22,7 @@ ARTICULATED AIDS
 AIDS TO NAVIGATION
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
+USACE HYDROGRAPHIC SURVEYS
 
 
 NOTES:
@@ -83,9 +84,9 @@ unlighted buoys.
 NOAA WEATHER RADIO BROADCASTS
 The NOAA Weather Radio station listed
 below provides continuous weather broadcasts.
-The reception range is typically 20 to 40
-nautical miles from the antenna site, but can be
-as much as 100 nautical miles for stations at
+The reception range is typically 37 to 74 kilometers / 20 to 40 
+nautical miles from the antenna site, but can be 
+as much as 185 kilometers / 100 nautical miles for stations at
 high elevations.
 
 Mt. Pise, CA          KHB-49       162.400 MHz WX2
@@ -156,6 +157,12 @@ ops.nos.noaa.gov
 
 ADDITIONAL INFORMATION
 Additional information can be obtained at www.nauticalcharts.noaa.gov
+
+
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
 
 
 END OF FILE

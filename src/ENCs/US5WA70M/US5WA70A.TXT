@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US5WA70M - WILLAPA BAY
+US5WA70M - WILLAPA BAY; TOKE POINT
 
 INDEX:
 AUTHORITIES
@@ -18,6 +20,7 @@ CAUTION - SUBMARINE PIPELINES AND CABLES
 TIDAL INFORMATION
 ADDITIONAL INFORMATION
 ADMINISTRATION AREA
+USACE HYDROGRAPHIC SURVEYS
 
 NOTES:
 
@@ -122,4 +125,9 @@ a maritime zone which the United States exercises sovereignty extending to the
 airspace as well as to its bed and subsoil.  For more information, please 
 refer to the Coast Pilot.
 
-END OF FILE
+USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to 
+detect underwater features. Uncharted features hazardous to surface navigation are not expected but may 
+exist in federal channels.
+
+End of File

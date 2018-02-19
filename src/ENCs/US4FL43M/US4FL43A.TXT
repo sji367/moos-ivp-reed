@@ -15,6 +15,7 @@ POLLUTION REPORTS
 SUPPLEMENTAL INFORMATION
 CAUTION - TEMPORARY CHANGES
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 RADAR REFLECTORS
 CAUTION - SURVEY PLATFORMS
 CAUTION - LIMITATIONS
@@ -61,6 +62,12 @@ Temporary changes or defects in aids to navigation are not indicated. See Local 
 
 CAUTION - DREDGED AREAS  
 Improved channels are subject to shoaling, particularly at the edges.
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions.
+These surveys are not intended to detect underwater features. Uncharted
+features hazardous to surface navigation are not expected but may exist
+in federal channels.
 
 RADAR REFLECTORS
 Radar reflectors have been placed on many floating aids to navigation. Individual radar reflector identification on these aids has been omitted from this chart.

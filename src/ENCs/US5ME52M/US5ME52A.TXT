@@ -19,6 +19,7 @@ CAUTION - SUBMARINE PIPELINES AND CABLES
 COLREGS, 80.105 (see note A)
 MARINER ACTIVATED SOUND SIGNALS
 TIDAL INFORMATION
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 ADDITIONAL INFORMATION
 
 
@@ -113,6 +114,13 @@ Sound signals labeled with (MRASS) require user activation. See USCG Light List.
 
 TIDAL INFORMATION
 For tidal information see the NOS Tide Table publication or go to http://co-ops.nos.noaa.gov.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These
+surveys are not intended to detect underwater features. Uncharted features
+hazardous to surface navigation are not expected but may exist in federal
+channels.
 
 
 ADDITIONAL INFORMATION

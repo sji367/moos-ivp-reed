@@ -5,6 +5,7 @@ NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 US5AK67M - CHERNOFSKI HARBOR
 
 INDEX:
+
 NOTE A
 SUPPLEMENTAL INFORMATION
 AUTHORITIES
@@ -20,6 +21,7 @@ TIDAL INFORMATION
 
 
 NOTES:
+
 NOTE A
 Navigation regulations are published in
 Chapter 2, U.S. Coast Pilot 9. Additions or
@@ -84,6 +86,7 @@ The Entire area of this chart falls seaward of the COLREGS Demarcation Line.
 
 
 ADMINISTRATION AREA
+The entire extent of this ENC cell falls within the limits of an Administration Area.
 This area covers land, internal waters, and territorial sea. The territorial
 sea is a maritime zone over which the United States exercises sovereignty
 extending to the airspace as well as to its bed and subsoil. For more information,

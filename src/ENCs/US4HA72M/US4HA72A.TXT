@@ -1,6 +1,8 @@
+NOAA ENC®
+
 NATIONAL OCEANIC AND ATMOSPHERIC ADMINISTRATION
 
-US4HA72E - GARDNER PINNACLES
+US4HA72M - GARDNER PINNACLES AND APPROACHES
 
 INDEX:
 SYMBOLS AND ABBREVIATIONS
@@ -16,7 +18,7 @@ For Symbols and Abbreviations, see Chart No. 1.
 
 AUTHORITIES: 
 Hydrography and topography by the National Ocean Service, Coast Survey, with additional data from the 
-National Imagery and Mapping Agency.
+National Geospatial-Intelligence Agency.
 
 NOTE A: Navigation regulations are published in Chapter 2, U.S. Coast Pilot 7.  Additions or revisions
 to Chapter 2 are published in the Notice to Mariners. Information concerning the regulations may be 

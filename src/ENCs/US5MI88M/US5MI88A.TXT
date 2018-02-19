@@ -12,6 +12,7 @@ NOAA WEATHER RADIO BROADCASTS
 CAUTION - TEMPORARY CHANGES
 CAUTION - LIMITATIONS
 CAUTION - DREDGED AREAS
+CAUTION - USACE HYDROGRAPHIC SURVEYS
 BRIDGE AND OVERHEAD CABLE CLEARANCES
 AIDS TO NAVIGATION
 CAUTION - DUE TO PERIODIC
@@ -75,6 +76,10 @@ should be used with caution.
 CAUTION - DREDGED AREAS
 Improved channels are 
 subject to shoaling, particularly at the edges.
+
+
+CAUTION - USACE HYDROGRAPHIC SURVEYS
+USACE conducts hydrographic surveys to monitor navigation conditions. These surveys are not intended to detect underwater features. Uncharted features hazardous to surface navigation are not expected but may exist in federal channels.
 
 
 BRIDGE AND OVERHEAD CABLE CLEARANCES
