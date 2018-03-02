@@ -59,8 +59,8 @@ A_Star::A_Star()
 {
   valid_start = true;
   valid_finish = true;
-  xTop = -4459; // value for the US5NH02M ENC
-  yTop = -12386; // value for the US5NH02M ENC
+  xTop = -4470; // value for the US5NH02M ENC
+  yTop = -12439; // value for the US5NH02M ENC
   setStart_Grid(0,0);
   setFinish_Grid(0,0);
   depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
@@ -72,8 +72,8 @@ A_Star::A_Star()
 
 A_Star::A_Star(int connecting_dist)
 {
-  xTop = -4459; // value for the US5NH02M ENC
-  yTop = -12386; // value for the US5NH02M ENC
+  xTop = -4470; // value for the US5NH02M ENC
+  yTop = -12439; // value for the US5NH02M ENC
   setStart_Grid(0,0);
   setFinish_Grid(0,0);
   depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
@@ -85,8 +85,8 @@ A_Star::A_Star(int connecting_dist)
 
 A_Star::A_Star(double gridSize, double TopX, double TopY, int connecting_dist)
 {
-    xTop = TopX; // value for the US5NH02M ENC
-    yTop = TopY; // value for the US5NH02M ENC
+    xTop = TopX;
+    yTop = TopY;
     setStart_Grid(0,0);
     setFinish_Grid(0,0);
     depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
@@ -98,8 +98,8 @@ A_Star::A_Star(double gridSize, double TopX, double TopY, int connecting_dist)
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, int depthCutoff, int connecting_dist)
 {
-  xTop = -4459; // value for the US5NH02M ENC
-  yTop = -12386; // value for the US5NH02M ENC
+  xTop = -4470;
+  yTop = -12439;
   setStart(x1,y1);
   setFinish(x2,y2);
   depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
@@ -268,7 +268,7 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
             //  determine the total water depth traveled through
             for (int j=1; j<=total_points; j++)
             {
-                intermidate = (j*1.0)/(total_points*1.0);
+                intermidate = (1.0*dY)*(j*1.0)/(total_points*1.0);
 
                 // Calculate the current y grid node
                 if (signbit(dy[i]))// Returns true if negative
@@ -290,7 +290,10 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
                 floor_x = int(floor(x));
                 ceil_x = int(ceil(x));
                 if ((Map[Y][floor_x] < depth_cutoff) || (Map[Y][ceil_x] < depth_cutoff))
+                {
+                    //cout << X <<"," << Y << "; ";
                     return false; // Path is invalid
+                }
             }
         }
         else
@@ -302,7 +305,7 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
             //  determine the total water depth traveled through
             for (int j=1; j<total_points; j++)
             {
-                intermidate = (j*1.0)/(df_total_points);
+                intermidate = (1.0*dX)*(j*1.0)/(df_total_points);
                 // Calculate the x gride node
                 if (signbit(dx[i]))// Returns true if negative
                     x = wptX-intermidate;
@@ -313,8 +316,8 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
                 y= m*x+b;
 
                 // Store the grid node's X,Y position as ints
-                X= static_cast<int>(x);
-                Y=static_cast<int>(y);
+                X= static_cast<int>(round(x));
+                Y= static_cast<int>(round(y));
 
                 cummulative_cost += Map[Y][X];
 
@@ -323,7 +326,10 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
                 floor_y = int(floor(y));
                 ceil_y = int(ceil(y));
                 if ((Map[floor_y][X] < depth_cutoff) || (Map[ceil_y][X] < depth_cutoff))
+                {
+                    //cout << X <<"," << Y << "; ";
                     return false; // Path is invalid
+                }
             }
         }
         ave_depth = int(round(cummulative_cost/(df_total_points))); // average depth in grid cells
@@ -332,23 +338,99 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
     return true; // Path is valid so return true
 }
 
+/* Check to see if the extended path runs through any obstacles. It also calculates the cost to
+ * travel to the cell. This method computes the aveage by using a linear approximation of the
+ * two cells that the line passes through.
+ *
+ *   Inputs -
+ *      i - index of the cell that we are trying to determine if it is valid
+ *      wptX - current X location
+ *      wptY - current Y location
+ *      ave_depth - value of the average detpth of all cells that were traveled through
+ *
+ *   Output -
+ *      Boolean describing if the extended path determined by the function is
+ *          drives through an obstacle
+ */
+bool A_Star::extendedPathValid_aveDepth(int i, int wptX,int wptY, int &ave_depth)
+{
+    double intermediate, alpha, beta;
+
+    int x1,y1,x2,y2;
+    int accumDepth=0;
+    int absX = abs(dx[i]);
+    int absY = abs(dy[i]);
+    int farestPoint_in_XY = max(absX, absY);
+    int signX = posORneg(dx[i]);
+    int signY = posORneg(dy[i]);
+
+    // Check to see if it is not a Moore Neighboor. If it is then return the depth of the desired cell.
+    if (farestPoint_in_XY==1)
+        accumDepth = Map[wptY+dy[i]][wptY+dx[i]];
+    // Otherwise calculate the average depth of the cells that a line would pass between the waypoints.
+    else
+    {
+        for (int index=1; index<=farestPoint_in_XY; index++)
+        {
+            if (absY<absX)
+            {
+                intermediate = (1.0*dy[i])/(1.0*dx[i])*(1.0*index);
+                x1 = index*signX;
+                x2 = x1;
+                // Make sure that you use the correct sign for 'Y's if dx and dy have the same sign
+                if (signX==signY)
+                    y1 = static_cast<int>(intermediate)*signY;
+                else
+                    y1 = static_cast<int>(intermediate);
+                y2 = y1+signY;
+            }
+            else
+            {
+                intermediate = (1.0*dx[i])/(1.0*dy[i])*(1.0*index);
+                // Make sure that you use the correct sign for the 'X's if dx and dy have the same sign
+                if (signX==signY)
+                    x1 = static_cast<int>(intermediate)*signX;
+                else
+                    x1 = static_cast<int>(intermediate);
+                x2 = x1+signX;
+                y1 = index*signY;
+                y2 = y1;
+            }
+            beta = abs(fmod(intermediate, 1.0));
+            alpha = 1-beta;
+
+            // Make sure than neither of the two cells that you are passing through have a
+            if ((Map[wptY+y1][wptX+x1] < depth_cutoff)||Map[wptY+y2][wptX+x2] < depth_cutoff)
+                return false;
+
+            // If you are not at the last cell, then average the two cells and store that value. Otherwise store the value for the final cell.
+            if (index!=farestPoint_in_XY)
+                accumDepth += alpha*Map[wptY+y1][wptX+x1] + beta*Map[wptY+y2][wptX+x2];
+            else
+                accumDepth += alpha*Map[wptY+y1][wptX+x1];
+        }
+    }
+    ave_depth = accumDepth/farestPoint_in_XY;
+    return true;
+}
+
 bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin)
 {
     bool found_path;
 
     clock_t start;
-    string command = "Y";
+    char command = 'Y';
     double total_time;
     cout << "Running A*\n";
 
     // Print a warning if the depth cutoff is lower than NOAAs
     if (depth_cutoff<400)
     {
-        cout << "WARNING: Depth cutoff is set lower than the NOAA's mapping threshold. Do you want to continue? (Y/N)" << endl;
-        cin >>command;
+        cout << "WARNING: Depth cutoff is set lower than the NOAA's mapping threshold of 4 meters(" << depth_cutoff/100.0 << " meters). Do you want to continue? (Y/N)" << endl;
+        //cin >>command;
 
         // Check to see if the user wants to continue with the threshold lower depth cutoff
-        if (command != "Y")
+        if (toupper(command) != 'Y')
             exit(1);
     }
 
@@ -801,28 +883,102 @@ void A_Star::build_map(string filename)
 // Define the coordinate dimensions of a subset of the map to be used for A*.
 void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 {
-  // Set the bounds of the map (in grid coordinate system)
-  setGridXYBounds(xmin, xmax, ymin, ymax);
-  
-  n = y_max - y_min;
-  m = x_max - x_min;
-  
-  // Fill the map
-  vector<vector<int>> MAP (n, vector<int> (m,0));
-  for (int y=0; y<n; ++y)
+    // Set the bounds of the map (in grid coordinate system)
+    setGridXYBounds(xmin, xmax, ymin, ymax);
+
+    n = y_max - y_min;
+    m = x_max - x_min;
+
+    // Fill the map
+    Map.clear();
+    Map.resize(n, vector<int> (m));
+    //vector<vector<int>> MAP (n, vector<int> (m,0));
+    for (int y=0; y<n; ++y)
     {
-      for (int x=0; x<m; ++x)
-	{
-	  MAP[y][x] = FullMap[y+y_min][x+x_min];
-	}
+        for (int x=0; x<m; ++x)
+        {
+            Map[y][x] = FullMap[y+y_min][x+x_min];
+        }
     }
-  Map=MAP;
+    //Map=MAP;
 
-  xStart-= xmin;
-  yStart-= ymin;
-  xFinish-= xmin;
-  yFinish-= ymin;
+    xStart-= xmin;
+    yStart-= ymin;
+    xFinish-= xmin;
+    yFinish-= ymin;
 
+}
+
+void A_Star::setMapFromTiff(string tiff_filename)
+{
+    int nXSize, nYSize, gridIndex;
+    double x,y;
+    GDALDataset  *poDataset;
+    GDALRasterBand *poRasterBand;
+    vector<double> adfGeoTransform, RasterData;
+
+    // Preallocate the size of the affine transformation coefficients.
+    adfGeoTransform.resize(6);
+
+    GDALAllRegister();
+    poDataset = (GDALDataset *) GDALOpen( tiff_filename.c_str(), GA_ReadOnly );
+    poDataset->GetGeoTransform(adfGeoTransform.data());
+
+    poRasterBand = poDataset -> GetRasterBand(1);
+
+    nXSize = poRasterBand->GetXSize(); // width
+    nYSize = poRasterBand->GetYSize(); // height
+
+    // Resize the vector to fit the raster dataset
+    RasterData.resize(nXSize*nYSize);
+
+    // Read the raster into a 1D row-major vector where it is organized in left to right,top to bottom pixel order
+    if( poRasterBand->RasterIO( GF_Read, 0, 0, nXSize, nYSize, RasterData.data(), nXSize, nYSize, GDT_Float64, 0, 0 ) != CE_None )
+    {
+        printf( "Failed to access raster data.\n" );
+        GDALClose(poDataset);
+        exit( 1 );
+    }
+
+    GDALClose(poDataset);
+
+    /* The GeoTransforms gives you how to go from pixel space (P,L) to projected coordinates (Xp,Yp)
+     *  [0] - Upper Left X (ulx)
+     *  [1] - X Resolution (xres)
+     *  [2] - X Skew (xskew)
+     *  [3] - Upper Left Y (uly)
+     *  [4] - Y Skew (yskew)
+     *  [5] - Y Resolution (yres)
+     *  Xp = ulx + P*xres + L*xskew;
+     *  Yp = uly + P*yskew + L*yres;
+     */
+    xTop = adfGeoTransform[0];
+    x_min = adfGeoTransform[2];
+    y_min = adfGeoTransform[4];
+
+    // Since we need to transpose the coordinates, we need to store the TIFF's lower y coordinate not upper y coordinate
+    yTop = adfGeoTransform[3]+nYSize*adfGeoTransform[5];
+
+    // Now flip the Y axis, transpose the TIFF, and convert it to a int (meters -> cm)
+    Map.clear();
+    Map.resize(nYSize, vector<int> (nXSize,0));
+    for (int i=0; i<RasterData.size(); i++)
+    {
+        row_major_to_2D(i, x, y, nXSize);
+        gridIndex = (nYSize-1 - x)*nXSize +y;
+        Map[x][y] = static_cast<int>(RasterData[gridIndex]*100);
+    }
+
+    FullMap = Map;
+    n=nYSize;
+    m=nXSize;
+    setGridXYBounds(0,m,0,n);
+}
+
+void A_Star::row_major_to_2D(int index, double &gridX, double &gridY, int numCols)
+{
+    gridY = index%numCols;
+    gridX = (index-gridY)/numCols;
 }
 
 void A_Star::checkStart()

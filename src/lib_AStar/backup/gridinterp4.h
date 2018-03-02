@@ -6,6 +6,8 @@
 #include <algorithm> // for max_element and sort
 #include "gdal_frmts.h" // for GDAL/OGR
 #include <ogrsf_frmts.h> // OGRLayer
+#include <ogr_geometry.h> // OGRPoint, OGRGeometry etc
+#include <ogr_feature.h> // OGRFeature
 #include "geodesy.h"
 #include "gdal_alg.h"
 #include <math.h>
@@ -13,6 +15,7 @@
 #include "gdal_alg_priv.h"
 #include "gdal_priv.h"
 #include "ogr_api.h"
+#include "ogr_geometry.h"
 #include "ogr_spatialref.h"
 
 #include <stdlib.h>
@@ -32,8 +35,9 @@ class Grid_Interp
 {
 public:
     Grid_Interp();
-    Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, bool SimpleGrid);
-    Grid_Interp(string MOOS_path, string ENC_Name, double buffer_dist, double MHW_offset, bool SimpleGrid);
+    Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, Geodesy Geod, bool SimpleGrid);
+    Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, double lat, double lon, bool SimpleGrid);
+    Grid_Interp(string MOOS_path, string ENC_Name, double buffer_dist, double MHW_offset, double lat, double lon, bool SimpleGrid);
     ~Grid_Interp() {}
 
     // Initialize Geodesy
@@ -41,9 +45,9 @@ public:
 
     void Run(bool csv, bool mat);
     void Run(bool output) {Run(output, output); }
-    void write2csv(vector<double> &poly_data, vector<double> &depth_data, vector<double> &point_data, int x_res, int y_res, bool mat);
+    void write2csv(vector<int> &poly_data, vector<int> &depth_data, vector<int> &point_data, int x_res, int y_res, bool mat);
     void writeMat(string filename);
-    vector <vector<double> > transposeMap();
+    vector <vector<int> > transposeMap();
 
     void buildLayers();
 
@@ -52,11 +56,10 @@ public:
 
     void rasterizeSHP(string outfilename, string infilename, string attribute);
     void store_vertices(OGRPolygon *UTM_Poly, double z);
-    void raster2XYZ(vector<double>&RasterData, int nXSize);
-    void getRasterData(string filename, int &nXSize, int &nYSize, vector<double>&RasterData);
+    void raster2XYZ(vector<int>&RasterData, int nXSize);
     void getRasterData(string filename, int &nXSize, int &nYSize, vector<int>&RasterData);
     void writeRasterData(string filename, int nXSize, int nYSize, vector<double> &RasterData);
-    void writeRasterData_int(string filename, int nXSize, int nYSize, vector<int>&RasterData);
+    void writeRasterData(string filename, int nXSize, int nYSize, vector<int>&RasterData);
 
     void layer2XYZ(OGRLayer* layer, string layerName);
     void multipointFeat(OGRFeature* feat, OGRGeometry* geom);
@@ -65,7 +68,7 @@ public:
     void lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName);
 
     // Fills out the 2D interpolated map from the 1D interpolated data and the Depth areas
-    void updateMap(vector<double> &poly_data, vector<double> &depth_data, vector<int> &outline_data, vector<double> &point_data, vector<double> &new_rast_data, int x_res, int y_res);
+    void updateMap(vector<int> &poly_data, vector<int> &depth_data, vector<int> &outline_data, vector<int> &point_data, vector<double> &new_rast_data, int x_res, int y_res);
 
     // Returns the interpolated map
     vector<vector<double> > getGriddedMap() {return Map; }
@@ -88,9 +91,6 @@ public:
     double getMinY() {return minY; }
     double getMaxY() {return maxY; }
 
-    Geodesy getGeod() {return geod;}
-    OGRSpatialReference getUTM() {return UTM;}
-
     double getGridSize() {return grid_size; }
 
     // Convert the WL to a depth
@@ -107,7 +107,7 @@ private:
     string ENC_filename, MOOS_Path, ENC_name;
     vector<double> X,Y,depth;
     vector<double> griddedData;
-    vector <vector<double> > Map;
+    vector <vector<double> > Map, t_map;
     double minX, minY, maxX, maxY;
     double grid_size;
     double MHW_Offset, landZ, CATZOC_z;
@@ -116,8 +116,6 @@ private:
     OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;
     OGRFeatureDefn *feat_def_poly, *feat_def_pnt, *feat_def_depth, *feat_def_outline;
     bool simpleGrid;
-    OGRSpatialReference UTM;
-    int EPSG_code;
 };
 
 #endif // GRIDINTERP_H

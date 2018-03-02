@@ -13,14 +13,14 @@ Grid_Interp::Grid_Interp()
   minY = 0;
   maxX = 0;
   maxY = 0;
-  landZ = -5;
-  CATZOC_z = -7.5;
+  landZ = -500;
+  CATZOC_z = -750;
   simpleGrid = false;
 }
 
-Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, bool SimpleGrid)
+Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, Geodesy Geod, bool SimpleGrid)
 {
-  geod = Geodesy();
+  initGeodesy(Geod);
   grid_size = Grid_size;
   MOOS_Path = MOOS_path;
   ENC_name = ENC_Name;
@@ -31,14 +31,32 @@ Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, do
   minY = 0;
   maxX = 0;
   maxY = 0;
-  landZ = static_cast<int>(round(-(MHW_offset+2)));
+  landZ = round(-(MHW_offset+2)*100);
+  CATZOC_z = -750;
   simpleGrid = SimpleGrid;
-  CATZOC_z = -7.5;
 }
 
-Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Name, double buffer_dist, double MHW_offset, bool SimpleGrid)
+Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, double lat, double lon, bool SimpleGrid)
 {
-  geod = Geodesy();
+  geod = Geodesy(lat, lon);
+  grid_size = Grid_size;
+  MOOS_Path = MOOS_path;
+  ENC_name = ENC_Name;
+  ENC_filename = MOOS_Path+"src/ENCs/"+ENC_Name+"/"+ENC_Name+".000";
+  buffer_size = buffer_dist;
+  MHW_Offset = MHW_offset;
+  minX = 0;
+  minY = 0;
+  maxX = 0;
+  maxY = 0;
+  landZ = round(-(MHW_offset+2)*100);
+  CATZOC_z = -750;
+  simpleGrid = SimpleGrid;
+}
+
+Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Name, double buffer_dist, double MHW_offset, double lat, double lon, bool SimpleGrid)
+{
+  geod = Geodesy(lat, lon);
   grid_size = -1;
   MOOS_Path = MOOS_path;
   ENC_name = ENC_Name;
@@ -49,9 +67,9 @@ Grid_Interp::Grid_Interp(string MOOS_path, string ENC_Name, double buffer_dist, 
   minY = 0;
   maxX = 0;
   maxY = 0;
-  landZ = static_cast<int>(round(-(MHW_offset+2)));
+  landZ = round(-(MHW_offset+2)*100);
+  CATZOC_z = -750;
   simpleGrid = SimpleGrid;
-  CATZOC_z = -7.5;
 }
 
 void Grid_Interp::buildLayers()
@@ -189,8 +207,7 @@ void Grid_Interp::Run(bool csv, bool mat)
     if (grid_size == -1)
         setGridSize2Default(ds);
 
-    vector<double> poly_rasterdata, depth_area_rasterdata, point_rasterdata;
-    vector<int> ENC_outline_rasterdata;
+    vector<int> poly_rasterdata, depth_area_rasterdata, ENC_outline_rasterdata, point_rasterdata;
     int poly_extentX, poly_extentY, depth_extentX, depth_extentY, outline_extentX, outline_extentY, point_extentX, point_extentY;
 
     // Add the vertices from the soundings, land areas, rocks, wrecks, and depth contours
@@ -232,24 +249,14 @@ void Grid_Interp::Run(bool csv, bool mat)
     getRasterData("outline.tiff", outline_extentX, outline_extentY, ENC_outline_rasterdata);
     getRasterData("point.tiff", point_extentX, point_extentY, point_rasterdata);
 
-    cout << "MinX: " << *min_element(X.begin(), X.end());
-    cout << ", MaxX: " << *max_element(X.begin(), X.end());
-    cout << ", MinY: " << *min_element(Y.begin(), Y.end());
-    cout << ", MaxY: " << *max_element(Y.begin(), Y.end());
-    cout << ", MinZ: " << *min_element(depth.begin(), depth.end());
-    cout << ", MaxZ: " << *max_element(depth.begin(), depth.end()) << endl;
-
     // Grid the data
     GDALGridLinearOptions options;
     options.dfRadius = 0;
-    options.dfNoDataValue = -10;
-    cout << "df Radius: " << options.dfRadius << endl;
+    options.dfNoDataValue = -1000;
+    cout << options.dfRadius << endl;
 
     int x_res = int(round((maxX - minX)/grid_size));
     int y_res = int(round((maxY - minY)/grid_size));
-
-    cout << "X: " << x_res << " Y: " << y_res << endl;
-
 
     griddedData.resize(y_res*x_res);
     //new_rast_data.resize(y_res*x_res);
@@ -257,7 +264,7 @@ void Grid_Interp::Run(bool csv, bool mat)
     //griddedData.resize(y_res*x_res);
 
     Map.clear();
-    Map.resize(x_res, vector<double> (y_res,0));
+    Map.resize(x_res, vector<int> (y_res,0));
 
     /*
     OGRSpatialReference UTM = geod.getUTM();
@@ -278,16 +285,10 @@ void Grid_Interp::Run(bool csv, bool mat)
     if (GDALRasterizeLayersBuf(Map.data(), x_res, y_res, GDT_Int32, 0, 0, 1, (OGRLayerH*)&layers[0], spat_ref, geoTransform.data(), NULL, NULL, landZ, opt, NULL, NULL ) == CE_Failure)
     */
 
-    printf("Starting to grid data\n\tData points: %d, Grid: %dx%d\n", static_cast<int>(X.size()), y_res, x_res);
-
-    for (int i=0; i<X.size(); i++)
-    {
-        if ((isnan(X[i]))||(isnan(Y[i]))||(isnan(depth[i])))
-            cout << "NAN!" << endl;
-    }
+    printf("Starting to grid data\n\tData points: %d, Grid: %dx%d\n", static_cast<int>(X.size()), y_res,x_res);
 
     // Grid the data
-    if (GDALGridCreate(GGA_Linear, &options, static_cast<int>(X.size()), X.data(), Y.data(), depth.data(), minX, maxX, minY, maxY, x_res, y_res, GDT_Float64, griddedData.data(), NULL, NULL) == CE_Failure)
+    if (GDALGridCreate(GGA_Linear, &options, static_cast<int>(X.size()), X.data(), Y.data(), depth.data(), minX, maxX, minY, maxY, x_res, y_res, GDT_Int32, griddedData.data(), NULL, NULL) == CE_Failure)
     {
         cout << "Gridding Failed" << endl;
         exit(1);
@@ -299,22 +300,18 @@ void Grid_Interp::Run(bool csv, bool mat)
     // Combine the 3 1D vectors to one 2D vector
     updateMap(poly_rasterdata, depth_area_rasterdata, ENC_outline_rasterdata, point_rasterdata, new_rast_data, x_res, y_res);
 
-    cout << "Min: " << *min_element(new_rast_data.begin(), new_rast_data.end());
-    cout << ", Max: " << *max_element(new_rast_data.begin(), new_rast_data.end()) << endl;
-
     if (csv)
         write2csv(poly_rasterdata, depth_area_rasterdata, point_rasterdata, x_res, y_res, mat);
 
     writeRasterData("PostProcess_" + ENC_name +".tiff", x_res, y_res, new_rast_data);
-
     clock_t end = clock();
     double total_time = double(end - start) / CLOCKS_PER_SEC;
     cout << "Elapsed Time: " << total_time << " seconds." << endl;
 }
 
-vector<vector<double> > Grid_Interp::transposeMap()
+vector<vector<int> > Grid_Interp::transposeMap()
 {
-    vector <vector<double> > t_map (Map[0].size(), vector<double> (Map.size(),0));
+    vector <vector<int> > t_map (Map[0].size(), vector<int> (Map.size(),0));
 
     for (int i =0; i<Map.size(); i++)
     {
@@ -327,7 +324,7 @@ vector<vector<double> > Grid_Interp::transposeMap()
 }
 
 // Build the 2D map from the 4 1D vectors
-void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_data, vector<int> &outline_data, vector<double> &point_data, vector<double> &new_rast_data, int x_res, int y_res)
+void Grid_Interp::updateMap(vector<int> &poly_data, vector<int> &depth_data, vector<int> &outline_data, vector<int> &point_data, vector<double> &new_rast_data, int x_res, int y_res)
 {
     int x, y;
     int rasterIndex = 0;
@@ -342,7 +339,7 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
             row_major2grid(i, x, y, x_res);
 
             // Make sure that the datapoint is inside of the ENC
-            if (abs(outline_data[rasterIndex]-1) <0.1)
+            if (outline_data[rasterIndex] == 1)
             {
                 // Check to see if the index is on land.
                 if (poly_data[rasterIndex] == landZ)
@@ -350,14 +347,14 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
                 else
                 {
                     // If it is not land make sure that the recorded depth is not below the minimum depth given by the depth area
-                    if((depth_data[rasterIndex] != -10) && (depth_data[rasterIndex] > griddedData[i]))
+                    if((depth_data[rasterIndex] != -1000) && (depth_data[rasterIndex] > griddedData[i]))
                         Map[y][x] = depth_data[rasterIndex];
                     else
                         Map[y][x] = griddedData[i];
 
                     // If it not on land then we must still check to see if the depth value is less than the one given by
                     //  the previous statement (for example if it is a wreck or dock)
-                    if((poly_data[rasterIndex] != -10) && (poly_data[rasterIndex] < Map[y][x]))
+                    if((poly_data[rasterIndex] != -1000) && (poly_data[rasterIndex] < Map[y][x]))
                     {
                         Map[y][x] = poly_data[rasterIndex];
                     }
@@ -365,7 +362,7 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
                     {
                         // The last check is to see if the point data depth value is less than the one given by
                         //  the previous statements (ie pontoon or rock)
-                        if((point_data[rasterIndex] != -10) && (point_data[rasterIndex] < Map[y][x]))
+                        if((point_data[rasterIndex] != -1000) && (point_data[rasterIndex] < Map[y][x]))
                         {
                             Map[y][x] = point_data[rasterIndex];
                         }
@@ -373,14 +370,14 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
                 }
             }
             else
-                Map[y][x] = -10;
+                Map[y][x] = -1000;
             /*
             // Store the Map data so that it can be converted to a raster
             if (Map[y][x] <= landZ)
                 new_rast_data[rasterIndex] = NAN;
             else
             */
-            new_rast_data[rasterIndex] = (1.0*Map[y][x]);
+            new_rast_data[rasterIndex] = 0.01*(1.0*Map[y][x]);
         }
 
     }
@@ -390,12 +387,11 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
         cout << "The vectors are the wrong size. Exiting...\n";
         exit(1);
     }
-    cout << endl;
 }
 
 // Save the 1D vectors (polygon, depth area, pre-processed interpolated grid) and the 2D
 //  post-processed interpolated grid as csv files
-void Grid_Interp::write2csv(vector<double> &poly_data, vector<double> &depth_data, vector<double> &point_data, int x_res, int y_res, bool mat)
+void Grid_Interp::write2csv(vector<int> &poly_data, vector<int> &depth_data, vector<int> &point_data, int x_res, int y_res, bool mat)
 {
     ofstream combined, grid, poly, DA, point;
     int x,y;
@@ -442,23 +438,23 @@ void Grid_Interp::write2csv(vector<double> &poly_data, vector<double> &depth_dat
             point << point_data[rasterIndex] << ",";
 
             /*
-            // Convert unknowns (-10) to NaNs
-            if (griddedData[i] == -10)
+            // Convert unknowns (-1000) to NaNs
+            if (griddedData[i] == -1000)
                 griddedData[i] = NAN;
             else
                 grid << griddedData[i] << ",";
 
-            if (poly_data[rasterIndex] == -10)
+            if (poly_data[rasterIndex] == -1000)
                 poly_data[rasterIndex] = NAN;
             else
                 poly << poly_data[rasterIndex] << ",";
 
-            if (depth_data[rasterIndex] == -10)
+            if (depth_data[rasterIndex] == -1000)
                 depth_data[rasterIndex] = NAN;
             else
                 DA << depth_data[rasterIndex] << ",";
 
-            if (point_data[rasterIndex] == -10)
+            if (point_data[rasterIndex] == -1000)
                 point_data[rasterIndex] = NAN;
             else
                 point << point_data[rasterIndex] << ",";
@@ -509,8 +505,6 @@ void Grid_Interp::getENC_MinMax(GDALDataset* ds)
     vector<double> x,y;
     double UTM_x, UTM_y;
     double remainder;
-    double lat, lon;
-    int UTM_Zone;
 
     layer = ds->GetLayerByName("M_COVR");
     layer->ResetReading();
@@ -526,20 +520,6 @@ void Grid_Interp::getENC_MinMax(GDALDataset* ds)
             ring = coverage->getExteriorRing();
             for (int j =0;  j<ring->getNumPoints(); j++)
             {
-                // Set the geod member variable using the first point on the outline of the ENC
-                if (j==0)
-                {
-                    lat = ring->getY(j);
-                    lon = ring->getX(j);
-                    UTM_Zone=1+(lon+180.0)/6.0;
-                    UTM.SetWellKnownGeogCS("WGS84");
-                    UTM.SetUTM(UTM_Zone, signbit(-lat));
-                    EPSG_code = UTM.GetEPSGGeogCS();
-                    geod = Geodesy(lat, lon);
-                    //char    *pszWKT = NULL;
-                    //UTM.exportToWkt( &pszWKT );
-                    //printf( "%s\n", pszWKT );
-                }
                 geod.LatLong2LocalUTM(ring->getY(j), ring->getX(j), UTM_x, UTM_y);
                 x.push_back(UTM_x);
                 y.push_back(UTM_y);
@@ -626,7 +606,7 @@ void Grid_Interp::multipointFeat(OGRFeature* feat, OGRGeometry* geom)
         geod.LatLong2LocalUTM(lat,lon, x,y);
 
         // Get depth in cm
-        z= poPoint->getZ();
+        z= poPoint->getZ()*100;
         if (!z)
             return;
         else
@@ -660,7 +640,7 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
 
     if (layerName=="DEPCNT")
     {
-        z = feat->GetFieldAsDouble("VALDCO");
+        z = feat->GetFieldAsDouble("VALDCO")*100;
         UTM_line->segmentize(grid_size);
         // Get the location in the grid coordinate system
         for (int j=0; j<UTM_line->getNumPoints(); j++)
@@ -686,12 +666,12 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
         if (WL_flag)
         {
             WL = feat->GetFieldAsDouble("WATLEV");
-            z = calcDepth(WL);
-            if (z==-100)
+            z = calcDepth(WL)*100;
+            if (z==-10000)
                 return;
         }
         else
-            z = feat->GetFieldAsDouble("VALSOU");
+            z = feat->GetFieldAsDouble("VALSOU")*100;
     }
     else
     {
@@ -711,7 +691,7 @@ void Grid_Interp::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName
         exit( 1 );
     }
     OGRFeature::DestroyFeature(new_feat);
-    store_vertices(Buff_line, z);
+    store_vertices(Buff_line,z);
 }
 
 void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
@@ -724,9 +704,6 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
     poPoint = poPoint = ( OGRPoint * )geom;
     lon = poPoint->getX();
     lat = poPoint->getY();
-
-    // Get the location in the grid coordinate system
-    geod.LatLong2UTM(lat, lon, x,y);
 
     bool WL_flag = false;
     string Z;
@@ -741,14 +718,15 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
         if (WL_flag)
         {
             WL = feat->GetFieldAsDouble("WATLEV");
-            z = calcDepth(WL);
-            if (z==-100)
+            z = calcDepth(WL)*100;
+            if (z==-10000)
                 return;
         }
         else
-            z = feat->GetFieldAsDouble("VALSOU");
+            z = feat->GetFieldAsDouble("VALSOU")*100;
 
         // Put into point layer
+        geod.LatLong2UTM(lat, lon, x,y);
         pt = OGRPoint(x,y);
         new_feat =  OGRFeature::CreateFeature(feat_def_pnt);
         new_feat->SetField("Depth", z);
@@ -772,8 +750,11 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
         return;
     }
 
-    // Store the XYZ of the vertices
+
+    // Get the location in the grid coordinate system
     geod.LatLong2LocalUTM(lat, lon, x,y);
+
+    // Store the XYZ of the vertices
     X.push_back(x);
     Y.push_back(y);
     depth.push_back(z);
@@ -786,18 +767,19 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
     OGRGeometry *geom_UTM, *buff_geom;
     OGRFeature *new_feat;
 
-    int WL;
     double z;
     string Z;
-
+    int WL;
     poly = ( OGRPolygon * )geom;
+
+    //UTM_poly = geod.LatLong2UTM(poly);
     geom_UTM = geod.LatLong2UTM(geom);
+    UTM_poly = ( OGRPolygon * )geom_UTM;
     // Build the layer for the area covered by the ENC
     if (layerName == "M_COVR")
     {
         if (feat->GetFieldAsDouble("CATCOV") == 1)
         {
-            UTM_poly = ( OGRPolygon * )geom_UTM;
             UTM_poly->segmentize(grid_size);
             new_feat =  OGRFeature::CreateFeature(feat_def_outline);
             new_feat->SetField("Inside_ENC", 1);
@@ -813,8 +795,8 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
         }
     }
 
-    // Buffer and segmentize the polygon
     buff_geom = geom_UTM->Buffer(buffer_size);
+
     UTM_poly_buff = ( OGRPolygon * )buff_geom;
     UTM_poly_buff->segmentize(grid_size);
 
@@ -833,7 +815,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
         }
         // To limit the amount of points stored, only store the vertices of the
         //  buffered polygon.
-        store_vertices(UTM_poly_buff, landZ);
+        store_vertices(UTM_poly_buff,z);
         OGRFeature::DestroyFeature(new_feat);
     }
     else if ((layerName == "WRECKS")||(layerName == "OBSTRN"))
@@ -850,7 +832,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
             z = feat->GetFieldAsDouble("VALSOU");
 
         new_feat =  OGRFeature::CreateFeature(feat_def_poly);
-        new_feat->SetField("Depth", z);
+        new_feat->SetField("Depth", z*100);
         new_feat->SetGeometry(UTM_poly_buff);
 
         // Build the new feature
@@ -863,7 +845,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
     }
     else if (layerName == "DEPARE")
     {
-        z = feat->GetFieldAsDouble("DRVAL1"); // Minimum depth in range
+        z = feat->GetFieldAsDouble("DRVAL1")*100; // Minimum depth in range
         if (!z)
             return;
 
@@ -899,6 +881,7 @@ void Grid_Interp::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerN
         // If the data is unreliable (ZoC D or U) do not navigate through these areas
         if (feat->GetFieldAsDouble("CATZOC") >= 4)
         {
+            cout << "\t got one!\n";
             new_feat =  OGRFeature::CreateFeature(feat_def_poly);
             new_feat->SetField("Depth", CATZOC_z);
             new_feat->SetGeometry(UTM_poly_buff);
@@ -931,41 +914,14 @@ void Grid_Interp::store_vertices(OGRPolygon *UTM_Poly, double z)
 
     for (int j = 0 ; j< ring->getNumPoints(); j++)
     {
-            X.push_back(ring->getX(j)-geod.getXOrigin());
-            Y.push_back(ring->getY(j)-geod.getYOrigin());
-            depth.push_back(z);
-    }
-}
-
-void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vector<double> &RasterData)
-{
-    GDALDataset  *poDataset;
-    GDALRasterBand *poRasterBand;
-    string full_Filename = MOOS_Path+"src/ENCs/Grid/" +filename;
-
-    GDALAllRegister();
-    poDataset = (GDALDataset *) GDALOpen( full_Filename.c_str(), GA_ReadOnly );
-
-    poRasterBand = poDataset -> GetRasterBand(1);
-
-    nXSize = poRasterBand->GetXSize(); // width
-    nYSize = poRasterBand->GetYSize(); // height
-
-    // Resize the vector to fit the raster dataset
-    RasterData.resize(nXSize*nYSize);
-
-    // Read the raster into a 1D row-major vector where it is organized in left to right,top to bottom pixel order
-    if( poRasterBand->RasterIO( GF_Read, 0, 0, nXSize, nYSize, RasterData.data(), nXSize, nYSize, GDT_Float64, 0, 0 ) != CE_None )
-    {
-        printf( "Failed to access raster data.\n" );
-        GDALClose(poDataset);
-        exit( 1 );
+        X.push_back(ring->getX(j)-geod.getXOrigin());// convert to local UTM
+        Y.push_back(ring->getY(j)-geod.getYOrigin());// convert to local UTM
+        depth.push_back(z);
     }
 
-    GDALClose(poDataset);
 }
 
-void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vector<int> &RasterData)
+void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vector<int>&RasterData)
 {
     GDALDataset  *poDataset;
     GDALRasterBand *poRasterBand;
@@ -993,7 +949,7 @@ void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vecto
     GDALClose(poDataset);
 }
 
-void Grid_Interp::writeRasterData_int(string filename, int nXSize, int nYSize, vector<int>&RasterData)
+void Grid_Interp::writeRasterData(string filename, int nXSize, int nYSize, vector<int>&RasterData)
 {
     GDALDataset *poDataset;
     GDALRasterBand *poBand;
@@ -1076,7 +1032,7 @@ void Grid_Interp::writeRasterData(string filename, int nXSize, int nYSize, vecto
 }
 
 // Cycle through the raster data and store the xyz coordinates to be used in the interpolation
-void Grid_Interp::raster2XYZ(vector<double> &RasterData, int nXSize)
+void Grid_Interp::raster2XYZ(vector<int>& RasterData, int nXSize)
 {
     double x,y;
 
@@ -1103,9 +1059,11 @@ void Grid_Interp::rasterizeSHP(string outfilename, string infilename, string att
     string georef_extent = "-te "+to_string(minX+geod.getXOrigin())+ " "+to_string(minY+geod.getYOrigin())+ " "
             +to_string(maxX+geod.getXOrigin())+ " "+to_string(maxY+geod.getYOrigin())+ " ";
 
+    //cout << georef_extent << endl;
+
     // String for all the options for gdal_rasterize
-    string options = "-a_nodata -10 -at -a " + attribute + " -tr " + to_string(grid_size)+ " " +
-            to_string(grid_size)+ " -a_srs EPSG:"+to_string(EPSG_code)+" -ot Float64 " + georef_extent + filenames;
+    string options = "-a_nodata -1000 -at -a " + attribute + " -tr " + to_string(grid_size)+ " " +
+            to_string(grid_size)+ " -a_srs EPSG:2219 -ot Int32 " + georef_extent + filenames;
 
     string rasterize = "gdal_rasterize " + options;
 
@@ -1178,7 +1136,7 @@ void Grid_Interp::grid2xy(int gridX, int gridY, double &x, double &y)
 void Grid_Interp::LatLong2Grid(double lat, double lon, int &gridX, int &gridY)
 {
     double x,y;
-    geod.LatLong2UTM(lat,lon, x,y);
+    geod.LatLong2LocalUTM(lat,lon, x,y);
     xy2grid(x,y, gridX, gridY);
 }
 
@@ -1187,7 +1145,7 @@ void Grid_Interp::Grid2LatLong(int gridX, int gridY, double &lat, double &lon)
 {
     double x,y;
     grid2xy(gridX, gridY, x,y);
-    geod.UTM2LatLong(x,y, lat,lon);
+    geod.LocalUTM2LatLong(x,y, lat,lon);
 }
 
 void Grid_Interp::row_major_to_2D(int index, double &x, double &y, int numCols)

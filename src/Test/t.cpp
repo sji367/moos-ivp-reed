@@ -30,7 +30,8 @@ int main()
     double t=0;
 
 
-    bool build_layer = false;
+    bool build_layer = true;
+    string chartname = "US6MA03M";
 
     double lat1, lat2, lat3, lat4;
     double lon1, lon2, lon3, lon4;
@@ -38,47 +39,53 @@ int main()
     // Get bounds of the raster
     Geodesy geod = Geodesy(LatOrigin, LongOrigin);
     // Build the gridded ENC
-    //Grid_Interp grid = Grid_Interp("/home/sreed/moos-ivp/moos-ivp-reed/", "/home/sreed/moos-ivp/moos-ivp-reed/src/ENCs/US5NH02M/US5NH02M.000", grid_size, buffer_size,3.564-0.829, LatOrigin, LongOrigin, false);
-    //grid.Run(false);//(true, true); // Boleans are t/f build a .csv or .mat files for each raster
+
+    Grid_Interp grid = Grid_Interp("/home/sreed/moos-ivp/moos-ivp-reed/", chartname, buffer_size, 3.564-0.829, false);
+    grid.Run(false);//(true, true); // Boleans are t/f build a .csv or .mat files for each raster
     //ENC_Rasterize raster= ENC_Rasterize("depth.shp", "/home/sreed/moos-ivp/moos-ivp-reed/");
     //raster.run(3315, 5210);
-    ENC_Polygonize poly = ENC_Polygonize("/home/sreed/moos-ivp/moos-ivp-reed/", "new.tiff", "raster.shp",geod,2);
-    poly.runWithGrid();
+    //ENC_Polygonize poly = ENC_Polygonize("/home/sreed/moos-ivp/moos-ivp-reed/", "new.tiff", "raster.shp",geod,2);
+    //poly.runWithGrid();
 
-    /*
-    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMinY(), lat, lon);
-    printf("lat: %0.8f, long: %0.8f\n",lat, lon);
 
-    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMinY(), lat1, lon1);
-    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMaxY(), lat2, lon2);
-    geod.LocalUTM2LatLong(grid.getMaxX(), grid.getMinY(), lat3, lon3);
-    geod.LocalUTM2LatLong(grid.getMaxX(), grid.getMaxY(), lat4, lon4);
+    geod.UTM2LatLong(grid.getMinX(), grid.getMinY(), lat, lon);
+    printf("x: %0.8f, y: %0.8f; lat: %0.8f, long: %0.8f\n", grid.getMinX(), grid.getMinY(),lat, lon);
 
-    printf("lat_north = %0.7f\nlat_south = %0.7f\nlon_east  = %0.7f\nlon_west  = %0.7f\n", (lat1+lat3)/2, (lat2+lat4)/2, (lon1+lon3)/2, (lon2+lon4)/2);
-    printf("\nbot lat: %0.6f, bot lon: %0.6f, top lat: %0.6f, bot lon: %0.6f\n", lat1, lon1, lat2, lon2);
-    printf("bot lat: %0.6f, top lon: %0.6f, top lat: %0.6f, top lon: %0.6f\n", lat3, lon3, lat4, lon4);
+//    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMinY(), lat1, lon1);
+//    geod.LocalUTM2LatLong(grid.getMinX(), grid.getMaxY(), lat2, lon2);
+//    geod.LocalUTM2LatLong(grid.getMaxX(), grid.getMinY(), lat3, lon3);
+//    geod.LocalUTM2LatLong(grid.getMaxX(), grid.getMaxY(), lat4, lon4);
+//    printf("lat_north = %0.7f\nlat_south = %0.7f\nlon_east  = %0.7f\nlon_west  = %0.7f\n", (lat1+lat3)/2, (lat2+lat4)/2, (lon1+lon3)/2, (lon2+lon4)/2);
+//    printf("\nbot lat: %0.6f, bot lon: %0.6f, top lat: %0.6f, bot lon: %0.6f\n", lat1, lon1, lat2, lon2);
+//    printf("bot lat: %0.6f, top lon: %0.6f, top lat: %0.6f, top lon: %0.6f\n", lat3, lon3, lat4, lon4);
+/*
+    cout << "Min: " << grid.getMinX() << ", " <<grid.getMinY() << "\tMax: " << grid.getMaxX() << ", " << grid.getMaxY() << endl;
 
+    vector<vector <int> > Map = grid.transposeMap();
+    cout << Map[0].size() << " " << Map.size() << endl;
+    //
 
     // Run A*
-    A_Star astar= A_Star(grid_size, grid.getMinX(), grid.getMinY(), 8);
+    A_Star astar= A_Star(8);//grid_size, grid.getMinX(), grid.getMinY(), 8);
+    astar.setMapFromTiff("src/ENCs/Grid/PostProcess_US5NH02M.tiff", geod);
 
-    astar.setMap(grid.transposeMap());
+    //astar.setMap(grid.transposeMap());
     start = clock();
 
     //astar.set
     //astar.setStartFinish_Grid(895,2479,896,2502);
 
-    astar.setStartFinish_Grid(895,2478,2700, 855); //Out to the isle of shoals
+    //astar.setStartFinish_Grid(895,2478,2700, 855); //Out to the isle of shoals
 
     //astar.setStartFinish_Grid(896,2507,920,2432);
-    //astar.setStartFinish_Grid(895,2478,920,2432); // Pier to other side of the peninsula
+    astar.setStartFinish_Grid(895,2478,920,2432); // Pier to other side of the peninsula
     //astar.setStartFinish(2.5,-47.5,-40,85); // One side of the pier to the other
-    //astar.subsetMap(870,970, 2350, 2550);
+    astar.subsetMap(870,970, 2350, 2550);
     //astar.setStartFinish_Grid(24,128, 50,0);
 
     //astar.setStartFinish_Grid(894,2478,264,2661); // Up the channel
     //astar.subsetMap(800,1000, 2400, 2600);
-    astar.runA_Star(false);
+    astar.runA_Star(true);
     t = (clock()-start)*0.001;
 
     cout << "Time: " << t << " (ms)" << endl;
@@ -119,7 +126,6 @@ int main()
         }
 
         OGRFeature *new_feat;
-        OGRGeometry *geom;
         OGRLineString *line = (OGRLineString *)OGRGeometryFactory::createGeometry(wkbLineString25D);
         OGRFeatureDefn *poFDefn = layer->GetLayerDefn();
         new_feat =  OGRFeature::CreateFeature(poFDefn);
@@ -132,7 +138,7 @@ int main()
         // Add the waypoints to a OGRLineString
         for (int i = 0; i<vect_WPTs.size(); i+=2)
         {
-            line->addPoint(atof(vect_WPTs[i].c_str())+geod.getXOrigin(), atof(vect_WPTs[i+1].c_str())+geod.getYOrigin());
+            line->addPoint(atof(vect_WPTs[i].c_str()), atof(vect_WPTs[i+1].c_str()));
         }
         new_feat->SetGeometry(line);
 
@@ -145,7 +151,7 @@ int main()
 
         GDALClose(ds);
     }
-    */
+    //*/
 
 /*
     astar = A_Star(8);

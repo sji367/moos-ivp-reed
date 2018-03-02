@@ -136,7 +136,6 @@ void ENC_Polygonize::writeRasterData(string filename, int nXSize, int nYSize, ve
 {
     GDALDataset *poDataset;
     GDALRasterBand *poBand;
-    OGRSpatialReference oSRS;
     GDALDriver *poDriver;
     char *pszSRS_WKT = NULL;
     char **papszOptions = NULL;
@@ -154,7 +153,6 @@ void ENC_Polygonize::writeRasterData(string filename, int nXSize, int nYSize, ve
     poDataset->SetGeoTransform( adfGeoTransform.data() );
 
     // Set Coordinate system
-    oSRS = geod.getUTM();
     oSRS.exportToWkt( &pszSRS_WKT );
     poDataset->SetProjection( pszSRS_WKT );
     CPLFree( pszSRS_WKT );
@@ -177,9 +175,10 @@ void ENC_Polygonize::runWithGrid(string ENC_Name, double grid_size, double buffe
 {
     cout << "Gridding..." << endl;
     // Build the gridded ENC
-    Grid_Interp grid = Grid_Interp(MOOS_PATH, MOOS_PATH+"src/ENCs/"+ENC_Name+"/"+ENC_Name+".000", grid_size, buffer_size, MHW_offset, geod, simpleGrid);
+    Grid_Interp grid = Grid_Interp(MOOS_PATH, ENC_Name, grid_size, buffer_size, MHW_offset, simpleGrid);
     grid.Run(false);
     landZ = grid.getLandZ()/100;
+    oSRS = geod.getUTM();
 
     polygonize();
 }

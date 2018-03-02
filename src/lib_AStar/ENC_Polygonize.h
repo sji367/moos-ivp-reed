@@ -61,6 +61,7 @@ private:
     Geodesy geod;
     double minDepth;
     double landZ;
+    OGRSpatialReference oSRS;
 
 };
 

@@ -812,7 +812,7 @@ void ENC_Contact::BuildLayers()
 
     /*
     // Build the grid and interp. Then make a binary grid (based on the desired minimum depth)and polygonize it
-    ENC_Polygonize polygonize = ENC_Polygonize("../../", "PostProcess.tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
+    ENC_Polygonize polygonize = ENC_Polygonize("../../", "PostProcess"+m_ENC +".tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
     polygonize.runWithGrid(m_ENC, 5, calcBuffer(4), m_MHW_Offset, true);
     polygonize.closeDS();
 

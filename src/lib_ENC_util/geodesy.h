@@ -8,8 +8,6 @@
 #include "ogr_spatialref.h"
 #include "gdal_frmts.h" // for GDAL/OGR
 #include <ogrsf_frmts.h> // OGRLayer
-#include <ogr_geometry.h> // OGRPoint, OGRGeometry etc
-#include <ogr_feature.h> // OGRFeature
 #include <string>
 #include <iostream>
 #include <cmath>

@@ -18,6 +18,9 @@
 #include <fstream>
 #include "L84.h"
 #include <stdio.h>
+#include "gdal_frmts.h" // for GDAL/OGR
+#include "gdal_priv.h" // for rasterio
+#include "geodesy.h"
 
 using namespace std;
 
@@ -163,6 +166,10 @@ public:
 
 	// Check to see if the extened path is valid
         bool extendedPathValid(int i, int wptX, int wptY, int &ave_depth);
+        bool extendedPathValid_aveDepth(int i, int wptX,int wptY, int &ave_depth);
+
+        // Returns 1 if inputed number is positive and -1 if the number is negative
+        int posORneg(int num) {if (num<0){return -1;} else {return 1;} }
 
 	// This function runs A* search. It outputs the generated WPTs as a comma seperated string
 	string AStar_Search();
@@ -194,7 +201,9 @@ public:
 	void build_map(string filename, int x_min, int x_max, int y_min, int y_max); // Builds master map and then only uses subset of map for A*
 
 	// Set Occupancy Grid
-        void setMap(vector<vector<int> > MAP) {Map=MAP; FullMap=MAP; cout << "set Map" <<endl; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); }
+        void setMap(vector<vector<int> > MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); }
+        void setMapFromTiff(string tiff_filename);
+        vector<vector<int> > getMap() {return Map;}
 
 	// Use a subset of the map for the A* search
 	void subsetMap(int xmin, int xmax, int ymin, int ymax);
@@ -264,6 +273,7 @@ public:
 	// Functions to convert to/from the grid world
         void xy2grid(double x, double y, int &gridX, int &gridY) {gridX = static_cast<int>(round((x-xTop)/grid_size)- x_min); gridY = static_cast<int>(round((y-yTop)/grid_size)- y_min); }
         void grid2xy(int gridX, int gridY, double &x, double &y) {x = (gridX+x_min)*grid_size+ xTop; y = (gridY+y_min)*grid_size+ yTop; }
+        void row_major_to_2D(int index, double &gridX, double &gridY, int numCols);
 
 	void getNM() {cout << Map.size() << ", " << Map[0].size() << endl; }
         string getRoute() {return Route; }
