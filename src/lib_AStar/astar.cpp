@@ -7,34 +7,32 @@
 
 #include "astar.h"
 
-int Node::calcMinDepth()
+double Node::calcMinDepth()
 {
-  int depth_thresh;
   double draft =ShipMeta.getDraft();
   if (draft > .33)
-    depth_thresh = static_cast<int>(draft*300);
+    return draft*3;
   else
-    depth_thresh = 100;
-  return depth_thresh;
+    return 1;
 }
 
 // Depth threshold is also in meters and is 20 times the minimum depth
-int Node::depthCost(double dist)
+double Node::depthCost(double dist)
 {
-    int depth_threshold = 15;
+    double depth_threshold = 15;
     double depth_cost = 0;
-    double weight = .1;
+    double weight = 0.11;
     if (depth < depth_threshold)
         depth_cost = weight*dist*(depth_threshold-depth);
 
     return depth_cost;
 }
 
-double Node::time2shoreCost(int old_depth, double speed, int dist)
+double Node::time2shoreCost(double old_depth, double speed, double dist)
 {
   // Calculate the time to shore
   double time_theshold, seafloor_slope, time2crash;
-  int min_depth;
+  double min_depth;
   double weight = 1;
   
   min_depth = calcMinDepth();
@@ -63,7 +61,7 @@ A_Star::A_Star()
   yTop = -12439; // value for the US5NH02M ENC
   setStart_Grid(0,0);
   setFinish_Grid(0,0);
-  depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
+  depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
   tide = 0;
   grid_size=5;
   setGridXYBounds(0,0,0,0);
@@ -76,7 +74,7 @@ A_Star::A_Star(int connecting_dist)
   yTop = -12439; // value for the US5NH02M ENC
   setStart_Grid(0,0);
   setFinish_Grid(0,0);
-  depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
+  depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
   tide = 0;
   grid_size=5;
   setGridXYBounds(0,0,0,0);
@@ -89,19 +87,19 @@ A_Star::A_Star(double gridSize, double TopX, double TopY, int connecting_dist)
     yTop = TopY;
     setStart_Grid(0,0);
     setFinish_Grid(0,0);
-    depth_cutoff = 100; // Depths of more than 1 meter below MLLW are considered obstacles
+    depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
     tide = 0;
     grid_size=gridSize;
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
-A_Star::A_Star(int x1, int y1, int x2, int y2, int depthCutoff, int connecting_dist)
+A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connecting_dist)
 {
   xTop = -4470;
   yTop = -12439;
-  setStart(x1,y1);
-  setFinish(x2,y2);
+  setStart_UTM(x1,y1);
+  setFinish_UTM(x2,y2);
   depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
   tide = 0;
   grid_size=5;
@@ -109,12 +107,12 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, int depthCutoff, int connecting_d
   NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
-A_Star::A_Star(int x1, int y1, int x2, int y2, int depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist)
+A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist)
 {
   xTop = TopX;
   yTop = TopY;
-  setStart(x1,y1);
-  setFinish(x2,y2);
+  setStart_UTM(x1,y1);
+  setFinish_UTM(x2,y2);
   depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
   tide = 0;
   grid_size = gridSize;
@@ -188,7 +186,7 @@ Output:
   path - indices of dx/dy that relate to the planned path from the 
          start to the finish
 */
-string A_Star::ReconstructPath(vector<vector<int>> direction_map)
+string A_Star::ReconstructPath(vector<vector<int> > direction_map)
 {
   vector<int> path;
   bool first_time = true;
@@ -291,7 +289,6 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
                 ceil_x = int(ceil(x));
                 if ((Map[Y][floor_x] < depth_cutoff) || (Map[Y][ceil_x] < depth_cutoff))
                 {
-                    //cout << X <<"," << Y << "; ";
                     return false; // Path is invalid
                 }
             }
@@ -327,7 +324,6 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, int &ave_depth)
                 ceil_y = int(ceil(y));
                 if ((Map[floor_y][X] < depth_cutoff) || (Map[ceil_y][X] < depth_cutoff))
                 {
-                    //cout << X <<"," << Y << "; ";
                     return false; // Path is invalid
                 }
             }
@@ -414,7 +410,7 @@ bool A_Star::extendedPathValid_aveDepth(int i, int wptX,int wptY, int &ave_depth
     return true;
 }
 
-bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin)
+bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, bool depthBasedAStar, string filename, double LatOrigin, double LongOrigin)
 {
     bool found_path;
 
@@ -426,7 +422,7 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
     // Print a warning if the depth cutoff is lower than NOAAs
     if (depth_cutoff<400)
     {
-        cout << "WARNING: Depth cutoff is set lower than the NOAA's mapping threshold of 4 meters(" << depth_cutoff/100.0 << " meters). Do you want to continue? (Y/N)" << endl;
+        cout << "WARNING: Depth cutoff is set lower than the NOAA's mapping threshold of 4 meters(" << depth_cutoff << " meters). Do you want to continue? (Y/N)" << endl;
         //cin >>command;
 
         // Check to see if the user wants to continue with the threshold lower depth cutoff
@@ -439,7 +435,7 @@ bool A_Star::runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filen
     {
         cout << "Valid Start/Finish" << endl;
         start = clock();
-        Route = AStar_Search();
+        Route = AStar_Search(depthBasedAStar);
         total_time = (clock() - start)*0.001;
     }
     else
@@ -509,7 +505,7 @@ void A_Star::buildMOOSFile(string filename, string WPTs)
 }
 
 // This function runs A*. It outputs the generated path as a string to stdout
-string A_Star::AStar_Search()
+string A_Star::AStar_Search(bool depthBasedAStar)
 {
   //FILE *myfile;
   //myfile = fopen("Explored.txt", "w");
@@ -576,8 +572,14 @@ string A_Star::AStar_Search()
                                  n0.getCost(), grid_size);
 		    child.setShipMeta(ShipMeta);
                     //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
-                    child.calcCost_depth(dx[i], dy[i]);
-                    //child.calcCost(dx[i], dy[i]);
+
+                    // if depthBasedAStar is set to true then include depth into the cost of the node
+                    //  otherwise run normal A*
+                    if (depthBasedAStar)
+                        child.calcCost_depth(dx[i], dy[i]);
+                    else
+                        child.calcCost(dx[i], dy[i]);
+
                     c = child.getCost();
                     child.updatePriority(xFinish, yFinish);
                     p = child.getPriority1();
@@ -613,7 +615,7 @@ string A_Star::AStar_Search()
 
 }
 
-int A_Star::calcDepthCost(int wptX,int wptY, int i)
+double A_Star::calcDepthCost(int wptX,int wptY, int i)
 {
     double m,b, x,y;
     int X,Y;
@@ -674,71 +676,72 @@ int A_Star::calcDepthCost(int wptX,int wptY, int i)
 // This function marks the route on the map
 string A_Star::markRoute(vector<int> route)
 {
-  int x, y, direction, route_len;
-  double localX = 0;
-  double localY = 0;
-  string WPT;
-  route_len = route.size();
+    int x, y, direction, route_len;
+    double localX = 0;
+    double localY = 0;
+    string WPT;
+    route_len = route.size();
 
-  // Initialize the print map 2d vector
-  vector<vector<int> > temp (n, vector<int>(m, 0)); 
-  Map2print= temp; 
-  
-  // Simplify the map for printing
-  for (int i=0; i<n; i++)
+    // Initialize the print map 2d vector
+    Map2print.clear();
+    Map2print.resize(n, vector<int>(m, 0));
+
+    // Simplify the map for printing
+    for (int i=0; i<n; i++)
     {
-      for (int j=0; j<m; j++)
-	{
-	  if (Map[i][j]>depth_cutoff)
-	    Map2print[i][j]=0;
-	  else
-	    Map2print[i][j]=1;
-	}
+        for (int j=0; j<m; j++)
+        {
+            if (Map[i][j]>depth_cutoff)
+                Map2print[i][j]=0;
+            else
+                Map2print[i][j]=1;
+        }
     }
-  
-  // New waypoints are when placed the heading changes  
-  if (route_len > 0)
-    {
-      x = xStart;
-      y = yStart;
-      
-      grid2xy(x, y, localX, localY);
-      
-      // Mark Start
-      Map2print[y][x] = 2;
-      WPT=to_string(localX)+","+to_string(localY)+",";
-      cout << "["+to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"; ";
-      for (int i=0; i<route_len-1; i++)
-	{
-	  direction = route[i];
-	  x += dx[direction];
-	  y += dy[direction];
-          grid2xy(x, y, localX, localY);
-	  if (i<route_len-1)
-	    {
-	      // If you are continueing with on the same path,
-	      //  don't store the new waypoint
-	      if (route[i]==route[i+1])
-		Map2print[y][x] = 3;
-	      else
-		{
-		  Map2print[y][x] = 4;
-		  WPT+= to_string(localX)+","+to_string(localY)+",";
-                  cout << to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"; ";
 
-		}
-	    }
-	}
-      // Mark finish
-      direction = route[route_len-1];
-      x += dx[direction];
-      y += dy[direction];
-      grid2xy(x, y, localX, localY);
-      Map2print[y][x] = 5;
-      WPT += to_string(localX)+","+to_string(localY);
-      cout << to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"];" << endl;
-    }  
-  return WPT;
+    // New waypoints are when placed the heading changes
+    if (route_len > 0)
+    {
+        x = xStart;
+        y = yStart;
+
+        grid2xy(x, y, localX, localY);
+
+        cout << "N: " <<FullMap.size() << ", M:" << FullMap[0].size() << endl;
+
+        // Mark Start
+        Map2print[y][x] = 2;
+        WPT=to_string(localX)+","+to_string(localY)+",";
+        cout << "["+to_string(x+x_min+1) <<","+to_string(FullMap.size()-(y+y_min))+"; ";
+        for (int i=0; i<route_len-1; i++)
+        {
+            direction = route[i];
+            x += dx[direction];
+            y += dy[direction];
+            grid2xy(x, y, localX, localY);
+            if (i<route_len-1)
+            {
+                // If you are continueing with on the same path,
+                //  don't store the new waypoint
+                if (route[i]==route[i+1])
+                    Map2print[y][x] = 3;
+                else
+                {
+                    Map2print[y][x] = 4;
+                    WPT+= to_string(localX)+","+to_string(localY)+",";
+                    cout << to_string(x+x_min+1) <<","+to_string(FullMap.size()-(y+y_min))+"; ";
+                }
+            }
+        }
+        // Mark finish
+        direction = route[route_len-1];
+        x += dx[direction];
+        y += dy[direction];
+        grid2xy(x, y, localX, localY);
+        Map2print[y][x] = 5;
+        WPT += to_string(localX)+","+to_string(localY);
+        cout << to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"];" << endl;
+    }
+    return WPT;
 }
 
 /*
@@ -791,93 +794,93 @@ void A_Star::printMap(string WPTs, double total_time)
 // Build the default map
 void A_Star::build_default_map(int N, int M, int config)
 {
-  // Now build the map
-  vector<vector<int>> MAP (N, vector<int>(M,110));
-  vector<vector<int>> start_finish;
-  
-  // Place an cross obstacle in the middle
-  for (int x = M/8; x<7*M/8; x++)
-    MAP[N/2][x] = 0;
-  for (int y = N/8; y<7*N/8; y++)
-    MAP[y][M/2] = 0;
+    // Now build the map
+    vector<vector<double>> MAP (N, vector<double>(M,110));
+    vector<vector<int>> start_finish;
 
-  // Different Start/Finish Configurations
-  start_finish.push_back({0, 0, N - 1, M - 1});
-  start_finish.push_back({0, M - 1, N - 1, 0});
-  start_finish.push_back({N / 2 - 1, M / 2 - 1, N / 2 + 1, M / 2 + 1});
-  start_finish.push_back({N / 2 - 1, M / 2 + 1, N / 2 + 1, M / 2 - 1});
-  start_finish.push_back({N / 2 - 1, 0, N / 2 + 1, M - 1});
-  start_finish.push_back({N / 2 + 1, M - 1, N / 2 - 1, 0});
-  start_finish.push_back({0, M / 2 - 1, N - 1, M / 2 + 1});
-  start_finish.push_back({N - 1, M / 2 + 1, 0, M / 2 - 1});
+    // Place an cross obstacle in the middle
+    for (int x = M/8; x<7*M/8; x++)
+        MAP[N/2][x] = 0;
+    for (int y = N/8; y<7*N/8; y++)
+        MAP[y][M/2] = 0;
 
-  // Pick a configuration
-  config= config%8; // Make sure the value is between 0 and 7
-  xStart = start_finish[config][0];
-  yStart = start_finish[config][1];
-  xFinish = start_finish[config][2];
-  yFinish = start_finish[config][3];
+    // Different Start/Finish Configurations
+    start_finish.push_back({0, 0, N - 1, M - 1});
+    start_finish.push_back({0, M - 1, N - 1, 0});
+    start_finish.push_back({N / 2 - 1, M / 2 - 1, N / 2 + 1, M / 2 + 1});
+    start_finish.push_back({N / 2 - 1, M / 2 + 1, N / 2 + 1, M / 2 - 1});
+    start_finish.push_back({N / 2 - 1, 0, N / 2 + 1, M - 1});
+    start_finish.push_back({N / 2 + 1, M - 1, N / 2 - 1, 0});
+    start_finish.push_back({0, M / 2 - 1, N - 1, M / 2 + 1});
+    start_finish.push_back({N - 1, M / 2 + 1, 0, M / 2 - 1});
 
-  // Set the derived map
-  setMap(MAP);
-  // Sets the grid and local coordinate system as the same system
-  setConversionMeta(1, 0, 0);
+    // Pick a configuration
+    config= config%8; // Make sure the value is between 0 and 7
+    xStart = start_finish[config][0];
+    yStart = start_finish[config][1];
+    xFinish = start_finish[config][2];
+    yFinish = start_finish[config][3];
+
+    // Set the derived map
+    setMap(MAP);
+    // Sets the grid and local coordinate system as the same system
+    setConversionMeta(1, 0, 0);
 }
 
 // Use your own map from a csv file that contains the grid and define the
 //  coordinate dimensions of a subset of the map to be used for A*.
-void A_Star::build_map(string filename, int x_min, int x_max, int y_min, int y_max)
+void A_Star::build_map(string filename, int xMin, int xMax, int yMin, int yMax)
 {
-  strtk::token_grid::options option;
-  option.column_delimiters = ",";
+    strtk::token_grid::options option;
+    option.column_delimiters = ",";
 
-  // Read in the file
-  strtk::token_grid grid(filename, option);
+    // Read in the file
+    strtk::token_grid grid(filename, option);
 
-  // Initialize the 2D vector
-  strtk::token_grid::row_type row = grid.row(0);
-  vector<vector<int>> MAP (grid.row_count()-1, vector<int>(row.size()-1,0));
-  
-  for(size_t i = 1; i < grid.row_count(); ++i)
+    // Initialize the 2D vector
+    strtk::token_grid::row_type row = grid.row(0);
+    FullMap.clear();
+    FullMap.resize(grid.row_count()-1, vector<double>(row.size()-1,0));
+
+    for(size_t i = 1; i < grid.row_count(); ++i)
     {
-      row = grid.row(i);
-      for(size_t j = 1; j < row.size(); ++j)
-	{
-	  MAP[i-1][j-1] = row.get<int>(j);
-	}
+        row = grid.row(i);
+        for(size_t j = 1; j < row.size(); ++j)
+        {
+            FullMap[i-1][j-1] = row.get<double>(j);
+        }
     }
-  cout << "Map loaded" << endl;
-  
-  // Subset the map
-  FullMap=MAP;
-  subsetMap(x_min, x_max, y_min, y_max);
+    cout << "Map loaded" << endl;
+
+    // Subset the map
+    subsetMap(xMin, xMax, yMin, yMax);
 }
 
 // Use your own map from a csv file that contains the grid
 void A_Star::build_map(string filename)
 {
-  strtk::token_grid::options option;
-  option.column_delimiters = ",";
+    strtk::token_grid::options option;
+    option.column_delimiters = ",";
 
-  // Read in the file
-  strtk::token_grid grid(filename, option);
+    // Read in the file
+    strtk::token_grid grid(filename, option);
 
-  // Initialize the 2D vector
-  strtk::token_grid::row_type row = grid.row(0);
-  vector<vector<int>> MAP (grid.row_count()-1, vector<int>(row.size()-1,0));
-  
-  for(size_t i = 1; i < grid.row_count(); ++i)
+    // Initialize the 2D vector
+    strtk::token_grid::row_type row = grid.row(0);
+    vector<vector<double>> MAP (grid.row_count()-1, vector<double>(row.size()-1,0));
+
+    for(size_t i = 1; i < grid.row_count(); ++i)
     {
-      row = grid.row(i);
-      for(size_t j = 1; j < row.size(); ++j)
-	{
-	  MAP[i-1][j-1] = row.get<int>(j);
-	}
+        row = grid.row(i);
+        for(size_t j = 1; j < row.size(); ++j)
+        {
+            MAP[i-1][j-1] = row.get<int>(j);
+        }
     }
-  cout << "Map loaded" << endl;
-  
-  // Set the new map
-  setMap(MAP);
+    cout << "Map loaded" << endl;
+
+    // Set the new map
+    setMap(MAP);
 }
 
 // Define the coordinate dimensions of a subset of the map to be used for A*.
@@ -891,7 +894,7 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 
     // Fill the map
     Map.clear();
-    Map.resize(n, vector<int> (m));
+    Map.resize(n, vector<double> (m));
     //vector<vector<int>> MAP (n, vector<int> (m,0));
     for (int y=0; y<n; ++y)
     {
@@ -900,7 +903,6 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
             Map[y][x] = FullMap[y+y_min][x+x_min];
         }
     }
-    //Map=MAP;
 
     xStart-= xmin;
     yStart-= ymin;
@@ -953,26 +955,27 @@ void A_Star::setMapFromTiff(string tiff_filename)
      *  Yp = uly + P*yskew + L*yres;
      */
     xTop = adfGeoTransform[0];
-    x_min = adfGeoTransform[2];
-    y_min = adfGeoTransform[4];
+    x_min = static_cast<int>(adfGeoTransform[2]);
+    y_min = static_cast<int>(adfGeoTransform[4]);
 
     // Since we need to transpose the coordinates, we need to store the TIFF's lower y coordinate not upper y coordinate
-    yTop = adfGeoTransform[3]+nYSize*adfGeoTransform[5];
+    yTop = adfGeoTransform[3]+(1.0*nYSize)*adfGeoTransform[5];
 
     // Now flip the Y axis, transpose the TIFF, and convert it to a int (meters -> cm)
     Map.clear();
-    Map.resize(nYSize, vector<int> (nXSize,0));
+    Map.resize(nYSize, vector<double> (nXSize,0));
     for (int i=0; i<RasterData.size(); i++)
     {
         row_major_to_2D(i, x, y, nXSize);
         gridIndex = (nYSize-1 - x)*nXSize +y;
-        Map[x][y] = static_cast<int>(RasterData[gridIndex]*100);
+        Map[x][y] = RasterData[gridIndex];
     }
 
     FullMap = Map;
     n=nYSize;
     m=nXSize;
-    setGridXYBounds(0,m,0,n);
+    x_max = m;
+    y_max = n;
 }
 
 void A_Star::row_major_to_2D(int index, double &gridX, double &gridY, int numCols)
@@ -983,79 +986,79 @@ void A_Star::row_major_to_2D(int index, double &gridX, double &gridY, int numCol
 
 void A_Star::checkStart()
 {
-  if (Map[yStart][xStart] < depth_cutoff)
+    cout << "X: " << xStart << ", Y: " << yStart << endl;
+    if (Map[yStart][xStart] < depth_cutoff)
     {
-      cout << "Invalid Start position" << endl;
-      valid_start = false; 
+        cout << "Invalid Start position" << endl;
+        valid_start = false;
     }
-  else
-    valid_start = true;
+    else
+        valid_start = true;
 }
 
 void A_Star::checkFinish()
 {
-  if (Map[yFinish][xFinish] < depth_cutoff)
+    if (Map[yFinish][xFinish] < depth_cutoff)
     {
-      cout << "Invalid finish position" << endl;
-      valid_finish = false; 
+        cout << "Invalid finish position" << endl;
+        valid_finish = false;
     }
-  else
-    valid_finish = true;
+    else
+        valid_finish = true;
 }
 
 void Vessel_Dimensions::getVesselMeta()
 {
-  double length = 0;
-  double width = 0;
-  double draft = 0;
-  int mobility=0;
-  double turn_radius = 0;
-  string know_TR;
-  
-  cout << "What is the vessel length? (in meters) ";
-  cin >> length;
+    double length = 0;
+    double width = 0;
+    double draft = 0;
+    int mobility=0;
+    double turn_radius = 0;
+    string know_TR;
 
-  cout << endl << "What is the vessel width? (in meters) ";
-  cin >> width;
+    cout << "What is the vessel length? (in meters) ";
+    cin >> length;
 
-  cout << endl << "What is the vessel draft? (in meters) ";
-  cin >> draft;
+    cout << endl << "What is the vessel width? (in meters) ";
+    cin >> width;
 
-  cout << endl << "Do you know the vessel turn radius? (Y/N) ";
-  cin >> know_TR;
+    cout << endl << "What is the vessel draft? (in meters) ";
+    cin >> draft;
 
-  if ((know_TR == "Y") || (know_TR == "YES")||(know_TR == "y")||(know_TR == "yes")){
-    cout << endl << "What is the vessel turn radius? (in meters) ";
-    cin >> turn_radius;
-  }
-  else
+    cout << endl << "Do you know the vessel turn radius? (Y/N) ";
+    cin >> know_TR;
+
+    if ((know_TR == "Y") || (know_TR == "YES")||(know_TR == "y")||(know_TR == "yes"))
     {
-      cout << endl << "How would you rate the mobility on a scale from 1 to 5? ";
-      
-      cin >> mobility;
-      turn_radius = (6-mobility)*length;
+        cout << endl << "What is the vessel turn radius? (in meters) ";
+        cin >> turn_radius;
     }
-  set_ship_meta(turn_radius, length, width, draft);
+    else
+    {
+        cout << endl << "How would you rate the mobility on a scale from 1 to 5? ";
+        cin >> mobility;
+        turn_radius = (6-mobility)*length;
+    }
+    set_ship_meta(turn_radius, length, width, draft);
 }
 
 void A_Star::setDesiredSpeed()
 {
-  cout << "What is the desired speed for this waypoint? (in knots)";
-  cin >> desired_speed;
+    cout << "What is the desired speed for this waypoint? (in knots)";
+    cin >> desired_speed;
 
-  desired_speed *= 0.514444;
-    
+    desired_speed *= 0.514444;
 }
 
-int A_Star::calcMinDepth()
+double A_Star::calcMinDepth()
 {
-  int depth_thresh;
-  double draft =ShipMeta.getDraft();
-  if (draft > .33)
-    depth_thresh = static_cast<int>(draft*300);
-  else
-    depth_thresh = 100;
-  return depth_thresh;
+    double depth_thresh;
+    double draft =ShipMeta.getDraft();
+    if (draft > .33)
+        depth_thresh = draft*3;
+    else
+        depth_thresh = 1;
+    return depth_thresh;
 }
 
 // How we are sorting the frontier priority queue 

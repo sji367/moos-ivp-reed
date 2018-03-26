@@ -68,8 +68,8 @@ class Node
 public:
 	// Constuctors/Deconstructor
         Node() {xPos=0; yPos=0; current_cost=0; priority=0; depth=0; ShipMeta=Vessel_Dimensions(); }
-        Node(int x, int y, int Depth, int prev_cost, double Grid_size) {xPos=x; yPos=y; depth=Depth/100.0; current_cost=prev_cost; priority=0; grid_size = Grid_size; ShipMeta=Vessel_Dimensions();}
-        Node(int x, int y, int Depth, int prev_cost, double Grid_size, Vessel_Dimensions meta) {xPos=x; yPos=y; depth=Depth/100.0; current_cost=prev_cost; priority=0; grid_size = Grid_size; setShipMeta(meta); }
+        Node(int x, int y, double Depth, int prev_cost, double Grid_size) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=0; grid_size = Grid_size; ShipMeta=Vessel_Dimensions();}
+        Node(int x, int y, double Depth, int prev_cost, double Grid_size, Vessel_Dimensions meta) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=0; grid_size = Grid_size; setShipMeta(meta); }
         ~Node() {}
 
 	// Outputs the X position of the node
@@ -81,7 +81,7 @@ public:
 	// Outputs the current cost
         double getCost() {return current_cost; }
 
-        int getDepth() {return depth; }
+        double getDepth() {return depth; }
 
 	// Outputs the current estimated priority
         double getPriority1() {return priority; }
@@ -95,12 +95,12 @@ public:
         void calcCost(int dx, int dy, int old_depth, double speed) {double dist=calcDistance(dx,dy); current_cost += dist + time2shoreCost(old_depth, speed, dist); }
 	
 	// Calculates the depth classified as an obstacle by A* as 300*draft (aka depth in cm)
-	int calcMinDepth();
-        int depthCost(double dist); // Calculates the cost of traveling through the cells depth
-        double time2shoreCost(int old_depth, double speed, int dist); // Calculates the cost based on the approximate time to crashing into the shore
+        double calcMinDepth();
+        double depthCost(double dist); // Calculates the cost of traveling through the cells depth
+        double time2shoreCost(double old_depth, double speed, double dist); // Calculates the cost based on the approximate time to crashing into the shore
 	
 	// Estimate the remaining cost to go to the destination (heuristic - straight line distance)
-        int estimateRemainingCost(int xDest, int yDest) {return calcDistance(xPos-xDest, yPos-yDest); }
+        double estimateRemainingCost(int xDest, int yDest) {return calcDistance(xPos-xDest, yPos-yDest); }
 	
 	// Update the priority
         void updatePriority(int xDest, int yDest) {priority = current_cost + estimateRemainingCost(xDest, yDest); }
@@ -146,8 +146,8 @@ public:
 	A_Star();
 	A_Star(int connecting_dist);
         A_Star(double gridSize, double TopX, double TopY, int connecting_dist);
-	A_Star(int x1, int y1, int x2, int y2, int depthCutoff, int connecting_dist);
-	A_Star(int x1, int y1, int x2, int y2, int depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist);
+        A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connecting_dist);
+        A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist);
         ~A_Star() {}
 
 	// Number of Neighboors one wants to investigate from each cell. A larger
@@ -172,14 +172,15 @@ public:
         int posORneg(int num) {if (num<0){return -1;} else {return 1;} }
 
 	// This function runs A* search. It outputs the generated WPTs as a comma seperated string
-	string AStar_Search();
+        string AStar_Search(bool depthBasedAStar);
 
 	// This function runs A* and prints out the result
-        bool runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, string filename, double LatOrigin, double LongOrigin);
-        bool runA_Star(bool yes_print, bool L84_WPT, string filename, double LatOrigin, double LongOrigin) {return runA_Star(yes_print,false,L84_WPT, filename, LatOrigin,LongOrigin); }// Boolean for std out and L84
-        bool runA_Star(bool yes_print, bool MOOS_WPT, string filename) {return runA_Star(yes_print,MOOS_WPT,false,filename, 0,0); } // Boolean for std out and MOOS
-        bool runA_Star(bool yes_print) {return runA_Star(yes_print,false,false, "", 0,0); } // Boolean for std out
-        bool runA_Star() {return runA_Star(true,false,false, "", 0,0); }// just to std out
+        bool runA_Star(bool yes_print, bool MOOS_WPT, bool L84_WPT, bool depthBasedAStar, string filename, double LatOrigin, double LongOrigin);
+        bool runA_Star(bool yes_print, bool L84_WPT, string filename, double LatOrigin, double LongOrigin) {return runA_Star(yes_print,false,L84_WPT, true, filename, LatOrigin,LongOrigin); }// Boolean for std out and L84
+        bool runA_Star(bool yes_print, bool MOOS_WPT, string filename) {return runA_Star(yes_print,MOOS_WPT,false,true,filename, 0,0); } // Boolean for std out and MOOS
+        bool runA_Star(bool yes_print, bool depthBasedAStar) {return runA_Star(yes_print,false,false, depthBasedAStar, "", 0,0); } // Boolean for std out
+        bool runA_Star(bool yes_print) {return runA_Star(yes_print,false,false, true, "", 0,0); } // Boolean for std out
+        bool runA_Star() {return runA_Star(true,false,false,true, "", 0,0); }// just to std out
 	
 	// This function marks the route on the map
 	string markRoute(vector<int> route);
@@ -198,12 +199,12 @@ public:
 
 	// Use your own map from a csv file that contains the grid
 	void build_map(string filename);
-	void build_map(string filename, int x_min, int x_max, int y_min, int y_max); // Builds master map and then only uses subset of map for A*
+        void build_map(string filename, int xMin, int xMax, int y_min, int yMax); // Builds master map and then only uses subset of map for A*
 
 	// Set Occupancy Grid
-        void setMap(vector<vector<int> > MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); }
+        void setMap(vector<vector<double> > MAP) {Map=MAP; FullMap=MAP; n=MAP.size(); m=MAP[0].size(); setGridXYBounds(0,m,0,n); }
         void setMapFromTiff(string tiff_filename);
-        vector<vector<int> > getMap() {return Map;}
+        vector<vector<double> > getMap() {return Map;}
 
 	// Use a subset of the map for the A* search
 	void subsetMap(int xmin, int xmax, int ymin, int ymax);
@@ -233,20 +234,26 @@ public:
         void setFinish_Grid(int x, int y) {xFinish = x; yFinish = y; }
         void setStartFinish_Grid(int x1, int y1, int x2, int y2)  {setStart_Grid(x1,y1); setFinish_Grid(x2, y2); }
 
+        // These functions set the start and finsh coordinates (in the UTM)
+        void setStart_UTM(double x, double y) {int gridX,gridY; xy2grid(x,y,gridX,gridY); xStart = gridX; yStart = gridY; }
+        void setFinish_UTM(double x, double y) {int gridX,gridY; xy2grid(x,y,gridX,gridY); xFinish = gridX; yFinish = gridY; }
+        void setStartFinish_UTM(double x1, double y1, double x2, double y2)  {setStart_UTM(x1,y1); setFinish_UTM(x2, y2); }
+
+
         // These functions set the start and finsh coordinates (in the local UTM)
-        void setStart(double x, double y) {int gridX,gridY; xy2grid(x,y,gridX,gridY); xStart = gridX; yStart = gridY; }
-        void setFinish(double x, double y) {int gridX,gridY; xy2grid(x,y,gridX,gridY); xFinish = gridX; yFinish = gridY; }
-        void setStartFinish(double x1, double y1, double x2, double y2)  {setStart(x1,y1); setFinish(x2, y2); }
+        void setStart_LatLong(double lat, double lon) {int gridX,gridY; LatLong2grid(lat,lon,gridX,gridY); xStart = gridX; yStart = gridY; }
+        void setFinish_LatLong(double lat, double lon) {int gridX,gridY; LatLong2grid(lat,lon,gridX,gridY); xFinish = gridX; yFinish = gridY; }
+        void setStartFinish_LatLong(double lat1, double lon1, double lat2, double lon2)  {setStart_LatLong(lat1,lon1); setFinish_LatLong(lat2, lon2); }
 
 	// Check to see if the start/finish waypoints are valid
 	void checkStart();
 	void checkFinish();
         void checkStartFinish() {checkStart(); checkFinish(); }
 
-	// Set the depth cutoff (in centimeters) for being classified as an obstacle
-        void setDepthCutoff(int depthCutoff) {depth_cutoff = depthCutoff; }
-        int getDepthCutoff() {return depth_cutoff; }
-        int calcDepthCost(int wptX,int wptY, int i);
+        // Set the depth cutoff (in meters) for being classified as an obstacle
+        void setDepthCutoff(double depthCutoff) {depth_cutoff = depthCutoff; }
+        double getDepthCutoff() {return depth_cutoff; }
+        double calcDepthCost(int wptX,int wptY, int i);
 
 	// Set the tide
         void setTide(double Tide) {tide=Tide; setDepthCutoff(depth_cutoff+Tide); }
@@ -260,7 +267,7 @@ public:
 	// Return Vessel dimensions
         Vessel_Dimensions getVesselMeta() {return ShipMeta; }
         void setShipMeta(Vessel_Dimensions meta) {ShipMeta = Vessel_Dimensions(meta.getLength(), meta.getWidth(), meta.getDraft(), meta.getTurnRadius()); setDepthCutoff(calcMinDepth()); }
-	int calcMinDepth();
+        double calcMinDepth();
 
 	// Set desired speed
 	void setDesiredSpeed();
@@ -270,10 +277,14 @@ public:
 	// Output .moos file
 	void buildMOOSFile(string filename, string WPTs);
 
-	// Functions to convert to/from the grid world
+        // Functions to convert to/from the grid world
         void xy2grid(double x, double y, int &gridX, int &gridY) {gridX = static_cast<int>(round((x-xTop)/grid_size)- x_min); gridY = static_cast<int>(round((y-yTop)/grid_size)- y_min); }
-        void grid2xy(int gridX, int gridY, double &x, double &y) {x = (gridX+x_min)*grid_size+ xTop; y = (gridY+y_min)*grid_size+ yTop; }
+        void grid2xy(int gridX, int gridY, double &x, double &y) {x = (gridX+x_min)*grid_size+ xTop+2.5; y = (gridY+y_min)*grid_size+ yTop+2.5; }
         void row_major_to_2D(int index, double &gridX, double &gridY, int numCols);
+
+        // Function to convert lat long to either grid world or UTM
+        void LatLong2grid(double lat, double lon, int &gridX, int &gridY) {double x,y; LatLong2UTM(lat, lon, x,y); xy2grid(x,y,gridX, gridY); }
+        void LatLong2UTM(double lat, double lon, double &x, double &y) {Geodesy geod = Geodesy(lat, lon); x=geod.getXOrigin(); y=geod.getYOrigin(); }
 
 	void getNM() {cout << Map.size() << ", " << Map[0].size() << endl; }
         string getRoute() {return Route; }
@@ -284,15 +295,15 @@ protected:
 	int xStart, yStart, xFinish, yFinish;
 	int n, m, num_directions;
 	double grid_size, xTop, yTop;
-	int x_min, x_max, y_min, y_max;
+        int x_min, x_max, y_min, y_max;
 	double tide;
 	double desired_speed;
 	Vessel_Dimensions ShipMeta;
-	int depth_cutoff; //in Centimeters
+        double depth_cutoff; //in meters
 	vector<int> dx, dy;
-        vector<vector<int> > Map;
-        vector<vector<int> > FullMap;
-	vector<vector<int> > Map2print;
+        vector<vector<double> > Map;
+        vector<vector<double> > FullMap;
+        vector<vector<int> > Map2print;
 };
 
 bool operator<(Node& lhs, Node& rhs);

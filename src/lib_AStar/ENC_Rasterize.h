@@ -1,7 +1,10 @@
 #ifndef ENC_RASTERIZE_H
 #define ENC_RASTERIZE_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <string>
+#include <cstring>
 #include <vector>
 #include <iostream>
 #include <cmath>
@@ -13,22 +16,27 @@
 #include "gdal_utils.h" // GDALRasterize
 #include "cpl_conv.h" // for CPLMalloc()
 #include "geodesy.h"
-#include "gridinterp.h"
-#include "gdal_utils.h"
+
+#include "cpl_string.h"
+//#include "/home/sreed/gdal/apps/gdal_rasterize_lib.cpp"
+
+using namespace std;
 
 class ENC_Rasterize
 {
 public:
-    ENC_Rasterize(string filename, string MOOSPath);
+    ENC_Rasterize(string MOOSPath, string filename, char * minX, char * minY, char * maxX, char * maxY) {}
+    ENC_Rasterize(string MOOSPath, string filename);
     ~ENC_Rasterize() {GDALClose(ds);}
 
-    void run(int nXSize, int nYSize, string georef_extent);
+    void rasterize(string rasterpath, double grid_size, char *attribute);
+    char* string2CharStar(string str);
+    char* double2CharStar(double value);
 
 private:
-    string rasterfile, MOOS_Path;
+    string rasterfile, MOOS_Path, InputFileName;
     GDALDataset *ds;
-    OGRLayer *layer;
-    OGRFeatureDefn *feat_def;
+    char *xMin, *yMin, *xMax, *yMax;
 
 
 };

@@ -175,7 +175,7 @@ void ENC_Polygonize::runWithGrid(string ENC_Name, double grid_size, double buffe
 {
     cout << "Gridding..." << endl;
     // Build the gridded ENC
-    Grid_Interp grid = Grid_Interp(MOOS_PATH, ENC_Name, grid_size, buffer_size, MHW_offset, simpleGrid);
+    Grid_Interp grid = Grid_Interp(MOOS_PATH, ENC_Name, grid_size, buffer_size, MHW_offset, simpleGrid, true);
     grid.Run(false);
     landZ = grid.getLandZ()/100;
     oSRS = geod.getUTM();

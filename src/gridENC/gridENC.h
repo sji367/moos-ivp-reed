@@ -5,10 +5,10 @@
 #include <stdlib.h> // for atoi and atof (string to double/int)
 #include <algorithm> // for max_element and sort
 #include "gdal_frmts.h" // for GDAL/OGR
-//#include <ogrsf_frmts.h> // OGRLayer
-#include "geodesy.h"
-#include "ENC_Rasterize.h"
-//#include "gdal_alg.h"
+#include <ogrsf_frmts.h> // OGRLayer
+#include "geodesy.h" // for latlong2UTM conversions
+#include "ENC_Rasterize.h" // For my rasterize class
+#include "gdal_alg.h"
 #include <math.h>
 
 #include "gdal_alg_priv.h"
@@ -26,16 +26,14 @@
 
 using namespace std;
 
-#ifndef GRIDINTERP_H
-#define GRIDINTERP_H
+#ifndef GRIDENC_H
+#define GRIDENC_H
 
-class Grid_Interp
+class GridENC
 {
 public:
-    Grid_Interp();
-    Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, bool SimpleGrid, bool CATZOC_poly);
-    Grid_Interp(string MOOS_path, string ENC_Name, double buffer_dist, double MHW_offset, bool SimpleGrid, bool CATZOC_poly);
-    ~Grid_Interp() {}
+    GridENC(string MOOS_path, string ENC_Name, double buffer_dist, double gridSize, double search_radius, double MHW_offset, bool SimpleGrid, bool CATZOC_poly);
+    ~GridENC() {}
 
     // Initialize Geodesy
     void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
@@ -53,6 +51,7 @@ public:
 
     void rasterizeSHP(string outfilename, string infilename, string attribute);
     void store_vertices(OGRPolygon *UTM_Poly, double z);
+    void store_vertices(OGRLineString *UTM_line, double z);
     void raster2XYZ(vector<double>&RasterData, int nXSize);
     void storePoint(double x, double y, double z, bool WL_flag);
     void storePoint(double x, double y, double z) {storePoint(x,y,z, false);}
@@ -61,8 +60,6 @@ public:
     void getRasterData(string filename, int &nXSize, int &nYSize, vector<int>&RasterData);
     void writeRasterData(string filename, int nXSize, int nYSize, vector<double> &RasterData);
     void writeRasterData_int(string filename, int nXSize, int nYSize, vector<int>&RasterData);
-
-    void Rasterize(string filename, int nXSize, int nYSize);
 
     void layer2XYZ(OGRLayer* layer, string layerName);
     void multipointFeat(OGRFeature* feat, OGRGeometry* geom);
@@ -105,9 +102,7 @@ public:
     double getLandZ() {return landZ; }
 
     void setGridSize2Default(GDALDataset *ds);
-
     char* string2CharStar(string str);
-
 
 private:
     Geodesy geod;
@@ -117,9 +112,9 @@ private:
     vector<double> griddedData;
     vector <vector<double> > Map;
     double minX, minY, maxX, maxY;
-    double grid_size;
+    double grid_size, buffer_size;
     double MHW_Offset, landZ, CATZOC_z;
-    double buffer_size;
+    double searchRadius;
     GDALDataset *ds_poly, *ds_pnt, *ds_depth, *ds_outline;
     OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;
     OGRFeatureDefn *feat_def_poly, *feat_def_pnt, *feat_def_depth, *feat_def_outline;
@@ -129,5 +124,4 @@ private:
 
 };
 
-#endif // GRIDINTERP_H
-
+#endif // GRIDENC_H
