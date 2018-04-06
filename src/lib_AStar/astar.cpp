@@ -61,7 +61,7 @@ A_Star::A_Star()
   yTop = -12439; // value for the US5NH02M ENC
   setStart_Grid(0,0);
   setFinish_Grid(0,0);
-  depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
+  depth_cutoff = 3; // Depths of more than 1 meter below MLLW are considered obstacles
   tide = 0;
   grid_size=5;
   setGridXYBounds(0,0,0,0);
@@ -74,7 +74,7 @@ A_Star::A_Star(int connecting_dist)
   yTop = -12439; // value for the US5NH02M ENC
   setStart_Grid(0,0);
   setFinish_Grid(0,0);
-  depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
+  depth_cutoff = 3; // Depths of more than 1 meter below MLLW are considered obstacles
   tide = 0;
   grid_size=5;
   setGridXYBounds(0,0,0,0);
