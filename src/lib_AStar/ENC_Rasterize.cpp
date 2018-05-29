@@ -1,16 +1,31 @@
 #include "ENC_Rasterize.h"
 
-ENC_Rasterize::ENC_Rasterize(string MOOSPath, string filename)//, char *minX, char *minY, char *maxX, char *maxY)
+ENC_Rasterize::ENC_Rasterize(string MOOSPath, string filename, double minX, double minY, double maxX, double maxY)
 {
     MOOS_Path = MOOSPath;
     GDALAllRegister();
     InputFileName = filename;
-    string full_Filename = MOOS_Path+filename;
-    ds = (GDALDataset*) GDALOpenEx( full_Filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
-//    xMin = minX;//string2CharStar(minX);
-//    xMax = maxX;//string2CharStar(maxX);
-//    yMin = minY;//string2CharStar(minY);
-//    yMax = maxY;//string2CharStar(maxY);
+    string fullSHP_Filename = MOOS_Path+filename;
+    ds_shp = (GDALDataset*) GDALOpenEx( fullSHP_Filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+    XMin = (minX);
+    XMax = (maxX);
+    YMin = (minY);
+    YMax = (maxY);
+    georef = true;
+}
+
+ENC_Rasterize::ENC_Rasterize(string MOOSPath, string filename)
+{
+    MOOS_Path = MOOSPath;
+    GDALAllRegister();
+    InputFileName = filename;
+    string fullSHP_Filename = MOOS_Path+filename;
+    ds_shp = (GDALDataset*) GDALOpenEx( fullSHP_Filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+    XMin = 0;
+    XMax = 0;
+    YMin = 0;
+    YMax = 0;
+    georef = false;
 }
 
 /* This function takes in the desired grid size and the path for the output tiff file. Currently all
@@ -20,16 +35,29 @@ ENC_Rasterize::ENC_Rasterize(string MOOSPath, string filename)//, char *minX, ch
  *          grid_size - desired resolution of the raster
  *          rasterfile - path of the newly raster file (not including the MOOS_Path)
  *          attribute - attribute of the shp file that should be used as z
+ *          dtype - data type for the outputed tiff
  */
-void ENC_Rasterize::rasterize(string rasterpath, double grid_size, char* attribute)
+void ENC_Rasterize::rasterize(string rasterpath, double grid_size, char* attribute, char* dtype)
 {
-    char *resolution_str;
+    GDALDatasetH ds_tiff; // dataset for the tiff (Will return this. Need to be able to close it so it can save.)
+    char *resolution_str, *xMin, *yMin, *xMax, *yMax;
+    //string rasterpath = MOOS_Path+"src/ENCs/Grid/"+rasterfilename;
 
-    cout << "Starting to rasterize " << InputFileName << " as " << rasterpath << "." << endl;
-
-    // Convert the grid size and EPSG code to a char*.
+    // Convert the grid size and grid bounds code to a char*.
+    // Allocate the size of the char*
     resolution_str = (char*)malloc(sizeof(grid_size)+1);
+    xMin = (char*)malloc(sizeof(XMin)+1);
+    yMin = (char*)malloc(sizeof(YMin)+1);
+    xMax = (char*)malloc(sizeof(XMax)+1);
+    yMax = (char*)malloc(sizeof(YMax)+1);
+
+    // Convert the double into a char*
     sprintf(resolution_str,"%f",grid_size);
+    sprintf(xMin,"%f",XMin);
+    sprintf(yMin,"%f",YMin);
+    sprintf(xMax,"%f",XMax);
+    sprintf(yMax,"%f",YMax);
+
 
     // Create the list of options. Use the same as found on the command line gdal_rasterize utility
     //  http://www.gdal.org/gdal_rasterize.html
@@ -38,38 +66,33 @@ void ENC_Rasterize::rasterize(string rasterpath, double grid_size, char* attribu
                                    //   updated, not just those whose center point is within the polygon)
                             "-a_nodata", "-10", // Set the value to be used if there is no data
                             "-tr", resolution_str, resolution_str, // Set the X and Y resolution (grid size)
-                            "-ot", "Float64", // Set the output type (in this case we are using double)
-                            "-a", attribute // Set which attribute you want to use to determines the raster's value
-                            //"-te", xMin, yMin, xMax, yMax // Set the X,Y bounds of the raster (i.e. touched extent)
+                            "-ot", dtype, // Set the output type (in this case we are using double)
+                            "-a", attribute,  // Set which attribute you want to use to determines the raster's value
+                            "-te", xMin, yMin, xMax, yMax, // Set the X,Y bounds of the raster (i.e. touched extent)
+                            nullptr // Need to add a null pointer to the end to tell the options that you are finished
                        };
 
-    // cout << CSLCount(options) << endl;
     GDALRasterizeOptions *Options = GDALRasterizeOptionsNew(options, NULL);
 
-    // Create the new raster in the location given in rasterfile
-    rasterfile = MOOS_Path+rasterpath;
-    GDALRasterize(rasterfile.c_str(), NULL, ds, Options, NULL);
+    cout << "Starting to rasterize " << InputFileName << " as " << rasterpath << "." << endl;
+    //cout << rasterpath << endl;
+
+    ds_tiff = GDALRasterize(rasterpath.c_str(), NULL, ds_shp, Options, NULL);
+
+    cout << "\t" << rasterpath << " was sucessfully rasterized." << endl << endl;
 
     GDALRasterizeOptionsFree(Options);
-
-    cout << rasterpath << " was sucessfully rasterized." << endl;
+    GDALClose(ds_tiff);
 }
 
-char* ENC_Rasterize::string2CharStar(string str)
+// This function takes the inputted double, converts it to a char* and returns it.
+char* ENC_Rasterize::double2charStar(double input)
 {
-//    char *output = new char[input.size() + 1];
-//    copy(input.begin(), input.end(), output);
-//    output[input.size()] = '\0';
+    // Allocate the size of the char*
+    char* output = (char*)malloc(sizeof(input)+1);
 
-    vector<char> v(str.begin(), str.end());
-    char* output = &v[0];
+    // Convert to Char*
+    sprintf(output,"%f",input);
+
     return output;
-}
-
-char* ENC_Rasterize::double2CharStar(double value)
-{
-    char* str;
-    str = (char*)malloc(sizeof(value)+1);
-    sprintf(str,"%f",value);
-    return str;
 }

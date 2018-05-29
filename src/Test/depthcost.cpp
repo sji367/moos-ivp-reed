@@ -35,6 +35,7 @@ int calcAveDepth(vector<vector<int> > &grid, int wptX,int wptY, int i)
     NeighborsMask(3, dx, dy);
 
     double M, alpha, beta;
+    int depth_cutoff = 0;
 
     int x1,y1,x2,y2;
     int accumDepth=0;
@@ -84,7 +85,11 @@ int calcAveDepth(vector<vector<int> > &grid, int wptX,int wptY, int i)
             beta = abs(fmod(M, 1.0));
             alpha = 1-beta;
 
-            printf("%d, %0.2f -> %0.2f * G[%i][%i] + %0.2f * G[%i][%i]\n", index,M,alpha, wptY+y1, wptX+x1,beta,wptY+y2, wptX+x2);
+            //printf("%d, %0.2f -> %0.2f * G[%i][%i] + %0.2f * G[%i][%i]\n", index,M,alpha, wptY+y1, wptX+x1,beta,wptY+y2, wptX+x2);
+
+            // Make sure than neither of the two cells that you are passing through have a
+            //if ((grid[wptY+y1][wptX+x1] < depth_cutoff)||grid[wptY+y2][wptX+x2] < depth_cutoff)
+                //return;
 
             // If you are not at the last cell, then average the two cells and store that value. Otherwise store the value for the final cell.
             if (index!=farestPoint_in_XY)

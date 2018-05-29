@@ -58,7 +58,7 @@ public:
     void storePoint(double x, double y, double z) {storePoint(x,y,z, false);}
 
     void getRasterData(string filename, int &nXSize, int &nYSize, vector<double>&RasterData);
-    void getRasterData(string filename, int &nXSize, int &nYSize, vector<int>&RasterData);
+    void getRasterData_int(string filename, int &nXSize, int &nYSize, vector<int>&RasterData);
     void writeRasterData(string filename, int nXSize, int nYSize, vector<double> &RasterData);
     void writeRasterData_int(string filename, int nXSize, int nYSize, vector<int>&RasterData);
 
@@ -106,8 +106,14 @@ public:
 
     void setGridSize2Default(GDALDataset *ds);
 
-    char* string2CharStar(string str);
-
+//    #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
+//      #include <windows.h>
+//      inline void delay( unsigned long ms ){Sleep( ms );}
+//
+//    #else  // presume POSIX
+//      #include <unistd.h>
+//      inline void delay( unsigned long ms ){usleep( ms * 1000 );}
+//    #endif
 
 private:
     Geodesy geod;

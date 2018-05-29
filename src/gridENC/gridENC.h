@@ -102,7 +102,6 @@ public:
     double getLandZ() {return landZ; }
 
     void setGridSize2Default(GDALDataset *ds);
-    char* string2CharStar(string str);
 
 private:
     Geodesy geod;

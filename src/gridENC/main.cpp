@@ -104,8 +104,9 @@ int main(int argc, char **argv){
                                        simpleGrid,
                                        CATZOC_poly);
 
+
         // I don't think csv or .mat options are available.
-        grid.Run(false,true);//(true, true); // Boleans are t/f build a .csv or .mat files for each raster
+        grid.Run(false);//(true, true); // Boleans are t/f build a .csv or .mat files for each raster
 
         return 0;
     }

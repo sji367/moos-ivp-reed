@@ -24,10 +24,19 @@ int main(int argc, char* argv[])
     poDriver = GetGDALDriverManager()->GetDriverByName(pszDriverName );
     GDALDataset *ds_grid;
     OGRLayer *GridLayer;
+    double buff_size = calcBuffer(4, 1.8, 1.0);
+    double grid_size = 5;
 
+    //Grid_Interp(string MOOS_path, string ENC_Filename, double buffer_dist, double MHW_offset, double lat, double lon, bool SimpleGrid);
+    string ENC_Name = "US3EC10M"; //"US5NH02M";
+    Grid_Interp grid = Grid_Interp("", ENC_Name, grid_size, 2.735, LatOrigin, LongOrigin, false);
+    grid.Run(false);
+
+    return 0;
+    /*
     // Build the grid and interp. Then make a binary grid (based on the desired minimum depth)and polygonize it
-    ENC_Polygonize polygonize = ENC_Polygonize("", "new.tiff", "raster.shp",geod, m_MHW_Offset);
-    polygonize.runWithGrid("US3EC10M",100, calcBuffer(4, 1.8, 1.0), m_MHW_Offset, true);//US5NH02M
+    ENC_Polygonize polygonize = ENC_Polygonize("", "PostProcess"+ ENC_Name +".tiff", "raster.shp",geod, m_MHW_Offset);
+    polygonize.runWithGrid("US5NH02M",grid_size, buff_size, m_MHW_Offset, true);//US3EC10M
     polygonize.closeDS();
 
     string gridFilename = "src/ENCs/Grid/raster.shp";
@@ -39,7 +48,7 @@ int main(int argc, char* argv[])
         exit( 1 );
     }
     return 0;
-    /*
+
     if (argc != 3)
     {
         printf("%s %s %s\n", argv[0], argv[1], argv[2]);

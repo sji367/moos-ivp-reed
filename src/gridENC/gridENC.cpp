@@ -2,23 +2,24 @@
 
 GridENC::GridENC(string MOOS_path, string ENC_Name, double buffer_dist, double gridSize, double search_radius, double MHW_offset, bool SimpleGrid, bool CATZOC_poly)
 {
-  geod = Geodesy();
-  grid_size = gridSize;
-  ENC_name = ENC_Name;
-  ENC_filename = "src/ENCs/"+ENC_name+"/"+ENC_name+".000";
-  MOOS_Path = ENC_name+"/";
-  searchRadius = search_radius;
-  buffer_size = buffer_dist;
-  MHW_Offset = MHW_offset;
-  minX = 0;
-  minY = 0;
-  maxX = 0;
-  maxY = 0;
-  landZ = -(MHW_offset+2);
-  simpleGrid = SimpleGrid;
-  CATZOC_z = -7.5;
-  CATZOC_polys = CATZOC_poly;
-  cout << landZ<< " " << MHW_Offset << " " <<MHW_offset << endl;
+    cout << "here" << endl;
+    geod = Geodesy();
+    grid_size = gridSize;
+    ENC_name = ENC_Name;
+    ENC_filename = "src/ENCs/"+ENC_name+"/"+ENC_name+".000";
+    MOOS_Path = ENC_name+"/";
+    searchRadius = search_radius;
+    buffer_size = buffer_dist;
+    MHW_Offset = MHW_offset;
+    minX = 0;
+    minY = 0;
+    maxX = 0;
+    maxY = 0;
+    landZ = -(MHW_offset+2);
+    simpleGrid = SimpleGrid;
+    CATZOC_z = -7.5;
+    CATZOC_polys = CATZOC_poly;
+    cout << landZ<< " " << MHW_Offset << " " <<MHW_offset << endl;
 }
 
 void GridENC::buildLayers()
@@ -43,7 +44,7 @@ void GridENC::buildLayers()
     layer_poly = ds_poly->CreateLayer( "poly", NULL, wkbPolygon25D, NULL );
     if( layer_poly == NULL )
     {
-        printf( "Layer creation failed.\n" );
+        printf( "poly Layer creation failed.\n" );
         exit( 1 );
     }
     // Create the field
@@ -66,7 +67,7 @@ void GridENC::buildLayers()
     layer_pnt = ds_pnt->CreateLayer( "point", NULL, wkbPoint25D, NULL );
     if( layer_pnt == NULL )
     {
-        printf( "Layer creation failed.\n" );
+        printf( "line Layer creation failed.\n" );
         exit( 1 );
     }
     // Create the field
@@ -83,14 +84,14 @@ void GridENC::buildLayers()
     ds_depth = poDriver->Create(depthPath.c_str(), 0, 0, 0, GDT_Unknown, NULL );
     if( ds_depth == NULL )
     {
-        printf( "Creation of output file failed.\n" );
+        printf( "Creation of DA file failed.\n" );
         exit( 1 );
     }
     // Create the layer
     layer_depth = ds_depth->CreateLayer( "depth", NULL, wkbPolygon25D, NULL );
     if( layer_depth == NULL )
     {
-        printf( "Layer creation failed.\n" );
+        printf( "DA Layer creation failed.\n" );
         exit( 1 );
     }
     // Create the field
@@ -114,7 +115,7 @@ void GridENC::buildLayers()
     layer_outline = ds_outline->CreateLayer( "outline", NULL, wkbPolygon25D, NULL );
     if( layer_outline == NULL )
     {
-        printf( "Layer creation failed.\n" );
+        printf( "outline Layer creation failed.\n" );
         exit( 1 );
     }
     // Create the field
@@ -133,17 +134,6 @@ void GridENC::setGridSize2Default(GDALDataset *ds)
 {
     grid_size = ds->GetLayerByName("DSID")->GetFeature(0)->GetFieldAsInteger("DSPM_CSCL")/4000.0;
     cout << "Grid size = " << grid_size << endl;
-}
-
-char* GridENC::string2CharStar(string str)
-{
-//    char *output = new char[input.size() + 1];
-//    copy(input.begin(), input.end(), output);
-//    output[input.size()] = '\0';
-
-    vector<char> v(str.begin(), str.end());
-    char* output = &v[0];
-    return output;
 }
 
 // This function creates a grid from the soundings, land areas, rocks, wrecks, depth areas
@@ -198,20 +188,19 @@ void GridENC::Run(bool csv, bool mat)
     GDALClose(ds_pnt);
 
     // Rasterize the polygon, point, outline and depth area layers
-    ENC_Rasterize polygon_Tiff = ENC_Rasterize(MOOS_Path, "polygon.shp", string2CharStar(to_string(minX+geod.getXOrigin())),
-                                               string2CharStar(to_string(minY+geod.getYOrigin())), string2CharStar(to_string(maxX+geod.getXOrigin())),
-                                               string2CharStar(to_string(maxY+geod.getYOrigin())));
-//    ENC_Rasterize depthArea_Tiff = ENC_Rasterize(MOOS_Path, "depth_area.shp", to_string(minX+geod.getXOrigin()),
-//                                                 to_string(minY+geod.getYOrigin()), to_string(maxX+geod.getXOrigin()), to_string(maxY+geod.getYOrigin()));
-//    ENC_Rasterize outline_Tiff = ENC_Rasterize(MOOS_Path, "outline.shp", to_string(minX+geod.getXOrigin()),
-//                                               to_string(minY+geod.getYOrigin()), to_string(maxX+geod.getXOrigin()), to_string(maxY+geod.getYOrigin()));
-//    ENC_Rasterize point_Tiff = ENC_Rasterize(MOOS_Path, "point.shp", to_string(minX+geod.getXOrigin()),
-//                                             to_string(minY+geod.getYOrigin()), to_string(maxX+geod.getXOrigin()), to_string(maxY+geod.getYOrigin()));
+    ENC_Rasterize polygon_Tiff = ENC_Rasterize(MOOS_Path, "polygon.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                               maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
+    ENC_Rasterize depthArea_Tiff = ENC_Rasterize(MOOS_Path, "depth_area.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                                 maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
+    ENC_Rasterize outline_Tiff = ENC_Rasterize(MOOS_Path, "outline.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                               maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
+    ENC_Rasterize point_Tiff = ENC_Rasterize(MOOS_Path, "point.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                             maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
 
-    polygon_Tiff.rasterize("polygon.tiff", (grid_size), "Depth");
-//    depthArea_Tiff.rasterize("depth_area.tiff", (grid_size), "Depth");
-//    outline_Tiff.rasterize("outline.tiff", (grid_size), "Inside_ENC");
-//    point_Tiff.rasterize("point.tiff", (grid_size), "Depth");
+    polygon_Tiff.rasterize("polygon.tiff", (grid_size), "Depth", "Float64");
+    depthArea_Tiff.rasterize("depth_area.tiff", (grid_size), "Depth", "Float64");
+    outline_Tiff.rasterize("outline.tiff", (grid_size), "Inside_ENC", "Int32");
+    point_Tiff.rasterize("point.tiff", (grid_size), "Depth", "Float64");
 
     cout << "rasterized" << endl;
 
@@ -296,7 +285,7 @@ void GridENC::updateMap(vector<double> &poly_data, vector<double> &depth_data, v
             row_major2grid(i, x, y, x_res);
 
             // Make sure that the datapoint is inside of the ENC
-            if (abs(outline_data[rasterIndex]-1) <0.1)
+            if (outline_data[rasterIndex] == 1)
             {
                 // Check to see if the index is on land.
                 if (poly_data[rasterIndex] == landZ)

@@ -21,8 +21,9 @@ double Node::depthCost(double dist)
 {
     double depth_threshold = 15;
     double depth_cost = 0;
+    double weight = 0.11;
     if (depth < depth_threshold)
-        depth_cost = costMultiplier*dist*(depth_threshold-depth);
+        depth_cost = weight*dist*(depth_threshold-depth);
 
     return depth_cost;
 }
@@ -68,7 +69,6 @@ A_Star::A_Star()
     setGridXYBounds(0,0,0,0);
     NeighborsMask(8); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
 }
 
 A_Star::A_Star(int connecting_dist)
@@ -79,47 +79,28 @@ A_Star::A_Star(int connecting_dist)
     yTop = -12439; // value for the US5NH02M ENC
     setStart_Grid(0,0);
     setFinish_Grid(0,0);
-    depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
+    depth_cutoff = 3; // Depths of more than 3 meter below MLLW are considered obstacles
     tide = 0;
     grid_size=5;
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
 }
 
-A_Star::A_Star(double gridSize, double depthCutoff, double CostMultiplier, int connecting_dist)
+A_Star::A_Star(double gridSize, double TopX, double TopY, int connecting_dist)
 {
+    xTop = TopX;
+    yTop = TopY;
     startSet = false;
     finishSet = false;
-    xTop = 0;
-    yTop = 0;
     setStart_Grid(0,0);
     setFinish_Grid(0,0);
-    depth_cutoff = depthCutoff; // Depths of more than depthCutoff meters below MLLW are considered obstacles
+    depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
     tide = 0;
     grid_size=gridSize;
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = CostMultiplier;
-}
-
-A_Star::A_Star(double gridSize, double depthCutoff, int connecting_dist)
-{
-    startSet = false;
-    finishSet = false;
-    xTop = 0;
-    yTop = 0;
-    setStart_Grid(0,0);
-    setFinish_Grid(0,0);
-    depth_cutoff = depthCutoff; // Depths of more than depthCutoff meters below MLLW are considered obstacles
-    tide = 0;
-    grid_size=gridSize;
-    setGridXYBounds(0,0,0,0);
-    NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
-    setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
 }
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connecting_dist)
@@ -136,7 +117,6 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connectin
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
 }
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist)
@@ -153,7 +133,6 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSi
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
 }
 
 /*
@@ -569,7 +548,7 @@ string A_Star::AStar_Search(bool depthBasedAStar)
     priority_queue<Node, vector<Node>, less<Node>> frontier;
 
     // Start node
-    n0 = Node(xStart, yStart, getMapValue(xStart, yStart), 0,grid_size, costMultiplier);
+    n0 = Node(xStart, yStart, getMapValue(xStart, yStart), 0,grid_size);
     n0.updatePriority(xFinish,yFinish);
     n0.setShipMeta(ShipMeta);
     frontier.push(n0);
@@ -618,7 +597,7 @@ string A_Star::AStar_Search(bool depthBasedAStar)
                   {
                     // Build the new node
                     child = Node(new_x, new_y, depth_cost,
-                                 n0.getCost(), grid_size, costMultiplier);
+                                 n0.getCost(), grid_size);
                     child.setShipMeta(ShipMeta);
                     //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
 
@@ -993,9 +972,8 @@ double A_Star::getMapValue(int xIndex, int yIndex)
     // If there is no subset the value at the inputted index if it is inside the Map
     if (!mapSubsetFlag)
     {
-        if ((xIndex>x_min)&&(yIndex>y_min)&&(xIndex<x_max)&&(yIndex<y_max))
+        if ((xIndex>x_min)||(yIndex>y_min)||(xIndex<x_max)||(yIndex<y_max))
         {
-            //cout << xIndex << ", " << yIndex << " --> " << FullMap[xIndex][yIndex] << endl;
             return FullMap[xIndex][yIndex];
         }
 
@@ -1003,17 +981,17 @@ double A_Star::getMapValue(int xIndex, int yIndex)
         //  is printed on the std out.
         else
         {
-            if ((xIndex>x_max)||(xIndex<x_min))
-                cout << "ERROR: The inputted X index (" <<xIndex<<") was out of spec. Please make sure to input valid indices [" << x_min << " " << x_max <<"]. (Now returning -10)" << endl;
-            if ((yIndex>y_max)||(yIndex<y_min))
-                cout << "ERROR: The inputted Y index (" <<yIndex<<") was out of spec. Please make sure to input valid indices [" << y_min << " " << y_max <<"]. (Now returning -10)" << endl;
+            if ((xIndex>0)||(xIndex+subsetXmin<subsetXmax))
+                cout << "ERROR: The inputted X index was out of spec. Please make sure to input valid indices. (Now returning -10)" << endl;
+            if ((yIndex>0)||(yIndex+subsetYmin<subsetYmax))
+                cout << "ERROR: The inputted Y index was out of spec. Please make sure to input valid indices. (Now returning -10)" << endl;
 
             return -10;
         }
     }
     else
     {
-        if ((xIndex>0)&&(yIndex>0)&&(xIndex+subsetXmin<subsetXmax)&&(yIndex+subsetYmin<subsetYmax))
+        if ((xIndex>0)||(yIndex>0)||(xIndex+subsetXmin<subsetXmax)||(yIndex+subsetYmin<subsetYmax))
         {
             return FullMap[xIndex+subsetXmin][yIndex+subsetYmin];
         }
@@ -1049,7 +1027,7 @@ void A_Star::resetStartFinish_subset()
     {
         if (startSet)
         {
-            cout << "re-inializing start to subset." << endl;
+            cout << "re-inializing start position to subset." << endl;
             xStart -= subsetXmin;
             yStart -= subsetYmin;
             // Reset the flag so this doesnt occur more than once
@@ -1068,7 +1046,7 @@ void A_Star::resetStartFinish_subset()
 
 void A_Star::setMapFromTiff(string tiff_filename)
 {
-    int nXSize, nYSize;
+    int nXSize, nYSize, gridIndex;
     double x,y;
     GDALDataset  *poDataset;
     GDALRasterBand *poRasterBand;
@@ -1116,30 +1094,20 @@ void A_Star::setMapFromTiff(string tiff_filename)
     // Since we need to transpose the coordinates, we need to store the TIFF's lower y coordinate not upper y coordinate
     yTop = adfGeoTransform[3]+(1.0*nYSize)*adfGeoTransform[5];
 
-    // Now flip the Y axis
+    // Now flip the Y axis, transpose the TIFF, and convert it to a int (meters -> cm)
     FullMap.clear();
-    FullMap.resize(nXSize, vector<double> (nYSize,0));
-    // RasterData is stored left to right top to bottom
-    for (int rasterIndex=0; rasterIndex<RasterData.size(); rasterIndex++)
+    FullMap.resize(nYSize, vector<double> (nXSize,0));
+    for (int i=0; i<RasterData.size(); i++)
     {
-        x = rasterIndex%nXSize; // Store left to right
-        y = (nYSize-1)-(rasterIndex-x)/nXSize; // Convert from top to bottom -> bottom to top (i.e. Transpose)
-        FullMap[x][y] = RasterData[rasterIndex];
+        row_major_to_2D(i, x, y, nYSize);
+        gridIndex = (nYSize-1 - x)*nXSize +y;
+        FullMap[x][y] = RasterData[gridIndex];
     }
 
-    n=nXSize;
     m=nYSize;
+    n=nXSize;
     x_max = n;
     y_max = m;
-
-//    for (int x1=0; x1<nXSize; x1++)
-//    {
-//        for (int y1= 0; y<nYSize; y1++)
-//        {
-//            cout << x1 << ", " << y1 << endl;//S << " --> " << getMapValue(x1,y1) << endl;
-//            //double temp = getMapValue(x,y);
-//        }
-//    }
 }
 
 void A_Star::row_major_to_2D(int index, double &gridX, double &gridY, int numCols)
@@ -1157,8 +1125,6 @@ void A_Star::checkStart()
     }
     else
         valid_start = true;
-    //cout << xStart << ", " << yStart << " --> " << getMapValue(xStart, yStart) << " " << getMapValue(yStart, xStart) << endl;
-
 }
 
 void A_Star::checkFinish()

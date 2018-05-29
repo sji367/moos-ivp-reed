@@ -18,25 +18,24 @@
 #include "geodesy.h"
 
 #include "cpl_string.h"
-//#include "/home/sreed/gdal/apps/gdal_rasterize_lib.cpp"
 
 using namespace std;
 
 class ENC_Rasterize
 {
 public:
-    ENC_Rasterize(string MOOSPath, string filename, char * minX, char * minY, char * maxX, char * maxY) {}
+    ENC_Rasterize(string MOOSPath, string filename, double minX, double minY, double maxX, double maxY);
     ENC_Rasterize(string MOOSPath, string filename);
-    ~ENC_Rasterize() {GDALClose(ds);}
+    ~ENC_Rasterize() {GDALClose(ds_shp);}
 
-    void rasterize(string rasterpath, double grid_size, char *attribute);
-    char* string2CharStar(string str);
-    char* double2CharStar(double value);
+    void rasterize(string rasterpath, double grid_size, char *attribute, char *dtype);
+    char* double2charStar(double input);
 
 private:
-    string rasterfile, MOOS_Path, InputFileName;
-    GDALDataset *ds;
-    char *xMin, *yMin, *xMax, *yMax;
+    string MOOS_Path, InputFileName;
+    GDALDataset *ds_shp;
+    double XMin, YMin, XMax, YMax;
+    bool georef;
 
 
 };

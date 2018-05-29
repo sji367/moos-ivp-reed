@@ -20,8 +20,7 @@ endif()
 
 SET(SRC
   #multiintersect.cpp
-  #t3.cpp
-  t4.cpp
+  t.cpp
   #depthcost.cpp
 )
 

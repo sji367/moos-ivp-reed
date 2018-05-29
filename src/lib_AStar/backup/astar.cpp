@@ -21,8 +21,9 @@ double Node::depthCost(double dist)
 {
     double depth_threshold = 15;
     double depth_cost = 0;
+    double weight = 0.11;
     if (depth < depth_threshold)
-        depth_cost = costMultiplier*dist*(depth_threshold-depth);
+        depth_cost = weight*dist*(depth_threshold-depth);
 
     return depth_cost;
 }
@@ -54,106 +55,69 @@ double Node::time2shoreCost(double old_depth, double speed, double dist)
 
 A_Star::A_Star()
 {
-    valid_start = true;
-    valid_finish = true;
-    startSet = false;
-    finishSet = false;
-    xTop = -4470; // value for the US5NH02M ENC
-    yTop = -12439; // value for the US5NH02M ENC
-    setStart_Grid(0,0);
-    setFinish_Grid(0,0);
-    depth_cutoff = 3; // Depths of more than 3 meter below MLLW are considered obstacles
-    tide = 0;
-    grid_size=5;
-    setGridXYBounds(0,0,0,0);
-    NeighborsMask(8); // Set dx, dy, and num_directions
-    setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+  valid_start = true;
+  valid_finish = true;
+  xTop = -4470; // value for the US5NH02M ENC
+  yTop = -12439; // value for the US5NH02M ENC
+  setStart_Grid(0,0);
+  setFinish_Grid(0,0);
+  depth_cutoff = 3; // Depths of more than 1 meter below MLLW are considered obstacles
+  tide = 0;
+  grid_size=5;
+  setGridXYBounds(0,0,0,0);
+  NeighborsMask(8); // Set dx, dy, and num_directions
 }
 
 A_Star::A_Star(int connecting_dist)
 {
-    startSet = false;
-    finishSet = false;
-    xTop = -4470; // value for the US5NH02M ENC
-    yTop = -12439; // value for the US5NH02M ENC
+  xTop = -4470; // value for the US5NH02M ENC
+  yTop = -12439; // value for the US5NH02M ENC
+  setStart_Grid(0,0);
+  setFinish_Grid(0,0);
+  depth_cutoff = 3; // Depths of more than 1 meter below MLLW are considered obstacles
+  tide = 0;
+  grid_size=5;
+  setGridXYBounds(0,0,0,0);
+  NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
+}
+
+A_Star::A_Star(double gridSize, double TopX, double TopY, int connecting_dist)
+{
+    xTop = TopX;
+    yTop = TopY;
     setStart_Grid(0,0);
     setFinish_Grid(0,0);
     depth_cutoff = 1; // Depths of more than 1 meter below MLLW are considered obstacles
     tide = 0;
-    grid_size=5;
-    setGridXYBounds(0,0,0,0);
-    NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
-    setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
-}
-
-A_Star::A_Star(double gridSize, double depthCutoff, double CostMultiplier, int connecting_dist)
-{
-    startSet = false;
-    finishSet = false;
-    xTop = 0;
-    yTop = 0;
-    setStart_Grid(0,0);
-    setFinish_Grid(0,0);
-    depth_cutoff = depthCutoff; // Depths of more than depthCutoff meters below MLLW are considered obstacles
-    tide = 0;
     grid_size=gridSize;
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
-    setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = CostMultiplier;
-}
-
-A_Star::A_Star(double gridSize, double depthCutoff, int connecting_dist)
-{
-    startSet = false;
-    finishSet = false;
-    xTop = 0;
-    yTop = 0;
-    setStart_Grid(0,0);
-    setFinish_Grid(0,0);
-    depth_cutoff = depthCutoff; // Depths of more than depthCutoff meters below MLLW are considered obstacles
-    tide = 0;
-    grid_size=gridSize;
-    setGridXYBounds(0,0,0,0);
-    NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
-    setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
 }
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connecting_dist)
 {
-    xTop = -4470;
-    yTop = -12439;
-    startSet = false;
-    finishSet = false;
-    setStart_UTM(x1,y1);
-    setFinish_UTM(x2,y2);
-    depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
-    tide = 0;
-    grid_size=5;
-    setGridXYBounds(0,0,0,0);
-    NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
-    setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+  xTop = -4470;
+  yTop = -12439;
+  setStart_UTM(x1,y1);
+  setFinish_UTM(x2,y2);
+  depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
+  tide = 0;
+  grid_size=5;
+  setGridXYBounds(0,0,0,0);
+  NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist)
 {
-    xTop = TopX;
-    yTop = TopY;
-    startSet = false;
-    finishSet = false;
-    setStart_UTM(x1,y1);
-    setFinish_UTM(x2,y2);
-    depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
-    tide = 0;
-    grid_size = gridSize;
-    setGridXYBounds(0,0,0,0);
-    NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
-    setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+  xTop = TopX;
+  yTop = TopY;
+  setStart_UTM(x1,y1);
+  setFinish_UTM(x2,y2);
+  depth_cutoff = depthCutoff; // Depths of more than this are considered obstacles (in cm)
+  tide = 0;
+  grid_size = gridSize;
+  setGridXYBounds(0,0,0,0);
+  NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
 }
 
 /*
@@ -232,7 +196,7 @@ string A_Star::ReconstructPath(vector<vector<int> > direction_map)
  
   while (!((x == xStart) && (y == yStart)))
     {
-      j = direction_map[x][y];
+      j = direction_map[y][x];
       if (first_time)
 	{
 	  path.push_back(getParent(j));
@@ -280,10 +244,10 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, double &ave_depth)
     // If the node is a Moore Neighboor, check the cell on either side of desired cell
     {
         // If either cell next to the desired cell is an obstacle, the path is not valid
-        if ((getMapValue(wptX, wptY+dy[i]) < depth_cutoff) || (getMapValue(wptX+dx[i], wptY) < depth_cutoff))
+        if ((Map[wptY+dy[i]][wptX] < depth_cutoff) || (Map[wptY][wptX+dx[i]] < depth_cutoff))
             return false; // Path is invalid)
 
-        ave_depth = getMapValue(wptX+dx[i], wptY+dy[i]); // depth in grid cells
+        ave_depth = Map[wptY+dy[i]][wptX+dx[i]]; // depth in grid cells
     }
     else
     // Otherwise check all cells in the path between the two cells
@@ -317,13 +281,13 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, double &ave_depth)
                 X= static_cast<int>(round(x));
                 Y= static_cast<int>(round(y));
 
-                cummulative_cost += getMapValue(X,Y);
+                cummulative_cost += Map[Y][X];
 
                 // If either the grid node or the next closest node on the line in the x direction
                 //  is an obstacle, the path is not valid
                 floor_x = int(floor(x));
                 ceil_x = int(ceil(x));
-                if ((getMapValue(floor_x, Y) < depth_cutoff) || (getMapValue(ceil_x, Y) < depth_cutoff))
+                if ((Map[Y][floor_x] < depth_cutoff) || (Map[Y][ceil_x] < depth_cutoff))
                 {
                     return false; // Path is invalid
                 }
@@ -352,13 +316,13 @@ bool A_Star::extendedPathValid(int i, int wptX, int wptY, double &ave_depth)
                 X= static_cast<int>(round(x));
                 Y= static_cast<int>(round(y));
 
-                cummulative_cost += getMapValue(X,Y);
+                cummulative_cost += Map[Y][X];
 
                 // If either the grid node or the next closest node on the line in the x direction
                 //  is an obstacle, the path is not valid
                 floor_y = int(floor(y));
                 ceil_y = int(ceil(y));
-                if ((getMapValue(X, floor_y) < depth_cutoff) || (getMapValue(X, ceil_y) < depth_cutoff))
+                if ((Map[floor_y][X] < depth_cutoff) || (Map[ceil_y][X] < depth_cutoff))
                 {
                     return false; // Path is invalid
                 }
@@ -398,7 +362,7 @@ bool A_Star::extendedPathValid_aveDepth(int i, int wptX, int wptY, double &ave_d
 
     // Check to see if it is not a Moore Neighboor. If it is then return the depth of the desired cell.
     if (farestPoint_in_XY==1)
-        accumDepth = getMapValue(wptY+dx[i], wptY+dy[i]);
+        accumDepth = Map[wptY+dy[i]][wptY+dx[i]];
     // Otherwise calculate the average depth of the cells that a line would pass between the waypoints.
     else
     {
@@ -432,14 +396,14 @@ bool A_Star::extendedPathValid_aveDepth(int i, int wptX, int wptY, double &ave_d
             alpha = 1-beta;
 
             // Make sure than neither of the two cells that you are passing through have a
-            if ((getMapValue(wptX+x1, wptY+y1) < depth_cutoff)||getMapValue(wptX+x2,wptY+y2) < depth_cutoff)
+            if ((Map[wptY+y1][wptX+x1] < depth_cutoff)||Map[wptY+y2][wptX+x2] < depth_cutoff)
                 return false;
 
             // If you are not at the last cell, then average the two cells and store that value. Otherwise store the value for the final cell.
             if (index!=farestPoint_in_XY)
-                accumDepth += alpha*getMapValue(wptX+x1, wptY+y1) + beta*getMapValue(wptX+x2,wptY+y2);
+                accumDepth += alpha*Map[wptY+y1][wptX+x1] + beta*Map[wptY+y2][wptX+x2];
             else
-                accumDepth += alpha*getMapValue(wptX+x1, wptY+y1);
+                accumDepth += alpha*Map[wptY+y1][wptX+x1];
         }
     }
     ave_depth = accumDepth/farestPoint_in_XY;
@@ -519,7 +483,7 @@ void A_Star::buildMOOSFile(string filename, string WPTs)
   BHV_file += "  lead_damper = 1\n";
   BHV_file += "  speed ="+to_string(getDesiredSpeed()) + "\n";
   BHV_file += "  capture_radius = 5.0\n";
-  BHV_file += "  slip_radius = 5.0\n";
+  BHV_file += "  slip_radius = 15.0\n";
   BHV_file += "  repeat = 1\n";
   MOOS << BHV_file;
   
@@ -543,43 +507,30 @@ void A_Star::buildMOOSFile(string filename, string WPTs)
 // This function runs A*. It outputs the generated path as a string to stdout
 string A_Star::AStar_Search(bool depthBasedAStar)
 {
-    //FILE *myfile;
-    //myfile = fopen("Explored.txt", "w");
-
-    int x_size, y_size;
-    if (mapSubsetFlag)
-    {
-        x_size = subsetXmax-subsetXmin;
-        y_size = subsetYmax-subsetYmin;
-    }
-    else
-    {
-        x_size = n;
-        y_size = m;
-    }
-
-    vector<vector<int>> direction_map (x_size, vector<int>(y_size,0));
-    vector<vector<double>> open_nodes_map (x_size, vector<double>(y_size,0));
-    vector<vector<int>> closed_nodes_map (x_size, vector<int>(y_size,0));
-    int cntr =0;
-    double depth_cost=0;
-
-    int x,y, new_x, new_y;
-    Node n0, child;
-    priority_queue<Node, vector<Node>, less<Node>> frontier;
-
-    // Start node
-    n0 = Node(xStart, yStart, getMapValue(xStart, yStart), 0,grid_size, costMultiplier);
-    n0.updatePriority(xFinish,yFinish);
-    n0.setShipMeta(ShipMeta);
-    frontier.push(n0);
-
-    // Mark start node on map
-    open_nodes_map[xStart][yStart] = n0.getPriority();
-    cout << "depth cutoff " << depth_cutoff << endl;
-    //double c,p;
-    // Run A*
-    while (!frontier.empty())
+  //FILE *myfile;
+  //myfile = fopen("Explored.txt", "w");
+  vector<vector<int>> direction_map (n, vector<int>(m,0));
+  vector<vector<double>> open_nodes_map (n, vector<double>(m,0));
+  vector<vector<int>> closed_nodes_map (n, vector<int>(m,0));
+  int cntr =0;
+  double depth_cost=0;
+  
+  int x,y, new_x, new_y;
+  Node n0, child;
+  priority_queue<Node, vector<Node>, less<Node>> frontier;
+  
+  // Start node
+  n0 = Node(xStart, yStart, Map[yStart][xStart], 0,grid_size);
+  n0.updatePriority(xFinish,yFinish);
+  n0.setShipMeta(ShipMeta);
+  frontier.push(n0);
+  
+  // Mark start node on map
+  open_nodes_map[yStart][xStart] = n0.getPriority();
+  cout << "depth cutoff " << depth_cutoff << endl;
+  //double c,p;
+  // Run A*
+  while (!frontier.empty())
     {
       // A* explores from the highest priority node in the frontier
       n0 = frontier.top();
@@ -589,37 +540,37 @@ string A_Star::AStar_Search(bool depthBasedAStar)
       y = n0.getY();
 
       // If it is a new node, explore the node's neighbors
-      if (closed_nodes_map[x][y] != 1)
+      if (closed_nodes_map[y][x] != 1)
       {
         cntr++;
-        open_nodes_map[x][y] = 0;
-        // mark it on the closed nodes map
-        closed_nodes_map[x][y] = 1;
-        // Quit searching when you reach the goal state
-        if ((x == xFinish) && (y == yFinish))
+        open_nodes_map[y][x] = 0;
+	// mark it on the closed nodes map
+	closed_nodes_map[y][x] = 1;
+	// Quit searching when you reach the goal state
+	if ((x == xFinish) && (y == yFinish))
         {
-          // Generate the path from finish to start by following the
-          //  directions.
+	  // Generate the path from finish to start by following the 
+	  //  directions.
           //fclose(myfile);
-          return ReconstructPath(direction_map);
+	  return ReconstructPath(direction_map);
         }
-        for (int i = 0; i<num_directions; i++)
-          {
-            new_x = x+dx[i];
-            new_y = y+dy[i];
-            // Place the node in the frontier if the neighbor is within the
-            //  map dimensions, not an obstacle, and not closed.
-            if ((new_x >= 0)&&(new_x < x_size)&&(new_y >= 0)&&(new_y < y_size)&&
-                (getMapValue(new_x, new_y) > depth_cutoff)&&
-                (closed_nodes_map[new_x][new_y]!=1))
-              {
-                // Check to see if the extended path goes through obstacles
+	for (int i = 0; i<num_directions; i++)
+	  {
+	    new_x = x+dx[i];
+	    new_y = y+dy[i];
+	    // Place the node in the frontier if the neighbor is within the
+	    //  map dimensions, not an obstacle, and not closed.
+	    if ((new_x >= 0)&&(new_x < m)&&(new_y >= 0)&&(new_y < n)&&
+		(Map[new_y][new_x] > depth_cutoff)&&
+		(closed_nodes_map[new_y][new_x]!=1))
+	      {
+		// Check to see if the extended path goes through obstacles 
                 if (extendedPathValid(i, x, y, depth_cost))
-                  {
-                    // Build the new node
+		  {
+		    // Build the new node
                     child = Node(new_x, new_y, depth_cost,
-                                 n0.getCost(), grid_size, costMultiplier);
-                    child.setShipMeta(ShipMeta);
+                                 n0.getCost(), grid_size);
+		    child.setShipMeta(ShipMeta);
                     //child.calcCost(dx[i], dy[i], n0.getDepth(), getDesiredSpeed());
 
                     // if depthBasedAStar is set to true then include depth into the cost of the node
@@ -634,33 +585,33 @@ string A_Star::AStar_Search(bool depthBasedAStar)
                     //p = child.getPriority1();
 
                     //fprintf(myfile, "%d\t%d\t%d\t%d\t%0.3f\t%0.3f\n", cntr,i,new_x, new_y, c, p);
-                    // If the child node is not in the open list or the
-                    //  current priority is better than the stored one,
-                    //  add it to the frontier
-                    if ((open_nodes_map[new_x][new_y] == 0) ||
-                        (open_nodes_map[new_x][new_y] > child.getPriority()))
-                      {
-                        open_nodes_map[new_x][new_y] = child.getPriority();
-                        // If the node has been explored, the old value will
-                        //  still be in the frontier but it will have a lower
-                        //  priority (aka higher cost) and should not be
-                        //  popped. To deal with this obscure case the popped
-                        //  value from the frontier will be checked to see if
-                        //  it has been previously opened and if it has then
-                        //  it will be skipped.
-                        frontier.push(child);
-                        // Mark the direction of the parent node
-                        direction_map[new_x][new_y] = getParent(i);
-                      }
-                  }
-              }
-          }
-
+		    // If the child node is not in the open list or the
+		    //  current priority is better than the stored one, 
+		    //  add it to the frontier
+                    if ((open_nodes_map[new_y][new_x] == 0) ||
+                        (open_nodes_map[new_y][new_x] > child.getPriority()))
+		      {
+			open_nodes_map[new_y][new_x] = child.getPriority();
+			// If the node has been explored, the old value will
+			//  still be in the frontier but it will have a lower 
+			//  priority (aka higher cost) and should not be  
+			//  popped. To deal with this obscure case the popped 
+			//  value from the frontier will be checked to see if 
+			//  it has been previously opened and if it has then 
+			//  it will be skipped.
+			frontier.push(child);
+			// Mark the direction of the parent node 
+			direction_map[new_y][new_x] = getParent(i);
+		      }
+		  }
+	      }
+	  }
+	  
         }
     }
-    cout << "No path found." << endl;
-    //fclose(myfile);
-    return "";
+  cout << "No path found." << endl;
+  //fclose(myfile);
+  return "";
 
 }
 
@@ -695,7 +646,7 @@ double A_Star::calcDepthCost(int wptX,int wptY, int i)
                 x = (1.0*(y-b))/m;
                 X= static_cast<int>(x);
                 Y=static_cast<int>(y);
-                cummulative_cost += getMapValue(X,Y);
+                cummulative_cost += Map[Y][X];
             }
         }
         else
@@ -710,14 +661,14 @@ double A_Star::calcDepthCost(int wptX,int wptY, int i)
                 y= m*x+b;
                 X= static_cast<int>(x);
                 Y=static_cast<int>(y);
-                cummulative_cost += getMapValue(X,Y);
+                cummulative_cost += Map[Y][X];
             }
         }
 
         return cummulative_cost/(total_pnts); // average depth in grid cells
     }
     else
-        return getMapValue(wptX+dx[i], wptY+dy[i]); // depth in grid cells
+        return Map[wptY+dy[i]][wptX+dx[i]]; // depth in grid cells
 
 
 }
@@ -725,35 +676,25 @@ double A_Star::calcDepthCost(int wptX,int wptY, int i)
 // This function marks the route on the map
 string A_Star::markRoute(vector<int> route)
 {
-    int x, y, direction, route_len, x_size, y_size;
+    int x, y, direction, route_len;
     double localX = 0;
     double localY = 0;
     string WPT;
     route_len = route.size();
-    if (mapSubsetFlag)
-    {
-        x_size = subsetXmax-subsetXmin;
-        y_size = subsetYmax-subsetYmin;
-    }
-    else
-    {
-        x_size = n;
-        y_size = m;
-    }
 
     // Initialize the print map 2d vector
     Map2print.clear();
-    Map2print.resize(x_size, vector<int>(y_size, 0));
+    Map2print.resize(n, vector<int>(m, 0));
 
     // Simplify the map for printing
-    for (int x_index=0; x_index<n; x_index++)
+    for (int i=0; i<n; i++)
     {
-        for (int y_index=0; y_index<m; y_index++)
+        for (int j=0; j<m; j++)
         {
-            if (getMapValue(x_index,y_index)>depth_cutoff)
-                Map2print[x_index][y_index]=0;
+            if (Map[i][j]>depth_cutoff)
+                Map2print[i][j]=0;
             else
-                Map2print[x_index][y_index]=1;
+                Map2print[i][j]=1;
         }
     }
 
@@ -765,10 +706,10 @@ string A_Star::markRoute(vector<int> route)
 
         grid2xy(x, y, localX, localY);
 
-        cout << "N: " << x_size << ", M:" << y_size << endl;
+        cout << "N: " <<FullMap.size() << ", M:" << FullMap[0].size() << endl;
 
         // Mark Start
-        Map2print[x][y] = 2;
+        Map2print[y][x] = 2;
         WPT=to_string(localX)+","+to_string(localY)+",";
         cout << "["+to_string(x+x_min+1) <<","+to_string(FullMap.size()-(y+y_min))+"; ";
         for (int i=0; i<route_len-1; i++)
@@ -782,10 +723,10 @@ string A_Star::markRoute(vector<int> route)
                 // If you are continueing with on the same path,
                 //  don't store the new waypoint
                 if (route[i]==route[i+1])
-                    Map2print[x][y] = 3;
+                    Map2print[y][x] = 3;
                 else
                 {
-                    Map2print[x][y] = 4;
+                    Map2print[y][x] = 4;
                     WPT+= to_string(localX)+","+to_string(localY)+",";
                     cout << to_string(x+x_min+1) <<","+to_string(FullMap.size()-(y+y_min))+"; ";
                 }
@@ -796,7 +737,7 @@ string A_Star::markRoute(vector<int> route)
         x += dx[direction];
         y += dy[direction];
         grid2xy(x, y, localX, localY);
-        Map2print[x][y] = 5;
+        Map2print[y][x] = 5;
         WPT += to_string(localX)+","+to_string(localY);
         cout << to_string(x+x_min+1) <<","+to_string(y+y_min+1)+"];" << endl;
     }
@@ -814,20 +755,10 @@ This function prints out the map to std output where:
 */
 void A_Star::printMap(string WPTs, double total_time)
 {
-  int xy, x_size, y_size;
-  if (mapSubsetFlag)
-  {
-      x_size = subsetXmax-subsetXmin;
-      y_size = subsetYmax-subsetYmin;
-  }
-  else
-  {
-      x_size = n;
-      y_size = m;
-  }
+  int xy;
 
   // Print Meta Data
-  cout << "Map Size (X,Y): " <<  x_size << ", " << y_size << endl;
+  cout << "Map Size (X,Y): " <<  m << ", " << n << endl;
   cout << "Start: " << xStart << ", " << yStart << endl;
   cout << "Finish: " << xFinish << ", "  << yFinish << endl;
   cout << "Time to generate the route: " << total_time<< " (ms)" << endl;
@@ -836,11 +767,11 @@ void A_Star::printMap(string WPTs, double total_time)
         
   // Display the map with the route
   cout << "Map: \n";
-  for (int y=y_size-1; y>=0; y--)
+  for (int y=n-1; y>=0; y--)
     {
-      for (int x=0; x<x_size; x++)
+      for (int x=0; x<m; x++)
 	{
-          xy = Map2print[x][y];
+	  xy = Map2print[y][x];
 	  if (xy == 0)
 	    cout << ". "; // space
 	  else if (xy == 1)
@@ -864,15 +795,15 @@ void A_Star::printMap(string WPTs, double total_time)
 void A_Star::build_default_map(int N, int M, int config)
 {
     // Now build the map
-    FullMap.clear();
-    FullMap.resize(N, vector<double>(M,110));
+    Map.clear();
+    Map.resize(N, vector<double>(M,110));
     vector<vector<int>> start_finish;
 
     // Place an cross obstacle in the middle
     for (int x = M/8; x<7*M/8; x++)
-        FullMap[N/2][x] = 0;
+        Map[N/2][x] = 0;
     for (int y = N/8; y<7*N/8; y++)
-        FullMap[y][M/2] = 0;
+        Map[y][M/2] = 0;
 
     // Different Start/Finish Configurations
     start_finish.push_back({0, 0, N - 1, M - 1});
@@ -923,8 +854,7 @@ void A_Star::buildMapFromCSV(string filename, int xMin, int xMax, int yMin, int 
     cout << "Map loaded" << endl;
 
     // Subset the map
-    //subsetMap(xMin, xMax, yMin, yMax);
-    setSubsetVars(true, xMin, yMin, xMax, yMax);
+    subsetMap(xMin, xMax, yMin, yMax);
 }
 
 // Use your own map from a csv file that contains the grid
@@ -938,15 +868,15 @@ void A_Star::buildMapFromCSV(string filename)
 
     // Initialize the 2D vector
     strtk::token_grid::row_type row = grid.row(0);
-    FullMap.clear();
-    FullMap.resize(grid.row_count()-1, vector<double>(row.size()-1));
+    Map.clear();
+    Map.resize(grid.row_count()-1, vector<double>(row.size()-1));
 
     for(size_t i = 1; i < grid.row_count(); ++i)
     {
         row = grid.row(i);
         for(size_t j = 1; j < row.size(); ++j)
         {
-            FullMap[i-1][j-1] = row.get<int>(j);
+            Map[i-1][j-1] = row.get<int>(j);
         }
     }
     cout << "Map loaded" << endl;
@@ -955,8 +885,7 @@ void A_Star::buildMapFromCSV(string filename)
     setMapMeta();
 }
 
-/*
- * // Define the coordinate dimensions of a subset of the map to be used for A*.
+// Define the coordinate dimensions of a subset of the map to be used for A*.
 void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
 {
     // Set the bounds of the map (in grid coordinate system)
@@ -982,93 +911,10 @@ void A_Star::subsetMap(int xmin, int xmax, int ymin, int ymax)
     yFinish-= ymin;
 
 }
-*/
-
-// This function takes the two given indices for the of the map and returns the value in the map. If there has been a defined subset for
-//  the map, then the function returns the correct value as long as it is inside the subset. If it is not then the undefined value (-10)
-//  is returned and error message is printed on the std out.
-double A_Star::getMapValue(int xIndex, int yIndex)
-{
-    //cout << mapSubsetFlag << " " << xIndex << " " << yIndex << endl;
-    // If there is no subset the value at the inputted index if it is inside the Map
-    if (!mapSubsetFlag)
-    {
-        if ((xIndex>x_min)&&(yIndex>y_min)&&(xIndex<x_max)&&(yIndex<y_max))
-        {
-            //cout << xIndex << ", " << yIndex << " --> " << FullMap[xIndex][yIndex] << endl;
-            return FullMap[xIndex][yIndex];
-        }
-
-        // If the indices are outside of the map, then an undefined value (-10) is returned and error message
-        //  is printed on the std out.
-        else
-        {
-            if ((xIndex>x_max)||(xIndex<x_min))
-                cout << "ERROR: The inputted X index (" <<xIndex<<") was out of spec. Please make sure to input valid indices [" << x_min << " " << x_max <<"]. (Now returning -10)" << endl;
-            if ((yIndex>y_max)||(yIndex<y_min))
-                cout << "ERROR: The inputted Y index (" <<yIndex<<") was out of spec. Please make sure to input valid indices [" << y_min << " " << y_max <<"]. (Now returning -10)" << endl;
-
-            return -10;
-        }
-    }
-    else
-    {
-        if ((xIndex>0)&&(yIndex>0)&&(xIndex+subsetXmin<subsetXmax)&&(yIndex+subsetYmin<subsetYmax))
-        {
-            return FullMap[xIndex+subsetXmin][yIndex+subsetYmin];
-        }
-
-        // If the indices are outside of the map subset, then an undefined value (-10) is returned and error message
-        //  is printed on the std out.
-        else
-        {
-            if ((xIndex>0)||(xIndex+subsetXmin<subsetXmax))
-                cout << "ERROR: The inputted X index was out of spec. Please make sure to input valid subset indices. (Now returning -10)" << endl;
-            if ((yIndex>0)||(yIndex+subsetYmin<subsetYmax))
-                cout << "ERROR: The inputted Y index was out of spec. Please make sure to input valid subset indices. (Now returning -10)" << endl;
-
-            return -10;
-        }
-    }
-}
-
-void A_Star::setSubsetVars(bool flag, int XMin, int YMin, int XMax, int YMax)
-{
-    mapSubsetFlag = flag;
-    subsetXmin = XMin;
-    subsetXmax = XMax;
-    subsetYmin = YMin;
-    subsetYmax = YMax;
-    resetStartFinish_subset();
-}
-
-void A_Star::resetStartFinish_subset()
-{
-    // If the subset has been set, adjust the start and finish grid cell to the subset coordinate system
-    if (mapSubsetFlag)
-    {
-        if (startSet)
-        {
-            cout << "re-inializing start to subset." << endl;
-            xStart -= subsetXmin;
-            yStart -= subsetYmin;
-            // Reset the flag so this doesnt occur more than once
-            startSet = false;
-        }
-        if (finishSet)
-        {
-            cout << "re-inializing finish position to subset." << endl;
-            xFinish -= subsetXmin;
-            yFinish -= subsetYmin;
-            // Reset the flag so this doesnt occur more than once
-            finishSet = false;
-        }
-    }
-}
 
 void A_Star::setMapFromTiff(string tiff_filename)
 {
-    int nXSize, nYSize;
+    int nXSize, nYSize, gridIndex;
     double x,y;
     GDALDataset  *poDataset;
     GDALRasterBand *poRasterBand;
@@ -1116,54 +962,43 @@ void A_Star::setMapFromTiff(string tiff_filename)
     // Since we need to transpose the coordinates, we need to store the TIFF's lower y coordinate not upper y coordinate
     yTop = adfGeoTransform[3]+(1.0*nYSize)*adfGeoTransform[5];
 
-    // Now flip the Y axis
-    FullMap.clear();
-    FullMap.resize(nXSize, vector<double> (nYSize,0));
-    // RasterData is stored left to right top to bottom
-    for (int rasterIndex=0; rasterIndex<RasterData.size(); rasterIndex++)
+    // Now flip the Y axis, transpose the TIFF, and convert it to a int (meters -> cm)
+    Map.clear();
+    Map.resize(nYSize, vector<double> (nXSize,0));
+    for (int i=0; i<RasterData.size(); i++)
     {
-        x = rasterIndex%nXSize; // Store left to right
-        y = (nYSize-1)-(rasterIndex-x)/nXSize; // Convert from top to bottom -> bottom to top (i.e. Transpose)
-        FullMap[x][y] = RasterData[rasterIndex];
+        row_major_to_2D(i, x, y, nXSize);
+        gridIndex = (nYSize-1 - x)*nXSize +y;
+        Map[x][y] = RasterData[gridIndex];
     }
 
-    n=nXSize;
-    m=nYSize;
-    x_max = n;
-    y_max = m;
-
-//    for (int x1=0; x1<nXSize; x1++)
-//    {
-//        for (int y1= 0; y<nYSize; y1++)
-//        {
-//            cout << x1 << ", " << y1 << endl;//S << " --> " << getMapValue(x1,y1) << endl;
-//            //double temp = getMapValue(x,y);
-//        }
-//    }
+    FullMap = Map;
+    n=nYSize;
+    m=nXSize;
+    x_max = m;
+    y_max = n;
 }
 
 void A_Star::row_major_to_2D(int index, double &gridX, double &gridY, int numCols)
 {
-    gridX = index%numCols;
-    gridY = (index-gridX)/numCols;
+    gridY = index%numCols;
+    gridX = (index-gridY)/numCols;
 }
 
 void A_Star::checkStart()
 {
-    if (getMapValue(xStart, yStart) < depth_cutoff)
+    if (Map[yStart][xStart] < depth_cutoff)
     {
         cout << "Invalid Start position" << endl;
         valid_start = false;
     }
     else
         valid_start = true;
-    //cout << xStart << ", " << yStart << " --> " << getMapValue(xStart, yStart) << " " << getMapValue(yStart, xStart) << endl;
-
 }
 
 void A_Star::checkFinish()
 {
-    if (getMapValue(xFinish, yFinish) < depth_cutoff)
+    if (Map[yFinish][xFinish] < depth_cutoff)
     {
         cout << "Invalid finish position" << endl;
         valid_finish = false;

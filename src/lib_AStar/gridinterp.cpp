@@ -64,7 +64,7 @@ void Grid_Interp::buildLayers()
     GDALDriver *poDriver;
     poDriver = GetGDALDriverManager()->GetDriverByName(pszDriverName );
     OGRFieldDefn oField_depth( "Depth", OFTReal);
-    OGRFieldDefn oField_inside( "Inside_ENC", OFTReal);
+    OGRFieldDefn oField_inside( "Inside_ENC", OFTInteger);
 
     // Build the datasource and layer that will hold the wrecks and land area polygons
     string polyPath = MOOS_Path+"src/ENCs/Grid/polygon.shp";
@@ -170,17 +170,6 @@ void Grid_Interp::setGridSize2Default(GDALDataset *ds)
     cout << "Grid size = " << grid_size << endl;
 }
 
-char* Grid_Interp::string2CharStar(string str)
-{
-//    char *output = new char[str.size() + 1];
-//    copy(str.begin(), str.end(), output);
-//    output[str.size()] = '\0';
-
-//    vector<char> v(str.begin(), str.end());
-//    char* output = &v[0];
-//    return output;
-    return const_cast<char*>(str.c_str());
-}
 
 // This function creates a grid from the soundings, land areas, rocks, wrecks, depth areas
 //  and depth contours and store it as a 2D vector of ints where the depth is stored in cm.
@@ -206,6 +195,8 @@ void Grid_Interp::Run(bool csv, bool mat)
     vector<double> poly_rasterdata, depth_area_rasterdata, point_rasterdata;
     vector<int> ENC_outline_rasterdata;
     int poly_extentX, poly_extentY, depth_extentX, depth_extentY, outline_extentX, outline_extentY, point_extentX, point_extentY;
+
+    cout << "Parsing ENC" << endl;
 
     // Add the vertices from the soundings, land areas, rocks, wrecks, and depth contours
     //  to vectors for gridding
@@ -241,34 +232,33 @@ void Grid_Interp::Run(bool csv, bool mat)
 
 //    string georef_extent = to_string(minX+geod.getXOrigin())+ " "+to_string(minY+geod.getYOrigin())+ " "
 //            +to_string(maxX+geod.getXOrigin())+ " "+to_string(maxY+geod.getYOrigin());
+//
+//    printf("%0.4f %0.4f %0.4f %0.4f", minX+geod.getXOrigin(), minY+geod.getYOrigin(), maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
 
     // Rasterize the polygon, point, outline and depth area layers
-    ENC_Rasterize polygon_Tiff = ENC_Rasterize(MOOS_Path, "polygon.shp", string2CharStar(to_string(minX+geod.getXOrigin())),
-                                               string2CharStar(to_string(minY+geod.getYOrigin())), string2CharStar(to_string(maxX+geod.getXOrigin())),
-                                               string2CharStar(to_string(maxY+geod.getYOrigin())));
-//    ENC_Rasterize depthArea_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/depth_area.shp", to_string(minX+geod.getXOrigin()),
-//                                                 to_string(minY+geod.getYOrigin()), to_string(maxX+geod.getXOrigin()), to_string(maxY+geod.getYOrigin()));
-//    ENC_Rasterize outline_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/outline.shp", to_string(minX+geod.getXOrigin()),
-//                                               to_string(minY+geod.getYOrigin()), to_string(maxX+geod.getXOrigin()), to_string(maxY+geod.getYOrigin()));
-//    ENC_Rasterize point_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/point.shp", to_string(minX+geod.getXOrigin()),
-//                                             to_string(minY+geod.getYOrigin()), to_string(maxX+geod.getXOrigin()), to_string(maxY+geod.getYOrigin()));
+    ENC_Rasterize polygon_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/polygon.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                               maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
+    ENC_Rasterize depthArea_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/depth_area.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                                 maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
+    ENC_Rasterize outline_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/outline.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                               maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
+    ENC_Rasterize point_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/point.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
+                                             maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
 
-    polygon_Tiff.rasterize("src/ENCs/Grid/polygon.tiff", (grid_size), "Depth");
-//    depthArea_Tiff.rasterize("src/ENCs/Grid/depth_area.tiff", (grid_size), "Depth");
-//    outline_Tiff.rasterize("src/ENCs/Grid/outline.tiff", (grid_size), "Inside_ENC");
-//    point_Tiff.rasterize("src/ENCs/Grid/point.tiff", (grid_size), "Depth");
-
-    cout << "rasterized" << endl;
+    polygon_Tiff.rasterize("src/ENCs/Grid/polygon.tiff", (grid_size), "Depth", "Float64");
+//    depthArea_Tiff.rasterize("src/ENCs/Grid/depth_area.tiff", (grid_size), "Depth", "Float64");
+//    outline_Tiff.rasterize("src/ENCs/Grid/outline.tiff", (grid_size), "Inside_ENC", "Int32");
+//    point_Tiff.rasterize("src/ENCs/Grid/point.tiff", (grid_size), "Depth", "Float64");
 
     // Store the rasterized data as 1D vectors
     getRasterData("polygon.tiff", poly_extentX, poly_extentY, poly_rasterdata);
     getRasterData("depth_area.tiff", depth_extentX, depth_extentY, depth_area_rasterdata);
-    getRasterData("outline.tiff", outline_extentX, outline_extentY, ENC_outline_rasterdata);
+    getRasterData_int("outline.tiff", outline_extentX, outline_extentY, ENC_outline_rasterdata);
     getRasterData("point.tiff", point_extentX, point_extentY, point_rasterdata);
 
     // Grid the data
     GDALGridLinearOptions options;
-    options.dfRadius = -1;
+    options.dfRadius = 0;
     options.dfNoDataValue = -10;
     cout << "df Radius: " << options.dfRadius << endl;
 
@@ -277,11 +267,8 @@ void Grid_Interp::Run(bool csv, bool mat)
 
     cout << "X: " << x_res << " Y: " << y_res << endl;
 
-
     griddedData.resize(y_res*x_res);
-    //new_rast_data.resize(y_res*x_res);
     vector<double> new_rast_data(y_res*x_res, -10);
-    //griddedData.resize(y_res*x_res);
 
     Map.clear();
     Map.resize(x_res, vector<double> (y_res,0));
@@ -339,6 +326,7 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
 {
     int x, y;
     int rasterIndex = 0;
+    printf("Poly: %d, Depth: %d, Grid:%d, ENC Outline:%d\n", poly_data.size(), depth_data.size(), griddedData.size(), outline_data.size());
 
     // Make sure that the size of all of the 1D vectors are the same
     if ((poly_data.size() == depth_data.size()) && (poly_data.size() == griddedData.size()) &&
@@ -350,7 +338,7 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
             row_major2grid(i, x, y, x_res);
 
             // Make sure that the datapoint is inside of the ENC
-            if (abs(outline_data[rasterIndex]-1) <0.1)
+            if (outline_data[rasterIndex] == 1.0)
             {
                 // Check to see if the index is on land.
                 if (poly_data[rasterIndex] == landZ)
@@ -381,14 +369,16 @@ void Grid_Interp::updateMap(vector<double> &poly_data, vector<double> &depth_dat
                 }
             }
             else
+            {
                 Map[y][x] = -10;
+            }
             /*
             // Store the Map data so that it can be converted to a raster
             if (Map[y][x] <= landZ)
                 new_rast_data[rasterIndex] = NAN;
             else
             */
-            new_rast_data[rasterIndex] = (1.0*Map[y][x]);
+            new_rast_data[rasterIndex] = Map[y][x];
         }
 
     }
@@ -990,7 +980,7 @@ void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vecto
     // Resize the vector to fit the raster dataset
     RasterData.resize(nXSize*nYSize);
 
-    // Read the raster into a 1D row-major vector where it is organized in left to right,top to bottom pixel order
+    // Read the raster into a 1D row-major double vector where it is organized in left to right,top to bottom pixel order
     if( poRasterBand->RasterIO( GF_Read, 0, 0, nXSize, nYSize, RasterData.data(), nXSize, nYSize, GDT_Float64, 0, 0 ) != CE_None )
     {
         printf( "Failed to access raster data.\n" );
@@ -998,10 +988,16 @@ void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vecto
         exit( 1 );
     }
 
+    for (auto i:RasterData)
+    {
+        cout << i << ", ";
+    }
+    cout << endl << endl;
+
     GDALClose(poDataset);
 }
 
-void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vector<int> &RasterData)
+void Grid_Interp::getRasterData_int(string filename, int &nXSize, int &nYSize, vector<int> &RasterData)
 {
     GDALDataset  *poDataset;
     GDALRasterBand *poRasterBand;
@@ -1018,13 +1014,22 @@ void Grid_Interp::getRasterData(string filename, int &nXSize, int &nYSize, vecto
     // Resize the vector to fit the raster dataset
     RasterData.resize(nXSize*nYSize);
 
-    // Read the raster into a 1D row-major vector where it is organized in left to right,top to bottom pixel order
+    // Read the raster into a 1D row-major int vector where it is organized in left to right,top to bottom pixel order
     if( poRasterBand->RasterIO( GF_Read, 0, 0, nXSize, nYSize, RasterData.data(), nXSize, nYSize, GDT_Int32, 0, 0 ) != CE_None )
     {
         printf( "Failed to access raster data.\n" );
         GDALClose(poDataset);
         exit( 1 );
     }
+
+
+    for (auto i:RasterData)
+    {
+        cout << i << ", ";
+    }
+    cout << endl << endl;
+
+
 
     GDALClose(poDataset);
 }

@@ -67,9 +67,9 @@ class Node
 {
 public:
 	// Constuctors/Deconstructor
-        Node() {xPos=0; yPos=0; current_cost=0; priority=0; depth=0; ShipMeta=Vessel_Dimensions(); costMultiplier= 0.11;}
-        Node(int x, int y, double Depth, int prev_cost, double Grid_size, double CostMultiplier) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=0; grid_size = Grid_size; ShipMeta=Vessel_Dimensions(); costMultiplier=CostMultiplier; }
-        Node(int x, int y, double Depth, int prev_cost, double Grid_size, Vessel_Dimensions meta, double CostMultiplier) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=0; grid_size = Grid_size; setShipMeta(meta); costMultiplier=CostMultiplier; }
+        Node() {xPos=0; yPos=0; current_cost=0; priority=0; depth=0; ShipMeta=Vessel_Dimensions(); }
+        Node(int x, int y, double Depth, int prev_cost, double Grid_size) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=0; grid_size = Grid_size; ShipMeta=Vessel_Dimensions();}
+        Node(int x, int y, double Depth, int prev_cost, double Grid_size, Vessel_Dimensions meta) {xPos=x; yPos=y; depth=Depth; current_cost=prev_cost; priority=0; grid_size = Grid_size; setShipMeta(meta); }
         ~Node() {}
 
 	// Outputs the X position of the node
@@ -113,7 +113,7 @@ public:
 protected:
 	int xPos, yPos;
         double current_cost, priority, grid_size;
-        double depth, costMultiplier;
+        double depth;
 	Vessel_Dimensions ShipMeta;
 };
 
@@ -145,8 +145,7 @@ public:
 	// Constuctors/Deconstructor
 	A_Star();
 	A_Star(int connecting_dist);
-        A_Star(double gridSize, double depthCutoff, double CostMultiplier, int connecting_dist);
-        A_Star(double gridSize, double depthCutoff, int connecting_dist);
+        A_Star(double gridSize, double TopX, double TopY, int connecting_dist);
         A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connecting_dist);
         A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist);
         ~A_Star() {}
@@ -203,15 +202,12 @@ public:
         void buildMapFromCSV(string filename, int xMin, int xMax, int y_min, int yMax); // Builds master map and then only uses subset of map for A*
 
 	// Set Occupancy Grid
-        void setMapMeta() {n=FullMap.size(); m=FullMap[0].size(); setGridXYBounds(0,m,0,n); }
+        void setMapMeta() {FullMap=Map; n=FullMap.size(); m=FullMap[0].size(); setGridXYBounds(0,m,0,n); }
         void setMapFromTiff(string tiff_filename);
-        //vector<vector<double> > getMap() {return FullMap;}
+        vector<vector<double> > getMap() {return Map;}
 
 	// Use a subset of the map for the A* search
 	void subsetMap(int xmin, int xmax, int ymin, int ymax);
-        double getMapValue(int xIndex, int yIndex);
-        void setSubsetVars(bool flag, int XMin, int YMin, int XMax, int YMax);
-        void resetStartFinish_subset();
 
 	// Outputs either dx or dy
         vector<int> get_dx() {return dx; }
@@ -289,24 +285,22 @@ public:
         void LatLong2grid(double lat, double lon, int &gridX, int &gridY) {double x,y; LatLong2UTM(lat, lon, x,y); xy2grid(x,y,gridX, gridY); }
         void LatLong2UTM(double lat, double lon, double &x, double &y) {Geodesy geod = Geodesy(lat, lon); x=geod.getXOrigin(); y=geod.getYOrigin(); }
 
-        void getNM() {cout << n << ", " << m << endl; }
+	void getNM() {cout << Map.size() << ", " << Map[0].size() << endl; }
         string getRoute() {return Route; }
         
 protected:
-        bool valid_start, valid_finish, startSet, finishSet, mapSubsetFlag;
+	bool valid_start, valid_finish;
         string Route;
 	int xStart, yStart, xFinish, yFinish;
 	int n, m, num_directions;
 	double grid_size, xTop, yTop;
         int x_min, x_max, y_min, y_max;
-        int subsetXmin, subsetXmax, subsetYmin, subsetYmax;
 	double tide;
 	double desired_speed;
 	Vessel_Dimensions ShipMeta;
         double depth_cutoff; //in meters
-        double costMultiplier;
 	vector<int> dx, dy;
-        //vector<vector<double> > Map;
+        vector<vector<double> > Map;
         vector<vector<double> > FullMap;
         vector<vector<int> > Map2print;
 };

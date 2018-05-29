@@ -27,6 +27,8 @@ ADD_SUBDIRECTORY(pENC_WPT_Check)
 ADD_SUBDIRECTORY(pPub_Points)
 ADD_SUBDIRECTORY(Test)
 ADD_SUBDIRECTORY(UWTROC)
+ADD_SUBDIRECTORY(gridENC)
+ADD_SUBDIRECTORY(astar)
 
 ##############################################################################
 #                           END of CMakeLists.txt
