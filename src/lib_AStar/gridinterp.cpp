@@ -230,11 +230,6 @@ void Grid_Interp::Run(bool csv, bool mat)
 //    rasterizeSHP("outline.tiff", "outline.shp", "Inside_ENC");
 //    rasterizeSHP("point.tiff","point.shp", "Depth");
 
-//    string georef_extent = to_string(minX+geod.getXOrigin())+ " "+to_string(minY+geod.getYOrigin())+ " "
-//            +to_string(maxX+geod.getXOrigin())+ " "+to_string(maxY+geod.getYOrigin());
-//
-//    printf("%0.4f %0.4f %0.4f %0.4f", minX+geod.getXOrigin(), minY+geod.getYOrigin(), maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
-
     // Rasterize the polygon, point, outline and depth area layers
     ENC_Rasterize polygon_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/polygon.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
                                                maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
@@ -246,9 +241,9 @@ void Grid_Interp::Run(bool csv, bool mat)
                                              maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
 
     polygon_Tiff.rasterize("src/ENCs/Grid/polygon.tiff", (grid_size), "Depth", "Float64");
-//    depthArea_Tiff.rasterize("src/ENCs/Grid/depth_area.tiff", (grid_size), "Depth", "Float64");
-//    outline_Tiff.rasterize("src/ENCs/Grid/outline.tiff", (grid_size), "Inside_ENC", "Int32");
-//    point_Tiff.rasterize("src/ENCs/Grid/point.tiff", (grid_size), "Depth", "Float64");
+    depthArea_Tiff.rasterize("src/ENCs/Grid/depth_area.tiff", (grid_size), "Depth", "Float64");
+    outline_Tiff.rasterize("src/ENCs/Grid/outline.tiff", (grid_size), "Inside_ENC", "Int32");
+    point_Tiff.rasterize("src/ENCs/Grid/point.tiff", (grid_size), "Depth", "Float64");
 
     // Store the rasterized data as 1D vectors
     getRasterData("polygon.tiff", poly_extentX, poly_extentY, poly_rasterdata);
