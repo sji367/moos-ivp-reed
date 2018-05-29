@@ -2,7 +2,6 @@
 
 GridENC::GridENC(string MOOS_path, string ENC_Name, double buffer_dist, double gridSize, double search_radius, double MHW_offset, bool SimpleGrid, bool CATZOC_poly)
 {
-    cout << "here" << endl;
     geod = Geodesy();
     grid_size = gridSize;
     ENC_name = ENC_Name;
@@ -157,6 +156,10 @@ void GridENC::Run(bool csv, bool mat)
     if (grid_size == -1)
         setGridSize2Default(ds);
 
+    // If the buffer distance is not set, set it to the grid size
+    if (buffer_size == -1)
+        buffer_size = grid_size;
+
     vector<double> poly_rasterdata, depth_area_rasterdata, point_rasterdata;
     vector<int> ENC_outline_rasterdata;
     int poly_extentX, poly_extentY, depth_extentX, depth_extentY, outline_extentX, outline_extentY, point_extentX, point_extentY;
@@ -187,6 +190,8 @@ void GridENC::Run(bool csv, bool mat)
     GDALClose(ds_outline);
     GDALClose(ds_pnt);
 
+    cout << endl;
+
     // Rasterize the polygon, point, outline and depth area layers
     ENC_Rasterize polygon_Tiff = ENC_Rasterize(MOOS_Path, "polygon.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
                                                maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
@@ -197,12 +202,10 @@ void GridENC::Run(bool csv, bool mat)
     ENC_Rasterize point_Tiff = ENC_Rasterize(MOOS_Path, "point.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),
                                              maxX+geod.getXOrigin(), maxY+geod.getYOrigin());
 
-    polygon_Tiff.rasterize("polygon.tiff", (grid_size), "Depth", "Float64");
-    depthArea_Tiff.rasterize("depth_area.tiff", (grid_size), "Depth", "Float64");
-    outline_Tiff.rasterize("outline.tiff", (grid_size), "Inside_ENC", "Int32");
-    point_Tiff.rasterize("point.tiff", (grid_size), "Depth", "Float64");
-
-    cout << "rasterized" << endl;
+    polygon_Tiff.rasterize(ENC_name+"/polygon.tiff", (grid_size), "Depth", "Float64");
+    depthArea_Tiff.rasterize(ENC_name+"/depth_area.tiff", (grid_size), "Depth", "Float64");
+    outline_Tiff.rasterize(ENC_name+"/outline.tiff", (grid_size), "Inside_ENC", "Int32");
+    point_Tiff.rasterize(ENC_name+"/point.tiff", (grid_size), "Depth", "Float64");
 
     // Store the rasterized data as 1D vectors
     getRasterData("polygon.tiff", poly_extentX, poly_extentY, poly_rasterdata);

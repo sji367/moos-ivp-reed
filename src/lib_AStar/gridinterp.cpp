@@ -224,11 +224,7 @@ void Grid_Interp::Run(bool csv, bool mat)
     GDALClose(ds_outline);
     GDALClose(ds_pnt);
 
-//    // Rasterize the polygon, point, outline and depth area layers
-//    rasterizeSHP("polygon.tiff","polygon.shp", "Depth");
-//    rasterizeSHP("depth_area.tiff","depth.shp", "Depth");
-//    rasterizeSHP("outline.tiff", "outline.shp", "Inside_ENC");
-//    rasterizeSHP("point.tiff","point.shp", "Depth");
+    cout << endl;
 
     // Rasterize the polygon, point, outline and depth area layers
     ENC_Rasterize polygon_Tiff = ENC_Rasterize(MOOS_Path, "src/ENCs/Grid/polygon.shp", minX+geod.getXOrigin(), minY+geod.getYOrigin(),

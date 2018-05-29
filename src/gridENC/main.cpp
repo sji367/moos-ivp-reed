@@ -13,17 +13,16 @@ namespace fs = boost::filesystem;
 int main(int argc, char **argv){
 
     int opt,f,b,r,s;
-    //fs::path ENCfilename = "";
-    int buffer_dist = 0;
-    double grid_size = -1;// if this doesnt get set, the gridding process will automatically pick the appropriate grid size
-    double search_radius = -1;
+    double buffer_dist = -1;// if this is not set, the gridding process will automatically set the buffer distance to the grid size
+    double grid_size = -1;// if this is not set, the gridding process will automatically pick the appropriate grid size
+    double search_radius = -1; // If this is not set then the
     bool simpleGrid = false;
     bool CATZOC_poly = false;
     string ENCfilename, ENCname;
 
     if (argc>1)
     {
-        while ((opt = getopt(argc,argv,"f:b:s:r::h")) != EOF)
+        while ((opt = getopt(argc,argv,"f:b:s:r:h")) != EOF)
         {
             switch(opt)
             {
@@ -39,35 +38,35 @@ int main(int argc, char **argv){
                     return 1;
                 }
 
-                cout <<"ENCFilename: "<< ENCname <<endl;
+                cout <<"ENC Name: "<< ENCname <<endl;
                 break;
             }
 
             case 'b':
             {
                 b = 1;
-                buffer_dist = atoi(optarg);
+                buffer_dist = atof(optarg);
                 cout <<"Buffer     : "<< buffer_dist <<endl;
                 break;
             }
             case 's':
             {
                 s = 1;
-                search_radius = atoi(optarg);
+                search_radius = atof(optarg);
                 cout << "Search Radius: "<< search_radius <<endl ;
                 break;
             }
             case 'r':
             {
                 r = 1;
-                grid_size = atoi(optarg);
+                grid_size = atof(optarg);
                 cout << "Resolution : "<< grid_size <<endl ;
                 break;
             }
 
             case 'h':
             {
-                fprintf(stderr,"   USAGE: ENC_Grid -f ENC_FILENAME -b buffer -s search_radius -r grid_resolution\n");
+                fprintf(stderr,"\nUSAGE: ENC_Grid -f ENC_NAME -b buffer -s search_radius -r grid_resolution\n\tThe only necessary component is the ENC Name (i.e. US5NH02M).\n");
             }
 
             default:

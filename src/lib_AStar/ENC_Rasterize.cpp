@@ -74,8 +74,7 @@ void ENC_Rasterize::rasterize(string rasterpath, double grid_size, char* attribu
 
     GDALRasterizeOptions *Options = GDALRasterizeOptionsNew(options, NULL);
 
-    cout << "Starting to rasterize " << InputFileName << " as " << rasterpath << "." << endl;
-    //cout << rasterpath << endl;
+    cout << "Rasterizing " << InputFileName << " as " << rasterpath << "." << endl;
 
     ds_tiff = GDALRasterize(rasterpath.c_str(), NULL, ds_shp, Options, NULL);
 
