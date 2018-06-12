@@ -10,6 +10,7 @@ GridENC::GridENC(string MOOS_path, string ENC_Name, double buffer_dist, double g
     searchRadius = search_radius;
     buffer_size = buffer_dist;
     MHW_Offset = MHW_offset;
+    ENC_Scale = 0;
     minX = 0;
     minY = 0;
     maxX = 0;
@@ -129,9 +130,9 @@ void GridENC::buildLayers()
 // Set the grid lize to (compliation scale)/4
 //  Input:
 //      ds - data source for the ENC for which we want the compilation scale
-void GridENC::setGridSize2Default(GDALDataset *ds)
+void GridENC::setGridSize2Default()
 {
-    grid_size = ds->GetLayerByName("DSID")->GetFeature(0)->GetFieldAsInteger("DSPM_CSCL")/4000.0;
+    grid_size = ENC_Scale/4.0;
     cout << "Grid size = " << grid_size << endl;
 }
 
@@ -152,9 +153,11 @@ void GridENC::Run(bool csv, bool mat)
 
     getENC_MinMax(ds);
 
+    ENC_Scale = ds->GetLayerByName("DSID")->GetFeature(0)->GetFieldAsInteger("DSPM_CSCL")/1000.0;
+
     // If the grid size is not explictly set, set it to (compliation scale)/4
     if (grid_size == -1)
-        setGridSize2Default(ds);
+        setGridSize2Default();
 
     // If the buffer distance is not set, set it to the grid size
     if (buffer_size == -1)
@@ -164,24 +167,36 @@ void GridENC::Run(bool csv, bool mat)
     vector<int> ENC_outline_rasterdata;
     int poly_extentX, poly_extentY, depth_extentX, depth_extentY, outline_extentX, outline_extentY, point_extentX, point_extentY;
 
-    // Add the vertices from the soundings, land areas, rocks, wrecks, and depth contours
+    // Add the vertices from the soundings, land areas, rocks, piles, wrecks, and depth contours
     //  to vectors for gridding
-    layer2XYZ(ds->GetLayerByName("SOUNDG"), "SOUNDG");
-    layer2XYZ(ds->GetLayerByName("DEPCNT"), "DEPCNT");
-    layer2XYZ(ds->GetLayerByName("M_COVR"), "M_COVR");
-    layer2XYZ(ds->GetLayerByName("DEPARE"), "DEPARE");
-    layer2XYZ(ds->GetLayerByName("LNDARE"), "LNDARE");
-    layer2XYZ(ds->GetLayerByName("PONTON"), "PONTON");
+    layer2XYZ(ds->GetLayerByName("SOUNDG"), "SOUNDG"); // Soundings
+    layer2XYZ(ds->GetLayerByName("DEPCNT"), "DEPCNT"); // Depth contours
+    layer2XYZ(ds->GetLayerByName("M_COVR"), "M_COVR"); // Coverage (ENC outline)
+    layer2XYZ(ds->GetLayerByName("DEPARE"), "DEPARE"); // Depth Areas
+    layer2XYZ(ds->GetLayerByName("LNDARE"), "LNDARE"); // Land
+    layer2XYZ(ds->GetLayerByName("PONTON"), "PONTON"); // Pontoons
+    layer2XYZ(ds->GetLayerByName("PILPNT"), "PILPNT"); // Piles
 
     if (!simpleGrid)
     {
         if (CATZOC_polys)
             layer2XYZ(ds->GetLayerByName("M_QUAL"), "M_QUAL"); // Mark unreliable data as obstacles
-        layer2XYZ(ds->GetLayerByName("UWTROC"), "UWTROC");
-        layer2XYZ(ds->GetLayerByName("WRECKS"), "WRECKS");
-        layer2XYZ(ds->GetLayerByName("FLODOC"), "FLODOC");
-        layer2XYZ(ds->GetLayerByName("OBSTRN"), "OBSTRN");
-        layer2XYZ(ds->GetLayerByName("DYKCON"), "DYKCON");
+        layer2XYZ(ds->GetLayerByName("UWTROC"), "UWTROC"); // Underwater Rocks
+        layer2XYZ(ds->GetLayerByName("WRECKS"), "WRECKS"); // Wrecks
+        layer2XYZ(ds->GetLayerByName("FLODOC"), "FLODOC"); // Floating Docks
+        layer2XYZ(ds->GetLayerByName("OBSTRN"), "OBSTRN"); // Obstructions
+        layer2XYZ(ds->GetLayerByName("DYKCON"), "DYKCON"); // Dykes
+        layer2XYZ(ds->GetLayerByName("WATTUR"), "WATTUR"); // Water Turbulence
+        layer2XYZ(ds->GetLayerByName("WEDKLP"), "WEDKLP"); // Weeds/Kelp
+        layer2XYZ(ds->GetLayerByName("TOPMAR"), "TOPMAR"); // Top Mark
+        layer2XYZ(ds->GetLayerByName("DAYMAR"), "DAYMAR"); // Day Mark
+        layer2XYZ(ds->GetLayerByName("LIGHTS"), "LIGHTS"); // Lights
+        layer2XYZ(ds->GetLayerByName("BOYSPP"), "BOYSPP"); // Special Purpose Buoy
+        layer2XYZ(ds->GetLayerByName("BOYISD"), "BOYISD"); // Isolated Danger Buoy
+        layer2XYZ(ds->GetLayerByName("BOYSAW"), "BOYSAW"); // Safe water Buoy
+        layer2XYZ(ds->GetLayerByName("BOYLAT"), "BOYLAT"); // Lateral Buoy
+        layer2XYZ(ds->GetLayerByName("BCNSPP"), "BCNSPP"); // Special Purpose Beacon
+        layer2XYZ(ds->GetLayerByName("BCNLAT"), "BCNLAT"); // Lateral Beacon
     }
 
     // Save the rasters
@@ -681,7 +696,7 @@ void GridENC::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
     bool WL_flag = false;
     string Z;
 
-    if (layerName == "LNDARE")
+    if ((layerName == "LNDARE")||(layerName == "PILPNT"))
         z = landZ;
 
     else if ((layerName == "UWTROC")||(layerName == "WRECKS")||(layerName == "OBSTRN"))
@@ -698,6 +713,40 @@ void GridENC::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
         else
             z = feat->GetFieldAsDouble("VALSOU");
     }
+    else if ((layerName == "BOYLAT")||(layerName == "BOYSPP")||(layerName == "BOYSAW")||(layerName == "BOYISD")||
+             (layerName == "BCNSPP")||(layerName == "BCNLAT")||(layerName == "WATTUR")||(layerName == "DAYMAR")||
+             (layerName == "TOPMAR")||(layerName =="LIGHTS"))
+    {
+        // Consider the object's depth to be the same as always dry (WL = 2)
+        z = calcDepth(2);
+        WL_flag = true;
+    }
+    else if (layerName == "WEDKLP")
+    {
+        // Consider the object's depth to be the same as always underwater (WL = 3)
+        z = calcDepth(3);
+        WL_flag = true;
+    }
+//    else if ((layerName == "DAYMAR")||(layerName == "TOPMAR")||(layerName =="LIGHTS"))
+//    {
+//        Z = feat->GetFieldAsString("HEIGHT");
+//        if (Z.empty())
+//        {
+//            // Consider it the same as always dry (WL = 2)
+//            z = calcDepth(2);
+//        }
+//        else
+//            z = feat->GetFieldAsDouble("HEIGHT");
+//
+//        WL_flag = true;
+//        return;
+//    }
+//
+//    //
+//    else if ((layerName == "BOYLAT")||(layerName == "BOYSPP")||(layerName == "BOYSAW")||(layerName == "BOYISD")||(layerName == "BCNSPP")||(layerName == "BCNLAT"))
+//    {
+//
+//    }
     else
     {
         cout << "Unknown point layer: " << layerName << endl;
@@ -721,8 +770,24 @@ void GridENC::storePoint(double x, double y, double z, bool WL_flag)
     double  local_x, local_y;
     OGRFeature *new_feat;
 
-    vector<double> dx = {-grid_size,0,grid_size};
-    vector<double> dy = {-grid_size,0,grid_size};
+    vector<double> dx, dy;
+
+    // The uncertainity is approximately 2mm at chart scale for points
+    int numGridCells_in_1mm = static_cast<int>(round(ENC_Scale/grid_size));
+
+    if (numGridCells_in_1mm<1)
+    {
+        dx.push_back(0);
+        dy.push_back(0);
+    }
+    else
+    {
+        for (int i = -numGridCells_in_1mm; i<=numGridCells_in_1mm; i++)
+        {
+            dx.push_back(i*grid_size);
+            dy.push_back(i*grid_size);
+        }
+    }
 
     local_x = x-geod.getXOrigin();
     local_y = y-geod.getYOrigin();
@@ -732,27 +797,32 @@ void GridENC::storePoint(double x, double y, double z, bool WL_flag)
     {
         for (auto DY: dy)
         {
-            // Put into point layer
-            pt = OGRPoint(x+DX,y+DY);
-            new_feat =  OGRFeature::CreateFeature(feat_def_pnt);
-            new_feat->SetField("Depth", z);
-            new_feat->SetGeometry(&pt);
-
-            // Build the new feature
-            if( layer_pnt->CreateFeature( new_feat ) != OGRERR_NONE )
+            //cout << DX << ", " << DY << ": " << abs(DX)+abs(DY) << " " << numGridCells_in_1mm << endl;
+            if ((abs(DX)+abs(DY))/grid_size <=numGridCells_in_1mm)
             {
-                printf( "Failed to create feature in polygon shapefile.\n" );
-                exit( 1 );
-            }
-            OGRFeature::DestroyFeature(new_feat);
+                //cout << "\tinside"<<endl;
+                // Put into point layer
+                pt = OGRPoint(x+DX,y+DY);
+                new_feat =  OGRFeature::CreateFeature(feat_def_pnt);
+                new_feat->SetField("Depth", z);
+                new_feat->SetGeometry(&pt);
 
-            // Store the XYZ of the vertices
-            // Only use the feature to interpolate if the depth is known
-            if (!WL_flag)
-            {
-                X.push_back(local_x+DX);
-                Y.push_back(local_y+DY);
-                depth.push_back(z);
+                // Build the new feature
+                if( layer_pnt->CreateFeature( new_feat ) != OGRERR_NONE )
+                {
+                    printf( "Failed to create feature in polygon shapefile.\n" );
+                    exit( 1 );
+                }
+                OGRFeature::DestroyFeature(new_feat);
+
+                // Store the XYZ of the vertices
+                // Only use the feature to interpolate if the depth is known
+                if (!WL_flag)
+                {
+                    X.push_back(local_x+DX);
+                    Y.push_back(local_y+DY);
+                    depth.push_back(z);
+                }
             }
         }
     }

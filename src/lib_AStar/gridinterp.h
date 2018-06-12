@@ -104,7 +104,7 @@ public:
 
     double getLandZ() {return landZ; }
 
-    void setGridSize2Default(GDALDataset *ds);
+    void setGridSize2Default();
 
 //    #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
 //      #include <windows.h>
@@ -123,9 +123,9 @@ private:
     vector<double> griddedData;
     vector <vector<double> > Map;
     double minX, minY, maxX, maxY;
-    double grid_size;
+    double grid_size, buffer_size;
     double MHW_Offset, landZ, CATZOC_z;
-    double buffer_size;
+    double ENC_Scale;
     GDALDataset *ds_poly, *ds_pnt, *ds_depth, *ds_outline;
     OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;
     OGRFeatureDefn *feat_def_poly, *feat_def_pnt, *feat_def_depth, *feat_def_outline;

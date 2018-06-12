@@ -101,7 +101,7 @@ public:
 
     double getLandZ() {return landZ; }
 
-    void setGridSize2Default(GDALDataset *ds);
+    void setGridSize2Default();
 
 private:
     Geodesy geod;
@@ -114,6 +114,7 @@ private:
     double grid_size, buffer_size;
     double MHW_Offset, landZ, CATZOC_z;
     double searchRadius;
+    double ENC_Scale;
     GDALDataset *ds_poly, *ds_pnt, *ds_depth, *ds_outline;
     OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;
     OGRFeatureDefn *feat_def_poly, *feat_def_pnt, *feat_def_depth, *feat_def_outline;

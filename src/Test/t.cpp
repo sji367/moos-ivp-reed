@@ -20,8 +20,8 @@ using namespace std;
 
 int main()
 {
-    int grid_size = 5000;
-    int buffer_size = 100;
+    int grid_size = 5;
+    int buffer_size = 5;
     double LatOrigin  = 43.071959194444446;
     double LongOrigin = -70.711610833333339;
     bool flag;
@@ -69,7 +69,7 @@ int main()
     A_Star astar= A_Star(6);//grid_size, 0, 0, 6);
     astar.setMapFromTiff("US5NH02M.tiff");
 
-    astar.setStartFinish_LatLong(43.07020,-70.70389,43.05824,-70.67716);
+    astar.setStartFinish_LatLong(43.071959194444446,-70.711610833333339,43.05824,-70.67716);
     double utmX, utmY;
 
 //    astar.LatLong2UTM(43.071959194444446,-70.711610833333339, utmX, utmY);

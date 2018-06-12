@@ -13,9 +13,9 @@ namespace fs = boost::filesystem;
 int main(int argc, char **argv){
 
     int opt,f,b,r,s;
-    double buffer_dist = -1;// if this is not set, the gridding process will automatically set the buffer distance to the grid size
-    double grid_size = -1;// if this is not set, the gridding process will automatically pick the appropriate grid size
-    double search_radius = -1; // If this is not set then the
+    double buffer_dist = -1;// If this is not set, the gridding process will automatically set the buffer distance to the grid size
+    double grid_size = -1;// If this is not set, the gridding process will automatically pick the appropriate grid size
+    double search_radius = -1; // If this is not set, the Delaunay triangulation section of the gridding process will not have a upper bound
     bool simpleGrid = false;
     bool CATZOC_poly = false;
     string ENCfilename, ENCname;

@@ -118,7 +118,8 @@ int main(int argc, char **argv)
             }
             case 'h':
             {
-                fprintf(stderr,"   USAGE: A_Star -f Tiff_FILENAME -g Grid_Resolution -o output_FILENAME -c connecting_dist -w depthCost_weight\n");
+                fprintf(stderr,"You need to atleast put in the start and finish point (in Lat/Long) as well as the tiff file.\n   USAGE: A_Star -x startLat -y startLon -X endLat -Y endLon -f Tiff_FILENAME -g Grid_Resolution -o output_FILENAME -c connecting_dist -w depthCost_weight\n");
+                return -1;
             }
 
             default:
@@ -129,6 +130,7 @@ int main(int argc, char **argv)
         if((startX)&&(startY)&&(endX)&&(endY)&&(f))
         {
             astar = A_Star(gridSize, depthCutoff, weight, connectingDist);
+            cout << "\tnum directions: "<<astar.getNumDir() << endl;
             astar.setMapFromTiff(filename);
             astar.setStartFinish_LatLong(startLat, startLong, endLat, endLong);
             astar.runA_Star(false);
@@ -138,10 +140,10 @@ int main(int argc, char **argv)
 
         }
         else
-            fprintf(stderr,"You need to atleast put in the start and finish point (in Lat\Long) as well as the tiff file.\n   USAGE: A_Star -x startLat -y startLon -X endLat -Y endLon -f Tiff_FILENAME -g Grid_Resolution -o output_FILENAME -c connecting_dist -w depthCost_weight\n");
+            fprintf(stderr,"You need to atleast put in the start and finish point (in Lat/Long) as well as the tiff file.\n   USAGE: A_Star -x startLat -y startLon -X endLat -Y endLon -f Tiff_FILENAME -g Grid_Resolution -o output_FILENAME -c connecting_dist -w depthCost_weight\n");
     }
     else
-        fprintf(stderr,"   USAGE: A_Star -x startLat -y startLon -X endLat -Y endLon -f Tiff_FILENAME -g Grid_Resolution -o output_FILENAME -c connecting_dist -w depthCost_weight\n");
+        fprintf(stderr,"You need to atleast put in the start and finish point (in Lat/Long) as well as the tiff file.\n   USAGE: A_Star -x startLat -y startLon -X endLat -Y endLon -f Tiff_FILENAME -g Grid_Resolution -o output_FILENAME -c connecting_dist -w depthCost_weight\n");
 
     return 0;
 }
