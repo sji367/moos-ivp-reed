@@ -33,7 +33,7 @@ class GridENC
 {
 public:
     GridENC(string MOOS_path, string ENC_Name, double buffer_dist, double gridSize, double search_radius, double MHW_offset, bool SimpleGrid, bool CATZOC_poly);
-    ~GridENC() {}
+    ~GridENC() {for (OGRPolygon* obj3: scaleSubsets_poly) delete obj3; scaleSubsets_poly.clear();}
 
     // Initialize Geodesy
     void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
@@ -102,6 +102,7 @@ public:
     double getLandZ() {return landZ; }
 
     void setGridSize2Default();
+    void setENC_Scale(GDALDataset *ds);
 
 private:
     Geodesy geod;
@@ -115,6 +116,9 @@ private:
     double MHW_Offset, landZ, CATZOC_z;
     double searchRadius;
     double ENC_Scale;
+    vector<double> SubsetScale;
+    vector<OGRPolygon*>scaleSubsets_poly;
+
     GDALDataset *ds_poly, *ds_pnt, *ds_depth, *ds_outline;
     OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;
     OGRFeatureDefn *feat_def_poly, *feat_def_pnt, *feat_def_depth, *feat_def_outline;

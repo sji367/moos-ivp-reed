@@ -52,9 +52,11 @@ class ENC_Contact : public CMOOSApp
 	int calc_t_lvl(double &depth, double WL, string LayerName);
 	int threat_level(double depth);
 
+
         // Functions for building ENC_DB (shapefiles) from the ENC
-	void BuildLayers();
-        void ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLayer *PolyLayer, string LayerName);
+        void BuildLayers();
+        void setENC_Scale(GDALDataset *ds);
+        void ENC_Converter(OGRLayer *Layer_ENC,OGRLayer *PolyLayer, string LayerName);
 	void LayerMultiPoint (OGRLayer *layer_mp, OGRLayer *Point_Layer, string LayerName_mp);
         void StoreShallowPolys(OGRLayer *layer, OGRLayer *PolyLayer);
 
@@ -118,6 +120,11 @@ class ENC_Contact : public CMOOSApp
         double m_segmentation_dist, m_buffer_size;
         bool m_first_run;
         string m_ENC;
+
+        // ENC Scale objects
+        double ENC_Scale;
+        vector<OGRPolygon*> scaleSubsets_poly;
+        vector<double> SubsetScale;
 
         bool m_simplifyPolys, m_SearchDistSet;
 

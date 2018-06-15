@@ -173,6 +173,60 @@ void Grid_Interp::setGridSize2Default()
     cout << "Grid size = " << grid_size << endl;
 }
 
+void Grid_Interp::setENC_Scale(GDALDataset *ds)
+{
+    OGRLayer *subset_layer;
+    OGRFeature *feat;
+    OGRGeometry *geom;
+    OGRPolygon *poly, *UTM_poly;
+    OGRLinearRing *ring, *UTM_ring;
+
+    double x,y,lat,lon;
+
+    ENC_Scale = ds->GetLayerByName("DSID")->GetFeature(0)->GetFieldAsInteger("DSPM_CSCL")/1000.0;
+
+    // If there are subsets of the ENC, store them to a vector
+    subset_layer = ds->GetLayerByName("M_CSCL");
+    if (subset_layer != NULL)
+    {
+        subset_layer->ResetReading();
+        feat = subset_layer->GetNextFeature();
+        while(feat)
+        {
+            // Get the scale of th subset
+            SubsetScale.push_back(feat->GetFieldAsDouble("CSCALE")/1000.0);
+
+            // Convert type to polygon
+            geom = feat->GetGeometryRef();
+            poly = ( OGRPolygon * )geom;
+            ring = poly->getExteriorRing();
+
+            // Convert from Lat/Long to UTM
+            UTM_ring = (OGRLinearRing *) OGRGeometryFactory::createGeometry(wkbLinearRing);
+            UTM_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
+            for (int j=0; j<ring->getNumPoints(); j++)
+            {
+                lon = ring->getX(j);
+                lat = ring->getY(j);
+
+                geod.LatLong2UTM(lat,lon,x,y);
+                UTM_ring->addPoint(x,y,0);
+            }
+
+            // Build the UTM polygon from the UTM ring
+            UTM_ring->closeRings();
+            UTM_poly->addRing(UTM_ring);
+            UTM_poly->closeRings();
+
+            // Store the polygon
+            scaleSubsets_poly.push_back(UTM_poly);
+
+            // Go to the next feature
+            feat= subset_layer->GetNextFeature();
+        }
+    }
+}
+
 
 // This function creates a grid from the soundings, land areas, rocks, wrecks, depth areas
 //  and depth contours and store it as a 2D vector of ints where the depth is stored in cm.
@@ -189,7 +243,7 @@ void Grid_Interp::Run(bool csv, bool mat)
 
     ds = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
 
-    ENC_Scale = ds->GetLayerByName("DSID")->GetFeature(0)->GetFieldAsInteger("DSPM_CSCL")/1000.0;
+    setENC_Scale(ds);
 
     getENC_MinMax(ds);
 
@@ -777,14 +831,36 @@ void Grid_Interp::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerNam
 //          WL_flag - boolean describing if the if the depth value was calculated using WL
 void Grid_Interp::storePoint(double x, double y, double z, bool WL_flag)
 {
-    OGRPoint pt;
-    double  local_x, local_y;
+    OGRPoint pt, orig_pnt;
+    double  local_x, local_y, scale;
     OGRFeature *new_feat;
 
     vector<double> dx, dy;
 
+    orig_pnt = OGRPoint(x,y);
+    // Use the subset scale if there is one and the point lies within it
+    if (scaleSubsets_poly.size()>0)
+    {
+        // reset the scale
+        scale =-1;
+        for (int i=0; i < scaleSubsets_poly.size(); i++)
+        {
+            if (orig_pnt.Within(scaleSubsets_poly[i]))
+            {
+                if ((scale == -1)||(scale>SubsetScale[i]))
+                {
+                    scale = SubsetScale[i];
+                }
+            }
+            else
+                scale = ENC_Scale;
+        }
+    }
+    else
+        scale = ENC_Scale;
+
     // The uncertainity is approximately 2mm at chart scale for points
-    int numGridCells_in_1mm = static_cast<int>(round(ENC_Scale/grid_size));
+    int numGridCells_in_1mm = static_cast<int>(round(scale/grid_size));
 
     if (numGridCells_in_1mm<1)
     {

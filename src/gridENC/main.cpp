@@ -20,7 +20,7 @@ int main(int argc, char **argv){
     bool CATZOC_poly = false;
     string ENCfilename, ENCname;
 
-    if (argc>1)
+    if (argc>2)
     {
         while ((opt = getopt(argc,argv,"f:b:s:r:h")) != EOF)
         {
@@ -85,7 +85,7 @@ int main(int argc, char **argv){
 
         // Create the output directory.
         if(boost::filesystem::create_directory(outputGriddir)) {
-               std::cout << "Success" << "\n";
+               std::cout << "Successfully created file directory." << endl;
         }
 
         // simpleGrid == False: Grids on land, soundings, contours, rocks, masked by rocks, wrecks

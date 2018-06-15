@@ -37,6 +37,7 @@ ENC_Contact::ENC_Contact()
   origDesSpeed = 1;
   newSpeedSet_flag = false;
   prevPolyDist = 10*m_ASV_length;
+  ENC_Scale = 20; // Scale for US5NH02M is 20000:1
 }
 
 ENC_Contact::~ENC_Contact()
@@ -52,6 +53,10 @@ ENC_Contact::~ENC_Contact()
     for (OGRPolygon* obj2: newPoly)
         delete obj2;
     newPoly.clear();
+
+    for (OGRPolygon* obj3: scaleSubsets_poly)
+        delete obj3;
+    scaleSubsets_poly.clear();
 }
 
 //---------------------------------------------------------
@@ -702,8 +707,9 @@ int ENC_Contact::calc_t_lvl(double &depth, double WL, string LayerName)
       t_lvl = 4;
   else if (LayerName == "LIGHTS")
     t_lvl = -2;
-  // If it is a Buoy or Beacon set threat level to 3
-  else if ((LayerName == "BOYISD")||(LayerName == "BOYSPP")||(LayerName == "BOYSAW")||(LayerName == "BOYLAT")||(LayerName == "BCNSPP")||(LayerName == "BCNLAT"))
+  // If it is a Buoy or Beacon or daymark or Topmark set threat level to 3
+  else if ((LayerName == "BOYISD")||(LayerName == "BOYSPP")||(LayerName == "BOYSAW")||(LayerName == "BOYLAT")||
+           (LayerName == "BCNSPP")||(LayerName == "BCNLAT")||(LayerName == "DAYMAR")||(LayerName == "TOPMAR"))
     t_lvl = 3;
   else if (LayerName == "LNDMRK")
     t_lvl = -1;
@@ -939,27 +945,27 @@ void ENC_Contact::BuildLayers()
     //LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG"); // Soundings
     //ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, "LNDMRK"); // Landmarks
     //ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, "SILTNK"); // Silos/Tanks
-    ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, "LIGHTS"); // Lights
-    ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, "BOYSPP"); // Special Purpose Buoy
-    ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, "BOYISD"); // Isolated Danger Buoy
-    ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PointLayer, PolyLayer, "BOYSAW"); // Safe water Buoy
-    ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, "BOYLAT"); // Lateral Buoy
-    ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, "BCNSPP"); // Special Purpose Beacon
-    ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, "BCNLAT"); // Lateral Beacon
-    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, "UWTROC"); // Underwater Rocks
-    ENC_Converter(ds_ENC->GetLayerByName("WATTUR"), PointLayer, PolyLayer, "WATTUR"); // Water Turbulence
-    ENC_Converter(ds_ENC->GetLayerByName("WEDKLP"), PointLayer, PolyLayer, "WEDKLP"); // Weeds/Kelp
-    ENC_Converter(ds_ENC->GetLayerByName("TOPMAR"), PointLayer, PolyLayer, "TOPMAR"); // Top Mark
-    ENC_Converter(ds_ENC->GetLayerByName("DAYMAR"), PointLayer, PolyLayer, "DAYMAR"); // Day Mark
-    ENC_Converter(ds_ENC->GetLayerByName("PILPNT"), PointLayer, PolyLayer, "PILPNT"); // Piles
+    ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PolyLayer, "LIGHTS"); // Lights
+    ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PolyLayer, "BOYSPP"); // Special Purpose Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PolyLayer, "BOYISD"); // Isolated Danger Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PolyLayer, "BOYSAW"); // Safe water Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PolyLayer, "BOYLAT"); // Lateral Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PolyLayer, "BCNSPP"); // Special Purpose Beacon
+    ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PolyLayer, "BCNLAT"); // Lateral Beacon
+    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PolyLayer, "UWTROC"); // Underwater Rocks
+    ENC_Converter(ds_ENC->GetLayerByName("WATTUR"), PolyLayer, "WATTUR"); // Water Turbulence
+    ENC_Converter(ds_ENC->GetLayerByName("WEDKLP"), PolyLayer, "WEDKLP"); // Weeds/Kelp
+    ENC_Converter(ds_ENC->GetLayerByName("TOPMAR"), PolyLayer, "TOPMAR"); // Top Mark
+    ENC_Converter(ds_ENC->GetLayerByName("DAYMAR"), PolyLayer, "DAYMAR"); // Day Mark
+    ENC_Converter(ds_ENC->GetLayerByName("PILPNT"), PolyLayer, "PILPNT"); // Piles
 
     // Other Types
-    ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, "LNDARE"); // Land
-    ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, "PONTON"); // Pontoons
-    ENC_Converter(ds_ENC->GetLayerByName("FLODOC"), PointLayer, PolyLayer, "FLODOC"); // Floating Docks
-    ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, "DYKCON"); // Dykes
-    ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, "WRECKS"); // Wrecks
-    ENC_Converter(ds_ENC->GetLayerByName("OBSTRN"), PointLayer, PolyLayer, "OBSTRN"); // Obstructions
+    ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PolyLayer, "LNDARE"); // Land
+    ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PolyLayer, "PONTON"); // Pontoons
+    ENC_Converter(ds_ENC->GetLayerByName("FLODOC"), PolyLayer, "FLODOC"); // Floating Docks
+    ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PolyLayer, "DYKCON"); // Dykes
+    ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PolyLayer, "WRECKS"); // Wrecks
+    ENC_Converter(ds_ENC->GetLayerByName("OBSTRN"), PolyLayer, "OBSTRN"); // Obstructions
 
     // Depth area and depth contours give the same infomation except the areas are polygons and
     //  contours are line segments
@@ -976,15 +982,15 @@ void ENC_Contact::BuildLayers()
     //*/
 
     // Reopen the data source so that we can use them later in the iterate loop
-    DS_pnt = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Point.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
+    //DS_pnt = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Point.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
     DS_poly = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Poly.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
       
-    // Check if it worked
-    if( DS_pnt == NULL )
-    {
-	printf( "Open failed.\n" );
-	exit( 1 );
-    }
+//    // Check if it worked
+//    if( DS_pnt == NULL )
+//    {
+//	printf( "Open failed.\n" );
+//	exit( 1 );
+//    }
     if( DS_poly == NULL )
     {
 	printf( "Open failed.\n" );
@@ -992,18 +998,72 @@ void ENC_Contact::BuildLayers()
     }
 
     // Open the layers
-    Point_Layer = DS_pnt -> GetLayerByName( "Point" );
+    //Point_Layer = DS_pnt -> GetLayerByName( "Point" );
     Poly_Layer = DS_poly -> GetLayerByName( "Poly" );
 
-    if (Point_Layer == NULL)
-    {
-        cout << "Opening point layer failed." << endl;
-        exit( 1 );
-    }
+//    if (Point_Layer == NULL)
+//    {
+//        cout << "Opening point layer failed." << endl;
+//        exit( 1 );
+//    }
     if (Poly_Layer == NULL)
     {
         cout << "Opening poly layer failed." << endl;
         exit( 1 );
+    }
+}
+
+void ENC_Contact::setENC_Scale(GDALDataset *ds)
+{
+    OGRLayer *subset_layer;
+    OGRFeature *feat;
+    OGRGeometry *geom;
+    OGRPolygon *poly, *UTM_poly;
+    OGRLinearRing *ring, *UTM_ring;
+
+    double x,y,lat,lon;
+
+    ENC_Scale = ds->GetLayerByName("DSID")->GetFeature(0)->GetFieldAsInteger("DSPM_CSCL")/1000.0;
+
+    // If there are subsets of the ENC, store them to a vector
+    subset_layer = ds->GetLayerByName("M_CSCL");
+    if (subset_layer != NULL)
+    {
+        subset_layer->ResetReading();
+        feat = subset_layer->GetNextFeature();
+        while(feat)
+        {
+            // Get the scale of th subset
+            SubsetScale.push_back(feat->GetFieldAsDouble("CSCALE")/1000.0);
+
+            // Convert type to polygon
+            geom = feat->GetGeometryRef();
+            poly = ( OGRPolygon * )geom;
+            ring = poly->getExteriorRing();
+
+            // Convert from Lat/Long to UTM
+            UTM_ring = (OGRLinearRing *) OGRGeometryFactory::createGeometry(wkbLinearRing);
+            UTM_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
+            for (int j=0; j<ring->getNumPoints(); j++)
+            {
+                lon = ring->getX(j);
+                lat = ring->getY(j);
+
+                geod.LatLong2LocalUTM(lat,lon,x,y);
+                UTM_ring->addPoint(x,y,0);
+            }
+
+            // Build the UTM polygon from the UTM ring
+            UTM_ring->closeRings();
+            UTM_poly->addRing(UTM_ring);
+            UTM_poly->closeRings();
+
+            // Store the polygon
+            scaleSubsets_poly.push_back(UTM_poly);
+
+            // Go to the next feature
+            feat= subset_layer->GetNextFeature();
+        }
     }
 }
 
@@ -1124,7 +1184,7 @@ void ENC_Contact::LayerMultiPoint(OGRLayer *layer_mp, OGRLayer *PointLayer, stri
 		// Get the x,y, and depth in UTM
 		lon = poPoint->getX();
 		lat = poPoint->getY();
-		m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
+                geod.LatLong2LocalUTM(lat,lon,x,y);
 		depth = poPoint->getZ();
 		
 		pt.setX(x);
@@ -1159,7 +1219,7 @@ void ENC_Contact::LayerMultiPoint(OGRLayer *layer_mp, OGRLayer *PointLayer, stri
   is not in the ENC, the layer is skipped and the function prints a 
   warning to the user.
 */
-void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLayer *PolyLayer, string LayerName)
+void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PolyLayer, string LayerName)
 {
     OGRFeature *poFeature, *new_feat;
     OGRFeatureDefn *poFDefn, *poFDefn_ENC;
@@ -1172,6 +1232,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
 
     double x,y, lat,lon;
     double WL;
+    double scale =-1;
     int vis;
     int i=0;
     double t_lvl = 0;
@@ -1206,23 +1267,23 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
                 name = poFieldDefn->GetNameRef();
                 if (name == "WATLEV"){
                     WL = poFeature->GetFieldAsDouble(iField);
-            }
-            else if ((name == "VALSOU")||(name == "VALDCO"))
-            {
-                depth_str = poFeature->GetFieldAsString(iField);
-                if (!(depth_str.empty()))
-                    depth = poFeature->GetFieldAsDouble(iField);
-                else
-                    depth = 9999;
-            }
-            else if (name == "CONVIS")
-                vis = 2-((int)round(poFeature->GetFieldAsDouble(iField)));
-            else if (name == "CATLIT")
-                cat = category_lights((int)round(poFeature->GetFieldAsDouble(iField)));
-            else if (name == "CATLMK")
-                cat = category_landmark((int)round(poFeature->GetFieldAsDouble(iField)));
-            else if (name == "CATSIL")
-                cat = category_silo((int)round(poFeature->GetFieldAsDouble(iField)));
+                }
+                else if ((name == "VALSOU")||(name == "VALDCO"))
+                {
+                    depth_str = poFeature->GetFieldAsString(iField);
+                    if (!(depth_str.empty()))
+                        depth = poFeature->GetFieldAsDouble(iField);
+                    else
+                        depth = 9999;
+                }
+                else if (name == "CONVIS")
+                    vis = 2-((int)round(poFeature->GetFieldAsDouble(iField)));
+                else if (name == "CATLIT")
+                    cat = category_lights((int)round(poFeature->GetFieldAsDouble(iField)));
+                else if (name == "CATLMK")
+                    cat = category_landmark((int)round(poFeature->GetFieldAsDouble(iField)));
+                else if (name == "CATSIL")
+                    cat = category_silo((int)round(poFeature->GetFieldAsDouble(iField)));
             }
 	  
             if (LayerName=="DEPCNT")
@@ -1241,13 +1302,18 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
                 else
                     depth = 9999;
             }
+            else if (LayerName == "WEDKLP")
+            {
+                // We will consider the weed/kelp to be always underwater
+                WL = 3;
+            }
 	  
             t_lvl = calc_t_lvl(depth, WL, LayerName);
 
             if (geom ->getGeometryType()  == wkbPoint)
             {
                 // Set attributes of the new feature
-                poFDefn = PointLayer->GetLayerDefn();
+                poFDefn = PolyLayer->GetLayerDefn();
                 new_feat =  OGRFeature::CreateFeature(poFDefn);
 
                 new_feat->SetField("Depth", depth);
@@ -1263,15 +1329,44 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
                 // Convert lat/long to UTM
                 lon = poPoint->getX();
                 lat = poPoint->getY();
-                m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
+                geod.LatLong2LocalUTM(lat,lon,x,y);
 
                 // Make the new point in UTM
                 pt.setX(x);
                 pt.setY(y);
                 new_feat->SetGeometry( &pt);
 
-                // Build the new feature
-                if( PointLayer->CreateFeature( new_feat ) != OGRERR_NONE )
+                // Use the subset scale if there is one and the point lies within it
+                if (scaleSubsets_poly.size()>0)
+                {
+                    // reset the scale
+                    scale =-1;
+                    for (int i=0; i < scaleSubsets_poly.size(); i++)
+                    {
+                        if (pt.Within(scaleSubsets_poly[i]))
+                        {
+                            if ((scale == -1)||(scale>SubsetScale[i]))
+                            {
+                                scale = SubsetScale[i];
+                            }
+                        }
+                    }
+                }
+                else
+                    scale = ENC_Scale;
+
+                buff_geom = UTM_line->Buffer(2*scale+calcBuffer(t_lvl));
+                buff_poly = ( OGRPolygon * )buff_geom;
+
+                // Check to see if you can make unions with other polys
+                buff_poly = check4Union(buff_poly, PolyLayer, depth, LayerName);
+
+                // Segment the polygons
+                buff_poly->segmentize(m_segmentation_dist);
+
+                // Build the new feature as a polygon
+                new_feat->SetGeometry(buff_poly);
+                if( PolyLayer->CreateFeature( new_feat ) != OGRERR_NONE )
                 {
                     printf( "Failed to create feature in shapefile.\n" );
                     exit( 1 );
@@ -1296,12 +1391,10 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
                 UTM_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
                 for (int j=0; j<ring->getNumPoints(); j++)
                 {
-                    //x = ring->getX(j)-geod.getXOrigin();
-                    //y = ring->getY(j)-geod.getYOrigin();
                     lon = ring->getX(j);
                     lat = ring->getY(j);
 
-                    m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
+                    geod.LatLong2LocalUTM(lat,lon,x,y);
                     UTM_ring->addPoint(x,y,0);
                 }
                 // Build the UTM polygon from the ring
@@ -1344,7 +1437,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PointLayer, OGRLa
                     // Convert to UTM
                     lon = poLine->getX(j);
                     lat = poLine->getY(j);
-                    m_Geodesy.LatLong2LocalUTM(lat,lon,y,x);
+                    geod.LatLong2LocalUTM(lat,lon,x,y);
 
                     UTM_line->addPoint(x,y,0);
                 }
@@ -1493,7 +1586,6 @@ void ENC_Contact::publish_points()
     double depth = 0;
     double t_lvl = 0;
     Point_Layer->ResetReading();
-    //Notify("Other",Point_Layer->GetFeatureCount() );
     while( (poFeature = Point_Layer->GetNextFeature()) != NULL )
     {
 

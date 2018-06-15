@@ -35,7 +35,7 @@ public:
     Grid_Interp();
     Grid_Interp(string MOOS_path, string ENC_Name, double Grid_size, double buffer_dist, double MHW_offset, bool SimpleGrid, bool CATZOC_poly);
     Grid_Interp(string MOOS_path, string ENC_Name, double buffer_dist, double MHW_offset, bool SimpleGrid, bool CATZOC_poly);
-    ~Grid_Interp() {}
+    ~Grid_Interp() {for (OGRPolygon* obj3: scaleSubsets_poly) delete obj3; scaleSubsets_poly.clear();}
 
     // Initialize Geodesy
     void initGeodesy(Geodesy Geod) { geod = Geodesy(Geod.getLatOrigin(), Geod.getLonOrigin()); }
@@ -105,15 +105,7 @@ public:
     double getLandZ() {return landZ; }
 
     void setGridSize2Default();
-
-//    #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
-//      #include <windows.h>
-//      inline void delay( unsigned long ms ){Sleep( ms );}
-//
-//    #else  // presume POSIX
-//      #include <unistd.h>
-//      inline void delay( unsigned long ms ){usleep( ms * 1000 );}
-//    #endif
+    void setENC_Scale(GDALDataset *ds);
 
 private:
     Geodesy geod;
@@ -126,6 +118,9 @@ private:
     double grid_size, buffer_size;
     double MHW_Offset, landZ, CATZOC_z;
     double ENC_Scale;
+    vector<double> SubsetScale;
+    vector<OGRPolygon*>scaleSubsets_poly;
+
     GDALDataset *ds_poly, *ds_pnt, *ds_depth, *ds_outline;
     OGRLayer  *layer_poly, *layer_pnt, *layer_depth, *layer_outline;
     OGRFeatureDefn *feat_def_poly, *feat_def_pnt, *feat_def_depth, *feat_def_outline;
