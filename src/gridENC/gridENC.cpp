@@ -797,10 +797,8 @@ void GridENC::storePoint(double x, double y, double z, bool WL_flag)
     {
         for (auto DY: dy)
         {
-            //cout << DX << ", " << DY << ": " << abs(DX)+abs(DY) << " " << numGridCells_in_1mm << endl;
             if ((abs(DX)+abs(DY))/grid_size <=numGridCells_in_1mm)
             {
-                //cout << "\tinside"<<endl;
                 // Put into point layer
                 pt = OGRPoint(x+DX,y+DY);
                 new_feat =  OGRFeature::CreateFeature(feat_def_pnt);

@@ -810,11 +810,10 @@ void ENC_Contact::BuildLayers()
     OGRLayer *PointLayer, *PolyLayer, *GridLayer;
     string ENC_filename;
 
-    /*
+
     // Build the grid and interp. Then make a binary grid (based on the desired minimum depth)and polygonize it
     ENC_Polygonize polygonize = ENC_Polygonize("../../", "PostProcess"+m_ENC +".tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
     polygonize.runWithGrid(m_ENC, 5, calcBuffer(4), m_MHW_Offset, true);
-    polygonize.closeDS();
 
     string gridFilename = "../../src/ENCs/Grid/raster.shp";
 
@@ -937,36 +936,42 @@ void ENC_Contact::BuildLayers()
       cout << "Opened "<< m_ENC << endl;
 
     // Points only
-    //LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG");
-    ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, "LNDMRK");
-    ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, "SILTNK");
-    ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, "LIGHTS");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, "BOYSPP");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, "BOYISD");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PointLayer, PolyLayer, "BOYSAW");
-    ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, "BOYLAT");
-    ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, "BCNSPP");
-    ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, "BCNLAT");
-    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, "UWTROC");
+    //LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG"); // Soundings
+    //ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, "LNDMRK"); // Landmarks
+    //ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, "SILTNK"); // Silos/Tanks
+    ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PointLayer, PolyLayer, "LIGHTS"); // Lights
+    ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PointLayer, PolyLayer, "BOYSPP"); // Special Purpose Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PointLayer, PolyLayer, "BOYISD"); // Isolated Danger Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PointLayer, PolyLayer, "BOYSAW"); // Safe water Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BOYLAT"), PointLayer, PolyLayer, "BOYLAT"); // Lateral Buoy
+    ENC_Converter(ds_ENC->GetLayerByName("BCNSPP"), PointLayer, PolyLayer, "BCNSPP"); // Special Purpose Beacon
+    ENC_Converter(ds_ENC->GetLayerByName("BCNLAT"), PointLayer, PolyLayer, "BCNLAT"); // Lateral Beacon
+    ENC_Converter(ds_ENC->GetLayerByName("UWTROC"), PointLayer, PolyLayer, "UWTROC"); // Underwater Rocks
+    ENC_Converter(ds_ENC->GetLayerByName("WATTUR"), PointLayer, PolyLayer, "WATTUR"); // Water Turbulence
+    ENC_Converter(ds_ENC->GetLayerByName("WEDKLP"), PointLayer, PolyLayer, "WEDKLP"); // Weeds/Kelp
+    ENC_Converter(ds_ENC->GetLayerByName("TOPMAR"), PointLayer, PolyLayer, "TOPMAR"); // Top Mark
+    ENC_Converter(ds_ENC->GetLayerByName("DAYMAR"), PointLayer, PolyLayer, "DAYMAR"); // Day Mark
+    ENC_Converter(ds_ENC->GetLayerByName("PILPNT"), PointLayer, PolyLayer, "PILPNT"); // Piles
 
     // Other Types
-    ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, "LNDARE");
-    ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, "PONTON");
-    ENC_Converter(ds_ENC->GetLayerByName("FLODOC"), PointLayer, PolyLayer, "FLODOC");
-    ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, "DYKCON");
-    ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, "WRECKS");
-    ENC_Converter(ds_ENC->GetLayerByName("OBSTRN"), PointLayer, PolyLayer, "OBSTRN");
+    ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PointLayer, PolyLayer, "LNDARE"); // Land
+    ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PointLayer, PolyLayer, "PONTON"); // Pontoons
+    ENC_Converter(ds_ENC->GetLayerByName("FLODOC"), PointLayer, PolyLayer, "FLODOC"); // Floating Docks
+    ENC_Converter(ds_ENC->GetLayerByName("DYKCON"), PointLayer, PolyLayer, "DYKCON"); // Dykes
+    ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PointLayer, PolyLayer, "WRECKS"); // Wrecks
+    ENC_Converter(ds_ENC->GetLayerByName("OBSTRN"), PointLayer, PolyLayer, "OBSTRN"); // Obstructions
 
     // Depth area and depth contours give the same infomation except the areas are polygons and
     //  contours are line segments
-    //ENC_Converter(ds_ENC->GetLayerByName("DEPARE"), PointLayer, PolyLayer, "DEPARE");
-    //ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, "DEPCNT");
+    //ENC_Converter(ds_ENC->GetLayerByName("DEPARE"), PointLayer, PolyLayer, "DEPARE");  // Depth Areas
+    //ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, "DEPCNT");  // Depth contours
     StoreShallowPolys(ds_grid->GetLayer(0), PolyLayer);
     // close the data sources - need this to save the new files
     GDALClose( ds_ENC );
     GDALClose( ds_pnt );
     GDALClose( ds_poly );
     GDALClose(ds_grid);
+
 
     //*/
 

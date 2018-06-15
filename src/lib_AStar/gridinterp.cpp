@@ -283,12 +283,6 @@ void Grid_Interp::Run(bool csv, bool mat)
 
     printf("Starting to grid data\n\tData points: %d, Grid: %dx%d\n", static_cast<int>(X.size()), y_res, x_res);
 
-    for (int i=0; i<X.size(); i++)
-    {
-        if ((isnan(X[i]))||(isnan(Y[i]))||(isnan(depth[i])))
-            cout << "NAN!" << endl;
-    }
-
     // Grid the data
     if (GDALGridCreate(GGA_Linear, &options, static_cast<int>(X.size()), X.data(), Y.data(), depth.data(), minX, maxX, minY, maxY, x_res, y_res, GDT_Float64, griddedData.data(), NULL, NULL) == CE_Failure)
     {
