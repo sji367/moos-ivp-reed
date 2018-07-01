@@ -1,1 +1,0 @@
-7.310           BHV_SETTINGS         pHelmIvP:1:station-keep type=BHV_StationKeep,name=station-keep,x=0.00,y=0.00,inner_radius=4.0,outer_radius=15.0,hibernation_radius=-1.0,outer_speed=1.2,center_activate=true 

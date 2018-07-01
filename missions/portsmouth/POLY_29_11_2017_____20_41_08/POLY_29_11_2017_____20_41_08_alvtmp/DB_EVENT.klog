@@ -1,7 +1,0 @@
-0.609           DB_EVENT             MOOSDB_ASV      connected=uSimMarine 
-1.265           DB_EVENT             MOOSDB_ASV      connected=pENC_Contact 
-1.609           DB_EVENT             MOOSDB_ASV      connected=pMarinePID 
-2.085           DB_EVENT             MOOSDB_ASV      connected=pHelmIvP 
-2.803           DB_EVENT             MOOSDB_ASV      connected=pMarineViewer 
-3.097           DB_EVENT             MOOSDB_ASV      connected=pNodeReporter 
-1756.887        DB_EVENT             MOOSDB_ASV      disconnected=uMAC_9716 

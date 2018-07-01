@@ -1,2 +1,0 @@
-1.157           APPCAST_REQ_ASV      uMAC_3622       node=ASV,app=all,duration=0.1,key=uMAC_3622startup,thresh=any 
-7.024           APPCAST_REQ_ASV      pMarineViewer   node=ASV,app=pHelmIvP,duration=3.0,key=pMarineViewer:ASVapp,thresh=any 
