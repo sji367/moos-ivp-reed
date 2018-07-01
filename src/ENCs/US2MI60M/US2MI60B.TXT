@@ -1,7 +1,0 @@
-Vessel Traffic Service calling-in-point: arrow indicates direction of vessel movement.
-
-Mandatory calling-in points are identified numerically.  Voluntary calling-in points are 
-
-identified alphabetically.  For additional information see U.S. Coast Guard Pilot 6 and 
-
-the U.S. and Canadian Notice to Mariners.

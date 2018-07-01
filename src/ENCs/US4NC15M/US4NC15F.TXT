@@ -1,7 +1,0 @@
-Project depths for the Intracoastal Waterway (ICW) are 3.6 meters/12 feet from Norfolk, 
-Virginia to Fort Pierce, Florida 10 feet from Fort Pierce, Florida to Miami, 
-Florida and 2.1 meters/7 feet from Miami, Florida to Cross Bank, Florida Bay.  Consult the 
-U.S. Army Corps of Engineers for controlling depths and U.S. Coast Guard Local Notice 
-to Mariners for other navigation hazards or restrictions.  Mileage distances along the ICW 
-are in Statute Miles, southward from Norfolk, Virginia.  Tables for converting Statute Miles to 
-International Nautical Miles are given in U.S. Coast Pilot 4.

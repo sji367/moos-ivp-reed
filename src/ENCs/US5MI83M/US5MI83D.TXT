@@ -1,5 +1,0 @@
-For bascule bridges, whose spans do not open to a full 
-vertical position, unlimited overhead clearence is not avail-
-able for the entire charted horizontal clearance when the 
-bridge is open, due to the inclinations of the drawspans
-over the channel.

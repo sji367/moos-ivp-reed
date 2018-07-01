@@ -1,1 +1,0 @@
-The tidal current vectors represent the average maximum speeds of flood and ebb currents and the direction of flow.  The speeds are represented by the numbers shown, and the directions by the orientation of the vector arrows. The maximum speeds will vary through time. For exact predictions, consult the Tidal Current Tables, Pacific Coast of North America.

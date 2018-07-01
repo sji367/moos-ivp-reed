@@ -1,6 +1,0 @@
-3 fixed white lights are mounted vertically over fixed green lights at
-the center of the main navigation channel spans.
-Clearances of the main navigation channel spans.
-	           WEST CHAN		  EAST CHAN
-	HOR CL   304 meters / 1000 FT	 295 meters / 970 FT
-	VERT CL	  56 meters / 185 FT	41 meters / 135 FT	
