@@ -36,8 +36,6 @@ private:
     GDALDataset *ds_shp;
     double XMin, YMin, XMax, YMax;
     bool georef;
-
-
 };
 
 #endif // ENC_RASTERIZE_H

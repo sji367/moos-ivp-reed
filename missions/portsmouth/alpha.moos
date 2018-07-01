@@ -156,11 +156,12 @@ ProcessConfig = uSimMarine
 
 
   // Transit from UNH Pier
-  //start_x	= -80//15//30//
-  //start_y	= 200//-20//-10//
+  start_x	= -70//15//30//
+  start_y	= 200//-20//-10//
+  start_heading = 90// 270// 
 
-  start_x	=  37.5//-17.5//20//35// -100// -17.5//50//
-  start_y	=  -17.5//82.5// -20//-10//-17.5// 210// 82.5//-5//
+  //start_x	=  140//45//37.5//-17.5//20//35// -100// -17.5//50//
+  //start_y	=  32.5//50//-17.5//82.5// -20//-10//-17.5// 210// 82.5//-5//
 
   // WPT skip
   //start_x	= 1400//1275//1170//1455//
@@ -193,7 +194,7 @@ ProcessConfig = uSimMarine
   //start_x	= 8890
   //start_y	= -10860
 
-  start_heading = 90//270// 
+  
   start_speed   = 0
 
   prefix        = NAV
