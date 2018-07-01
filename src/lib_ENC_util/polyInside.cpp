@@ -27,7 +27,6 @@ bool polyInside::determineIfInside(OGRGeometry *polyGeom)
     if (thisPoly_Inside)
     {
         geomName =polyGeom->getGeometryName();
-        //cout << endl <<geomName << endl;
         if (geomName == "MULTIPOLYGON")
         {
             multipoly = (OGRMultiPolygon *) polyGeom;
@@ -37,7 +36,7 @@ bool polyInside::determineIfInside(OGRGeometry *polyGeom)
                 poly = (OGRPolygon *) multipoly->getGeometryRef(i);
                 if ((ASV_Location->Within(poly))||(ASV_Location->Touches(poly)))
                 {
-                    cout << "store" << endl;
+                    cout << "inside" << endl;
                     storeMinAng_MinDist(poly);
                 }
             }

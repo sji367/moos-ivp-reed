@@ -5,7 +5,7 @@ ENC_Rasterize::ENC_Rasterize(string MOOSPath, string filename, double minX, doub
     MOOS_Path = MOOSPath;
     GDALAllRegister();
     InputFileName = filename;
-    string fullSHP_Filename = MOOS_Path+filename;
+    string fullSHP_Filename = MOOS_Path+"src/ENCs/Grid/"+filename;
     ds_shp = (GDALDataset*) GDALOpenEx( fullSHP_Filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     XMin = (minX);
     XMax = (maxX);
@@ -19,7 +19,7 @@ ENC_Rasterize::ENC_Rasterize(string MOOSPath, string filename)
     MOOS_Path = MOOSPath;
     GDALAllRegister();
     InputFileName = filename;
-    string fullSHP_Filename = MOOS_Path+filename;
+    string fullSHP_Filename = MOOS_Path+"src/ENCs/Grid/"+filename;
     ds_shp = (GDALDataset*) GDALOpenEx( fullSHP_Filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     XMin = 0;
     XMax = 0;
@@ -37,11 +37,11 @@ ENC_Rasterize::ENC_Rasterize(string MOOSPath, string filename)
  *          attribute - attribute of the shp file that should be used as z
  *          dtype - data type for the outputed tiff
  */
-void ENC_Rasterize::rasterize(string rasterpath, double grid_size, char* attribute, char* dtype)
+void ENC_Rasterize::rasterize(string rasterfilename, double grid_size, char* attribute, char* dtype)
 {
     GDALDatasetH ds_tiff; // dataset for the tiff (Will return this. Need to be able to close it so it can save.)
     char *resolution_str, *xMin, *yMin, *xMax, *yMax;
-    //string rasterpath = MOOS_Path+"src/ENCs/Grid/"+rasterfilename;
+    string rasterpath = MOOS_Path+"src/ENCs/Grid/"+rasterfilename;
 
     // Convert the grid size and grid bounds code to a char*.
     // Allocate the size of the char*
@@ -74,9 +74,15 @@ void ENC_Rasterize::rasterize(string rasterpath, double grid_size, char* attribu
 
     GDALRasterizeOptions *Options = GDALRasterizeOptionsNew(options, NULL);
 
-    cout << "Rasterizing " << InputFileName << " as " << rasterpath << "." << endl;
+    cout << "Rasterizing " << InputFileName << " as " << rasterfilename << "." << endl;
 
     ds_tiff = GDALRasterize(rasterpath.c_str(), NULL, ds_shp, Options, NULL);
+
+    if (ds_tiff == NULL)
+    {
+        cout << "Dataset is null. Quiting..." << endl;
+        exit(1);
+    }
 
     cout << "\t" << rasterpath << " was sucessfully rasterized." << endl << endl;
 

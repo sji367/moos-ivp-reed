@@ -127,7 +127,6 @@ private:
     bool simpleGrid, CATZOC_polys;
     OGRSpatialReference UTM;
     int EPSG_code;
-
 };
 
 #endif // GRIDINTERP_H

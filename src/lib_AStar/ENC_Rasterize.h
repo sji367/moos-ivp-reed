@@ -28,7 +28,7 @@ public:
     ENC_Rasterize(string MOOSPath, string filename);
     ~ENC_Rasterize() {GDALClose(ds_shp);}
 
-    void rasterize(string rasterpath, double grid_size, char *attribute, char *dtype);
+    void rasterize(string rasterfilename, double grid_size, char *attribute, char *dtype);
     char* double2charStar(double input);
 
 private:

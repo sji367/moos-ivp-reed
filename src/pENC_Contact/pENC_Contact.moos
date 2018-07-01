@@ -40,7 +40,7 @@ ProcessConfig = pENC_Contact
    ASV_Length = 1.8//4//
    ASV_Width = 1//1.58//
 
-   MIN_DEPTH = 0
+   MIN_DEPTH = 1
    MHW_OffSET = 2.735
    Bore_Steerage = 0.5
    Desired_Speed = 1.0

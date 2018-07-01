@@ -37,8 +37,8 @@ int main()
 
     // Get bounds of the raster
     //Geodesy geod = Geodesy(LatOrigin, LongOrigin);
-    // Build the gridded ENC
-    Grid_Interp grid = Grid_Interp("/home/sreed/moos-ivp/moos-ivp-reed/", chartname, grid_size, buffer_size, 3.564-0.829, false, false);
+    // Build the gridded ENC //"/home/sreed/moos-ivp/moos-ivp-reed/"
+    Grid_Interp grid = Grid_Interp("../../", chartname, grid_size, buffer_size, 3.564-0.829, false, false);
     grid.Run(false);//(true, true); // Boleans are t/f build a .csv or .mat files for each raster
 
     //ENC_Rasterize raster= ENC_Rasterize("/home/sreed/moos-ivp/moos-ivp-reed/", "src/ENCs/Grid/depth.shp", 356180.4070, 4757790.1787, 372748.4070, 4783833.1787);

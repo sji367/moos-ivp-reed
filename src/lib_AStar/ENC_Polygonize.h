@@ -44,12 +44,11 @@ public:
     void writeRasterData(string filename, int nXSize, int nYSize, vector<int>&RasterData, vector<double> &adfGeoTransform);
 
     // Build the binary grid before making a binary grid and polygonizing it
-    void runWithGrid(string ENC_Name, double grid_size, double buffer_size, double MHW_offset, bool SimpleGrid);
-    void runWithGrid(string ENC_Name, double grid_size, double buffer_size, double MHW_offset) {runWithGrid(ENC_Name, grid_size, buffer_size, MHW_offset, false);}
-    void runWithGrid() {runWithGrid("US5NH02M", 5,5, 3.564-0.829, false);}
+    void runWithGridding(string ENC_Name, double grid_size, double buffer_size, double MHW_offset, bool SimpleGrid);
+    void runWithGridding(string ENC_Name, double grid_size, double buffer_size, double MHW_offset) {runWithGridding(ENC_Name, grid_size, buffer_size, MHW_offset, false);}
+    void runWithGridding() {runWithGridding("US5NH02M", 5,5, 3.564-0.829, false);}
 
     double getLandx() {return landZ; }
-
 
 
 private:

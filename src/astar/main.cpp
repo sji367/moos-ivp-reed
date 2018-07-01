@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     double startLat, startLong, endLat, endLong;
     int connectingDist = 6;
     double gridSize = 5;
-    double weight = 0.11;
+    double weight = 0.25;
     double depthCutoff = 1;
     string filename, outfile;
     if (argc>1)

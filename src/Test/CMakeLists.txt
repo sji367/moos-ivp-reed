@@ -19,8 +19,8 @@ endif()
 
 
 SET(SRC
-  #multiintersect.cpp
-  t.cpp
+  multiintersect.cpp
+  #t.cpp
   #depthcost.cpp
 )
 

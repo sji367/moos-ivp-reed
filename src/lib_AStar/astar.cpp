@@ -68,7 +68,7 @@ A_Star::A_Star()
     setGridXYBounds(0,0,0,0);
     NeighborsMask(8); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+    costMultiplier = 0.25;
 }
 
 A_Star::A_Star(int connecting_dist)
@@ -85,7 +85,7 @@ A_Star::A_Star(int connecting_dist)
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+    costMultiplier = 0.25;
 }
 
 A_Star::A_Star(double gridSize, double depthCutoff, double CostMultiplier, int connecting_dist)
@@ -119,7 +119,7 @@ A_Star::A_Star(double gridSize, double depthCutoff, int connecting_dist)
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+    costMultiplier = 0.25;
 }
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connecting_dist)
@@ -136,7 +136,7 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, int connectin
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+    costMultiplier = 0.25;
 }
 
 A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSize, double TopX, double TopY, int connecting_dist)
@@ -153,7 +153,7 @@ A_Star::A_Star(int x1, int y1, int x2, int y2, double depthCutoff, double gridSi
     setGridXYBounds(0,0,0,0);
     NeighborsMask(connecting_dist); // Set dx, dy, and num_directions
     setSubsetVars(false, 0, 0, 0, 0);
-    costMultiplier = 0.11;
+    costMultiplier = 0.25;
 }
 
 /*

@@ -7,11 +7,13 @@
  *          y's - ASV Y position
  *          length - ASV's length
  *          searchDistance - How far away are we searching
- *          util - vector containing the utility for each 5 degree segment
+ *          swathSize - the desired swath size
+ *          util - vector containing the utility for each swathSize degree segment
  *          debug - flag to create a shapefile containing all intersecting lines
  */
-polyAngularSweep::polyAngularSweep(double x, double y, double length, double searchDist, bool debug)
+polyAngularSweep::polyAngularSweep(double x, double y, double length, double searchDist, int SwathSize, bool debug)
 {
+    vector<int> factorsOf360 = {1,2,3,4,5,6,8,9,10,12,15,18,20,24,30,36,40,45,60};
     m_ASV_x = x;
     m_ASV_y = y;
     m_ASV_length = length;
@@ -29,15 +31,29 @@ polyAngularSweep::polyAngularSweep(double x, double y, double length, double sea
 
     Debug = debug;
 
-    // Make 360%swath size = 0
-    swathSize = 5;
+    // Make sure the swath size is greater than 1 and less than 60
+    if (SwathSize <1)
+        SwathSize=1;
+    else if (SwathSize > 60)
+        SwathSize=60;
 
-    // Resize the utility vector to 72 (360/5) and fill it with 100s (max_util)
+    // Make 360%swath size = 0
+    if (360%SwathSize != 0)
+    {
+        auto const it = lower_bound(factorsOf360.begin(), factorsOf360.end(), SwathSize);
+        SwathSize = *it;
+    }
+
+    swathSize = SwathSize;
+
+    // Resize the utility vector to 360/SwathSize and fill it with 100s (max_util)
     resetUtilVector();
 
     if (debug)
+    {
         buildLineLayer();
-    //cout << "end" <<endl;
+        cout << "Swath Size: " << SwathSize << endl;
+    }
 }
 
 /*
@@ -50,10 +66,12 @@ void polyAngularSweep::findIntersections(OGRGeometry *geomPoly, double threat_le
     double newX,newY;
     int index=0;
     OGRGeometry *linePolyintersect, *boxPolyIntersect;
+    clock_t b4, after;
 
     t_lvl = threat_level;
-
+    b4 = clock();
     boxPolyIntersect = search_area_poly->Intersection(geomPoly);
+
 
     // Only try to find the intersection if the ASV is NOT inside/touching the polygon
     if (!(checkInside.determineIfInside(geomPoly)))
@@ -69,7 +87,7 @@ void polyAngularSweep::findIntersections(OGRGeometry *geomPoly, double threat_le
 
             // Check to see if the line intersects the polygon. If it does, store the utility
             //  of the closest vertex into a vector
-            if ((line->Intersects(geomPoly))||(line->Touches(geomPoly)))
+            if (line->Intersects(geomPoly))//||(line->Touches(geomPoly)))
             {
                 linePolyintersect = line->Intersection(geomPoly);
                 storeUtil(linePolyintersect, index);
@@ -97,6 +115,8 @@ void polyAngularSweep::findIntersections(OGRGeometry *geomPoly, double threat_le
             // Increment the counter for the index of the vector
             index++;
         }
+        after = clock();
+        cout << "\tALL: " <<  double(after-b4) / CLOCKS_PER_SEC << endl;
     }
     else
         distance2poly.push_back(-1);

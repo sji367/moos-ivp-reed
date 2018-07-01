@@ -50,9 +50,11 @@ void ENC_Polygonize::polygonize()
     GDALAllRegister();
     GDALDataset  *ds_raster;
     GDALRasterBand  *rasterBand;
-    char **papszOptions = NULL;//"8CONNECTED";
+    char **papszOptions = NULL;
+//    char *papszOptions[] = {"8CONNECTED=8",nullptr};
 
     // Make a binary grid of the ENC grid based on the minimum depth
+    cout << "Making Binary Grid." << endl;
     string binaryFilepath= makeBinaryGrid();
 
     // Get the band for the binary grid
@@ -67,6 +69,8 @@ void ENC_Polygonize::polygonize()
         exit(1);
     }
     GDALClose(ds_raster);
+    GDALClose(ds);
+    cout << "Finished Polygonizing!" << endl;
 }
 
 string ENC_Polygonize::makeBinaryGrid()
@@ -143,8 +147,6 @@ void ENC_Polygonize::writeRasterData(string filename, int nXSize, int nYSize, ve
 
     string full_Filename = MOOS_PATH+"src/ENCs/Grid/" +filename;
 
-    //cout << "File name: " << full_Filename << endl;
-
     // Open file for writing
     poDriver = GetGDALDriverManager()->GetDriverByName(pszFormat);
     poDataset = poDriver->Create( full_Filename.c_str(), nXSize, nYSize, 1, GDT_Int32, papszOptions );
@@ -171,13 +173,15 @@ void ENC_Polygonize::writeRasterData(string filename, int nXSize, int nYSize, ve
     GDALClose( (GDALDatasetH) poDataset );
 }
 
-void ENC_Polygonize::runWithGrid(string ENC_Name, double grid_size, double buffer_size, double MHW_offset, bool simpleGrid)
+void ENC_Polygonize::runWithGridding(string ENC_Name, double grid_size, double buffer_size, double MHW_offset, bool simpleGrid)
 {
     cout << "Gridding..." << endl;
     // Build the gridded ENC
     Grid_Interp grid = Grid_Interp(MOOS_PATH, ENC_Name, grid_size, buffer_size, MHW_offset, simpleGrid, true);
     grid.Run(false);
-    landZ = grid.getLandZ()/100;
+
+    cout << "Done gridding. Now polygonizing." << endl;
+    landZ = grid.getLandZ();
     oSRS = geod.getUTM();
 
     polygonize();

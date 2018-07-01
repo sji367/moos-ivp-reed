@@ -1,4 +1,4 @@
-/************************************************************/
+﻿/************************************************************/
 /*    NAME: Sam Reed                                        */
 /*    ORGN: UNH CCOM                                        */
 /*    FILE: ENC_Contact.cpp                                 */
@@ -16,7 +16,7 @@ ENC_Contact::ENC_Contact()
   m_iterations = 0;
   m_timewarp   = 1;
   m_MHW_Offset = 2.735; // Nominal value for Fort Point
-  m_tide = 0.65;
+  m_tide = 0.0;
   m_ASV_length = 1.8;//4;
   m_ASV_width = 1;
   m_ASV_draft = 1;
@@ -27,7 +27,7 @@ ENC_Contact::ENC_Contact()
   geod = Geodesy();
   m_max_pnts = 0;
   m_max_poly = 0;
-  m_segmentation_dist = 3;
+  m_segmentation_dist = 5;
   m_buffer_size = 5;
   m_simplifyPolys = true;
   m_SearchDistSet = false;
@@ -226,7 +226,6 @@ bool ENC_Contact::Iterate()
             Notify("WPT_UPDATE", "lead=8");
 
         UpdateSpeed();
-
     }
     if (vect_tide.size() > 0 )
     {
@@ -469,7 +468,7 @@ void ENC_Contact::parseNewPoly(string polyString)
         poly->closeRings();
 
         // Segmentize the polygon to m_segmentation_dist meters between the vertices and store it
-        poly->segmentize(m_segmentation_dist);
+//        poly->segmentize(m_segmentation_dist);
         //geomBuff=poly->Buffer(calcBuffer(t_lvl));
         //polyBuff=(OGRPolygon*)geomBuff;
         ring = poly->getExteriorRing();//Buff->getExteriorRing();
@@ -698,7 +697,7 @@ int ENC_Contact::calc_t_lvl(double &depth, double WL, string LayerName)
   double current_depth = 9999;
   
   // If it is Land set threat level to 5
-  if ((LayerName == "LNDARE")||(LayerName == "DYKCON")||(LayerName == "PONTON")||(LayerName == "COALNE"))
+  if ((LayerName == "LNDARE")||(LayerName == "DYKCON")||(LayerName == "PONTON")||(LayerName == "PILPNT")||(LayerName == "SLCONS"))
   {
     t_lvl = 5;
     depth = round(-m_MHW_Offset-2*100)/100; // Make sure it only has a precision of two
@@ -812,14 +811,14 @@ void ENC_Contact::BuildLayers()
     const char *pszDriverName = "ESRI Shapefile";
     GDALDriver *poDriver;
     poDriver = GetGDALDriverManager()->GetDriverByName(pszDriverName );
-    GDALDataset *ds_pnt, *ds_poly, *ds_ENC, *ds_grid;
+    GDALDataset *ds_poly, *ds_ENC, *ds_grid;
     OGRLayer *PointLayer, *PolyLayer, *GridLayer;
     string ENC_filename;
 
-
-    // Build the grid and interp. Then make a binary grid (based on the desired minimum depth)and polygonize it
-    ENC_Polygonize polygonize = ENC_Polygonize("../../", "PostProcess"+m_ENC +".tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
-    polygonize.runWithGrid(m_ENC, 5, calcBuffer(4), m_MHW_Offset, true);
+/*
+    // Build the grid and interp. Then make a binary grid (based on the desired minimum depth) and polygonize it
+    ENC_Polygonize polygonize = ENC_Polygonize("../../", "PostProcess_"+m_ENC +".tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
+    polygonize.runWithGridding(m_ENC, 5, calcBuffer(4), m_MHW_Offset, true);
 
     string gridFilename = "../../src/ENCs/Grid/raster.shp";
 
@@ -830,28 +829,14 @@ void ENC_Contact::BuildLayers()
         exit( 1 );
     }
 
-    // Create the shapefile
-    ds_pnt = poDriver->Create( "../../src/ENCs/Shape/Point.shp", 0, 0, 0, GDT_Unknown, NULL );
-    if( ds_pnt == NULL )
-      {
-	printf( "Creation of output file failed.\n" );
-	exit( 1 );
-      }
-    ds_poly = poDriver->Create( "../../src/ENCs/Shape/Poly.shp", 0, 0, 0, GDT_Unknown, NULL );
+    ds_poly = poDriver->Create( "../../src/ENCs/Shape/Polygon.shp", 0, 0, 0, GDT_Unknown, NULL );
     if( ds_poly == NULL )
-      {
-	printf( "Creation of output file failed.\n" );
-	exit( 1 );
-      }
-    // Create the layers (point and polygon)
-    PointLayer = ds_pnt->CreateLayer( "Point", NULL, wkbPoint, NULL );
-    if( PointLayer == NULL )
     {
-        printf( "Layer creation failed.\n" );
+        printf( "Creation of output file failed.\n" );
         exit( 1 );
     }
-    PolyLayer = ds_poly->CreateLayer( "Poly", NULL, wkbPolygon, NULL );
-    if( PointLayer == NULL )
+    PolyLayer = ds_poly->CreateLayer( "Polygon", NULL, wkbPolygon, NULL );
+    if( PolyLayer == NULL )
     {
         printf( "Layer creation failed.\n" );
         exit( 1 );
@@ -866,37 +851,7 @@ void ENC_Contact::BuildLayers()
     OGRFieldDefn oField_visual( "Visual", OFTInteger);
     oField_type.SetWidth(6);
     oField_cat.SetWidth(25);
-    // Make the point layer fields
-    if( PointLayer->CreateField( &oField_tlvl ) != OGRERR_NONE )
-    {
-        printf( "Creating Threat Level field failed.\n" );
-        exit( 1 );
-    }
-    if( PointLayer->CreateField( &oField_WL ) != OGRERR_NONE )
-    {
-        printf( "Creating WL field failed.\n" );
-        exit( 1 );
-    }
-    if(PointLayer->CreateField( &oField_depth ) != OGRERR_NONE )
-    {
-        printf( "Creating Depth field failed.\n" );
-        exit( 1 );
-    }
-    if( PointLayer->CreateField( &oField_type ) != OGRERR_NONE )
-    {
-        printf( "Creating Type field failed.\n" );
-        exit( 1 );
-    }    
-    if( PointLayer->CreateField( &oField_cat ) != OGRERR_NONE )
-    {
-        printf( "Creating Cat field failed.\n" );
-        exit( 1 );
-    }
-    if( PointLayer->CreateField( &oField_visual ) != OGRERR_NONE )
-    {
-        printf( "Creating visual field failed.\n" );
-        exit( 1 );
-    }
+
     // Make the polygon layer fields
     if( PolyLayer->CreateField( &oField_tlvl ) != OGRERR_NONE )
     {
@@ -929,7 +884,6 @@ void ENC_Contact::BuildLayers()
         exit( 1 );
     }
 
-    int i = 0;
     // Get the ENC
     ENC_filename= "../../src/ENCs/"+m_ENC+"/"+m_ENC+".000";
     ds_ENC = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
@@ -945,7 +899,7 @@ void ENC_Contact::BuildLayers()
     //LayerMultiPoint(ds_ENC->GetLayerByName("SOUNDG"), PointLayer, "SOUNDG"); // Soundings
     //ENC_Converter(ds_ENC->GetLayerByName("LNDMRK"), PointLayer, PolyLayer, "LNDMRK"); // Landmarks
     //ENC_Converter(ds_ENC->GetLayerByName("SILTNK"), PointLayer, PolyLayer, "SILTNK"); // Silos/Tanks
-    ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PolyLayer, "LIGHTS"); // Lights
+    //ENC_Converter(ds_ENC->GetLayerByName("LIGHTS"), PolyLayer, "LIGHTS"); // Lights
     ENC_Converter(ds_ENC->GetLayerByName("BOYSPP"), PolyLayer, "BOYSPP"); // Special Purpose Buoy
     ENC_Converter(ds_ENC->GetLayerByName("BOYISD"), PolyLayer, "BOYISD"); // Isolated Danger Buoy
     ENC_Converter(ds_ENC->GetLayerByName("BOYSAW"), PolyLayer, "BOYSAW"); // Safe water Buoy
@@ -960,6 +914,7 @@ void ENC_Contact::BuildLayers()
     ENC_Converter(ds_ENC->GetLayerByName("PILPNT"), PolyLayer, "PILPNT"); // Piles
 
     // Other Types
+    ENC_Converter(ds_ENC->GetLayerByName("SLCONS"), PolyLayer, "SLCONS"); // Shoreline Construction
     ENC_Converter(ds_ENC->GetLayerByName("LNDARE"), PolyLayer, "LNDARE"); // Land
     ENC_Converter(ds_ENC->GetLayerByName("PONTON"), PolyLayer, "PONTON"); // Pontoons
     ENC_Converter(ds_ENC->GetLayerByName("FLODOC"), PolyLayer, "FLODOC"); // Floating Docks
@@ -967,30 +922,16 @@ void ENC_Contact::BuildLayers()
     ENC_Converter(ds_ENC->GetLayerByName("WRECKS"), PolyLayer, "WRECKS"); // Wrecks
     ENC_Converter(ds_ENC->GetLayerByName("OBSTRN"), PolyLayer, "OBSTRN"); // Obstructions
 
-    // Depth area and depth contours give the same infomation except the areas are polygons and
-    //  contours are line segments
-    //ENC_Converter(ds_ENC->GetLayerByName("DEPARE"), PointLayer, PolyLayer, "DEPARE");  // Depth Areas
-    //ENC_Converter(ds_ENC->GetLayerByName("DEPCNT"), PointLayer, PolyLayer, "DEPCNT");  // Depth contours
-    StoreShallowPolys(ds_grid->GetLayer(0), PolyLayer);
+    StoreShallowPolys(ds_grid->GetLayerByName("raster"), PolyLayer);
     // close the data sources - need this to save the new files
     GDALClose( ds_ENC );
-    GDALClose( ds_pnt );
     GDALClose( ds_poly );
     GDALClose(ds_grid);
+//*/
+    // Reopen the data source so that we can use it later in the iterate loop
+//    DS_pnt = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Point.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
+    DS_poly = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Polygon.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
 
-
-    //*/
-
-    // Reopen the data source so that we can use them later in the iterate loop
-    //DS_pnt = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Point.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
-    DS_poly = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Poly.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
-      
-//    // Check if it worked
-//    if( DS_pnt == NULL )
-//    {
-//	printf( "Open failed.\n" );
-//	exit( 1 );
-//    }
     if( DS_poly == NULL )
     {
 	printf( "Open failed.\n" );
@@ -998,21 +939,26 @@ void ENC_Contact::BuildLayers()
     }
 
     // Open the layers
-    //Point_Layer = DS_pnt -> GetLayerByName( "Point" );
-    Poly_Layer = DS_poly -> GetLayerByName( "Poly" );
+    //Point_Layer= DS_pnt -> GetLayerByName( "Point" );
+    Poly_Layer = DS_poly -> GetLayerByName( "Polygon" );
 
-//    if (Point_Layer == NULL)
-//    {
-//        cout << "Opening point layer failed." << endl;
-//        exit( 1 );
-//    }
     if (Poly_Layer == NULL)
     {
         cout << "Opening poly layer failed." << endl;
         exit( 1 );
     }
+//    if (Point_Layer == NULL)
+//    {
+//        cout << "Opening point layer failed." << endl;
+//        exit( 1 );
+//    }
+    cout << "Layers built and opened." << endl;
 }
 
+
+// This function stores the information on the ENC's overall scale as well as all of the subsets
+//  Input:
+//      ds - data source for the ENC for which we want the compilation scale
 void ENC_Contact::setENC_Scale(GDALDataset *ds)
 {
     OGRLayer *subset_layer;
@@ -1073,12 +1019,13 @@ void ENC_Contact::StoreShallowPolys(OGRLayer *layer, OGRLayer *PolyLayer)
     OGRFeatureDefn *poFDefn;
     OGRGeometry *geom;
     OGRPolygon *poly, *UTM_poly;
-    OGRLinearRing *ring, *UTM_ring;//, *innerRing, *UTM_innerRing;
+    OGRLinearRing *ring, *UTM_ring, *UTM_innerRing;//, *innerRing, *UTM_innerRing;
     double x,y;
     int binaryType;
 
     layer->ResetReading();
     layer->SetAttributeFilter("Depth=1");
+    cout << "FC: " << layer->GetFeatureCount() << endl;
     feat = layer->GetNextFeature();
     while(feat)
     {
@@ -1087,41 +1034,44 @@ void ENC_Contact::StoreShallowPolys(OGRLayer *layer, OGRLayer *PolyLayer)
         {
             geom = feat->GetGeometryRef();
             poly = ( OGRPolygon * )geom;
-            //geom = geom->Buffer(calcBuffer(4));
 
             // Build the new UTM ring and polygon
             UTM_ring = (OGRLinearRing *) OGRGeometryFactory::createGeometry(wkbLinearRing);
             UTM_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
 
-            /*
-            innerRing=poly->getInteriorRing(0);
-            if (innerRing)
-            {
-                for (int k=0; k<ring->getNumPoints(); k++)
-                {
-                    x = innerRing->getX(k)-geod.getXOrigin();
-                    y = innerRing->getY(k)-geod.getYOrigin();
-                    UTM_innerRing->addPoint(x,y,0);
-                }
-            }
-            UTM_innerRing->closeRings();
-            UTM_poly->addRing(UTM_innerRing);
-            */
-
+//            if (poly->getNumInteriorRings()!=0)
+//            {
+//                for (int i=0; i<poly->getNumInteriorRings(); i++)
+//                {
+//                    UTM_innerRing = (OGRLinearRing *) OGRGeometryFactory::createGeometry(wkbLinearRing);
+//                    ring = poly->getInteriorRing(i);
+//                    for (int j=0; j<ring->getNumPoints(); j++)
+//                    {
+//                        x = ring->getX(j)-geod.getXOrigin();
+//                        y = ring->getY(j)-geod.getYOrigin();
+//                        UTM_innerRing->addPoint(x,y,0);
+//                    }
+//                    // Build the UTM polygon from the ring
+//                    UTM_innerRing->closeRings();
+//                    UTM_poly->addRing(UTM_innerRing);
+//                }
+//            }
+//            else
+//            {
             ring = poly->getExteriorRing();
+
             for (int j=0; j<ring->getNumPoints(); j++)
             {
                 x = ring->getX(j)-geod.getXOrigin();
                 y = ring->getY(j)-geod.getYOrigin();
                 UTM_ring->addPoint(x,y,0);
             }
-
             // Build the UTM polygon from the ring
             UTM_ring->closeRings();
             UTM_poly->addRing(UTM_ring);
             UTM_poly->closeRings();
 
-            UTM_poly->segmentize(m_segmentation_dist);
+//            UTM_poly->segmentize(m_segmentation_dist);
 
             // Add the polygon to the inputted layer
             poFDefn = PolyLayer->GetLayerDefn();
@@ -1141,6 +1091,7 @@ void ENC_Contact::StoreShallowPolys(OGRLayer *layer, OGRLayer *PolyLayer)
         }
         feat = layer->GetNextFeature();
     }
+    cout << "Shallow Polys done" << endl;
 }
 
 //---------------------------------------------------------
@@ -1336,33 +1287,17 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PolyLayer, string
                 pt.setY(y);
                 new_feat->SetGeometry( &pt);
 
-                // Use the subset scale if there is one and the point lies within it
-                if (scaleSubsets_poly.size()>0)
-                {
-                    // reset the scale
-                    scale =-1;
-                    for (int i=0; i < scaleSubsets_poly.size(); i++)
-                    {
-                        if (pt.Within(scaleSubsets_poly[i]))
-                        {
-                            if ((scale == -1)||(scale>SubsetScale[i]))
-                            {
-                                scale = SubsetScale[i];
-                            }
-                        }
-                    }
-                }
-                else
-                    scale = ENC_Scale;
+                scale = pointGetChartScale(pt);
 
-                buff_geom = UTM_line->Buffer(2*scale+calcBuffer(t_lvl));
+                // Only need to buffer 1 times chart scale as it will be a circle (and 1mm is the radius)
+                buff_geom = pt.Buffer(scale+calcBuffer(t_lvl));
                 buff_poly = ( OGRPolygon * )buff_geom;
 
                 // Check to see if you can make unions with other polys
                 buff_poly = check4Union(buff_poly, PolyLayer, depth, LayerName);
 
                 // Segment the polygons
-                buff_poly->segmentize(m_segmentation_dist);
+//                buff_poly->segmentize(m_segmentation_dist);
 
                 // Build the new feature as a polygon
                 new_feat->SetGeometry(buff_poly);
@@ -1406,7 +1341,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PolyLayer, string
                 buff_geom = UTM_poly->Buffer(calcBuffer(t_lvl));
                 buff_poly = ( OGRPolygon * )buff_geom;
                 buff_poly = check4Union(buff_poly, PolyLayer, depth, LayerName);
-                buff_poly->segmentize(m_segmentation_dist);
+//                buff_poly->segmentize(m_segmentation_dist);
 
                 new_feat->SetGeometry(buff_poly);
 
@@ -1450,7 +1385,7 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PolyLayer, string
                 buff_poly = check4Union(buff_poly, PolyLayer, depth, LayerName);
 
                 // Segment the polygons
-                buff_poly->segmentize(m_segmentation_dist);
+//                buff_poly->segmentize(m_segmentation_dist);
 
                 // Build the new feature as a polygon
                 new_feat->SetGeometry(buff_poly);
@@ -1467,6 +1402,31 @@ void ENC_Contact::ENC_Converter(OGRLayer *Layer_ENC, OGRLayer *PolyLayer, string
     }
     else
         cout << "Layer " << LayerName << " is not in the ENC." << endl;
+}
+
+// This function determines what scale it should use for buffering the points to 2 mm at chart scale.
+//  Basically it check if there are subsets in the ENC and if there are, it then checks to see if the point
+//  is inside that subset. If the point is inside a subset it uses the smallest scale for buffering.
+double ENC_Contact::pointGetChartScale(OGRPoint pt)
+{
+    double scale = ENC_Scale;
+
+    // Use the subset scale if there is one and the point lies within it
+    if (scaleSubsets_poly.size()>0)
+    {
+        for (int i=0; i < scaleSubsets_poly.size(); i++)
+        {
+            if (pt.Within(scaleSubsets_poly[i]))
+            {
+                if (scale>SubsetScale[i])
+                {
+                    scale = SubsetScale[i];
+                }
+            }
+        }
+    }
+
+    return scale;
 }
 
 // Simplifies the layers so the objects are not overlapping
@@ -1553,12 +1513,17 @@ void ENC_Contact::build_search_poly()
 
 void ENC_Contact::filter_feats()
 {
+  if (false)//Point_Layer->GetFeatureCount() >0)
+  {
+      // Remove old spatial filter and create a new one
+      Point_Layer->SetSpatialFilter(NULL);
+      Point_Layer->SetSpatialFilter(search_area_poly);
+  }
+
   // Remove old spatial filter
-  Point_Layer->SetSpatialFilter(NULL);
   Poly_Layer->SetSpatialFilter(NULL);
   
   // Filter Data
-  Point_Layer->SetSpatialFilter(search_area_poly);
   Poly_Layer->SetSpatialFilter(search_area_poly);
   //Point_Layer->SetAttributeFilter("t_lvl>0");
   //Poly_Layer->SetAttributeFilter("t_lvl>0");
@@ -1585,22 +1550,26 @@ void ENC_Contact::publish_points()
     double WL = 0;
     double depth = 0;
     double t_lvl = 0;
-    Point_Layer->ResetReading();
-    while( (poFeature = Point_Layer->GetNextFeature()) != NULL )
+    if (false)
     {
+        Point_Layer->ResetReading();
+        while( (poFeature = Point_Layer->GetNextFeature()) != NULL )
+        {
 
-        geom = poFeature->GetGeometryRef();
-        poPoint = ( OGRPoint * )geom;
+            geom = poFeature->GetGeometryRef();
+            poPoint = ( OGRPoint * )geom;
 
-        WL = poFeature->GetFieldAsDouble(1);
-        depth = poFeature->GetFieldAsDouble(2);
-        obs_type =poFeature->GetFieldAsString(3);
+            WL = poFeature->GetFieldAsDouble(1);
+            depth = poFeature->GetFieldAsDouble(2);
+            obs_type =poFeature->GetFieldAsString(3);
 
-        t_lvl = calc_t_lvl(depth, WL, obs_type);
+            t_lvl = calc_t_lvl(depth, WL, obs_type);
 
-        if (t_lvl > 0)
-            buildPointHighlight(poPoint, num_obs,obs_info,t_lvl,obs_type);
+            if (t_lvl > 0)
+                buildPointHighlight(poPoint, num_obs,obs_info,t_lvl,obs_type);
+        }
     }
+
     Notify("Other", to_string(t_lvl)+", "+to_string(depth) +", "+ to_string(m_ASV_draft));
     getNewPointVertex(num_obs, obs_info);
 
@@ -1944,13 +1913,12 @@ void ENC_Contact::publish_poly_360()
     string Obstacles, angSweep_str;
     string position = to_string(m_ASV_x)+","+to_string(m_ASV_y)+","+to_string(m_ASV_head)+"!";
 
-    polyAngularSweep angSweep = polyAngularSweep(m_ASV_x, m_ASV_y, m_ASV_length, m_search_dist, false);
+    polyAngularSweep angSweep = polyAngularSweep(m_ASV_x, m_ASV_y, m_ASV_length, m_search_dist, 8, false);
     angSweep.resetUtilVector();
 
     if ((Poly_Layer->GetFeatureCount()>0)||(newPoly.size() >0))
     {
         angSweep.setSearchPoly(search_area_poly);
-
 
         Poly_Layer->ResetReading();
         while( (feat = Poly_Layer->GetNextFeature()) != NULL )
@@ -1969,6 +1937,7 @@ void ENC_Contact::publish_poly_360()
         {
             // Store minimum distances to the polygons
             polyDist = angSweep.getMinDist();
+            cout << polyDist << endl;
             d_dist2obstacle.push_back(polyDist); // for each iteraton (for setting speed and lead param)
             dist2obstacle.push_back(polyDist); // for each cycle index
 

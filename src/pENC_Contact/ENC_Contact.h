@@ -57,6 +57,12 @@ class ENC_Contact : public CMOOSApp
         void BuildLayers();
         void setENC_Scale(GDALDataset *ds);
         void ENC_Converter(OGRLayer *Layer_ENC,OGRLayer *PolyLayer, string LayerName);
+
+        // This function determines what scale it should use for buffering the points to 2 mm at chart scale.
+        //  Basically it check if there are subsets in the ENC and if there are, it then checks to see if the point
+        //  is inside that subset. If the point is inside a subset it uses the smallest scale for buffering.
+        double pointGetChartScale(OGRPoint pt);
+
 	void LayerMultiPoint (OGRLayer *layer_mp, OGRLayer *Point_Layer, string LayerName_mp);
         void StoreShallowPolys(OGRLayer *layer, OGRLayer *PolyLayer);
 

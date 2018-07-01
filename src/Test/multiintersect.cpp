@@ -10,7 +10,7 @@
 
 using namespace std;
 void movingAverageFilter(int windowSize, vector<double> &util);
-
+OGRPolygon* searchArea(double m_ASV_x, double m_ASV_y, double m_ASV_head, double m_search_dist);
 
 int main()
 {
@@ -20,9 +20,10 @@ int main()
     OGRFeature *feat;
     OGRGeometry *geom;
 
-    double x = -23;//20.5311;
-    double y = -65;//72;//-17.2426;
-    double length = 4;
+    double x = 47;//-23;//20.5311;
+    double y = 52;//-65;//72;//-17.2426;
+    double head = 187;
+    double length = 1.8;
     double search = length*10*sqrt(2);
     double t_lvl = 5;
 
@@ -41,10 +42,10 @@ int main()
 
     layer = ds->GetLayerByName("poly");
 
-    layer->SetSpatialFilterRect(-105,-138,94,20);
-    polyAngularSweep angSweep = polyAngularSweep(x,y, length, search, true);
+    //layer->SetSpatialFilterRect(-105,-138,94,20);
+    layer->SetSpatialFilter(searchArea(x,y,head, search));
+    polyAngularSweep angSweep = polyAngularSweep(x,y, length, search, 59, true);
     angSweep.build_search_poly();
-    cout << "before" << endl;
 
     clock_t begin = clock();
     clock_t end;
@@ -101,6 +102,39 @@ void movingAverageFilter(int windowSize, vector<double> &util)
         if (util[index]>movingAve)
             util[index]=movingAve;
     }
+}
+
+
+OGRPolygon* searchArea(double m_ASV_x, double m_ASV_y, double m_ASV_head, double m_search_dist)
+{
+    OGRPolygon* search_area_poly;
+    OGRLinearRing *poRing;
+
+    double x1, x2, x3, x4, y1, y2, y3, y4;
+    double theta = 45+fmod(m_ASV_head,90);
+    double add_sin = m_search_dist*sqrt(2)*sin(theta*PI/180);
+    double add_cos = m_search_dist*sqrt(2)*cos(theta*PI/180);
+
+    x1 = m_ASV_x+add_sin;
+    x2 = m_ASV_x-add_cos;
+    x3 = m_ASV_x-add_sin;
+    x4 = m_ASV_x+add_cos;
+
+    y1 = m_ASV_y+add_cos;
+    y2 = m_ASV_y+add_sin;
+    y3 = m_ASV_y-add_cos;
+    y4 = m_ASV_y-add_sin;
+
+    search_area_poly = (OGRPolygon*) OGRGeometryFactory::createGeometry(wkbPolygon);
+    poRing = ( OGRLinearRing * ) OGRGeometryFactory::createGeometry(wkbLinearRing);
+    poRing->addPoint(x1, y1);
+    poRing->addPoint(x2, y2);
+    poRing->addPoint(x3, y3);
+    poRing->addPoint(x4, y4);
+    poRing->closeRings();
+    search_area_poly->addRing(poRing);
+    search_area_poly->closeRings();
+    return search_area_poly;
 }
 
 /*

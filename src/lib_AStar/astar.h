@@ -291,7 +291,7 @@ public:
 
         void getNM() {cout << n << ", " << m << endl; }
         string getRoute() {return Route; }
-        
+
 protected:
         bool valid_start, valid_finish, startSet, finishSet, mapSubsetFlag;
         string Route;

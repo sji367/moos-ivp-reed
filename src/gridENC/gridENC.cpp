@@ -136,6 +136,9 @@ void GridENC::setGridSize2Default()
     cout << "Grid size = " << grid_size << endl;
 }
 
+// This function stores the information on the ENC's overall scale as well as all of the subsets
+//  Input:
+//      ds - data source for the ENC for which we want the compilation scale
 void GridENC::setENC_Scale(GDALDataset *ds)
 {
     OGRLayer *subset_layer;
@@ -231,6 +234,7 @@ void GridENC::Run(bool csv, bool mat)
     layer2XYZ(ds->GetLayerByName("LNDARE"), "LNDARE"); // Land
     layer2XYZ(ds->GetLayerByName("PONTON"), "PONTON"); // Pontoons
     layer2XYZ(ds->GetLayerByName("PILPNT"), "PILPNT"); // Piles
+    layer2XYZ(ds->GetLayerByName("SLCONS"), "SLCONS"); // Shoreline Construction (Includes breakwaters...)
 
     if (!simpleGrid)
     {
@@ -692,7 +696,7 @@ void GridENC::lineFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
         }
         return; // do not store the line as a polygon
     }
-    else if ((layerName =="PONTON")||(layerName =="FLODOC")||(layerName =="DYKCON")||(layerName=="LNDARE"))
+    else if ((layerName =="PONTON")||(layerName =="FLODOC")||(layerName =="DYKCON")||(layerName=="LNDARE")||(layerName == "SLCONS"))
     {
         z = landZ;
     }
@@ -751,7 +755,7 @@ void GridENC::pointFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
     bool WL_flag = false;
     string Z;
 
-    if ((layerName == "LNDARE")||(layerName == "PILPNT"))
+    if ((layerName == "LNDARE")||(layerName == "PILPNT")||(layerName == "SLCONS"))
         z = landZ;
 
     else if ((layerName == "UWTROC")||(layerName == "WRECKS")||(layerName == "OBSTRN"))
@@ -942,7 +946,7 @@ void GridENC::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
     UTM_poly_buff = ( OGRPolygon * )buff_geom;
     UTM_poly_buff->segmentize(grid_size);
 
-    if (layerName == "LNDARE")
+    if ((layerName == "LNDARE"))
     {
         z = landZ;
         new_feat =  OGRFeature::CreateFeature(feat_def_poly);
@@ -1006,7 +1010,7 @@ void GridENC::polygonFeat(OGRFeature* feat, OGRGeometry* geom, string layerName)
         }
         OGRFeature::DestroyFeature(new_feat);
     }
-    else if ((layerName == "PONTON")||(layerName =="FLODOC")||(layerName == "DYKCON"))
+    else if ((layerName == "PONTON")||(layerName =="FLODOC")||(layerName == "DYKCON")||(layerName=="SLCONS"))
     {
         z = landZ;
         new_feat =  OGRFeature::CreateFeature(feat_def_poly);
