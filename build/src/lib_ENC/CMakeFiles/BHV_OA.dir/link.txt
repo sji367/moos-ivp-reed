@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC  -fPIC -g  -shared -Wl,-soname,libBHV_OA.so -o ../../../lib/libBHV_OA.so CMakeFiles/BHV_OA.dir/BHV_OA.cpp.o  -L/home/mapper/moos-ivp/lib -lhelmivp -lbehaviors -livpbuild -llogic -livpcore -lbhvutil -lmbutil -lgeometry -lm -Wl,-rpath,/home/mapper/moos-ivp/lib 
