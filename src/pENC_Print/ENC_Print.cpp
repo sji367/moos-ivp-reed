@@ -29,6 +29,8 @@ ENC_Print::ENC_Print()
   openned = false;
   print_all = false;
   UTM = false;
+
+  SHPfileDIR = getenv("MOOS_REED");//"../../";
 }
 
 //---------------------------------------------------------
@@ -353,10 +355,23 @@ int ENC_Print::threat_level(double depth)
 
 bool ENC_Print::openLayers()
 {
+    string polyFilename = SHPfileDIR+"src/ENCs/Shape/Polygon.shp";
     GDALAllRegister();
+
+    // Open the data sources so that we can use them later in the iterate loop
+    ds_poly = (GDALDataset*) GDALOpenEx( polyFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );if( ds_poly == NULL )
+    {
+        printf( "Poly datasource open failed.\n" );
+        exit( 1 );
+    }
+    Poly_Layer = ds_poly -> GetLayerByName( "Polygon" );
+    if (Poly_Layer == NULL)
+    {
+        cout << "Opening poly layer failed." << endl;
+        exit( 1 );
+    }
     // Open the data sources so that we can use them later in the iterate loop
     //ds_pnt = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Point.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
-    ds_poly = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Polygon.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
     //ds_line = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Line.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
 
     // Check if it worked
@@ -365,11 +380,7 @@ bool ENC_Print::openLayers()
 //        printf( "Point datasource open failed.\n" );
 //        exit( 1 );
 //    }
-    if( ds_poly == NULL )
-    {
-        printf( "Poly datasource open failed.\n" );
-        exit( 1 );
-    }
+
 //    if( ds_line == NULL )
 //    {
 //        printf( "Line datasource open failed.\n" );
@@ -378,7 +389,6 @@ bool ENC_Print::openLayers()
 
     // Open the layers
 //    Point_Layer = ds_pnt -> GetLayerByName( "Point" );
-    Poly_Layer = ds_poly -> GetLayerByName( "Polygon" );
 //    Line_Layer = ds_line -> GetLayerByName( "Line" );
 
 //    if (Point_Layer == NULL)
@@ -386,11 +396,6 @@ bool ENC_Print::openLayers()
 //        cout << "Opening point layer failed." << endl;
 //        exit( 1 );
 //    }
-    if (Poly_Layer == NULL)
-    {
-        cout << "Opening poly layer failed." << endl;
-        exit( 1 );
-    }
 //    if (Line_Layer == NULL)
 //    {
 //        cout << "Opening line layer failed." << endl;

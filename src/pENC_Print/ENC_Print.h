@@ -63,6 +63,7 @@ class ENC_Print : public CMOOSApp
         OGRLayer *Point_Layer, *Poly_Layer, *Line_Layer;
         OGRPolygon *m_filter;
         bool first_print, m_ENC_INT, openned, print_all, UTM;
+        string SHPfileDIR;
 };
 
 #endif 

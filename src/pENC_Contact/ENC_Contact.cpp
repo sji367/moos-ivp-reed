@@ -38,6 +38,12 @@ ENC_Contact::ENC_Contact()
   newSpeedSet_flag = false;
   prevPolyDist = 10*m_ASV_length;
   ENC_Scale = 20; // Scale for US5NH02M is 20000:1
+  dfLatOrigin =-1;
+  dfLongOrigin =-1;
+  geodSet = false;
+
+  // Get environmental variable to define where moos-ivp-reed is
+  OutfileDIR = getenv("MOOS_REED");//"~/ENC_Contact_Files/"; // "../../";
 }
 
 ENC_Contact::~ENC_Contact()
@@ -89,6 +95,16 @@ bool ENC_Contact::OnNewMail(MOOSMSG_LIST &NewMail)
         parseNewPoint(msg.GetString());
     else if (name == "NEW_POLYS")
         parseNewPoly(msg.GetString());
+//    else if (name=="LatOrigin")
+//    {
+//        cout << "lat: " << msg.GetString() << endl;
+//        dfLatOrigin = atof(msg.GetString().c_str());
+//    }
+//    else if (name=="LongOrigin")
+//    {
+//        cout << "long: " << msg.GetString() << endl;
+//        dfLongOrigin = atof(msg.GetString().c_str());
+//    }
     else if (name == "CYCLE_INDEX")
     {
         // Print and store the closest the ASV got to any of the obstacles
@@ -194,43 +210,45 @@ bool ENC_Contact::Iterate()
 {
     if (m_iterations == 0)
         Notify("ENC_INIT", "true");
-
-    if (vect_head.size() > 0)
+    else
     {
-        m_ASV_head = vect_head.back();
-        vect_head.clear();
-    }
+        if (vect_head.size() > 0)
+        {
+            m_ASV_head = vect_head.back();
+            vect_head.clear();
+        }
 
-    if ((vect_x.size() > 0) && (vect_y.size() > 0))
-    {
-        // Get new values for the new X, Y and heading of the ASV
-        m_ASV_x = vect_x.back();
-        m_ASV_y = vect_y.back();
+        if ((vect_x.size() > 0) && (vect_y.size() > 0))
+        {
+            // Get new values for the new X, Y and heading of the ASV
+            m_ASV_x = vect_x.back();
+            m_ASV_y = vect_y.back();
 
-        vect_x.clear();
-        vect_y.clear();
+            vect_x.clear();
+            vect_y.clear();
 
-        // Clear old tlvl vectors
-        vect_TLvl.clear();
+            // Clear old tlvl vectors
+            vect_TLvl.clear();
 
-        // need to add a global point, polygon and line geometry
-        build_search_poly();
-        filter_feats();
-        publish_points();
-        publish_poly_360();
+            // need to add a global point, polygon and line geometry
+            build_search_poly();
+            filter_feats();
+            publish_points();
+            publish_poly_360();
 
-        // Update the lead parameter and desired speed if necessary
-        if (vect_TLvl.size()>0)
-            Update_Lead_Param();
-        else
-            Notify("WPT_UPDATE", "lead=8");
+            // Update the lead parameter and desired speed if necessary
+            if (vect_TLvl.size()>0)
+                Update_Lead_Param();
+            else
+                Notify("WPT_UPDATE", "lead=8");
 
-        UpdateSpeed();
-    }
-    if (vect_tide.size() > 0 )
-    {
-        m_tide = vect_tide.back();
-        vect_tide.clear();
+            UpdateSpeed();
+        }
+        if (vect_tide.size() > 0 )
+        {
+            m_tide = vect_tide.back();
+            vect_tide.clear();
+        }
     }
     m_iterations++;
     return(true);
@@ -241,6 +259,8 @@ bool ENC_Contact::Iterate()
 //            happens before connection is open
 bool ENC_Contact::OnStartUp()
 {
+    RegisterVariables();
+
     list<string> sParams;
     m_MissionReader.EnableVerbatimQuoting(false);
     if(m_MissionReader.GetConfiguration(GetAppName(), sParams))
@@ -293,38 +313,14 @@ bool ENC_Contact::OnStartUp()
         }
     }
 
-    string sVal;
-
-    if (m_MissionReader.GetValue("LatOrigin", sVal))
-        dfLatOrigin = atof(sVal.c_str());
-    else
-    {
-        MOOSTrace("LatOrigin not set - FAIL\n");
-        return false;
-    }
-
-    if (m_MissionReader.GetValue("LongOrigin", sVal))
-        dfLongOrigin = atof(sVal.c_str());
-    else
-    {
-        MOOSTrace("LongOrigin not set - FAIL\n");
-        return false;
-    }
-
-    if (!m_Geodesy.Initialise(dfLatOrigin, dfLongOrigin))
-    {
-        MOOSTrace("Geodesy Init failed - FAIL\n");
-        return false;
-    }
-
-    geod.Initialise(dfLatOrigin, dfLongOrigin);
-
-    m_timewarp = GetMOOSTimeWarp();
-    RegisterVariables();
+    // set lat/long origin from MOOS variable
+    initGeodesy(true);
 
     // Build the ENC Layers
     BuildLayers();
     cout << "Initialized" << endl;
+
+    m_timewarp = GetMOOSTimeWarp();
 
     return(true);
 }
@@ -815,12 +811,13 @@ void ENC_Contact::BuildLayers()
     OGRLayer *PointLayer, *PolyLayer, *GridLayer;
     string ENC_filename;
 
-/*
-    // Build the grid and interp. Then make a binary grid (based on the desired minimum depth) and polygonize it
-    ENC_Polygonize polygonize = ENC_Polygonize("../../", "PostProcess_"+m_ENC +".tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
-    polygonize.runWithGridding(m_ENC, 5, calcBuffer(4), m_MHW_Offset, true);
+    string gridFilename = OutfileDIR+"src/ENCs/Grid/raster.shp";
+    string polyFilename = OutfileDIR+"src/ENCs/Shape/Polygon.shp";
 
-    string gridFilename = "../../src/ENCs/Grid/raster.shp";
+
+    // Build the grid and interp. Then make a binary grid (based on the desired minimum depth) and polygonize it
+    ENC_Polygonize polygonize = ENC_Polygonize(OutfileDIR, "PostProcess_"+m_ENC +".tiff", "raster.shp",dfLatOrigin, dfLongOrigin, m_min_depth);
+    polygonize.runWithGridding(m_ENC, 5, calcBuffer(4), m_MHW_Offset, true);
 
     ds_grid = (GDALDataset*) GDALOpenEx( gridFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( ds_grid == NULL )
@@ -829,7 +826,7 @@ void ENC_Contact::BuildLayers()
         exit( 1 );
     }
 
-    ds_poly = poDriver->Create( "../../src/ENCs/Shape/Polygon.shp", 0, 0, 0, GDT_Unknown, NULL );
+    ds_poly = poDriver->Create( polyFilename.c_str(), 0, 0, 0, GDT_Unknown, NULL );
     if( ds_poly == NULL )
     {
         printf( "Creation of output file failed.\n" );
@@ -885,7 +882,7 @@ void ENC_Contact::BuildLayers()
     }
 
     // Get the ENC
-    ENC_filename= "../../src/ENCs/"+m_ENC+"/"+m_ENC+".000";
+    ENC_filename= OutfileDIR+"src/ENCs/"+m_ENC+"/"+m_ENC+".000";
     ds_ENC = (GDALDataset*) GDALOpenEx( ENC_filename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( ds_ENC == NULL )
       {
@@ -930,7 +927,7 @@ void ENC_Contact::BuildLayers()
 //*/
     // Reopen the data source so that we can use it later in the iterate loop
 //    DS_pnt = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Point.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
-    DS_poly = (GDALDataset*) GDALOpenEx( "../../src/ENCs/Shape/Polygon.shp", GDAL_OF_VECTOR, NULL, NULL, NULL );
+    DS_poly = (GDALDataset*) GDALOpenEx( polyFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
 
     if( DS_poly == NULL )
     {
@@ -953,6 +950,54 @@ void ENC_Contact::BuildLayers()
 //        exit( 1 );
 //    }
     cout << "Layers built and opened." << endl;
+}
+
+void ENC_Contact::initGeodesy(bool LatLongInMOOSFile)
+{
+    string sVal;
+
+    if (LatLongInMOOSFile)
+    {
+        // Set Lat/long origin from .moos file
+        if (m_MissionReader.GetValue("LatOrigin", sVal))
+            dfLatOrigin = atof(sVal.c_str());
+        else
+        {
+            MOOSTrace("LatOrigin not set - FAIL\n");
+            exit( 1 );
+        }
+
+        if (m_MissionReader.GetValue("LongOrigin", sVal))
+            dfLongOrigin = atof(sVal.c_str());
+        else
+        {
+            MOOSTrace("LongOrigin not set - FAIL\n");
+            exit( 1 );
+        }
+    }
+    else
+    {
+        // Set the lat and long origin from MOOS variable
+        CMOOSVariable * pSetLatOrigin = GetMOOSVar("LatOrigin");
+        if (pSetLatOrigin->IsFresh()){
+          dfLatOrigin = pSetLatOrigin->GetDoubleVal();
+        }
+
+        CMOOSVariable * pSetLonOrigin = GetMOOSVar("LongOrigin");
+        if (pSetLonOrigin->IsFresh()){
+          dfLongOrigin = pSetLonOrigin->GetDoubleVal();
+        }
+    }
+    cout << dfLatOrigin << ", " << dfLongOrigin << endl;
+
+    if (!m_Geodesy.Initialise(dfLatOrigin, dfLongOrigin))
+    {
+        MOOSTrace("Geodesy Init failed - FAIL\n");
+        exit( 1 );
+    }
+
+    geod.Initialise(dfLatOrigin, dfLongOrigin);
+    geodSet = true;
 }
 
 
@@ -1508,7 +1553,7 @@ void ENC_Contact::build_search_poly()
 
     s_poly_str+=",label=Search,edge_size=10,vertex_size=1,edge_color=red,active=true";
 
-    Notify("VIEW_POLYGON", s_poly_str);
+    //Notify("VIEW_POLYGON", s_poly_str);
 }
 
 void ENC_Contact::filter_feats()
