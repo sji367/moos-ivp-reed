@@ -178,7 +178,7 @@ void ENC_Polygonize::runWithGridding(string ENC_Name, double grid_size, double b
     cout << "Gridding..." << endl;
     // Build the gridded ENC
     Grid_Interp grid = Grid_Interp(MOOS_PATH, ENC_Name, grid_size, buffer_size, MHW_offset, simpleGrid, true);
-    grid.Run(false);
+    //grid.Run(false);
 
     cout << "Done gridding. Now polygonizing." << endl;
     landZ = grid.getLandZ();
