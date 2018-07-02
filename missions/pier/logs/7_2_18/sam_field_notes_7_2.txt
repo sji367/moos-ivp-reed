@@ -1,0 +1,57 @@
+desired missions:
+
+1) other side of pier to inside cove
+	Trial #1: 12:34-12:37 didnt make it around but it didnt crash into the pier so sucess
+		Start Mission: 16.521
+		End Mission: 293.485
+			Trial #2: 12:39-12:40 IGNORE THIS ONE
+	Trial #3: 12:40-12:44 line follow from one side to the other and back
+		Start (to cove) Mission: 7.212
+		End (to cove) Mission: 96.692
+		Start (to other side) Mission 96.692
+		End (to other side) Mission: 211.509
+	Trial #4: 12:45-12:48 More agressive line follow; u-turn on the pier and then worked
+				correctly
+		Start Mission:0
+		End Mission:197.188
+
+2) behind breakwater to cove
+	Trial #1: 12:03-12:05 sucess point follow
+		Start Mission: 0
+		End Mission: 91.007
+			Trial #2: 12:11-12:15 line follow sucess NOTE: no polygons printed
+	Trial #3: 12:21-12:25 sucess line follow
+		Start Mission: 26.517
+		End Mission: 189.891
+	trial #4: 12:25	      reverse SUCESS!!! went the other way around the pier
+			NOTE: need to clip the one on the boat to get the shore connection was
+				lost when it went behind the break water
+		Start Mission: 15.689
+		End Mission: 175.493
+
+# Run A*
+./bin/gridENC -f US5NH02M
+./bin/A_Star -f US5NH02M/PostProcess_US5NH02M.tiff -x 43.07252805 -y -70.71182697 -X 43.07179451 -Y -70.71119587 -g 5 -c 8 -w .25
+
+#A* mission
+-89.181077,12.755913:-84.181077,12.755913:-79.181077,12.755913:-74.181077,12.755913:-69.181077,12.755913:-64.181077,12.755913:-59.181077,12.755913:-54.181077,12.755913:-44.181077,7.755913:-14.181077,-17.244087:-9.181077,-27.244087:-9.181077,-32.244087:-9.181077,-37.244087:-9.181077,-42.244087:-9.181077,-47.244087:-14.181077,-52.244087:-19.181077,-57.244087:-24.181077,-62.244087
+
+Val wrote a script to take a file that updates the UPDATE_WPT variable through ROS to MOOS 
+
+3) AStar around pier
+			Trial #1: 15:04 ENC Contact Failed IGNORE THIS ONE
+			Trial #2: 15:22 Parser had issues IGNORE THIS ONE
+			Trial #3: 15:26 Galen Jay came and mission was aborted
+			Trial #4: 15:29-15:34 Big swerve mission will be restarted 
+			Trial #5: 15:34-15:38 Good driving except there was an error in the aster 
+				code that printed the wpts incorrectly
+			Trial #6: 15:44-15:46 failed boat coming in
+	Trial #7: 15:47 Sucess - fowled motors on the way home (Use this one)
+		Start Mission: 29.854
+		End Mission: 166.191
+
+4) AStar around pier (with OA)
+5) run lines with new obstacle
+
+6) AStar with unknown obstacles
+
