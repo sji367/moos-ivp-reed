@@ -1,0 +1,50 @@
+Notes for field work on 7/3/18
+
+A* mission plan with OA
+	Trial 1: 9:54 - 9:57 Worked fine no problems. Wind blowing down the pier.
+		22.570-116.954
+	Trial 2: 10:40-10:45 Worked well. need to check when POLY_OA was true or false
+		91.527-185.285
+		
+
+A* mission plan without OA
+	Trial 1: 10:13-10:15. wind = 2 knots at 095. forgot to record a video.
+		80.762-217.054
+			Trial 2: 10:48 ENC Contact crashed
+			Trial 3: 10:55-10:59 Trackline was not great. Dont use this one
+				43.07198940,-70.71119920
+				18.419087,-9.429899:33.419087,5.570101:33.419087,25.570101:28.419087,35.570101:-1.580913,60.570101:-11.580913,65.570101:-46.580913,65.570101
+					500.753-634
+	Trial 4: 11:09 Successful run
+		44-181.104
+
+A* mission plan with OA and an additional synthetic obstacle
+			Trial 1: 10:23 
+			Trial 2: 10:26
+			Trial 3: 10:36
+			Trial 4:  fooling with the polygons
+			
+	Trial 5: 12:00-12:08 ran through synthetic obstacles. Not sure what happened as it was on the other side of the pier. Need to check this out
+		43.07192280,-70.71108190
+9.019920,-1.838926:24.019920,13.161074:24.019920,33.161074:19.019920,43.161074:-10.980080,68.161074:-20.980080,73.161074:-55.980080,73.161074
+		121.362-280.997
+
+	Trial 6: 1:06 - Killed autonomous mission planner. Threat level 1 obstacle placed at 24,33
+		43.07191980,-70.71113840		
+13.626705,-1.599612:28.626705,13.400388:28.626705,33.400388:23.626705,43.400388:-6.373295,68.400388:-16.373295,73.400388:-51.373295,73.400388
+			123.464-224.195
+
+
+Synth Obstacle over endpoint
+	Trial 1: 14:23 did many laps, capture_line set to true
+		34.797 - 508.419
+ 
+Running at the pier
+	Trial 1: 11:15-11:17. Worked as expected avoiding the pier
+		45.971-113.581
+
+Lines with Synth obstacle
+	Trial 1: 15:25 fowled after the 3rd loop and the coastal surveyor came in on the start of the 5th loop, capture_line set to true
+		(392) 469.648-2182.643
+		fowled: 1345.386 - 1406.938
+		surveyor: 1658.504-1889.110
